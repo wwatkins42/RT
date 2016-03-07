@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 16:55:22 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/07 18:09:08 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
+
+# include <stdio.h> // TEMPORARY
 
 # define ABS(x) (x < 0 ? -x : x)
 # define MIN_POS -1000.0
@@ -130,7 +132,9 @@ typedef struct	s_env
 */
 
 void	parse(t_env *e);
-void	parse_camera(t_env *e, const char *ctr);
+void	parse_camera(t_env *e, char *str);
+void	parse_lights(t_env *e, char *str);
+void	parse_objects(t_env *e, char *str);
 t_vec3	parse_vector(const char *line);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 17:17:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:58:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void	args_get(t_env *e, int ac, char **av)
 		e->arg.file = ft_strdup("resource/scene/default.yml");
 	else
 		e->arg.file = ft_strdup(av[1]);
-	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
-		error(strerror(errno), NULL, 1);
 	e->arg.w = 0;
 	e->arg.h = 0;
 	while (++i < ac)
@@ -66,14 +64,13 @@ static void	env_init(t_env *e)
 		&e->img.endian)))
 		error(E_IMG_INIT, NULL, 1);
 	e->img.opp = e->img.bpp / 8;
-	ft_strdel(&e->arg.file);
 }
 
 int			main(int ac, char **av)
 {
 	t_env e;
 
-	!ft_strcmp(av[1], "--help") ? args_disp() : 0;
+	ac == 2 && !ft_strcmp(av[1], "--help") ? args_disp() : 0;
 	args_get(&e, ac, av);
 	env_init(&e);
 	parse(&e);
