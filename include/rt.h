@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 16:18:49 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/07 16:55:22 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum { POINT, SPOT, DIRECTIONAL };
 
 typedef struct	s_arg
 {
-	char	*file_scene;
+	char	*file;
 	int		fd;
 	int		w;
 	int		h;
@@ -64,7 +64,7 @@ typedef struct	s_cam
 	t_vec3			dir;
 	t_vec3			rot;
 	t_vec3			origin;
-	t_grad			*gradient;
+	//t_grad			*gradient;
 	int				index;
 	double			fov;
 	struct s_cam	*prev;
