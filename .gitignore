@@ -1,0 +1,6 @@
+*.o
+*.swp
+*.swa
+*.git
+*.DS_Store
+*._.DS_Store
