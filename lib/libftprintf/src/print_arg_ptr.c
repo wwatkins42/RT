@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_arg_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 12:20:59 by scollon          ###   ########.fr       */
+/*   Created: 2016/02/19 11:51:14 by scollon           #+#    #+#             */
+/*   Updated: 2016/03/06 10:14:28 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <printf_utils.h>
 
-int	main()
+void		print_arg_ptr(t_e *e, t_a *arg, int *i)
 {
-	return (0);
+	*i = print_mem(va_arg(e->ap, void *), arg);
 }

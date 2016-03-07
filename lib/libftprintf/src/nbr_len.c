@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   nbr_len.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 12:20:59 by scollon          ###   ########.fr       */
+/*   Created: 2016/02/18 08:38:58 by scollon           #+#    #+#             */
+/*   Updated: 2016/03/06 10:14:12 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <printf_utils.h>
 
-int	main()
+int		nbr_len(long long int n)
 {
-	return (0);
+	int		len;
+
+	len = 1;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n *= -1;
+		len++;
+	}
+	while ((n /= 10) > 0)
+		len++;
+	return (len);
 }

@@ -3,36 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/07 11:46:19 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/07 12:25:41 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
-INC_PATH = ./include/ ./lib/libft/include/ ./lib/libvec/include
-LIB_PATH = ./lib/libft/
-VEC_PATH = ./lib/libvec/
-MLX_PATH = ./lib/minilibx_macos
+LIB_PATH = ./lib/
+INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
+			$(LIB_PATH)libftprintf/include/
 
 NAME = rt
 CC = gcc
-CFLGS = -Werror -Wextra -Wall -Ofast
-MLXFLGS = -L$(MLX_PATH) -I$(MLX_PATH) -lmlx \
-		  -framework OpenGL -framework AppKit
+CFLGS = -Werror -Wextra -Wall
+MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = main.c
+
 OBJ_NAME = $(SRC_NAME:.c=.o)
-LIB_NAME = libft.a
-VEC_NAME = libvec.a
+LIB_NAME = libft libftprintf libvec mlx
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
-LIB = $(LIB_PATH)$(LIB_NAME)
-VEC = $(VEC_PATH)$(VEC_NAME)
+LIB	= $(addprefix -L$(LIB_PATH),$(LIB_NAME))
 
 .PHONY: re all clean fclean cleanmlx cleanvec fcleanvec cleanlib \
 		fcleanlib nolib norme
@@ -40,38 +37,28 @@ VEC = $(VEC_PATH)$(VEC_NAME)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C $(MLX_PATH) re
-	make -C $(VEC_PATH) re
-	make -C $(LIB_PATH) re
-	$(CC) $(CFLGS) $(LIB) $(VEC) $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	make -C $(LIB_PATH)libft
+	make -C $(LIB_PATH)mlx
+	make -C $(LIB_PATH)libftprintf
+	make -C $(LIB_PATH)libvec
+	$(CC) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLGS) $(INC) -o $@ -c $<
 
 nolib: $(OBJ)
-	$(CC) $(CFLGS) $(LIB) $(VEC) $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	$(CC) $(CFLGS) $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
-cleanmlx:
-	make -C $(MLX_PATH) clean
-
-cleanlib:
-	make -C $(LIB_PATH) clean
-
-cleanvec:
-	make -C $(VEC_PATH) clean
-
-fcleanvec:
-	make -C $(VEC_PATH) fclean
-
-fcleanlib:
-	make -C $(LIB_PATH) fclean
-
-clean: cleanmlx cleanlib cleanvec
+clean:
 	rm -fv $(OBJ)
 	rm -rf $(OBJ_PATH)
 
-fclean: clean fcleanlib fcleanvec
+fclean: clean
+	make -C $(LIB_PATH)libft fclean
+	make -C $(LIB_PATH)libftprintf fclean
+	make -C $(LIB_PATH)libvec fclean
+	make -C $(LIB_PATH)mlx clean
 	rm -fv $(NAME)
 
 re: fclean all

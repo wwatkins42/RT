@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_flags.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 12:20:59 by scollon          ###   ########.fr       */
+/*   Created: 2016/02/18 10:11:52 by scollon           #+#    #+#             */
+/*   Updated: 2016/03/06 10:13:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include <printf_utils.h>
 
-int	main()
+int		get_flags(const char *format, int i, t_a *arg)
 {
-	return (0);
+	while (is_flag(format[i]))
+	{
+		format[i] == ' ' ? arg->flag.sp = 1 : 0;
+		format[i] == '+' ? arg->flag.pl = 1 : 0;
+		format[i] == '-' ? arg->flag.mn = 1 : 0;
+		format[i] == '#' ? arg->flag.di = 1 : 0;
+		format[i] == '0' ? arg->flag.zr = 1 : 0;
+		i++;
+	}
+	return (i);
 }
