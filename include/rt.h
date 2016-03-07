@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 15:07:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/07 16:18:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ enum { POINT, SPOT, DIRECTIONAL };
 typedef struct	s_arg
 {
 	char	*file_scene;
+	int		fd;
 	int		w;
 	int		h;
 }				t_arg;
@@ -63,7 +64,10 @@ typedef struct	s_cam
 	t_vec3			dir;
 	t_vec3			rot;
 	t_vec3			origin;
+	t_grad			*gradient;
+	int				index;
 	double			fov;
+	struct s_cam	*prev;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -118,8 +122,27 @@ typedef struct	s_env
 }				t_env;
 
 /*
-**	main.c functions
+**	main.c
 */
 
+/*
+**	parse.c
+*/
+
+void	parse(t_env *e);
+void	parse_camera(t_env *e, const char *ctr);
+t_vec3	parse_vector(const char *line);
+
+/*
+**	camera.c
+*/
+
+t_cam	*create_camera(t_env *e);
+
+/*
+**	utils.c
+*/
+
+int		str_digit(char *str);
 
 #endif

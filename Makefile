@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/07 12:32:30 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/07 16:14:48 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CC = gcc
 CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
-SRC_NAME = main.c
+SRC_NAME = main.c parse.c camera.c utils.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx
@@ -48,7 +48,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLGS) $(INC) -o $@ -c $<
 
 nolib: $(OBJ)
-	$(CC) $(CFLGS) $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	$(CC) $(CFLGS) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 clean:
 	rm -fv $(OBJ)

@@ -1,5 +1,5 @@
 ---
-cameras:
+cameras: 2
 	- camera: 1
 	  pos: {x: 1, y: 10, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
@@ -12,13 +12,13 @@ cameras:
 	  fov: 75
 	  background: "./resource/gradient/sunset.yml"
 
-lights:
+lights: 1
 	- type: POINT
 	  pos: {x: 4, y: 15, z: 10}
 	  color: 0xF6E392
 	  intensity: 1.0
 
-objects:
+objects: 2
 	- type: SPHERE
 	  scale: 2
 	  pos: {x: 0, y: 1, z: 10}
