@@ -4,16 +4,13 @@ cameras:
 	  pos: {x: 1, y: 10, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 90
-	  background:
-		  - gradient: {color: 0xC74D2D, pos: 0.0}
-		  - gradient: {color: 0xE09879, pos: 0.07}
-		  - gradient: {color: 0xF9C863, pos: 0.18}
-		  - gradient: {color: 0x55A0B8, pos: 0.36}
+	  background: "./resource/gradient/sunset.yml"
 
 	- camera: 2
 	  pos: {x: 0, y: 5, z: -1}
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 75
+	  background: "./resource/gradient/sunset.yml"
 
 lights:
 	- type: POINT

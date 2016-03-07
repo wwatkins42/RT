@@ -6,7 +6,11 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:47:28 by wwatkins          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2016/03/07 15:05:39 by wwatkins         ###   ########.fr       */
+=======
+/*   Updated: 2016/03/07 15:02:19 by scollon          ###   ########.fr       */
+>>>>>>> a96aece79039354ca0e69781a9f8c6a8b1eed25d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +19,7 @@
 
 # include <libft.h>
 # include <libvec.h>
+# include <libftprintf.h>
 # include <error_ft.h>
 # include <mlx.h>
 # include <math.h>
