@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 17:09:39 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/07 17:17:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	args_disp(void)
 {
 	ft_putendl("\nusage:\n./rtv1 [scene] [-w width] [-h height] [--help]");
 	ft_putendl("\noptions:");
-	ft_putendl("-w <width>       set specified program window width.");
-	ft_putendl("-h <height>      set specified program window height.");
+	ft_putendl("-w <width>     set specified program window width.");
+	ft_putendl("-h <height>    set specified program window height.");
 	ft_putendl("--help         show help.\n");
 	exit(0);
 }
@@ -73,6 +73,7 @@ int			main(int ac, char **av)
 {
 	t_env e;
 
+	!ft_strcmp(av[1], "--help") ? args_disp() : 0;
 	args_get(&e, ac, av);
 	env_init(&e);
 	parse(&e);
