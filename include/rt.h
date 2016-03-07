@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:47:28 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 12:09:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/07 15:05:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define EPSILON 1e-9
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
+enum { POINT, SPOT, DIRECTIONAL };
 
 typedef struct	s_arg
 {
@@ -55,6 +56,16 @@ typedef struct	s_mat
 	double	refract;
 }				t_mat;
 
+typedef struct	s_cam
+{
+	t_vec3			pos;
+	t_vec3			dir;
+	t_vec3			rot;
+	t_vec3			origin;
+	double			fov;
+	struct s_cam	*next;
+}				t_cam;
+
 typedef struct	s_obj
 {
 	t_vec3			pos;
@@ -66,15 +77,14 @@ typedef struct	s_obj
 	struct s_obj	*next;
 }				t_obj;
 
-typedef struct	s_cam
+typedef	struct	s_lgt
 {
 	t_vec3			pos;
 	t_vec3			dir;
-	t_vec3			rot;
-	t_vec3			origin;
-	double			fov;
-	struct s_cam	*next;
-}				t_cam;
+	t_vec3			color;
+	double			intensity;
+	struct s_lgt	*next;
+}				t_lgt;
 
 typedef struct	s_ray
 {
@@ -100,6 +110,7 @@ typedef struct	s_env
 	t_img	img;
 	t_cam	*cam;
 	t_obj	*obj;
+	t_lgt	*lgt;
 	t_ray	ray;
 	t_vec3	color;
 	int		recursiondepth;
