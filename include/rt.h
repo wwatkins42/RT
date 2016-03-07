@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:47:28 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 11:54:05 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/07 12:09:41 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <libft.h>
 # include <libvec.h>
+# include <error_ft.h>
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
