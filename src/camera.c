@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/08 10:27:03 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 10:38:06 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_cam		*create_camera(t_env *e)
 		//	current->gradient = parse_gradient(line);
 		ft_strdel(&line);
 	}
+	printf("pos: %f, %f, %f\n", current->pos.x, current->pos.y, current->pos.z);
 	ft_strdel(&line);
 	current->prev = NULL;
 	current->next = NULL;

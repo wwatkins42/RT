@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/08 10:05:34 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 10:40:01 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,27 @@ void	parse_lights(t_env *e, char *str)
 
 t_vec3	parse_vector(const char *line)
 {
+	int		i;
+	char	**tab;
 	t_vec3	vec3;
 
+	i = -1;
 	vec3 = (t_vec3) { 0, 0, 0 };
-	vec3.x = ft_atof(ft_strstr(line, "x:") + 2);
-	vec3.y = ft_atof(ft_strstr(line, "y:") + 2);
-	vec3.z = ft_atof(ft_strstr(line, "z:") + 2);
+	tab = ft_strsplit(line, ' ');
+	while (tab[++i] != NULL)
+	{
+		if (tab[i + 1] != NULL)
+		{
+			if (tab[i][0] == 'x')
+				vec3.x = ft_atof(tab[i + 1]);
+			else if (tab[i][0] == 'y')
+				vec3.y = ft_atof(tab[i + 1]);
+			else if (tab[i][0] == 'z')
+				vec3.z = ft_atof(tab[i + 1]);
+		}
+		ft_strdel(&tab[i]);
+	}
 	vec3_clamp(&vec3, MIN_POS, MAX_POS);
+	ft_memdel((void**)tab);
 	return (vec3);
 }
