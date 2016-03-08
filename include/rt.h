@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/08 09:43:37 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 10:26:36 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,12 @@ t_vec3	parse_vector(const char *line);
 
 t_cam	*create_camera(t_env *e);
 t_lgt	*create_light(t_env *e);
+
+/*
+**	default.c
+*/
+void	default_camera(t_cam *current);
+void	default_light(t_lgt *current);
 
 /*
 **	utils.c
