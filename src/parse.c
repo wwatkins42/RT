@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 18:22:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/08 10:05:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	parse(t_env *e)
 	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
 		error(strerror(errno), NULL, 1);
 	ft_strdel(&e->arg.file);
-	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "..."))
+	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "...") != 0)
 	{
 		if (ft_strstr(line, "cameras:"))
 			parse_camera(e, line);
-		//else if (!ft_strcmp(line, "lights:"))
-		//	parse_lights(e, line);
+		else if (ft_strstr(line, "lights:"))
+			parse_lights(e, line);
 		//else if (!ft_strcmp(line, "objects:"))
 		//	parse_objects(e, line);
 		ft_strdel(&line);
@@ -43,32 +43,32 @@ void	parse_camera(t_env *e, char *str)
 		error(E_MALLOC, NULL, 1);
 	current = NULL;
 	e->cam->next = current;
-	while (get_next_line(e->arg.fd, &line) > 0 && i >= 0)
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- camera:"))
 		{
+			i--;
 			current = create_camera(e);
 			current->index = ft_atof(ft_strstr(line, ":") + 1);
 			current = current->next;
 		}
 		ft_strdel(&line);
-		i--;
 	}
 	ft_strdel(&line);
 }
 
-/*void	parse_lights(t_env *e, char *str)
+void	parse_lights(t_env *e, char *str)
 {
 	int		i;
 	char	*line;
 	t_lgt	*current;
 
-	(i = ft_atoi(ft_strstr(str, ":") + 1) == 0 ? error(E_OBJ_INIT, 0, 1) : 0);
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OBJ_INIT, 0, 1) : 0;
 	if ((e->lgt = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
 		error(E_MALLOC, NULL, 1);
 	current = NULL;
 	e->lgt->next = current;
-	while (get_next_line(e->arg.fd, &line) > 0 && i >= 0)
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- type:"))
 		{
@@ -79,7 +79,7 @@ void	parse_camera(t_env *e, char *str)
 		i--;
 	}
 	ft_strdel(&line);
-}*/
+}
 
 t_vec3	parse_vector(const char *line)
 {

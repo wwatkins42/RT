@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/07 18:09:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/08 09:43:37 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct	s_obj
 
 typedef	struct	s_lgt
 {
+	int				type;
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			color;
@@ -138,15 +139,17 @@ void	parse_objects(t_env *e, char *str);
 t_vec3	parse_vector(const char *line);
 
 /*
-**	camera.c
+**	create_elements.c
 */
 
 t_cam	*create_camera(t_env *e);
+t_lgt	*create_light(t_env *e);
 
 /*
 **	utils.c
 */
 
 int		str_digit(char *str);
+t_vec3	hex_to_vec3(const int hex);
 
 #endif
