@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/08 10:26:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 09:21:06 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ t_vec3	parse_vector(const char *line);
 */
 
 t_cam	*create_camera(t_env *e);
-t_lgt	*create_light(t_env *e);
+t_lgt	*create_light(t_env *e, char *type);
+t_obj	*create_object(t_env *e, char *type);
 
 /*
 **	default.c
@@ -156,6 +157,6 @@ void	default_light(t_lgt *current);
 */
 
 int		str_digit(char *str);
-t_vec3	hex_to_vec3(const int hex);
+t_vec3	hex_vec3(const int hex);
 
 #endif

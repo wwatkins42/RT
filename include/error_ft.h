@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:49:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/07 17:11:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 09:06:41 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 # define E_WIN_INIT 	"window initialisation failed"
 # define E_IMG_INIT 	"image initialisation failed"
 
-# define E_CAM_INIT 	"camera initialisation failed"
-# define E_CAM_PARAM 	"invalid camera parameter"
+# define E_CINIT 		"camera initialisation failed"
+# define E_CPARAM 		"invalid camera parameter"
 
-# define E_OBJ_INIT 	"object initialisation failed"
-# define E_OBJ_TYPE 	"invalid object type"
-# define E_OBJ_PARAM 	"invalid object parameter"
+# define E_LINIT		"light initialisation failed"
+# define E_LTYPE		"invalid light type"
+# define E_LPARAM		"invalid light parameter"
+
+# define E_OINIT 		"object initialisation failed"
+# define E_OTYPE 		"invalid object type"
+# define E_OPARAM 		"invalid object parameter"
 
 # define E_ARG 			"invalid argument"
 # define E_MALLOC 		"malloc() failed"
