@@ -6,16 +6,55 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 10:51:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:31:37 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-// static void	parse_material(t_obj *current)
-// {
-//
-// }
+static void	default_object(t_obj *obj)
+{
+	obj->type = SPHERE;
+	obj->pos = vec3_zero();
+	obj->dir = vec3_zero();
+	obj->scale = 1;
+	obj->mat.color = vec3(1, 1, 1);
+	obj->mat.ambient = 0.025;
+	obj->mat.diffuse = 0.975;
+	obj->mat.specular = 1.0;
+	obj->mat.shininess = 256;
+	obj->mat.reflect = 0;
+	obj->mat.refract = 0;
+}
+
+static void	parse_material(t_env *e, t_obj *obj)
+{
+	char	*line;
+
+	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
+	{
+		if (ft_strcmp(line, "...") == 0)
+			break ;
+		if (ft_strstr(line, "color: "))
+			obj->mat.color = hex_vec3(ft_atoi_base(ft_strstr(line, "0x"), 16));
+		else if (ft_strstr(line, "ambient: "))
+			obj->mat.ambient = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "diffuse: "))
+			obj->mat.diffuse = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "specular: "))
+			obj->mat.specular = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "shininess: "))
+			obj->mat.shininess = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "reflect: "))
+			obj->mat.reflect = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "refract: "))
+			obj->mat.refract = ft_atof(ft_strstr(line, ":") + 1);
+		else
+			error(E_OPARAM, line, 0);
+		ft_strdel(&line);
+	}
+	ft_strdel(&line);
+}
 
 static void	get_object_type(t_obj *current, char *type)
 {
@@ -31,7 +70,36 @@ static void	get_object_type(t_obj *current, char *type)
 		error(E_OTYPE, type, 0);
 }
 
-void	parse_objects(t_env *e, char *str)
+t_obj		*create_object(t_env *e, char *type)
+{
+	char	*line;
+	t_obj	*current;
+
+	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
+		error(E_MALLOC, NULL, 1);
+	default_object(current);
+	get_object_type(current, type);
+	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
+	{
+		if (ft_strstr(line, "material:"))
+			break ;
+		if (ft_strstr(line, "pos: "))
+			current->pos = parse_vector(line);
+		else if (ft_strstr(line, "dir: "))
+			current->dir = parse_vector(line);
+		else if (ft_strstr(line, "scale: "))
+			current->scale = ft_atof(ft_strstr(line, ":") + 1);
+		else
+			error(E_OPARAM, line, 0);
+		ft_strdel(&line);
+	}
+	parse_material(e, current);
+	ft_strdel(&line);
+	current->next = NULL;
+	return (current);
+}
+
+void		parse_objects(t_env *e, char *str)
 {
 	int		i;
 	char	*line;
@@ -46,39 +114,11 @@ void	parse_objects(t_env *e, char *str)
 	{
 		if (ft_strstr(line, "- type:"))
 		{
+			i--;
 			current = create_object(e, line);
 			current = current->next;
 		}
 		ft_strdel(&line);
-		i--;
 	}
 	ft_strdel(&line);
-}
-
-t_obj		*create_object(t_env *e, char *type)
-{
-	char	*line;
-	t_obj	*current;
-
-	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
-		error(E_MALLOC, NULL, 1);
-	//default_object(current);
-	while (get_next_line(e->arg.fd, &line) > 0 && ft_strlen(line) > 1)
-	{
-		get_object_type(current, type);
-		if (ft_strstr(line, "pos: "))
-			current->pos = parse_vector(line);
-		else if (ft_strstr(line, "dir: "))
-			current->dir = parse_vector(line);
-		else if (ft_strstr(line, "scale: "))
-			current->scale = ft_atof(ft_strstr(line, ":") + 1);
-		//else if (ft_strstr(line, "material:"))
-		//	parse_material(current);
-		//else
-		//	error(E_OPARAM, line, 0);
-		ft_strdel(&line);
-	}
-	ft_strdel(&line);
-	current->next = NULL;
-	return (current);
 }

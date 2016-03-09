@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 10:54:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:41:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_mat
 	double	diffuse;
 	double	specular;
 	double	shininess;
-	double	reflex;
+	double	reflect;
 	double	refract;
 }				t_mat;
 
@@ -167,8 +167,6 @@ t_obj	*create_object(t_env *e, char *type);
 /*
 **	default.c
 */
-void	default_camera(t_cam *current);
-void	default_light(t_lgt *current);
 
 /*
 **	utils.c

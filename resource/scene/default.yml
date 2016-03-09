@@ -5,19 +5,19 @@ cameras: 2
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 90
 	  background: "./resource/gradient/sunset.yml"
-
+	---
 	- camera: 2
 	  pos: {x: 0, y: 5, z: -1}
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 75
 	  background: "./resource/gradient/sunset.yml"
-
+	---
 lights: 1
 	- type: POINT
 	  pos: {x: 4, y: 15, z: 10}
 	  color: 0xF6E392
 	  intensity: 1.0
-
+	---
 objects: 2
 	- type: SPHERE
 	  scale: 2
@@ -31,7 +31,7 @@ objects: 2
 		  shininess: 256
 		  reflect: 0.5
 		  refract: 0.1
-
+	---
 	- type: PLANE
 	  scale: 1
 	  pos: {x: 0, y: 0, z: 0}
@@ -44,5 +44,5 @@ objects: 2
 		  shininess: 256
 		  reflect: 0.5
 		  refract: 0
-
+	---
 ...

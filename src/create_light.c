@@ -6,11 +6,22 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 10:50:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:37:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static void	default_light(t_lgt *current)
+{
+	if (current != NULL)
+	{
+		current->type = POINT;
+		current->pos = vec3_zero();
+		current->color = vec3(1, 1, 1);
+		current->intensity = 1.0;
+	}
+}
 
 static void	get_light_type(t_lgt *current, char *line)
 {
@@ -39,11 +50,11 @@ void		parse_lights(t_env *e, char *str)
 	{
 		if (ft_strstr(line, "- type:"))
 		{
+			i--;
 			current = create_light(e, line);
 			current = current->next;
 		}
 		ft_strdel(&line);
-		i--;
 	}
 	ft_strdel(&line);
 }
@@ -56,9 +67,9 @@ t_lgt		*create_light(t_env *e, char *type)
 	if (!(current = (t_lgt *)malloc(sizeof(t_lgt))))
 		error(E_MALLOC, NULL, 1);
 	default_light(current);
-	while (get_next_line(e->arg.fd, &line) > 0 && ft_strlen(line) > 1)
+	get_light_type(current, type);
+	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
 	{
-		get_light_type(current, type);
 		if (ft_strstr(line, "pos: "))
 			current->pos = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
