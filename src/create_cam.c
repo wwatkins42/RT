@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cam.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:47 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 09:29:52 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 09:59:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ t_cam		*create_camera(t_env *e)
 			current->dir = parse_vector(line);
 		else if (ft_strstr(line, "fov: "))
 			current->fov = ft_atof(ft_strstr(line, ":") + 1);
-		//if (ft_strstr(line, "background: "))
-		//	current->gradient = parse_gradient(line);
+		else if (ft_strstr(line, "background: "))
+			parse_gradient(e, line);
 		ft_strdel(&line);
 	}
+	printf("camera:\n");
 	printf("pos: %f, %f, %f\n", current->pos.x, current->pos.y, current->pos.z);
+	printf("dir: %f, %f, %f\n", current->dir.x, current->dir.y, current->dir.z);
+	printf("fov: %f\n\n", current->fov);
 	ft_strdel(&line);
 	current->prev = NULL;
 	current->next = NULL;

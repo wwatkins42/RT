@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 09:21:06 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 10:10:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define MIN_POS -1000.0
 # define MAX_POS 1000.0
 # define EPSILON 1e-9
+# define MAX_COLOR 32
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
@@ -60,13 +61,19 @@ typedef struct	s_mat
 	double	refract;
 }				t_mat;
 
+typedef	struct	s_grad
+{
+	t_vec3	*color;
+	float	*pos;
+}				t_grad;
+
 typedef struct	s_cam
 {
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			rot;
 	t_vec3			origin;
-	//t_grad			*gradient;
+	t_grad			gradient;
 	int				index;
 	double			fov;
 	struct s_cam	*prev;
@@ -136,6 +143,7 @@ void	parse(t_env *e);
 void	parse_camera(t_env *e, char *str);
 void	parse_lights(t_env *e, char *str);
 void	parse_objects(t_env *e, char *str);
+void	parse_gradient(t_env *e, char *str);
 t_vec3	parse_vector(const char *line);
 
 /*

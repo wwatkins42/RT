@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 09:19:59 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 10:36:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	parse_objects(t_env *e, char *str)
 	char	*line;
 	t_obj	*current;
 
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;o
-	if ((e->obj = (t_obj*)malloc(sizeof(t_obj))))
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;
+	if (!(e->obj = (t_obj*)malloc(sizeof(t_obj))))
 		error(E_MALLOC, NULL, 1);
 	current = NULL;
 	e->obj->next = current;
@@ -101,6 +101,35 @@ void	parse_objects(t_env *e, char *str)
 		}
 		ft_strdel(&line);
 		i--;
+	}
+	ft_strdel(&line);
+}
+
+void	parse_gradient(t_env *e, char *str)
+{
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	if ((e->cam->gradient.color = (t_vec3*)malloc(sizeof(t_vec3) * 32)) == NULL)
+		error(E_MALLOC, NULL, 1);
+	if ((e->cam->gradient.pos = (float*)malloc(sizeof(float) * 32)) == NULL)
+		error(E_MALLOC, NULL, 1);
+	str = ft_strstr(str, ".");
+	str[ft_strlen(str) - 1] = '\0';
+	if ((fd = open(str, O_RDWR)) == -1)
+		error(strerror(errno), NULL, 1);
+	while (i < MAX_COLOR && get_next_line(fd, &line) > 0)
+	{
+		if (ft_strstr(line, "color:"))
+		{
+			e->cam->gradient.pos[i] = ft_atof(ft_strstr(line, "pos:") + 4);
+			line[ft_strchr(line, ',') - line] = '\0';
+			e->cam->gradient.color[i] = hex_vec3(ft_atoi_base(line, 16));
+		}
+		i++;
+		ft_strdel(&line);
 	}
 	ft_strdel(&line);
 }
