@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 11:57:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 13:19:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,19 @@ t_obj	*create_object(t_env *e, char *type);
 
 int		str_digit(char *str);
 t_vec3	hex_vec3(const int hex);
+
+/*
+**	core.c
+*/
+
+void	core(t_env *e);
+
+/*
+**	hook.c
+*/
+
+int		loop_hook(t_env *e);
+int		expose_hook(t_env *e);
+int		key_pressed(int keycode);
 
 #endif
