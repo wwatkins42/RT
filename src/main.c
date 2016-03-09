@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 13:17:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:31:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	env_init(&e);
 	parse(&e);
+	exit(0);
 	core(&e);
 	return (0);
 }

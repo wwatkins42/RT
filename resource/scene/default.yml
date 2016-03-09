@@ -1,12 +1,12 @@
 ---
 cameras: 2
-	- camera: 1
+	- camera:
 	  pos: {x: 1, y: 10, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 90
 	  background: "./resource/gradient/sunset.yml"
 	---
-	- camera: 2
+	- camera:
 	  pos: {x: 0, y: 5, z: -1}
 	  dir: {x: 0, y: 0, z: 1}
 	  fov: 75

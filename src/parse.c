@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 14:24:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:37:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	parse_gradient(t_env *e, char *str)
 	str = ft_strstr(str, ".");
 	str[ft_strlen(str) - 1] = '\0';
 	if ((fd = open(str, O_RDWR)) == -1)
-		error(strerror(errno), NULL, 1);
+		error(strerror(errno), str, 1);
 	while (i < MAX_COLOR && get_next_line(fd, &line) > 0)
 	{
 		if (ft_strstr(line, "color:"))
