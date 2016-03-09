@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 16:16:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 16:21:41 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	args_get(t_env *e, int ac, char **av)
 		e->arg.file = ft_strdup(av[1]);
 	e->arg.w = 0;
 	e->arg.h = 0;
+	e->viewer_path = NULL;
 	while (++i < ac)
 	{
 		if (i + 1 < ac)
@@ -41,6 +42,8 @@ static void	args_get(t_env *e, int ac, char **av)
 				e->arg.w = ft_atoi(av[i + 1]);
 			if (!ft_strcmp(av[i], "-h") || !ft_strcmp(av[i], "--height"))
 				e->arg.h = ft_atoi(av[i + 1]);
+			if (!ft_strcmp(av[i], "-l") || !ft_strcmp(av[i], "--load"))
+				e->arg.viewer_path = ft_strdup(av[i + 1]);
 		}
 		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
 	}
