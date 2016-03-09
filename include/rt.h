@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 16:18:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 16:19:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,11 @@ int				key_pressed(int keycode);
 */
 
 void			viewer_export(t_env *e);
+
+/*
+**	viewer_import.c
+*/
+
+t_img			viewer_import(t_env *e);
 
 #endif

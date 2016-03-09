@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 16:21:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 16:31:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,24 @@ static void	args_get(t_env *e, int ac, char **av)
 	int		i;
 
 	i = 0;
-	if (ac == 1)
-		e->arg.file = ft_strdup("resource/scene/default.yml");
-	else
-		e->arg.file = ft_strdup(av[1]);
 	e->arg.w = 0;
 	e->arg.h = 0;
-	e->viewer_path = NULL;
+	e->arg.file = NULL;
+	e->arg.viewer_path = NULL;
 	while (++i < ac)
 	{
-		if (i + 1 < ac)
-		{
-			if (!ft_strcmp(av[i], "-w") || !ft_strcmp(av[i], "--width"))
-				e->arg.w = ft_atoi(av[i + 1]);
-			if (!ft_strcmp(av[i], "-h") || !ft_strcmp(av[i], "--height"))
-				e->arg.h = ft_atoi(av[i + 1]);
-			if (!ft_strcmp(av[i], "-l") || !ft_strcmp(av[i], "--load"))
-				e->arg.viewer_path = ft_strdup(av[i + 1]);
-		}
+		if (!ft_strcmp(av[i], "-w") || !ft_strcmp(av[i], "--width"))
+			i + 1 < ac ? e->arg.w = ft_atoi(av[i + 1]) : 0;
+		if (!ft_strcmp(av[i], "-h") || !ft_strcmp(av[i], "--height"))
+			i + 1 < ac ? e->arg.h = ft_atoi(av[i + 1]) : 0;
+		if (!ft_strcmp(av[i], "-s") || !ft_strcmp(av[i], "--scene"))
+			i + 1 < ac ? e->arg.file = ft_strdup(av[i + 1]) : 0;
+		if (!ft_strcmp(av[i], "-l") || !ft_strcmp(av[i], "--load"))
+			i + 1 < ac ? e->arg.viewer_path = ft_strdup(av[i + 1]) : 0;
 		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
 	}
+	if (e->arg.file == NULL)
+		e->arg.file = ft_strdup("resource/scene/default.yml");
 	e->arg.w = (e->arg.w < 320 || e->arg.w > 10000 ? 1000 : e->arg.w);
 	e->arg.h = (e->arg.h < 200 || e->arg.h > 5000 ? 900 : e->arg.h);
 }
@@ -77,6 +75,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	env_init(&e);
 	parse(&e);
+	viewer_export(&e);
 	core(&e);
 	return (0);
 }
