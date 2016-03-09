@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 09:29:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 09:38:32 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	get_light_type(t_lgt *current, const char *line)
+static void	get_light_type(t_lgt *current, char *line)
 {
 	if (ft_strstr(line, "POINT"))
 		current->type = POINT;
