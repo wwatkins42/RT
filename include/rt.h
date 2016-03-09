@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 14:24:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:31:42 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
-# include <pthread.h>
+# include <time.h>
 
 # include <stdio.h> // TEMPORARY
 
@@ -29,6 +29,8 @@
 # define MAX_POS 1000.0
 # define EPSILON 1e-9
 # define MAX_COLOR 32
+# define IMG_PATH "./resource/images/"
+# define IMG_EXTENSION ".img"
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
@@ -191,5 +193,11 @@ void			core(t_env *e);
 int				loop_hook(t_env *e);
 int				expose_hook(t_env *e);
 int				key_pressed(int keycode);
+
+/*
+**	viewer_export.c
+*/
+
+void			viewer_export(t_env *e);
 
 #endif
