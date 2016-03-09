@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 10:01:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 10:51:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,30 @@ static void	get_object_type(t_obj *current, char *type)
 		current->type = CYLINDER;
 	else
 		error(E_OTYPE, type, 0);
+}
+
+void	parse_objects(t_env *e, char *str)
+{
+	int		i;
+	char	*line;
+	t_obj	*current;
+
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;
+	if (!(e->obj = (t_obj*)malloc(sizeof(t_obj))))
+		error(E_MALLOC, NULL, 1);
+	current = NULL;
+	e->obj->next = current;
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
+	{
+		if (ft_strstr(line, "- type:"))
+		{
+			current = create_object(e, line);
+			current = current->next;
+		}
+		ft_strdel(&line);
+		i--;
+	}
+	ft_strdel(&line);
 }
 
 t_obj		*create_object(t_env *e, char *type)

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 10:10:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 10:54:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,18 +140,28 @@ typedef struct	s_env
 */
 
 void	parse(t_env *e);
-void	parse_camera(t_env *e, char *str);
-void	parse_lights(t_env *e, char *str);
-void	parse_objects(t_env *e, char *str);
 void	parse_gradient(t_env *e, char *str);
 t_vec3	parse_vector(const char *line);
 
 /*
-**	create_elements.c
+**	create_camera.c
 */
 
+void	parse_camera(t_env *e, char *str);
 t_cam	*create_camera(t_env *e);
+
+/*
+**	create_light.c
+*/
+
+void	parse_lights(t_env *e, char *str);
 t_lgt	*create_light(t_env *e, char *type);
+
+/*
+**	create_object.c
+*/
+
+void	parse_objects(t_env *e, char *str);
 t_obj	*create_object(t_env *e, char *type);
 
 /*

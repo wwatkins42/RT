@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 10:36:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 10:52:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,79 +28,6 @@ void	parse(t_env *e)
 		else if (ft_strstr(line, "objects:"))
 			parse_objects(e, line);
 		ft_strdel(&line);
-	}
-	ft_strdel(&line);
-}
-
-void	parse_camera(t_env *e, char *str)
-{
-	int		i;
-	char	*line;
-	t_cam	*current;
-
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_CINIT, 0, 1) : 0;
-	if ((e->cam = (t_cam*)malloc(sizeof(t_cam))) == NULL)
-		error(E_MALLOC, NULL, 1);
-	current = NULL;
-	e->cam->next = current;
-	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
-	{
-		if (ft_strstr(line, "- camera:"))
-		{
-			i--;
-			current = create_camera(e);
-			current->index = ft_atof(ft_strstr(line, ":") + 1);
-			current = current->next;
-		}
-		ft_strdel(&line);
-	}
-	ft_strdel(&line);
-}
-
-void	parse_lights(t_env *e, char *str)
-{
-	int		i;
-	char	*line;
-	t_lgt	*current;
-
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
-	if ((e->lgt = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
-		error(E_MALLOC, NULL, 1);
-	current = NULL;
-	e->lgt->next = current;
-	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
-	{
-		if (ft_strstr(line, "- type:"))
-		{
-			current = create_light(e, line);
-			current = current->next;
-		}
-		ft_strdel(&line);
-		i--;
-	}
-	ft_strdel(&line);
-}
-
-void	parse_objects(t_env *e, char *str)
-{
-	int		i;
-	char	*line;
-	t_obj	*current;
-
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;
-	if (!(e->obj = (t_obj*)malloc(sizeof(t_obj))))
-		error(E_MALLOC, NULL, 1);
-	current = NULL;
-	e->obj->next = current;
-	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
-	{
-		if (ft_strstr(line, "- type:"))
-		{
-			current = create_object(e, line);
-			current = current->next;
-		}
-		ft_strdel(&line);
-		i--;
 	}
 	ft_strdel(&line);
 }
@@ -132,4 +59,31 @@ void	parse_gradient(t_env *e, char *str)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
+}
+
+t_vec3	parse_vector(const char *line)
+{
+	int		i;
+	char	**tab;
+	t_vec3	vec3;
+
+	i = -1;
+	vec3 = (t_vec3) { 0, 0, 0 };
+	tab = ft_strsplit(line, ' ');
+	while (tab[++i] != NULL)
+	{
+		if (tab[i + 1] != NULL)
+		{
+			if (tab[i][0] == 'x')
+				vec3.x = ft_atof(tab[i + 1]);
+			else if (tab[i][0] == 'y')
+				vec3.y = ft_atof(tab[i + 1]);
+			else if (tab[i][0] == 'z')
+				vec3.z = ft_atof(tab[i + 1]);
+		}
+		ft_strdel(&tab[i]);
+	}
+	vec3_clamp(&vec3, MIN_POS, MAX_POS);
+	ft_memdel((void**)tab);
+	return (vec3);
 }

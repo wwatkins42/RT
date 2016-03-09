@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_light.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 09:38:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 10:50:42 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,30 @@ static void	get_light_type(t_lgt *current, char *line)
 		current->type = DIRECTIONAL;
 	else
 		error(E_LTYPE, line, 0);
+}
+
+void		parse_lights(t_env *e, char *str)
+{
+	int		i;
+	char	*line;
+	t_lgt	*current;
+
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
+	if ((e->lgt = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
+		error(E_MALLOC, NULL, 1);
+	current = NULL;
+	e->lgt->next = current;
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
+	{
+		if (ft_strstr(line, "- type:"))
+		{
+			current = create_light(e, line);
+			current = current->next;
+		}
+		ft_strdel(&line);
+		i--;
+	}
+	ft_strdel(&line);
 }
 
 t_lgt		*create_light(t_env *e, char *type)

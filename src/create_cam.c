@@ -6,13 +6,38 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:47 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 09:59:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 10:50:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_cam		*create_camera(t_env *e)
+void	parse_camera(t_env *e, char *str)
+{
+	int		i;
+	char	*line;
+	t_cam	*current;
+
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_CINIT, 0, 1) : 0;
+	if ((e->cam = (t_cam*)malloc(sizeof(t_cam))) == NULL)
+		error(E_MALLOC, NULL, 1);
+	current = NULL;
+	e->cam->next = current;
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
+	{
+		if (ft_strstr(line, "- camera:"))
+		{
+			i--;
+			current = create_camera(e);
+			current->index = ft_atof(ft_strstr(line, ":") + 1);
+			current = current->next;
+		}
+		ft_strdel(&line);
+	}
+	ft_strdel(&line);
+}
+
+t_cam	*create_camera(t_env *e)
 {
 	char	*line;
 	t_cam	*current;
@@ -32,7 +57,6 @@ t_cam		*create_camera(t_env *e)
 			parse_gradient(e, line);
 		ft_strdel(&line);
 	}
-	printf("camera:\n");
 	printf("pos: %f, %f, %f\n", current->pos.x, current->pos.y, current->pos.z);
 	printf("dir: %f, %f, %f\n", current->dir.x, current->dir.y, current->dir.z);
 	printf("fov: %f\n\n", current->fov);
