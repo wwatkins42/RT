@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 11:37:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:57:08 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ static void	get_light_type(t_lgt *current, char *line)
 		current->type = DIRECTIONAL;
 	else
 		error(E_LTYPE, line, 0);
+}
+
+static void	get_shadow_type(t_lgt *current, char *line)
+{
+	if (ft_strstr(line, "HARD"))
+		current->type = POINT;
+	else if (ft_strstr(line, "SOFT"))
+		current->type = SPOT;
+	else
+		error(E_STYPE, line, 0);
 }
 
 void		parse_lights(t_env *e, char *str)
@@ -64,8 +74,7 @@ t_lgt		*create_light(t_env *e, char *type)
 	char	*line;
 	t_lgt	*current;
 
-	if (!(current = (t_lgt *)malloc(sizeof(t_lgt))))
-		error(E_MALLOC, NULL, 1);
+	!(current = (t_lgt *)malloc(sizeof(t_lgt))) ? error(E_MALLOC, NULL, 1) : 0;
 	default_light(current);
 	get_light_type(current, type);
 	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
@@ -78,6 +87,8 @@ t_lgt		*create_light(t_env *e, char *type)
 			current->color = hex_vec3(ft_atoi_base(ft_strstr(line, "0x"), 16));
 		else if (ft_strstr(line, "intensity: "))
 			current->intensity = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "shadow: "))
+			get_shadow_type(current, line);
 		else
 			error(E_LPARAM, line, 0);
 		ft_strdel(&line);

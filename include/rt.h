@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 11:41:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:57:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
+enum { HARD, SOFT };
 
 typedef struct	s_arg
 {
@@ -94,6 +95,7 @@ typedef struct	s_obj
 typedef	struct	s_lgt
 {
 	int				type;
+	int				shadow;
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			color;

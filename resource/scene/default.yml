@@ -17,6 +17,7 @@ lights: 1
 	  pos: {x: 4, y: 15, z: 10}
 	  color: 0xF6E392
 	  intensity: 1.0
+	  shadow: HARD
 	---
 objects: 2
 	- type: SPHERE

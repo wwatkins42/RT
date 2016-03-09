@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:49:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 09:06:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/09 11:55:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 # define E_LINIT		"light initialisation failed"
 # define E_LTYPE		"invalid light type"
+# define E_STYPE		"invalid shadow type"
 # define E_LPARAM		"invalid light parameter"
 
 # define E_OINIT 		"object initialisation failed"
