@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 13:19:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 14:24:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 # include <stdio.h> // TEMPORARY
 
@@ -141,30 +142,30 @@ typedef struct	s_env
 **	parse.c
 */
 
-void	parse(t_env *e);
-void	parse_gradient(t_env *e, char *str);
-t_vec3	parse_vector(const char *line);
+void			parse(t_env *e);
+void			parse_gradient(t_env *e, char *str);
+t_vec3			parse_vector(const char *line);
 
 /*
 **	create_camera.c
 */
 
-void	parse_camera(t_env *e, char *str);
-t_cam	*create_camera(t_env *e);
+void			parse_camera(t_env *e, char *str);
+t_cam			*create_camera(t_env *e, t_cam *prev);
 
 /*
 **	create_light.c
 */
 
-void	parse_lights(t_env *e, char *str);
-t_lgt	*create_light(t_env *e, char *type);
+void			parse_lights(t_env *e, char *str);
+t_lgt			*create_light(t_env *e, char *type);
 
 /*
 **	create_object.c
 */
 
-void	parse_objects(t_env *e, char *str);
-t_obj	*create_object(t_env *e, char *type);
+void			parse_objects(t_env *e, char *str);
+t_obj			*create_object(t_env *e, char *type);
 
 /*
 **	default.c
@@ -174,21 +175,21 @@ t_obj	*create_object(t_env *e, char *type);
 **	utils.c
 */
 
-int		str_digit(char *str);
-t_vec3	hex_vec3(const int hex);
+int				str_digit(char *str);
+t_vec3			hex_vec3(const int hex);
 
 /*
 **	core.c
 */
 
-void	core(t_env *e);
+void			core(t_env *e);
 
 /*
 **	hook.c
 */
 
-int		loop_hook(t_env *e);
-int		expose_hook(t_env *e);
-int		key_pressed(int keycode);
+int				loop_hook(t_env *e);
+int				expose_hook(t_env *e);
+int				key_pressed(int keycode);
 
 #endif

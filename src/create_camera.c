@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cam.c                                       :+:      :+:    :+:   */
+/*   create_camera.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 09:29:47 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 11:39:06 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/03/09 14:23:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,27 @@ static void	default_camera(t_cam *current)
 	}
 }
 
-void	parse_camera(t_env *e, char *str)
+void		parse_camera(t_env *e, char *str)
 {
 	int		i;
 	char	*line;
 	t_cam	*current;
+	t_cam	*prev;
 
 	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_CINIT, 0, 1) : 0;
 	if ((e->cam = (t_cam*)malloc(sizeof(t_cam))) == NULL)
 		error(E_MALLOC, NULL, 1);
 	current = NULL;
+	prev = NULL;
 	e->cam->next = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- camera:"))
 		{
 			i--;
-			current = create_camera(e);
+			current = create_camera(e, prev);
 			current->index = ft_atof(ft_strstr(line, ":") + 1);
+			prev = current;
 			current = current->next;
 		}
 		ft_strdel(&line);
@@ -49,7 +52,7 @@ void	parse_camera(t_env *e, char *str)
 	ft_strdel(&line);
 }
 
-t_cam	*create_camera(t_env *e)
+t_cam		*create_camera(t_env *e, t_cam *prev)
 {
 	char	*line;
 	t_cam	*current;
@@ -73,7 +76,7 @@ t_cam	*create_camera(t_env *e)
 	printf("dir: %f, %f, %f\n", current->dir.x, current->dir.y, current->dir.z);
 	printf("fov: %f\n\n", current->fov);
 	ft_strdel(&line);
-	current->prev = NULL;
+	current->prev = prev;
 	current->next = NULL;
 	return (current);
 }
