@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 12:57:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 14:21:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int		parse_load(t_env *e, int ac, char **av, int i)
 
 	e->win_v.w = 0;
 	e->win_v.h = 0;
+	e->arg.l = 1;
 	if (!(current = (t_view*)malloc(sizeof(t_view))))
 		error(E_MALLOC, NULL, 1);
 	e->viewer = current;
@@ -116,5 +117,5 @@ int		parse_load(t_env *e, int ac, char **av, int i)
 		}
 	}
 	current->next = NULL;
-	return (i);
+	return (i - 1);
 }

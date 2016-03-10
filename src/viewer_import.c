@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 11:11:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:32:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_img		viewer_import(t_env *e)
 		error(strerror(errno), e->arg.viewer_path, 1);
 	ft_strdel(&e->arg.viewer_path);
 	viewer_info(fd, &w, &h);
-	if (!(img.adr = mlx_new_image(e->mlx, w, h)))
+	if (!(img.adr = mlx_new_image(e->win_v.mlx, w, h)))
 		error(E_IMG_INIT, NULL, 1);
 	if (!(img.img = mlx_get_data_addr(img.adr, &img.bpp, &img.sl, &img.endian)))
 		error(E_IMG_INIT, NULL, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 12:48:48 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 14:36:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	args_get(t_env *e, int ac, char **av)
 	e->arg.viewer_path = NULL;
 	while (++i < ac)
 	{
+		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
 		if (!ft_strcmp(av[i], "-w") || !ft_strcmp(av[i], "--width"))
 			i + 1 < ac ? e->arg.w = ft_atoi(av[i + 1]) : 0;
 		if (!ft_strcmp(av[i], "-h") || !ft_strcmp(av[i], "--height"))
@@ -46,9 +47,8 @@ static void	args_get(t_env *e, int ac, char **av)
 		}
 		if (!ft_strcmp(av[i], "-l") || !ft_strcmp(av[i], "--load"))
 			i + 1 < ac ? i = parse_load(e, ac, av, i) : 0;
-		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
 	}
-	!e->arg.s && !e->arg.l ? args_disp() : 0;
+	e->arg.s == 0 && e->arg.l == 0 ? args_disp() : 0;
 }
 
 static void	env_init(t_env *e)
@@ -61,15 +61,17 @@ static void	env_init(t_env *e)
 	e->win_r.dh = e->win_r.h / 2;
 	if (e->arg.s)
 	{
-		if (!(e->win_r.adr = mlx_new_window(e->mlx, e->win_r.w, e->win_r.h,
-			e->arg.file)))
+		if (!(e->win_r.adr = mlx_new_window(e->win_r.mlx, e->win_r.w,
+			e->win_r.h, e->arg.file)))
 			error(E_WIN_INIT, NULL, 1);
+		printf("R\n");
 	}
 	if (e->arg.l)
 	{
-		if (!(e->win_v.adr = mlx_new_window(e->mlx, e->win_v.w, e->win_v.h,
-			"Viewer")))
+		if (!(e->win_v.adr = mlx_new_window(e->win_v.mlx, e->win_v.w,
+			e->win_v.h, "Viewer")))
 			error(E_WIN_INIT, NULL, 1);
+		printf("L\n");
 	}
 }
 
@@ -78,12 +80,12 @@ int			main(int ac, char **av)
 	t_env e;
 
 	ac == 2 && !ft_strcmp(av[1], "--help") ? args_disp() : 0;
-	if (!(e.mlx = mlx_init()))
-		error(E_MLX_INIT, NULL, 1);
+	!(e.win_v.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
+	!(e.win_r.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
 	args_get(&e, ac, av);
 	env_init(&e);
 	e.arg.s ? parse(&e) : 0;
 	//core(&e);
-	mlx_loop(e.mlx);
+	//mlx_loop(e.mlx);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 12:47:51 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 14:32:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct		s_ray
 
 typedef struct		s_win
 {
+	void			*mlx;
 	void			*adr;
 	int				w;
 	int				h;
@@ -140,7 +141,6 @@ typedef struct		s_win
 
 typedef struct		s_env
 {
-	void			*mlx;
 	t_win			win_r;
 	t_win			win_v;
 	t_arg			arg;
