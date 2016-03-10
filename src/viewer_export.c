@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 12:47:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 15:14:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void		viewer_export(t_env *e, t_img *img)
 	if ((fd = open(file_name, FILE_ARG, FILE_RIGHTS)) == -1)
 		error(strerror(errno), file_name, 1);
 	ft_strdel(&file_name);
-	len = img->sl * e->win_r.h;
-	ft_putnbr_fd(e->win_r.w, fd);
+	len = img->sl * e->win.h;
+	ft_putnbr_fd(e->win.w, fd);
 	write(fd, "\n", 1);
-	ft_putnbr_fd(e->win_r.h, fd);
+	ft_putnbr_fd(e->win.h, fd);
 	write(fd, "\n", 1);
 	write(fd, img->img, len);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;

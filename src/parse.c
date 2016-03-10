@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 14:21:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 15:13:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,34 +88,33 @@ t_vec3	parse_vector(const char *line)
 	return (vec3);
 }
 
-int		parse_load(t_env *e, int ac, char **av, int i)
-{
-	t_view	*prev;
-	t_view	*current;
-
-	e->win_v.w = 0;
-	e->win_v.h = 0;
-	e->arg.l = 1;
-	if (!(current = (t_view*)malloc(sizeof(t_view))))
-		error(E_MALLOC, NULL, 1);
-	e->viewer = current;
-	prev = NULL;
-	while (++i < ac && av[i][0] != '-')
-	{
-		current->prev = prev;
-		e->arg.viewer_path = ft_strdup(av[i]);
-		printf("%s\n", e->arg.viewer_path);
-		current->img = viewer_import(e);
-		current->img.w > e->win_v.w ? e->win_v.w = current->img.w : 0;
-		current->img.h > e->win_v.h ? e->win_v.h = current->img.h : 0;
-		prev = current;
-		if (i + 1 < ac && av[i + 1][0] != '-')
-		{
-			if (!(current->next = (t_view*)malloc(sizeof(t_view))))
-				error(E_MALLOC, NULL, 1);
-			current = current->next;
-		}
-	}
-	current->next = NULL;
-	return (i - 1);
-}
+// int		parse_load(t_env *e, int ac, char **av, int i)
+// {
+// 	t_view	*prev;
+// 	t_view	*current;
+//
+// 	e->win.w = 0;
+// 	e->win.h = 0;
+// 	if (!(current = (t_view*)malloc(sizeof(t_view))))
+// 		error(E_MALLOC, NULL, 1);
+// 	e->viewer = current;
+// 	prev = NULL;
+// 	while (++i < ac && av[i][0] != '-')
+// 	{
+// 		current->prev = prev;
+// 		e->arg.viewer_path = ft_strdup(av[i]);
+// 		printf("%s\n", e->arg.viewer_path);
+// 		current->img = viewer_import(e);
+// 		current->img.w > e->win_v.w ? e->win_v.w = current->img.w : 0;
+// 		current->img.h > e->win_v.h ? e->win_v.h = current->img.h : 0;
+// 		prev = current;
+// 		if (i + 1 < ac && av[i + 1][0] != '-')
+// 		{
+// 			if (!(current->next = (t_view*)malloc(sizeof(t_view))))
+// 				error(E_MALLOC, NULL, 1);
+// 			current = current->next;
+// 		}
+// 	}
+// 	current->next = NULL;
+// 	return (i - 1);
+// }

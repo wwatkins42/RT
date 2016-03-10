@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 14:32:49 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 15:16:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ enum { HARD, SOFT };
 typedef struct		s_arg
 {
 	char			*file;
-	char			*viewer_path;
 	int				fd;
 	int				w;
 	int				h;
-	short			s;
-	short			l;
 }					t_arg;
 
 typedef struct		s_img
@@ -92,14 +89,6 @@ typedef struct		s_cam
 	struct s_cam	*next;
 }					t_cam;
 
-typedef	struct		s_view
-{
-	t_img			img;
-	struct s_view	*next;
-	struct s_view	*prev;
-
-}					t_view;
-
 typedef struct		s_obj
 {
 	t_vec3			pos;
@@ -131,7 +120,6 @@ typedef struct		s_ray
 
 typedef struct		s_win
 {
-	void			*mlx;
 	void			*adr;
 	int				w;
 	int				h;
@@ -141,10 +129,9 @@ typedef struct		s_win
 
 typedef struct		s_env
 {
-	t_win			win_r;
-	t_win			win_v;
+	void			*mlx;
+	t_win			win;
 	t_arg			arg;
-	t_view			*viewer;
 	t_cam			*cam;
 	t_obj			*obj;
 	t_lgt			*lgt;
