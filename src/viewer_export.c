@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 11:25:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 12:47:31 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ static char	*set_file_name(void)
 	return (file_name);
 }
 
-void		viewer_export(t_env *e)
+void		viewer_export(t_env *e, t_img *img)
 {
 	char		*file_name;
 	int			len;
 	int			fd;
 
 	file_name = set_file_name();
-	if ((fd = open(file_name, O_WRONLY | O_CREAT, FILE_RIGHTS)) == -1)
+	if ((fd = open(file_name, FILE_ARG, FILE_RIGHTS)) == -1)
 		error(strerror(errno), file_name, 1);
 	ft_strdel(&file_name);
-	len = e->img.sl * e->win.h;
-	ft_putnbr_fd(e->win.w, fd);
+	len = img->sl * e->win_r.h;
+	ft_putnbr_fd(e->win_r.w, fd);
 	write(fd, "\n", 1);
-	ft_putnbr_fd(e->win.h, fd);
+	ft_putnbr_fd(e->win_r.h, fd);
 	write(fd, "\n", 1);
-	write(fd, e->img.img, len);
+	write(fd, img->img, len);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
 }

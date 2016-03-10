@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_camera.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 11:29:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 12:45:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	default_camera(t_env *e, t_cam *current)
 		current->rot = vec3_zero();
 		current->index = 0;
 		current->fov = 60;
-		current->img = img_init(e);
+		current->img = img_init(e, e->win_r.w, e->win_r.h);
 	}
 }
 

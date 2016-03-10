@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 11:28:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 12:47:51 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,49 +31,54 @@
 # define MAX_COLOR 32
 # define IMG_PATH "./resource/images/"
 # define IMG_EXTENSION ".img"
+# define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { HARD, SOFT };
 
-typedef struct	s_arg
+typedef struct		s_arg
 {
-	char	*file;
-	char	*viewer_path;
-	int		fd;
-	int		w;
-	int		h;
-}				t_arg;
+	char			*file;
+	char			*viewer_path;
+	int				fd;
+	int				w;
+	int				h;
+	short			s;
+	short			l;
+}					t_arg;
 
-typedef struct	s_img
+typedef struct		s_img
 {
-	void	*adr;
-	char	*img;
-	int		endian;
-	int		bpp;
-	int		opp;
-	int		sl;
-}				t_img;
+	void			*adr;
+	char			*img;
+	int				endian;
+	int				bpp;
+	int				opp;
+	int				sl;
+	int				w;
+	int				h;
+}					t_img;
 
-typedef struct	s_mat
+typedef struct		s_mat
 {
-	t_vec3	color;
-	double	ambient;
-	double	diffuse;
-	double	specular;
-	double	shininess;
-	double	reflect;
-	double	refract;
-}				t_mat;
+	t_vec3			color;
+	double			ambient;
+	double			diffuse;
+	double			specular;
+	double			shininess;
+	double			reflect;
+	double			refract;
+}					t_mat;
 
-typedef	struct	s_grad
+typedef	struct		s_grad
 {
-	t_vec3	*color;
-	float	*pos;
-}				t_grad;
+	t_vec3			*color;
+	float			*pos;
+}					t_grad;
 
-typedef struct	s_cam
+typedef struct		s_cam
 {
 	t_vec3			pos;
 	t_vec3			dir;
@@ -85,9 +90,17 @@ typedef struct	s_cam
 	double			fov;
 	struct s_cam	*prev;
 	struct s_cam	*next;
-}				t_cam;
+}					t_cam;
 
-typedef struct	s_obj
+typedef	struct		s_view
+{
+	t_img			img;
+	struct s_view	*next;
+	struct s_view	*prev;
+
+}					t_view;
+
+typedef struct		s_obj
 {
 	t_vec3			pos;
 	t_vec3			dir;
@@ -96,9 +109,9 @@ typedef struct	s_obj
 	short			type;
 	double			scale;
 	struct s_obj	*next;
-}				t_obj;
+}					t_obj;
 
-typedef	struct	s_lgt
+typedef	struct		s_lgt
 {
 	int				type;
 	int				shadow;
@@ -107,37 +120,38 @@ typedef	struct	s_lgt
 	t_vec3			color;
 	double			intensity;
 	struct s_lgt	*next;
-}				t_lgt;
+}					t_lgt;
 
-typedef struct	s_ray
+typedef struct		s_ray
 {
-	t_vec3		pos;
-	t_vec3		dir;
-	t_vec3		hit;
-}				t_ray;
+	t_vec3			pos;
+	t_vec3			dir;
+	t_vec3			hit;
+}					t_ray;
 
-typedef struct	s_win
+typedef struct		s_win
 {
-	void	*adr;
-	int		w;
-	int		h;
-	int		dw;
-	int		dh;
-}				t_win;
+	void			*adr;
+	int				w;
+	int				h;
+	int				dw;
+	int				dh;
+}					t_win;
 
-typedef struct	s_env
+typedef struct		s_env
 {
-	void	*mlx;
-	t_win	win;
-	t_arg	arg;
-	t_img	img;
-	t_cam	*cam;
-	t_obj	*obj;
-	t_lgt	*lgt;
-	t_ray	ray;
-	t_vec3	color;
-	int		recursiondepth;
-}				t_env;
+	void			*mlx;
+	t_win			win_r;
+	t_win			win_v;
+	t_arg			arg;
+	t_view			*viewer;
+	t_cam			*cam;
+	t_obj			*obj;
+	t_lgt			*lgt;
+	t_ray			ray;
+	t_vec3			color;
+	int				recursiondepth;
+}					t_env;
 
 /*
 **	main.c
@@ -147,30 +161,31 @@ typedef struct	s_env
 **	parse.c
 */
 
-void			parse(t_env *e);
-void			parse_gradient(t_env *e, char *str);
-t_vec3			parse_vector(const char *line);
+void				parse(t_env *e);
+void				parse_gradient(t_env *e, char *str);
+t_vec3				parse_vector(const char *line);
+int					parse_load(t_env *e, int ac, char **av, int i);
 
 /*
 **	create_camera.c
 */
 
-void			parse_camera(t_env *e, char *str);
-t_cam			*create_camera(t_env *e, t_cam *prev);
+void				parse_camera(t_env *e, char *str);
+t_cam				*create_camera(t_env *e, t_cam *prev);
 
 /*
 **	create_light.c
 */
 
-void			parse_lights(t_env *e, char *str);
-t_lgt			*create_light(t_env *e, char *type);
+void				parse_lights(t_env *e, char *str);
+t_lgt				*create_light(t_env *e, char *type);
 
 /*
 **	create_object.c
 */
 
-void			parse_objects(t_env *e, char *str);
-t_obj			*create_object(t_env *e, char *type);
+void				parse_objects(t_env *e, char *str);
+t_obj				*create_object(t_env *e, char *type);
 
 /*
 **	default.c
@@ -180,34 +195,34 @@ t_obj			*create_object(t_env *e, char *type);
 **	utils.c
 */
 
-int				str_digit(char *str);
-t_vec3			hex_vec3(const int hex);
-t_img			img_init(t_env *e);
+int					str_digit(char *str);
+t_vec3				hex_vec3(const int hex);
+t_img				img_init(t_env *e, int w, int h);
 
 /*
 **	core.c
 */
 
-void			core(t_env *e);
+void				core(t_env *e);
 
 /*
 **	hook.c
 */
 
-int				loop_hook(t_env *e);
-int				expose_hook(t_env *e);
-int				key_pressed(int keycode);
+int					loop_hook(t_env *e);
+int					expose_hook(t_env *e);
+int					key_pressed(int keycode);
 
 /*
 **	viewer_export.c
 */
 
-void			viewer_export(t_env *e);
+void				viewer_export(t_env *e, t_img *img);
 
 /*
 **	viewer_import.c
 */
 
-t_img			viewer_import(t_env *e);
+t_img				viewer_import(t_env *e);
 
 #endif
