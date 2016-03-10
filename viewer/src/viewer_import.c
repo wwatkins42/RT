@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer_import.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 16:20:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 17:05:41 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,21 @@ static void	viewer_info(int fd, int *w, int *h)
 	ft_strdel(&line);
 }
 
+static void	format_check(char *str)
+{
+	int		len;
+
+	len = ft_strlen(str);
+	if (ft_strcmp(str + len - 4, ".mlx") != 0)
+		error("invalid format file", str, 1);
+}
+
 t_img		viewer_import(t_env *e)
 {
 	int		fd;
 	t_img	img;
 
+	format_check(e->viewer_path);
 	if ((fd = open(e->viewer_path, O_RDWR)) == -1)
 		error(strerror(errno), e->viewer_path, 1);
 	ft_strdel(&e->viewer_path);
