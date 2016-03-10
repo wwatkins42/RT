@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:33:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/01/29 10:35:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/09 17:05:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 32
+# define BUFF_SIZE 8192
 
 typedef struct		s_list
 {

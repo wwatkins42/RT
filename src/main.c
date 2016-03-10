@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 16:31:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 11:30:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,7 @@ static void	env_init(t_env *e)
 		error(E_MLX_INIT, NULL, 1);
 	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
 		error(E_WIN_INIT, NULL, 1);
-	if (!(e->img.adr = mlx_new_image(e->mlx, e->win.w, e->win.h)))
-		error(E_IMG_INIT, NULL, 1);
-	if (!(e->img.img = mlx_get_data_addr(e->img.adr, &e->img.bpp, &e->img.sl,
-		&e->img.endian)))
-		error(E_IMG_INIT, NULL, 1);
-	e->img.opp = e->img.bpp / 8;
+	e->img = img_init(e);
 }
 
 int			main(int ac, char **av)
@@ -75,7 +70,8 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	env_init(&e);
 	parse(&e);
-	viewer_export(&e);
+	e.img = viewer_import(&e);
+	//viewer_export(&e);
 	core(&e);
 	return (0);
 }

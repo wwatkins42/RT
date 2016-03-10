@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 14:23:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 11:29:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	default_camera(t_cam *current)
+static void	default_camera(t_env *e, t_cam *current)
 {
 	if (current != NULL)
 	{
@@ -21,6 +21,7 @@ static void	default_camera(t_cam *current)
 		current->rot = vec3_zero();
 		current->index = 0;
 		current->fov = 60;
+		current->img = img_init(e);
 	}
 }
 
@@ -59,7 +60,7 @@ t_cam		*create_camera(t_env *e, t_cam *prev)
 
 	if (!(current = (t_cam*)malloc(sizeof(t_cam))))
 		error(E_MALLOC, NULL, 1);
-	default_camera(current);
+	default_camera(e, current);
 	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
 	{
 		if (ft_strstr(line, "pos: "))

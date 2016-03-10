@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 16:19:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 11:28:36 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define MAX_COLOR 32
 # define IMG_PATH "./resource/images/"
 # define IMG_EXTENSION ".img"
+# define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
@@ -79,6 +80,7 @@ typedef struct	s_cam
 	t_vec3			rot;
 	t_vec3			origin;
 	t_grad			gradient;
+	t_img			img;
 	int				index;
 	double			fov;
 	struct s_cam	*prev;
@@ -180,6 +182,7 @@ t_obj			*create_object(t_env *e, char *type);
 
 int				str_digit(char *str);
 t_vec3			hex_vec3(const int hex);
+t_img			img_init(t_env *e);
 
 /*
 **	core.c

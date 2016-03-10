@@ -3,56 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   viewer_import.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 16:15:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 11:11:42 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static char	*read_viewer(int fd)
+static void	read_viewer(t_img *img, int fd, int h)
 {
-	char	*del;
 	char	*line;
-	char	*view;
-
-	del = NULL;
-	view = NULL;
-	while (get_next_line(fd, &line) > 0)
-	{
-		if (view == NULL)
-			view = ft_strdup(line);
-		else
-		{
-			del = view;
-			if (!(view = ft_strjoin(view, line)))
-				return (NULL);
-			ft_strdel(&del);
-		}
-		ft_strdel(&line);
-	}
-	ft_strdel(&line);
-	return (view);
-}
-
-static void	viewer_info(int fd, int *w, int *h, t_img *img)
-{
 	int		i;
-	char	*line;
+	int		len;
+	int		ret;
 
 	i = -1;
-	while (++i < 5)
+	len = img->sl * h;
+	if (!(line = malloc(sizeof(char) * len)))
+		error(E_MALLOC, NULL, 1);
+	if ((ret = read(fd, line, len)) == -1)
+		error(strerror(errno), NULL, 1);
+	while (++i < len)
+		img->img[i] = line[i];
+	ft_strdel(&line);
+}
+
+static void	viewer_info(int fd, int *w, int *h)
+{
+	char	*line;
+	char	*del;
+	char	buf[2];
+	int		i;
+	int		ret;
+
+	i = 0;
+	(line = ft_strnew(1)) == NULL ? error(E_MALLOC, NULL, 1) : 0;
+	while (i < 2 && (ret = read(fd, buf, 1)))
 	{
-		get_next_line(fd, &line);
-		i == 0 ? *w = ft_atoi(line) : 0;
-		i == 1 ? *h = ft_atoi(line) : 0;
-		i == 2 ? img->bpp = ft_atoi(line) : 0;
-		i == 3 ? img->sl = ft_atoi(line) : 0;
-		i == 4 ? img->endian = ft_atoi(line) : 0;
-		ft_strdel(&line);
+		ret == -1 ? error(strerror(errno), NULL, 1) : 0;
+		buf[ret] = '\0';
+		del = line;
+		line = ft_strjoin(line, buf);
+		ft_strdel(&del);
+		if (buf[0] == '\n')
+		{
+			i == 0 ? *w = ft_atoi(line) : 0;
+			i == 1 ? *h = ft_atoi(line) : 0;
+			ft_strdel(&line);
+			(line = ft_strnew(1)) == NULL ? error(E_MALLOC, NULL, 1) : 0;
+			i++;
+		}
 	}
+	ft_strdel(&line);
 }
 
 t_img		viewer_import(t_env *e)
@@ -60,18 +64,17 @@ t_img		viewer_import(t_env *e)
 	int		fd;
 	int		w;
 	int		h;
-	char	*tmp;
 	t_img	img;
 
 	if ((fd = open(e->arg.viewer_path, O_RDWR)) == -1)
 		error(strerror(errno), e->arg.viewer_path, 1);
 	ft_strdel(&e->arg.viewer_path);
-	viewer_info(fd, &w, &h, &img);
-	tmp = read_viewer(fd);
-	tmp == NULL ? error(E_MALLOC, NULL, 1) : 0;
+	viewer_info(fd, &w, &h);
 	if (!(img.adr = mlx_new_image(e->mlx, w, h)))
 		error(E_IMG_INIT, NULL, 1);
-	img.img = tmp;
+	if (!(img.img = mlx_get_data_addr(img.adr, &img.bpp, &img.sl, &img.endian)))
+		error(E_IMG_INIT, NULL, 1);
+	read_viewer(&img, fd, h);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
 	return (img);
 }

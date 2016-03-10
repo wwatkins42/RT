@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/09 15:18:41 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/09 16:45:11 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
-			utils.c default.c error.c core.c hook.c viewer_export.c
+			utils.c default.c error.c core.c hook.c viewer_export.c \
+			viewer_import.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx
