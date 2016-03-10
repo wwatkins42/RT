@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 15:16:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 17:00:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define EPSILON 1e-9
 # define MAX_COLOR 32
 # define IMG_PATH "./resource/images/"
-# define IMG_EXTENSION ".img"
+# define IMG_EXTENSION ".mlx"
 # define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:20:55 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 16:45:57 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 17:53:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,7 @@ t_img				viewer_import(t_env *e);
 int					expose_hook(t_env *e);
 int					key_pressed(int kc, t_env *e);
 int					loop_hook(t_env *e);
+void				img_iter(t_env *e, void (*f)(char *, char *, char *));
+void				invert(char *r, char *g, char *b);
+
 #endif
