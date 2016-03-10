@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:26:36 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 15:55:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 16:31:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ int		loop_hook(t_env *e)
 
 int		expose_hook(t_env *e)
 {
-	mlx_put_image_to_window(e->mlx, e->win.adr, e->current->img.adr, 0, 0);
+	int	ofx;
+	int	ofy;
+
+	ofx = (e->win.w - e->current->img.w) / 2.0;
+	ofy = (e->win.h - e->current->img.h) / 2.0;
+	mlx_clear_window(e->mlx, e->win.adr);
+	mlx_put_image_to_window(e->mlx, e->win.adr, e->current->img.adr, ofx, ofy);
 	return (0);
 }
 

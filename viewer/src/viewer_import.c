@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer_import.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 15:56:21 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/10 16:20:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,17 @@ static void	viewer_info(int fd, int *w, int *h)
 t_img		viewer_import(t_env *e)
 {
 	int		fd;
-	int		w;
-	int		h;
 	t_img	img;
 
 	if ((fd = open(e->viewer_path, O_RDWR)) == -1)
 		error(strerror(errno), e->viewer_path, 1);
 	ft_strdel(&e->viewer_path);
-	viewer_info(fd, &w, &h);
-	if (!(img.adr = mlx_new_image(e->mlx, w, h)))
+	viewer_info(fd, &img.w, &img.h);
+	if (!(img.adr = mlx_new_image(e->mlx, img.w, img.h)))
 		error(E_IMG_INIT, NULL, 1);
 	if (!(img.img = mlx_get_data_addr(img.adr, &img.bpp, &img.sl, &img.endian)))
 		error(E_IMG_INIT, NULL, 1);
-	read_viewer(&img, fd, h);
+	read_viewer(&img, fd, img.h);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
 	return (img);
 }

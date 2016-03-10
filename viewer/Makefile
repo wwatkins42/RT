@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/10 16:02:39 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/10 16:07:58 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,6 @@ clean:
 	rm -rf $(OBJ_PATH)
 
 fclean: clean
-	rm -fv $(NAME)
+	rm -fv ../$(NAME)
 
 re: fclean all
