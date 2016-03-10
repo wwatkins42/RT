@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 15:39:33 by scollon          ###   ########.fr       */
+/*   Created: 2016/03/07 17:01:25 by scollon           #+#    #+#             */
+/*   Updated: 2016/03/10 16:00:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
-// 
-// void	core(t_env *e)
-// {
-// 	mlx_put_image_to_window(e->mlx, e->win.adr, e->img.adr, 0, 0);
-// 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
-// 	mlx_expose_hook(e->win.adr, expose_hook, e);
-// 	mlx_loop_hook(e->mlx, loop_hook, e);
-// 	mlx_loop(e->mlx);
-// }
+#include "viewer.h"
+
+void	error(char *type, char *esrc, short ext)
+{
+	char	*err;
+
+	err = NULL;
+	ft_printf("rt: %s", type);
+	if (esrc != NULL)
+	{
+		err = ft_strtrim(esrc);
+		ft_printf(": \"%s\"", err);
+		ft_strdel(&err);
+	}
+	ft_printf("\n");
+	if (ext == 1)
+		exit(0);
+}
