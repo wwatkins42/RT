@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:20:55 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 16:29:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/10 16:45:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ typedef struct		s_env
 
 t_img				viewer_import(t_env *e);
 int					expose_hook(t_env *e);
+int					key_pressed(int kc, t_env *e);
+int					loop_hook(t_env *e);
 #endif
