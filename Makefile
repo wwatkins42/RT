@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/10 15:58:23 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/11 14:46:16 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
-			utils.c default.c error.c core.c hook.c viewer_export.c \
+			utils.c error.c core.c hook.c viewer_export.c \
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

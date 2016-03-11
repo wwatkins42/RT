@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 14:10:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:18:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ typedef struct		s_obj
 
 typedef	struct		s_lgt
 {
-	int				type;
-	int				shadow;
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			color;
+	t_ray			ray;
+	int				type;
+	int				shadow;
 	double			intensity;
 	struct s_lgt	*next;
 }					t_lgt;
@@ -153,11 +154,8 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
+	double			(*intersect[6])(struct s_env *, t_ray, t_obj *);
 }					t_env;
-
-/*
-**	main.c
-*/
 
 /*
 **	parse.c
@@ -198,6 +196,12 @@ void				raytracing_init(t_env *e);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
+
+/*
+**	raytracing_intersect.c
+*/
+
+t_obj				*ray_intersect(t_env *e, t_ray ray, double *tmin, double *t);
 
 /*
 **	utils.c

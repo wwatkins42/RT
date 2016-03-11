@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 14:10:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:19:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 {
 	t_obj	*obj;
 	t_vec3	color;
+	double	tmin;
+	double	t;
 
 	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
-	obj = intersect_object(e, &tmin);
+	obj = intersect_object(e, ray, &tmin, &t);
 	if (obj != NULL && tmin != INFINITY)
 	{
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
-		color = vec3_fmul(obj->color, obj->mat.ambient);
+		set_normal(e, obj);
 		color += raytracing_color(e, ray, obj, tmin);
-		if (obj->mat.reflect > 0)
-			color += raytracing_reflect(e, ray, obj);
-		if (obj->mat.refract > 0)
-			color += raytracing_refract(e, ray, obj);
+		obj->mat.reflect > 0 ? color += raytracing_reflect(e, ray, obj) ; 0;
+		obj->mat.refract > 0 ? color += raytracing_refract(e, ray, obj) : 0;
 	}
 	vec3_clamp(&color, 0, 1);
 	return (color);
@@ -75,13 +75,13 @@ t_vec3	raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 	color = (t_vec3) {0, 0, 0};
 	if (e->reflect.depth < e->reflect.depth_max)
 	{
-		set_normal(e, obj);
 		ray.dir = vec3_reflect(ray.dir, obj->normal);
 		color += raytracing_draw(e, ray);
 		e->reflect.depth++;
 	}
 	else
 		e->reflect.depth = 0;
+	// reflection coefficient to implement
 	return (color);
 }
 
@@ -92,12 +92,12 @@ t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 	color = (t_vec3) {0, 0, 0};
 	if (e->refract.depth < e->refract.depth_max)
 	{
-		set_normal(e, obj);
 		// WIP
 		color += raytracing_draw(e, ray);
 		e->refract.depth++;
 	}
 	else
 		e->refract.depth = 0;
+	// refraction coefficient to implement
 	return (color);
 }
