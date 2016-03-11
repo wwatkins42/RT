@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 10:26:32 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:58 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:52:00 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	nbr_binary_b(unsigned int v)
 	return (i);
 }
 
-int			print_wchar(unsigned int c)
+int			print_wchar(t_a *arg, unsigned int c)
 {
 	int				n;
 	int				ret;
@@ -35,18 +35,18 @@ int			print_wchar(unsigned int c)
 		{
 			if (n > 16)
 			{
-				ret += print_char(((c >> 18) & 7) | 240);
-				ret += print_char(((c >> 12) & 63) | 128);
+				ret += print_char(arg, ((c >> 18) & 7) | 240);
+				ret += print_char(arg, ((c >> 12) & 63) | 128);
 			}
 			else
-				ret += print_char(((c >> 12) & 15) | 224);
-			ret += print_char(((c >> 6) & 63) | 128);
+				ret += print_char(arg, ((c >> 12) & 15) | 224);
+			ret += print_char(arg, ((c >> 6) & 63) | 128);
 		}
 		else
-			ret += print_char(((c >> 6) & 31) | 192);
-		ret += print_char((c & 63) | 128);
+			ret += print_char(arg, ((c >> 6) & 31) | 192);
+		ret += print_char(arg, (c & 63) | 128);
 	}
 	else
-		ret += print_char(c);
+		ret += print_char(arg, c);
 	return (ret);
 }

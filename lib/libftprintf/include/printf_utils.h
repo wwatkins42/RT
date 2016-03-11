@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:05:49 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/07 07:48:33 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:50:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ typedef struct  s_a
 	t_mod       mod;
 	char        type;
 	int			null;
+	int			out;
 }               t_a;
 
 typedef struct	s_e
 {
 	int         alen;
 	int         plen;
+	int			out;
 	va_list     ap;
 }               t_e;
 
@@ -98,9 +100,9 @@ int		       	nbr_binary(unsigned int v);
 int		       	str_len(const char *s);
 int		       	print_int(long long int n, t_a *arg);
 int		       	print_unsigned_int(unsigned long long int n, t_a *arg);
-int		       	print_char(char c);
+int				print_char(t_a *arg, char c);
 int			    print_str(const char *s, t_a *arg);
-int		       	print_wchar(unsigned int c);
+int				print_wchar(t_a *arg, unsigned int c);
 int			    print_wstr(const wchar_t *s, t_a *arg);
 int		       	print_base(t_a *arg, unsigned long long n, const int base,
 							char maj);

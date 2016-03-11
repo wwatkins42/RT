@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 13:25:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:33 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:45:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void						print_arg_unsigned(t_e *e, t_a *arg, int *i)
 	*i = print_unsigned_int(va, arg);
 	while (arg->flag.mn && arg->width > 0 && (arg->width--))
 	{
-		write(1, " ", 1);
+		write(arg->out, " ", 1);
 		(*i)++;
 	}
 }

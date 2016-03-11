@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/10 17:35:02 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/11 09:26:27 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CC = gcc
 CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
-SRC_NAME = 	main.c viewer_import.c hook.c error.c filter.c
+SRC_NAME = 	main.c viewer_import.c hook.c error.c filter.c bmp_exporter.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf mlx

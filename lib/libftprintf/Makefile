@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 13:40:40 by scollon           #+#    #+#              #
-#    Updated: 2016/03/06 10:19:13 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/08 19:53:30 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME 		= 	libftprintf.a
 CC 			=	 gcc
 CFGLAGS		= 	-Werror -Wextra -Wall
 
-SRC_NAME	= 	ft_printf.c check_err.c get_flags.c get_mods.c \
+SRC_NAME	= 	ft_printf.c ft_printf_fd.c check_err.c get_flags.c get_mods.c \
 				get_prec.c get_width.c parse_format.c print_arg.c \
 				print_arg_base.c print_arg_char.c print_arg_int.c print_arg_ptr.c \
 				print_arg_str.c print_arg_unsigned.c nbr_len.c \

@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 08:53:58 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:15 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:44:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf_utils.h>
 
-static void	init_arg(t_a *arg)
+static void	init_arg(t_a *arg, int out)
 {
 	arg->flag.pl = 0;
 	arg->flag.mn = 0;
@@ -30,6 +30,7 @@ static void	init_arg(t_a *arg)
 	arg->mod.z = 0;
 	arg->type = '\0';
 	arg->null = 0;
+	arg->out = out;
 }
 
 static void	printpad(t_a *arg, t_e *e, int before)
@@ -81,7 +82,7 @@ int			parse_format(const char *format, t_a *arg, t_e *e)
 	int	i;
 
 	i = 0;
-	init_arg(arg);
+	init_arg(arg, e->out);
 	i = get_flags(format, i, arg);
 	i = get_width(format, i, arg);
 	i = get_prec(format, i, arg);

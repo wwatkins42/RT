@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 11:10:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:20 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:51:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ void		print_arg_char(t_e *e, t_a *arg, int *i)
 		arg->width--;
 	while (!arg->flag.mn && arg->width-- > 0)
 	{
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 		e->plen++;
 	}
 	if (arg->mod.l || arg->type == 'C')
-		*i = print_wchar((unsigned int)c);
+		*i = print_wchar(arg, (unsigned int)c);
 	else
-		*i = print_char(va_arg(e->ap, int));
+		*i = print_char(arg, va_arg(e->ap, int));
 	while (arg->flag.mn && arg->width-- > 0)
 	{
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 		e->plen++;
 	}
 }

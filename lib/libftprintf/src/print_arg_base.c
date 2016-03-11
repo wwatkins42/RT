@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 11:25:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/07 07:57:01 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:44:28 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int					print_spaces(t_a *arg)
 	len = 0;
 	while (arg->width-- > 0)
 	{
-		write(1, " ", 1);
+		write(arg->out, " ", 1);
 		len++;
 	}
 	return (len);
@@ -65,7 +65,7 @@ void						print_arg_base(t_e *e, t_a *arg, int *i)
 	arg->type == 'b' ? *i = print_base(arg, va, 2, 'a') : 0;
 	while (arg->flag.mn && arg->width > 0 && (arg->width--))
 	{
-		write(1, " ", 1);
+		write(arg->out, " ", 1);
 		e->plen++;
 	}
 }
