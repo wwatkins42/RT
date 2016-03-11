@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 11:16:50 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:45:26 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		print_arg_str(t_e *e, t_a *arg, int *i)
 {
 	while (arg->prec.pt && arg->prec.prec == 0 && arg->width > 0)
 	{
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 		arg->width--;
 		e->plen++;
 	}

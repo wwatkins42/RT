@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 17:05:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/11 10:03:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_img		viewer_import(t_env *e)
 	format_check(e->viewer_path);
 	if ((fd = open(e->viewer_path, O_RDWR)) == -1)
 		error(strerror(errno), e->viewer_path, 1);
-	ft_strdel(&e->viewer_path);
 	viewer_info(fd, &img.w, &img.h);
 	if (!(img.adr = mlx_new_image(e->mlx, img.w, img.h)))
 		error(E_IMG_INIT, NULL, 1);

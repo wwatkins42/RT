@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 12:03:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:15:01 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:49:33 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int			print_wstr(const wchar_t *s, t_a *arg)
 	ret = arg->width;
 	arg->width -= len_unicode;
 	while (!arg->flag.mn && arg->width-- > 0)
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 	len_unicode = nbr_binary(*s);
-	while (*s != 0 && arg->prec.prec >= len_unicode && (print_wchar(*s++)))
+	while (*s != 0 && arg->prec.prec >= len_unicode && (print_wchar(arg, *s++)))
 		len_unicode += nbr_binary(*s);
 	while (arg->flag.mn && arg->width-- > 0 && (len++))
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 	return (ret > len ? ret : len);
 }

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 08:18:57 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:49 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:48:18 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int		print_str(const char *s, t_a *arg)
 	len = (arg->width > arg->prec.prec ? arg->width : arg->prec.prec);
 	arg->width -= arg->prec.prec;
 	while (!arg->flag.mn && arg->width-- > 0)
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 	while (*s != 0 && arg->prec.prec-- > 0)
-		write(1, s++, 1);
+		write(arg->out, s++, 1);
 	while (arg->flag.mn && arg->width-- > 0)
-		arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 	return (len);
 }

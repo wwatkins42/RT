@@ -6,14 +6,14 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 08:47:55 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/08 19:50:55 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf_utils.h>
 
-int		print_char(char c)
+int		print_char(t_a *arg, char c)
 {
-	write(1, &c, 1);
+	write(arg->out, &c, 1);
 	return (1);
 }

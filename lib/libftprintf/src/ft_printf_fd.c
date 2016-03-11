@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/16 13:43:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/08 19:43:26 by scollon          ###   ########.fr       */
+/*   Created: 2016/03/08 19:52:39 by scollon           #+#    #+#             */
+/*   Updated: 2016/03/08 19:54:11 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf_utils.h>
 
-int			ft_printf(const char *format, ...)
+int			ft_printf_fd(int fd, const char *format, ...)
 {
 	t_e		e;
 	t_a		arg;
 
 	e.alen = 0;
 	e.plen = 0;
-	e.out = 1;
+	e.out = fd;
 	va_start(e.ap, format);
 	while (format && format[e.alen] != 0)
 	{

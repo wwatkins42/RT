@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:41:18 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 18:04:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 10:08:18 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "viewer.h"
+#include "bmp_exporter.h"
 
 int		loop_hook(t_env *e)
 {
@@ -45,5 +46,7 @@ int		key_pressed(int kc, t_env *e)
 	}
 	if (kc == 34)
 		img_iter(e, invert);
+	if (kc == 42)
+		bmp_exporter(&e->current->img, "toto");
 	return (0);
 }

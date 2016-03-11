@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:26:36 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/10 18:04:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 10:03:30 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "viewer.h"
+#include "bmp_exporter.h"
 
 static void		args_disp(void)
 {
