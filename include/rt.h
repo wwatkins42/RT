@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:18:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:35:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,19 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 t_obj				*ray_intersect(t_env *e, t_ray ray, double *tmin, double *t);
 
 /*
+**	draw.c
+*/
+
+t_img			img_init(t_env *e, int w, int h);
+void			img_pixel_put(t_env *e, int x, int y, t_vec3 color);
+void			img_pixel_put_hex(t_env *e, int x, int y, int hex);
+t_vec3			hex_vec3(const int hex);
+
+/*
 **	utils.c
 */
 
 int					str_digit(char *str);
-t_vec3				hex_vec3(const int hex);
-t_img				img_init(t_env *e, int w, int h);
 
 /*
 **	core.c
