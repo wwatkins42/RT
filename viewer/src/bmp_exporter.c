@@ -3,23 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_exporter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/11 11:01:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 11:58:13 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bmp_exporter.h"
 #include "viewer.h"
+#include <time.h>
 
 static char	*get_full_name(char *name)
 {
+	time_t	epoch;
 	char	*del;
+	char	*buffer;
 	char	*full_name;
 
-	if (!(full_name = ft_strjoin(IMG_LOCATION, name)))
+	time(&epoch);
+	buffer = ft_strdup(name);
+	del = buffer;
+	buffer = ft_strrchr(buffer, '/');
+	buffer[ft_strrchr(buffer, '.') - buffer] = '\0';
+	buffer = ft_strjoin(buffer, "_%d_%m_%Y_%H-%M-%S");
+	ft_strdel(&del);
+	full_name = (char *)malloc(sizeof(char) * 128);
+	strftime(full_name, 128, buffer, localtime(&epoch));
+	ft_strdel(&buffer);
+	del = full_name;
+	if (!(full_name = ft_strjoin(IMG_LOCATION, full_name)))
 		error(E_MALLOC, NULL, 1);
+	ft_strdel(&del);
 	del = full_name;
 	if (!(full_name = ft_strjoin(full_name, IMG_FORMAT)))
 		error(E_MALLOC, NULL, 1);
@@ -96,15 +111,22 @@ void		bmp_exporter(t_img *img, char *name)
 {
 	int			i;
 	int			fd;
+	char		*pixel_data;
 	t_header	header;
 	t_infos		h_infos;
 
-	i = -4;
+	i = 0;
 	name = get_full_name(name);
 	if ((fd = open(name, O_WRONLY | O_CREAT, OPEN_FLAG)) == -1)
-		error(strerror(errno), name, 1);
+	{
+		error(strerror(errno), name, 0);
+		return ;
+	}
+	ft_strdel(&name);
 	create_header(&header, &h_infos, *img);
 	write_header(fd, header, h_infos);
-	write(fd, create_img(img, &h_infos), h_infos.image_size);
-	!close(fd) ? error(strerror(errno), "close", 0) : 0;
+	pixel_data = create_img(img, &h_infos);
+	write(fd, pixel_data, h_infos.image_size);
+	ft_strdel(&pixel_data);
+	close(fd) == -1 ? error(strerror(errno), "close", 0) : 0;
 }
