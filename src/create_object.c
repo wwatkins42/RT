@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 14:23:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:09:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,29 @@ static void	get_object_type(t_obj *current, char *type)
 		error(E_OTYPE, type, 0);
 }
 
-t_obj		*create_object(t_env *e, char *type)
+void		create_object(t_env *e, t_obj *obj, char *type)
 {
 	char	*line;
-	t_obj	*current;
 
-	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
-		error(E_MALLOC, NULL, 1);
-	default_object(current);
-	get_object_type(current, type);
+	default_object(obj);
+	get_object_type(obj, type);
 	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
 	{
 		if (ft_strstr(line, "material:"))
 			break ;
 		if (ft_strstr(line, "pos: "))
-			current->pos = parse_vector(line);
+			obj->pos = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
-			current->dir = parse_vector(line);
+			obj->dir = parse_vector(line);
 		else if (ft_strstr(line, "scale: "))
-			current->scale = ft_atof(ft_strstr(line, ":") + 1);
+			obj->scale = ft_atof(ft_strstr(line, ":") + 1);
 		else
 			error(E_OPARAM, line, 0);
 		ft_strdel(&line);
 	}
-	parse_material(e, current);
+	parse_material(e, obj);
 	ft_strdel(&line);
-	current->next = NULL;
-	return (current);
+	obj->next = NULL;
 }
 
 void		parse_objects(t_env *e, char *str)
@@ -106,19 +102,22 @@ void		parse_objects(t_env *e, char *str)
 	t_obj	*current;
 
 	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;
-	if (!(e->obj = (t_obj*)malloc(sizeof(t_obj))))
+	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
 		error(E_MALLOC, NULL, 1);
-	current = NULL;
-	e->obj->next = current;
+	e->obj = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- type:"))
 		{
 			i--;
-			current = create_object(e, line);
+			create_object(e, current, line);
+			if (i > 0)
+				if (!(current->next = (t_obj*)malloc(sizeof(t_obj))))
+					error(E_MALLOC, NULL, 1);
 			current = current->next;
 		}
 		ft_strdel(&line);
 	}
+	current = e->obj;
 	ft_strdel(&line);
 }

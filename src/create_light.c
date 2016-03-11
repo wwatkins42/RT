@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_light.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 11:57:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:14:55 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,18 @@ void		parse_lights(t_env *e, char *str)
 	t_lgt	*current;
 
 	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
-	if ((e->lgt = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
+	if ((current = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
 		error(E_MALLOC, NULL, 1);
-	current = NULL;
-	e->lgt->next = current;
+	e->lgt = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- type:"))
 		{
 			i--;
-			current = create_light(e, line);
+			create_light(e, current, line);
+			if (i > 0)
+				if (!(current->next = (t_lgt*)malloc(sizeof(t_lgt))))
+					error(E_MALLOC, NULL, 1);
 			current = current->next;
 		}
 		ft_strdel(&line);
@@ -69,31 +71,28 @@ void		parse_lights(t_env *e, char *str)
 	ft_strdel(&line);
 }
 
-t_lgt		*create_light(t_env *e, char *type)
+void		create_light(t_env *e, t_lgt *lgt, char *type)
 {
 	char	*line;
-	t_lgt	*current;
 
-	!(current = (t_lgt *)malloc(sizeof(t_lgt))) ? error(E_MALLOC, NULL, 1) : 0;
-	default_light(current);
-	get_light_type(current, type);
+	default_light(lgt);
+	get_light_type(lgt, type);
 	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
 	{
 		if (ft_strstr(line, "pos: "))
-			current->pos = parse_vector(line);
+			lgt->pos = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
-			current->dir = parse_vector(line);
+			lgt->dir = parse_vector(line);
 		else if (ft_strstr(line, "color: "))
-			current->color = hex_vec3(ft_atoi_base(ft_strstr(line, "0x"), 16));
+			lgt->color = hex_vec3(ft_atoi_base(ft_strstr(line, "0x"), 16));
 		else if (ft_strstr(line, "intensity: "))
-			current->intensity = ft_atof(ft_strstr(line, ":") + 1);
+			lgt->intensity = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "shadow: "))
-			get_shadow_type(current, line);
+			get_shadow_type(lgt, line);
 		else
 			error(E_LPARAM, line, 0);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	current->next = NULL;
-	return (current);
+	lgt->next = NULL;
 }
