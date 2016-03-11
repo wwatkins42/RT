@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 15:29:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/11 09:06:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse(t_env *e)
 
 	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
 		error(strerror(errno), NULL, 1);
-	ft_strdel(&e->arg.file);
+	//ft_strdel(&e->arg.file);
 	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "...") != 0)
 	{
 		if (ft_strstr(line, "cameras:"))

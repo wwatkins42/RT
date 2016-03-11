@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 17:00:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 09:35:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define IMG_EXTENSION ".mlx"
 # define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+# define FILE_NAME_LENGTH 255
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
@@ -198,18 +199,12 @@ void				core(t_env *e);
 
 int					loop_hook(t_env *e);
 int					expose_hook(t_env *e);
-int					key_pressed(int keycode);
+int					key_pressed(int keycode,t_env *e);
 
 /*
 **	viewer_export.c
 */
 
 void				viewer_export(t_env *e, t_img *img);
-
-/*
-**	viewer_import.c
-*/
-
-t_img				viewer_import(t_env *e);
 
 #endif
