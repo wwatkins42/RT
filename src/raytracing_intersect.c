@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 16:56:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:02:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_obj	*intersect_object(t_env *e, t_ray ray, double *tmin)
 	obj = e->obj;
 	while ((obj = obj->next) != NULL)
 	{
-		t = e->intersect[obj->type](e, ray, obj);
+		t = e->intersect[obj->type](ray, obj);
 		if (t > EPSILON && t < *tmin)
 		{
 			out = obj;
@@ -32,7 +32,7 @@ t_obj	*intersect_object(t_env *e, t_ray ray, double *tmin)
 	return (out);
 }
 
-double	intersect_plane(t_env *e, t_ray ray, t_obj *obj)
+double	intersect_plane(t_ray ray, t_obj *obj)
 {
 	double	t;
 
@@ -43,7 +43,7 @@ double	intersect_plane(t_env *e, t_ray ray, t_obj *obj)
 	return (t);
 }
 
-double	intersect_sphere(t_env *e, t_ray ray, t_obj *obj)
+double	intersect_sphere(t_ray ray, t_obj *obj)
 {
 	double	a;
 	double	b;
@@ -61,7 +61,7 @@ double	intersect_sphere(t_env *e, t_ray ray, t_obj *obj)
 	return ((-b - sqrt(disc)) / a);
 }
 
-double	intersect_cone(t_env *e, t_ray ray, t_obj *obj)
+double	intersect_cone(t_ray ray, t_obj *obj)
 {
 	double	a;
 	double	b;
@@ -79,7 +79,7 @@ double	intersect_cone(t_env *e, t_ray ray, t_obj *obj)
 	return ((-b - sqrt(disc)) / a);
 }
 
-double	intersect_cylinder(t_env *e, t_ray ray, t_obj *obj)
+double	intersect_cylinder(t_ray ray, t_obj *obj)
 {
 	double	a;
 	double	b;
@@ -98,7 +98,7 @@ double	intersect_cylinder(t_env *e, t_ray ray, t_obj *obj)
 }
 
 // TEMPORARY
-void	set_normal(t_env *e, t_ray ray, t_obj *obj)
+void	set_normal(t_ray ray, t_obj *obj)
 {
 	if (obj->type == PLANE)
 		obj->normal = vec3_sub(obj->pos, obj->dir);

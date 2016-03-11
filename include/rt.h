@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 16:56:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 17:16:44 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_cam
 	t_ray			ray;
 	int				index;
 	double			fov;
+	double			dist;
 	struct s_cam	*prev;
 	struct s_cam	*next;
 }					t_cam;
@@ -154,7 +155,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[6])(struct s_env *, t_ray, t_obj *);
+	double			(*intersect[6])(t_ray, t_obj *);
 }					t_env;
 
 /*
@@ -178,14 +179,14 @@ void				create_camera(t_env *e, t_cam *cam, t_cam *prev);
 */
 
 void				parse_lights(t_env *e, char *str);
-t_lgt				*create_light(t_env *e, char *type);
+void				create_light(t_env *e, t_lgt *lgt, char *type);
 
 /*
 **	create_object.c
 */
 
 void				parse_objects(t_env *e, char *str);
-t_obj				*create_object(t_env *e, char *type);
+void				create_object(t_env *e, t_obj *obj, char *type);
 
 /*
 **	init.c
@@ -209,11 +210,11 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 */
 
 t_obj				*intersect_object(t_env *e, t_ray ray, double *tmin);
-double				intersect_plane(t_env *e, t_ray ray, t_obj *obj);
-double				intersect_spere(t_env *e, t_ray ray, t_obj *obj);
-double				intersect_cone(t_env *e, t_ray ray, t_obj *obj);
-double				intersect_cylinder(t_env *e, t_ray ray, t_obj *obj);
-void				set_normal(t_env *e, t_ray ray, t_obj *obj);
+double				intersect_plane(t_ray ray, t_obj *obj);
+double				intersect_spere(t_ray ray, t_obj *obj);
+double				intersect_cone(t_ray ray, t_obj *obj);
+double				intersect_cylinder(t_ray ray, t_obj *obj);
+void				set_normal(t_ray ray, t_obj *obj);
 
 /*
 **	raytracing_color.c
