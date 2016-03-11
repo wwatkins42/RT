@@ -6,23 +6,32 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 15:14:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 09:36:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static char	*set_file_name(void)
+static char	*set_file_name(t_env *e)
 {
 	char		*file_name;
+	char		*name;
+	char		*file;
+	char		*del;
 	time_t		epoch;
 
 	time(&epoch);
-	file_name = malloc(sizeof(char) * 100);
-	strftime(file_name, 50, "%d_%m_%Y_%X", localtime(&epoch));
+	name = ft_strdup(e->arg.file);
+	del = name;
+	name = ft_strrchr(name, '/') + 1;
+	name[ft_strrchr(name, '.') - name] = '\0';
+	file_name = malloc(sizeof(char) * FILE_NAME_LENGTH);
+	file = ft_strjoin(name, "_%d_%m_%Y_%X");
+	strftime(file_name, FILE_NAME_LENGTH, file, localtime(&epoch));
+	ft_strdel(&del);
+	ft_strdel(&file);
 	file_name = ft_strjoin(IMG_PATH, file_name);
 	file_name = ft_strjoin(file_name, IMG_EXTENSION);
-	printf("file: %s\n", file_name);
 	return (file_name);
 }
 
@@ -32,7 +41,8 @@ void		viewer_export(t_env *e, t_img *img)
 	int			len;
 	int			fd;
 
-	file_name = set_file_name();
+	(void)img;
+	file_name = set_file_name(e);
 	if ((fd = open(file_name, FILE_ARG, FILE_RIGHTS)) == -1)
 		error(strerror(errno), file_name, 1);
 	ft_strdel(&file_name);
