@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 09:35:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 14:10:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct		s_cam
 	t_vec3			origin;
 	t_grad			gradient;
 	t_img			img;
+	t_ray			ray;
 	int				index;
 	double			fov;
 	struct s_cam	*prev;
@@ -112,6 +113,18 @@ typedef	struct		s_lgt
 	struct s_lgt	*next;
 }					t_lgt;
 
+typedef struct		s_reflect
+{
+	int				depth;
+	int				depth_max;
+}					t_reflect;
+
+typedef struct		s_refract
+{
+	int				depth;
+	int				depth_max;
+}					t_refract;
+
 typedef struct		s_ray
 {
 	t_vec3			pos;
@@ -138,7 +151,8 @@ typedef struct		s_env
 	t_lgt			*lgt;
 	t_ray			ray;
 	t_vec3			color;
-	int				recursiondepth;
+	t_reflect		reflect;
+	t_refract		refract;
 }					t_env;
 
 /*
@@ -176,8 +190,14 @@ void				parse_objects(t_env *e, char *str);
 t_obj				*create_object(t_env *e, char *type);
 
 /*
-**	default.c
+**	raytracing.c
 */
+
+void				raytracing(t_env *e);
+void				raytracing_init(t_env *e);
+t_vec3				raytracing_draw(t_env *e, t_ray ray);
+t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
+t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 
 /*
 **	utils.c

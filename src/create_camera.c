@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/10 15:14:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 13:18:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ t_cam		*create_camera(t_env *e, t_cam *prev)
 			parse_gradient(e, line);
 		ft_strdel(&line);
 	}
-	printf("pos: %f, %f, %f\n", current->pos.x, current->pos.y, current->pos.z);
-	printf("dir: %f, %f, %f\n", current->dir.x, current->dir.y, current->dir.z);
-	printf("fov: %f\n\n", current->fov);
 	ft_strdel(&line);
 	current->prev = prev;
 	current->next = NULL;
