@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 17:16:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 19:43:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ typedef struct		s_mat
 	double			refract;
 }					t_mat;
 
+typedef struct		s_ray
+{
+	t_vec3			pos;
+	t_vec3			dir;
+	t_vec3			hit;
+}					t_ray;
+
 typedef	struct		s_grad
 {
 	t_vec3			*color;
@@ -127,13 +134,6 @@ typedef struct		s_refract
 	int				depth_max;
 }					t_refract;
 
-typedef struct		s_ray
-{
-	t_vec3			pos;
-	t_vec3			dir;
-	t_vec3			hit;
-}					t_ray;
-
 typedef struct		s_win
 {
 	void			*adr;
@@ -155,7 +155,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[6])(t_ray, t_obj *);
+	double			(*intersect[6])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -200,7 +200,7 @@ void				init_cam(t_env *e, t_cam *cam);
 */
 
 void				raytracing(t_env *e);
-void				raytracing_init(t_env *e);
+void				raytracing_init(t_env *e, int x, int y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
@@ -209,21 +209,21 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 **	raytracing_intersect.c
 */
 
-t_obj				*intersect_object(t_env *e, t_ray ray, double *tmin);
-double				intersect_plane(t_ray ray, t_obj *obj);
-double				intersect_spere(t_ray ray, t_obj *obj);
-double				intersect_cone(t_ray ray, t_obj *obj);
-double				intersect_cylinder(t_ray ray, t_obj *obj);
-void				set_normal(t_ray ray, t_obj *obj);
+t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin, double *t);
+double				intersect_plane(t_ray *ray, t_obj *obj);
+double				intersect_sphere(t_ray *ray, t_obj *obj);
+double				intersect_cone(t_ray *ray, t_obj *obj);
+double				intersect_cylinder(t_ray *ray, t_obj *obj);
+void				set_normal(t_ray *ray, t_obj *obj);
 
 /*
 **	raytracing_color.c
 */
 
-t_vec3				raytracing_color(t_env *e, t_ray ray, t_obj *obj);
-t_vec3				set_diffuse(t_env *e, t_obj *obj, t_lgt *light);
+t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
+t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light);
-void				set_light(t_env *e, t_vec3 hit, t_lgt *light);
+void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj);
 /*
 **	draw.c

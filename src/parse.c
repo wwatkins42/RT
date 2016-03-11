@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 16:05:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 19:10:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ t_vec3	parse_vector(const char *line)
 	{
 		if (tab[i + 1] != NULL)
 		{
-			if (tab[i][0] == 'x')
+			if (tab[i][1] == 'x')
 				vec3.x = ft_atof(tab[i + 1]);
-			else if (tab[i][0] == 'y')
+			if (tab[i][0] == 'y')
 				vec3.y = ft_atof(tab[i + 1]);
-			else if (tab[i][0] == 'z')
+			if (tab[i][0] == 'z')
 				vec3.z = ft_atof(tab[i + 1]);
 		}
 		ft_strdel(&tab[i]);

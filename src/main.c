@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:59:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 18:29:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	args_get(t_env *e, int ac, char **av)
 			i + 1 < ac ? e->arg.h = ft_atoi(av[i + 1]) : 0;
 		else if (!ft_strcmp(av[i], "-s") || !ft_strcmp(av[i], "--scene"))
 			i + 1 < ac ? e->arg.file = ft_strdup(av[i + 1]) : 0;
-		else
-			error(E_ARG, av[i], 0);
 	}
 	if (e->arg.file == NULL)
 		e->arg.file = ft_strdup("./resource/scene/default.yml");
@@ -56,6 +54,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	parse(&e);
+	init_cam(&e, e.cam);
 	core(&e);
 	return (0);
 }
