@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:52:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 10:18:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 13:15:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		viewer_export(t_env *e, t_img *img)
 	int			len;
 	int			fd;
 
-	(void)img;
 	file_name = set_file_name(e);
 	if ((fd = open(file_name, FILE_ARG, FILE_RIGHTS)) == -1)
 		error(strerror(errno), file_name, 1);
