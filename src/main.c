@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 13:18:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:59:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ static void	args_get(t_env *e, int ac, char **av)
 		e->arg.file = ft_strdup("./resource/scene/default.yml");
 }
 
-static void	env_init(t_env *e)
-{
-	e->arg.w = (e->arg.w < 320 || e->arg.w > 10000 ? 1000 : e->arg.w);
-	e->arg.h = (e->arg.h < 200 || e->arg.h > 5000 ? 900 : e->arg.h);
-	e->win.w = e->arg.w;
-	e->win.h = e->arg.h;
-	e->win.dw = e->win.w / 2;
-	e->win.dh = e->win.h / 2;
-	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
-		error(E_WIN_INIT, NULL, 1);
-}
-
 int			main(int ac, char **av)
 {
 	t_env e;
@@ -66,7 +54,7 @@ int			main(int ac, char **av)
 	ac == 2 && !ft_strcmp(av[1], "--help") ? args_disp() : 0;
 	!(e.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
 	args_get(&e, ac, av);
-	env_init(&e);
+	init_env(&e);
 	parse(&e);
 	core(&e);
 	return (0);

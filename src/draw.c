@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:33:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:52:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	img_pixel_put_hex(t_env *e, int x, int y, int hex)
 
 	if (x >= 0 && x < e->win.w && y >= 0 && y < e->win.h)
 	{
-		pos = (x * e->img.opp) + (y * e->img.sl);
-		e->img.img[pos] = hex % 256 / 255.0;
-		e->img.img[pos + 1] = (hex >> 8) % 256 / 255.0;
-		e->img.img[pos + 2] = (hex >> 16) % 256 / 255.0;
-		e->img.img[pos + 3] = 0;
+		pos = (x * e->cam->img.opp) + (y * e->cam->img.sl);
+		e->cam->img.img[pos] = hex % 256 / 255.0;
+		e->cam->img.img[pos + 1] = (hex >> 8) % 256 / 255.0;
+		e->cam->img.img[pos + 2] = (hex >> 16) % 256 / 255.0;
+		e->cam->img.img[pos + 3] = 0;
 	}
 }
 
@@ -45,11 +45,11 @@ void	img_pixel_put(t_env *e, int x, int y, t_vec3 color)
 
 	if (x >= 0 && x < e->win.w && y >= 0 && y < e->win.h)
 	{
-		pos = (x * e->img.opp) + (y * e->img.sl);
-		e->img.img[pos] = color.z * 255;
-		e->img.img[pos + 1] = color.y * 255;
-		e->img.img[pos + 2] = color.x * 255;
-		e->img.img[pos + 3] = 0;
+		pos = (x * e->cam->img.opp) + (y * e->cam->img.sl);
+		e->cam->img.img[pos] = color.z * 255;
+		e->cam->img.img[pos + 1] = color.y * 255;
+		e->cam->img.img[pos + 2] = color.x * 255;
+		e->cam->img.img[pos + 3] = 0;
 	}
 }
 

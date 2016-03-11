@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:35:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 16:01:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ typedef struct		s_env
 */
 
 void				parse(t_env *e);
-void				parse_gradient(t_env *e, char *str);
+void				parse_gradient(t_cam *cam, char *str);
 t_vec3				parse_vector(const char *line);
 int					parse_load(t_env *e, int ac, char **av, int i);
 
@@ -171,7 +171,7 @@ int					parse_load(t_env *e, int ac, char **av, int i);
 */
 
 void				parse_camera(t_env *e, char *str);
-t_cam				*create_camera(t_env *e, t_cam *prev);
+void				create_camera(t_env *e, t_cam *cam, t_cam *prev);
 
 /*
 **	create_light.c
@@ -186,6 +186,13 @@ t_lgt				*create_light(t_env *e, char *type);
 
 void				parse_objects(t_env *e, char *str);
 t_obj				*create_object(t_env *e, char *type);
+
+/*
+**	init.c
+*/
+
+void				init_env(t_env *e);
+void				init_cam(t_env *e, t_cam *cam);
 
 /*
 **	raytracing.c
@@ -207,10 +214,10 @@ t_obj				*ray_intersect(t_env *e, t_ray ray, double *tmin, double *t);
 **	draw.c
 */
 
-t_img			img_init(t_env *e, int w, int h);
-void			img_pixel_put(t_env *e, int x, int y, t_vec3 color);
-void			img_pixel_put_hex(t_env *e, int x, int y, int hex);
-t_vec3			hex_vec3(const int hex);
+t_img				img_init(t_env *e, int w, int h);
+void				img_pixel_put(t_env *e, int x, int y, t_vec3 color);
+void				img_pixel_put_hex(t_env *e, int x, int y, int hex);
+t_vec3				hex_vec3(const int hex);
 
 /*
 **	utils.c

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 13:18:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 16:03:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,49 +32,47 @@ void		parse_camera(t_env *e, char *str)
 	t_cam	*current;
 	t_cam	*prev;
 
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_CINIT, 0, 1) : 0;
-	if ((e->cam = (t_cam*)malloc(sizeof(t_cam))) == NULL)
-		error(E_MALLOC, NULL, 1);
-	current = NULL;
 	prev = NULL;
-	e->cam->next = current;
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_CINIT, 0, 1) : 0;
+	!(current = (t_cam*)malloc(sizeof(t_cam))) ? error(E_MALLOC, NULL, 1) : 0;
+	e->cam = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{
 		if (ft_strstr(line, "- camera:"))
 		{
 			i--;
-			current = create_camera(e, prev);
+			create_camera(e, current, prev);
 			current->index = ft_atof(ft_strstr(line, ":") + 1);
 			prev = current;
+			if (i > 0)
+				current->next = (t_cam*)malloc(sizeof(t_cam));
 			current = current->next;
 		}
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
+	e->cam->prev->next = e->cam;
 }
 
-t_cam		*create_camera(t_env *e, t_cam *prev)
+void		create_camera(t_env *e, t_cam *cam, t_cam *prev)
 {
 	char	*line;
-	t_cam	*current;
 
-	if (!(current = (t_cam*)malloc(sizeof(t_cam))))
-		error(E_MALLOC, NULL, 1);
-	default_camera(e, current);
+	default_camera(e, cam);
 	while (get_next_line(e->arg.fd, &line) > 0 && !ft_strstr(line, "---"))
 	{
 		if (ft_strstr(line, "pos: "))
-			current->pos = parse_vector(line);
+			cam->pos = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
-			current->dir = parse_vector(line);
+			cam->dir = parse_vector(line);
 		else if (ft_strstr(line, "fov: "))
-			current->fov = ft_atof(ft_strstr(line, ":") + 1);
+			cam->fov = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "background: "))
-			parse_gradient(e, line);
+			parse_gradient(cam, line);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-	current->prev = prev;
-	current->next = NULL;
-	return (current);
+	cam->prev = prev;
+	cam->next = NULL;
+	e->cam->prev = cam;
 }
