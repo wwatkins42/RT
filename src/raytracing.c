@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:53:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/11 16:57:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	raytracing(t_env *e)
 	int		y;
 	t_vec3	color;
 
-	color = vec3_zero();
+	color = (t_vec3) {0, 0, 0};
 	y = -1;
 	while (++y < e->win.h)
 	{
@@ -38,10 +38,10 @@ void	raytracing_init(t_env *e)
 	e->refract.depth = 0;
 	e->cam->ray.pos = e->cam->pos;
 	e->cam->ray.dir = e->cam->origin;
-	e->cam->ray.hit = vec3_zero();
+	e->cam->ray.hit = (t_vec3) {0, 0, 0};
 	e->cam->ray.dir = vec3_add(e->cam->origin, vec3_sub(
-			vec3_fmul(vec3_right(), e->cam->xi * e->i),
-			vec3_fmul(vec3_up(), e->cam->yi * e->j)));
+			vec3_fmul(vec3_right(), e->i),
+			vec3_fmul(vec3_up(), e->j)));
 	vec3_rotate(&e->cam->ray.dir, e->cam->rot);
 	vec3_normalize(&e->cam->ray.dir);
 }
@@ -51,18 +51,17 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 	t_obj	*obj;
 	t_vec3	color;
 	double	tmin;
-	double	t;
 
 	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
-	obj = intersect_object(e, ray, &tmin, &t);
+	obj = intersect_object(e, ray, &tmin);
 	if (obj != NULL && tmin != INFINITY)
 	{
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
-		set_normal(e, obj);
-		color += raytracing_color(e, ray, obj, tmin);
+		set_normal(e, ray, obj);
+		color += raytracing_color(e, ray, obj);
 		obj->mat.reflect > 0 ? color += raytracing_reflect(e, ray, obj) ; 0;
-		obj->mat.refract > 0 ? color += raytracing_refract(e, ray, obj) : 0;
+	//	obj->mat.refract > 0 ? color += raytracing_refract(e, ray, obj) : 0;
 	}
 	vec3_clamp(&color, 0, 1);
 	return (color);
