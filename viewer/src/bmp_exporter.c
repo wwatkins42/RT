@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_exporter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/11 10:03:04 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/11 11:01:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,32 @@ static void	write_header(const int fd, t_header header, t_infos h_infos)
 	write(fd, &h_infos.important_color, 4);
 }
 
+static char	*create_img(t_img *img, t_infos *h_infos)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*copy;
+
+	i = h_infos->image_size - 1;
+	j = 0;
+	copy = (char*)malloc(sizeof(char) * h_infos->image_size);
+	while (i >= 0)
+	{
+		i -= img->sl;
+		k = 0;
+		while (k < img->sl)
+		{
+			copy[j] = img->img[i + k + 1];
+			copy[j + 1] = img->img[i + k + 2];
+			copy[j + 2] = img->img[i + k + 3];
+			j += 3;
+			k += 4;
+		}
+	}
+	return (copy);
+}
+
 void		bmp_exporter(t_img *img, char *name)
 {
 	int			i;
@@ -79,7 +105,6 @@ void		bmp_exporter(t_img *img, char *name)
 		error(strerror(errno), name, 1);
 	create_header(&header, &h_infos, *img);
 	write_header(fd, header, h_infos);
-	while ((i += 4) < h_infos.image_size)
-		write(fd, &img->img[i], 3);
+	write(fd, create_img(img, &h_infos), h_infos.image_size);
 	!close(fd) ? error(strerror(errno), "close", 0) : 0;
 }

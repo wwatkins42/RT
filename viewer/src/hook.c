@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:41:18 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/11 10:08:18 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/11 10:59:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int		key_pressed(int kc, t_env *e)
 		e->current = e->current->prev != NULL ?
 		e->current->prev : e->tail_viewer;
 	}
-	if (kc == 34)
-		img_iter(e, invert);
-	if (kc == 42)
-		bmp_exporter(&e->current->img, "toto");
+	kc == 34 ? img_iter(e, invert) : 0;
+	kc == 42 ? bmp_exporter(&e->current->img, "toto") : 0;
 	return (0);
 }
