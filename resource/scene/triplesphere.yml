@@ -1,20 +1,20 @@
 ---
 cameras: 1
 	- camera:
-	  pos: {x: 0, y: 0.5, z: 0}
+	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
-	  fov: 90
+	  fov: 80
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 2
 	- type: POINT
-	  pos: {x: 0, y: 5, z: 10}
-	  color: 0xF6E392
-	  intensity: 1.0
+	  pos: {x: 0, y: 2, z: 8}
+	  color: 0xF1CB29
+	  intensity: 0.55
 	  shadow: HARD
 	---
 	- type: POINT
-	  pos: {x: 1, y: -4, z: 10}
+	  pos: {x: 5, y: -2, z: 7}
 	  color: 0xF9DAC9
 	  intensity: 1.0
 	  shadow: HARD
@@ -26,11 +26,11 @@ objects: 3
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.325
-		  diffuse: 0.675
+		  ambient: 0.225
+		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 1
+		  reflect: 0.25
 		  refract: 0
 	---
 	- type: SPHERE
@@ -38,12 +38,12 @@ objects: 3
 	  pos: {x: 2.9, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0xC95383
-		  ambient: 0.325
-		  diffuse: 0.675
+		  color: 0xE04A4A
+		  ambient: 0.225
+		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 1
+		  reflect: 0.25
 		  refract: 0
 	---
 	- type: SPHERE
@@ -51,12 +51,12 @@ objects: 3
 	  pos: {x: -2.9, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x6CE323
-		  ambient: 0.325
-		  diffuse: 0.675
+		  color: 0xE2DC4D
+		  ambient: 0.225
+		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 1
+		  reflect: 0.25
 		  refract: 0
 	---
 ...

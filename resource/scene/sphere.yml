@@ -3,13 +3,25 @@ cameras: 1
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
-	  fov: 80
+	  fov: 50
 	  background: "./resource/gradient/sunset.yml"
 	---
-lights: 1
+lights: 3
 	- type: POINT
-	  pos: {x: 4, y: 15, z: 5}
-	  color: 0xF6E392
+	  pos: {x: 4, y: 3, z: 5}
+	  color: 0xFF0000
+	  intensity: 2.0
+	  shadow: HARD
+	---
+	- type: POINT
+	  pos: {x: 0, y: 3, z: 5}
+	  color: 0x00FF00
+	  intensity: 2.0
+	  shadow: HARD
+	---
+	- type: POINT
+	  pos: {x: -4, y: 3, z: 5}
+	  color: 0x0000FF
 	  intensity: 1.0
 	  shadow: HARD
 	---
@@ -19,12 +31,12 @@ objects: 1
 	  pos: {x: 0, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x364A90
-		  ambient: 0.225
-		  diffuse: 0.775
+		  color: 0x7F7F7F
+		  ambient: 0.125
+		  diffuse: 0.975
 		  specular: 1.0
-		  shininess: 256
-		  reflect: 0
+		  shininess: 1024
+		  reflect: 0.2
 		  refract: 0
 	---
 ...
