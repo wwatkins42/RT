@@ -16,16 +16,18 @@ lights: 1
 objects: 4
 	- type: SPHERE
 	  scale: 2
-	  pos: {x: 0, y: 1, z: 20}
+	  pos: {x: 0, y: 1, z: 5}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x1F1F1F
+		  color: 0x4F4F4F
 		  ambient: 0.225
 		  diffuse: 0.775
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.25
-		  refract: 0.95
+		  reflect: 0
+		  refract: 1.5
+		  transparency: 0.6
+		  absorbtion: 0.7
 	---
 	- type: PLANE
 	  scale: 1

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/11 20:01:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 13:23:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ static void	parse_material(t_env *e, t_obj *obj)
 			obj->mat.reflect = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "refract: "))
 			obj->mat.refract = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "transparency: "))
+			obj->mat.transparency = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "absorbtion: "))
+			obj->mat.absorbtion = ft_atof(ft_strstr(line, ":") + 1);
 		else
 			error(E_OPARAM, line, 0);
 		ft_strdel(&line);

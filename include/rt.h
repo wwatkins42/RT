@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 12:13:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 13:05:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct		s_mat
 	double			shininess;
 	double			reflect;
 	double			refract;
+	double			transparency;
+	double			absorbtion;
 }					t_mat;
 
 typedef struct		s_ray

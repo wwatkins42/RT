@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 12:15:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 13:23:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	raytracing_init(t_env *e, int x, int y)
 		vec3_fmul(vec3_up(), e->cam->ya * (double)y)));
 //	vec3_rotate(&e->cam->ray.dir, e->cam->rot);
 	vec3_normalize(&e->cam->ray.dir);
-	// if (x == 500 && y == 500)
-	// {
-	// 	printf("pos:(%f, %f, %f)\n", e->cam->pos.x, e->cam->pos.y, e->cam->pos.z);
-	// 	printf("ori:(%f, %f, %f)\n", e->cam->origin.x, e->cam->origin.y, e->cam->origin.z);
-	// 	printf("cam:(%f, %f, %f)\n", e->cam->ray.dir.x, e->cam->ray.dir.y, e->cam->ray.dir.z);
-	// }
 }
 
 t_vec3	raytracing_draw(t_env *e, t_ray ray)
@@ -66,9 +60,9 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
 		set_normal(&ray, obj);
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
-		if (obj->mat.reflect > 0.0)
+		if (obj->mat.reflect > 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, obj));
-		if (obj->mat.refract > 0.0)
+		if (obj->mat.refract > 0)
 			color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}
 	vec3_clamp(&color, 0, 1);
@@ -117,12 +111,13 @@ t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 			e->refract.n2 = obj->mat.refract;
 			cosI = -cosI;
 		}
-		n = n1 / n2;
+		n = e->refract.n1 / e->refract.n2;
 		sinT2 = n * n * (1.0 - cosI * cosI);
 		cosT = sqrt(1.0 - sinT2);
 		ray.dir = vec3_add(vec3_fmul(ray.dir, n),
 		vec3_fmul(obj->normal, (n * cosI - cosT)));
-		color = vec3_add(color, raytracing_draw(e, ray));
+		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray), obj->mat.transparency));
+		color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale * 2.0));
 	}
 	return (color);
 }
