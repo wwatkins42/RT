@@ -3,7 +3,7 @@ cameras: 1
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
-	  fov: 50
+	  fov: 60
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 3
@@ -25,19 +25,21 @@ lights: 3
 	  intensity: 1.0
 	  shadow: HARD
 	---
-objects: 3
+objects: 2
 	- type: SPHERE
 	  scale: 2
 	  pos: {x: 0, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x7F7F7F
-		  ambient: 0.125
+		  color: 0x5F5F5F
+		  ambient: 0.025
 		  diffuse: 0.975
 		  specular: 1.0
 		  shininess: 1024
-		  reflect: 0
+		  reflect: 0.25
 		  refract: 1.33
+		  transparency: 1.0
+		  absorbtion: 1
 	---
 	- type: CYLINDER
 	  scale: 2
@@ -49,20 +51,9 @@ objects: 3
 		  diffuse: 0.975
 		  specular: 1.0
 		  shininess: 1024
-		  reflect: 1
-		  refract: 1
-	---
-	- type: SPHERE
-	  scale: 2
-	  pos: {x: 0, y: 0, z: -5}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x00FF00
-		  ambient: 0.125
-		  diffuse: 0.975
-		  specular: 1.0
-		  shininess: 1024
 		  reflect: 0
 		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.5
 	---
 ...

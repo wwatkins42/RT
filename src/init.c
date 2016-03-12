@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 11:47:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:29:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ void	init_cam(t_env *e, t_cam *cam)
 				vec3_fmul(vec3_right(), w / 2.0));
 	cam->xa = w / (double)e->win.w;
 	cam->ya = h / (double)e->win.h;
+}
+
+void	init_key(t_env *e)
+{
+	e->key.up = 0;
+	e->key.down = 0;
+	e->key.left = 0;
+	e->key.right = 0;
 }

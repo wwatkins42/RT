@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 13:23:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:25:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
 		if (obj->mat.reflect > 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, obj));
-		if (obj->mat.refract > 0)
+		if (obj->mat.transparency > 0 && obj->mat.refract > 0)
 			color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}
 	vec3_clamp(&color, 0, 1);
@@ -118,6 +118,7 @@ t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 		vec3_fmul(obj->normal, (n * cosI - cosT)));
 		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray), obj->mat.transparency));
 		color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale * 2.0));
+		// obj->scale * 2.0 is not correct, t is distance traced in object
 	}
 	return (color);
 }

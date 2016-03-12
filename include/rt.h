@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 13:05:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:33:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ typedef struct		s_arg
 	int				w;
 	int				h;
 }					t_arg;
+
+typedef struct		s_key
+{
+	short			up;
+	short			down;
+	short			left;
+	short			right;
+}					t_key;
 
 typedef struct		s_img
 {
@@ -156,6 +164,7 @@ typedef struct		s_env
 	void			*mlx;
 	t_win			win;
 	t_arg			arg;
+	t_key			key;
 	t_cam			*cam;
 	t_obj			*obj;
 	t_lgt			*lgt;
@@ -202,6 +211,7 @@ void				create_object(t_env *e, t_obj *obj, char *type);
 
 void				init_env(t_env *e);
 void				init_cam(t_env *e, t_cam *cam);
+void				init_key(t_env *e);
 
 /*
 **	raytracing.c
@@ -261,7 +271,8 @@ void				core(t_env *e);
 
 int					loop_hook(t_env *e);
 int					expose_hook(t_env *e);
-int					key_pressed(int keycode,t_env *e);
+int					key_pressed(int keycode, t_env *e);
+int					key_released(int keycode, t_env *e);
 
 /*
 **	viewer_export.c

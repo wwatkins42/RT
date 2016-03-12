@@ -30,8 +30,10 @@ objects: 3
 		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.25
-		  refract: 1
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
 	---
 	- type: SPHERE
 	  scale: 2
@@ -43,8 +45,10 @@ objects: 3
 		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.25
-		  refract: 1
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
 	---
 	- type: SPHERE
 	  scale: 2
@@ -56,7 +60,9 @@ objects: 3
 		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.25
-		  refract: 1
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
 	---
 ...

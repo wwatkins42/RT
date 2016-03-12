@@ -41,6 +41,8 @@ objects: 4
 		  shininess: 256
 		  reflect: 0
 		  refract: 0
+		  transparency: 1.0
+		  absorbtion: 0.7
 	---
 	- type: CONE
 	  scale: 1
@@ -54,6 +56,8 @@ objects: 4
 		  shininess: 512
 		  reflect: 0
 		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.7
 	---
 	- type: CYLINDER
 	  scale: 1
@@ -66,6 +70,8 @@ objects: 4
 		  specular: 2.0
 		  shininess: 256
 		  reflect: 0
-		  refract: 0
+		  refract: 1.73
+		  transparency: 1.0
+		  absorbtion: 0.7
 	---
 ...
