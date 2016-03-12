@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 09:14:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 18:41:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,68 +35,65 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin)
 
 double	intersect_plane(t_ray *ray, t_obj *obj)
 {
-	double	t;
+	t_calc	calc;
 
-	t = -((vec3_dot(obj->dir, ray->pos) - vec3_dot(obj->dir, obj->pos)) /
-		vec3_dot(obj->dir, ray->dir));
-	if (t < EPSILON)
-		return (-1.0);
-	return (t);
+	calc.a = vec3_dot(obj->dir, ray->dir);
+	calc.b = vec3_dot(obj->dir, vec3_sub(ray->pos, obj->pos));
+	if (calc.a == 0)
+		return (-1);
+	return (-calc.b / calc.a > 0 ? -calc.b / calc.a : -1);
 }
 
 double	intersect_sphere(t_ray *ray, t_obj *obj)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	disc;
-	t_vec3	len;
+	t_calc	calc;
 
-	len = vec3_sub(ray->pos, obj->pos);
-	a = vec3_dot(ray->dir, ray->dir);
-	b = vec3_dot(len, ray->dir);
-	c = vec3_dot(len, len) - obj->scale;
-	disc = b * b - a * c;
-	if (disc < EPSILON)
+	calc.len = vec3_sub(ray->pos, obj->pos);
+	calc.a = vec3_dot(ray->dir, ray->dir);
+	calc.b = vec3_dot(calc.len, ray->dir);
+	calc.c = vec3_dot(calc.len, calc.len) - obj->scale * obj->scale;
+	calc.disc = calc.b * calc.b - calc.a * calc.c;
+	if (calc.disc < EPSILON)
 		return (-1.0);
-	return ((-b - sqrt(disc)) / a);
-}
-
-double	intersect_cone(t_ray *ray, t_obj *obj)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	disc;
-	t_vec3	len;
-
-	len = vec3_sub(ray->pos, obj->pos);
-	a = ray->dir.x * ray->dir.x - ray->dir.y * ray->dir.y +
-		ray->dir.z * ray->dir.z;
-	b = ray->dir.x * len.x - ray->dir.y * len.y + ray->dir.z * len.z;
-	c = len.x * len.x + len.z * len.z - len.y * len.y;
-	disc = b * b - a * c;
-	if (disc < EPSILON)
-		return (-1.0);
-	return ((-b - sqrt(disc)) / a);
+	return ((-calc.b - sqrt(calc.disc)) / calc.a);
 }
 
 double	intersect_cylinder(t_ray *ray, t_obj *obj)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	disc;
-	t_vec3	len;
+	t_calc		calc;
 
-	len = vec3_sub(ray->pos, obj->pos);
-	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
-	b = (ray->dir.x * len.x + ray->dir.z * len.z);
-	c = len.x * len.x + len.z * len.z - obj->scale;
-	disc = b * b - a * c;
-	if (disc < EPSILON)
-		return (-1.0);
-	return ((-b - sqrt(disc)) / a);
+	if (obj->dir.x == 0 && obj->dir.y == 0 && obj->dir.z == 0)
+		return (-1);
+	calc.len = vec3_sub(ray->pos, obj->pos);
+	calc.a = vec3_dot(ray->dir, ray->dir) - vec3_dot(ray->dir, obj->dir) *
+		vec3_dot(ray->dir, obj->dir);
+	calc.b = vec3_dot(ray->dir, calc.len) - vec3_dot(ray->dir, obj->dir) *
+		vec3_dot(calc.len, obj->dir);
+	calc.c = vec3_dot(calc.len, calc.len) - vec3_dot(calc.len, obj->dir) *
+		vec3_dot(calc.len, obj->dir) - obj->scale * obj->scale;
+	calc.disc = calc.b * calc.b - calc.a * calc.c;
+	if (calc.disc < EPSILON)
+		return (-1);
+	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+}
+
+double	intersect_cone(t_ray *ray, t_obj *obj)
+{
+	t_calc		calc;
+	double		k;
+
+	calc.len = vec3_sub(ray->pos, obj->pos);
+	k = tan(obj->scale) * tan(obj->scale);
+	calc.a = vec3_dot(ray->dir, ray->dir) - (1 + k) *
+		vec3_dot(ray->dir, obj->dir) * vec3_dot(ray->dir, obj->dir);
+	calc.b = vec3_dot(ray->dir, calc.len) - (1 + k) *
+		vec3_dot(ray->dir, obj->dir) * vec3_dot(calc.len, obj->dir);
+	calc.c = vec3_dot(calc.len, calc.len) - (1 + k) *
+		vec3_dot(calc.len, obj->dir) * vec3_dot(calc.len, obj->dir);
+	calc.disc = calc.b * calc.b - calc.a * calc.c;
+	if (calc.disc < EPSILON)
+		return (-1);
+	return (-calc.b - sqrt(calc.disc)) / (calc.a);
 }
 
 // TEMPORARY

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 16:00:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 18:18:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,15 @@ typedef struct		s_cam
 	struct s_cam	*prev;
 	struct s_cam	*next;
 }					t_cam;
+
+typedef struct		s_calc
+{
+	double			a;
+	double			b;
+	double			c;
+	double			disc;
+	t_vec3			len;
+}					t_calc;
 
 typedef struct		s_obj
 {
