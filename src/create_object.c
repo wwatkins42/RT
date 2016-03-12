@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/12 13:23:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:16:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	default_object(t_obj *obj)
 	obj->mat.shininess = 256;
 	obj->mat.reflect = 0;
 	obj->mat.refract = 0;
+	obj->mat.transparency = 0;
+	obj->mat.absorbtion = 0;
 }
 
 static void	parse_material(t_env *e, t_obj *obj)

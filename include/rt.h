@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 14:43:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:00:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,14 @@ void				init_key(t_env *e);
 void				raytracing(t_env *e);
 void				raytracing_init(t_env *e, int x, int y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
+
+/*
+**	raytracing_recursion.c
+*/
+
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
+void				refract_dir(t_env *e, t_ray *ray, t_obj *obj);
 
 /*
 **	raytracing_intersect.c

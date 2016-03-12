@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 10:03:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:09:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	double	diff;
 
 	diff = vec3_dot(light->ray.dir, obj->normal);
-	diff < 0.0 ? diff = 0.0 : 0;
+	diff < 0 ? diff = 0 : 0;
 	return (vec3_fmul(light->color, diff * obj->mat.diffuse));
 }
 
