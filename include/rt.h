@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 14:33:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:43:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdlib.h>
 # include <time.h>
 # include <bmp_exporter.h>
-
 # include <stdio.h> // TEMPORARY
 
 # define ABS(x) (x < 0 ? -x : x)

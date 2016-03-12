@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 14:25:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 14:59:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	raytracing_init(t_env *e, int x, int y)
 	e->cam->ray.dir = vec3_add(e->cam->origin, vec3_sub(
 		vec3_fmul(vec3_right(), e->cam->xa * (double)x),
 		vec3_fmul(vec3_up(), e->cam->ya * (double)y)));
-//	vec3_rotate(&e->cam->ray.dir, e->cam->rot);
+	e->cam->rot = vec3(0, 45, 0);
+	vec3_rotate(&e->cam->ray.dir, e->cam->rot);
 	vec3_normalize(&e->cam->ray.dir);
 }
 
@@ -62,8 +63,8 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
 		if (obj->mat.reflect > 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, obj));
-		if (obj->mat.transparency > 0 && obj->mat.refract > 0)
-			color = vec3_add(color, raytracing_refract(e, ray, obj));
+		 if (obj->mat.transparency > 0 && obj->mat.refract > 0)
+			 color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}
 	vec3_clamp(&color, 0, 1);
 	return (color);
