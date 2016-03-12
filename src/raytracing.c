@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 19:44:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 08:59:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	raytracing_init(t_env *e, int x, int y)
 	e->cam->ray.dir = e->cam->origin;
 	e->cam->ray.hit = (t_vec3) {0, 0, 0};
 	e->cam->ray.dir = vec3_add(e->cam->origin, vec3_sub(
-		vec3_fmul(vec3_right(), x), vec3_fmul(vec3_up(), y)));
+		vec3_fmul(vec3_right(), e->cam->xa * x),
+		vec3_fmul(vec3_up(), e->cam->ya * y)));
 //	vec3_rotate(&e->cam->ray.dir, e->cam->rot);
 	vec3_normalize(&e->cam->ray.dir);
 	// if (x == 500 && y == 500)

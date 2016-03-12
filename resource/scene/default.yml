@@ -16,7 +16,7 @@ lights: 1
 objects: 2
 	- type: SPHERE
 	  scale: 2
-	  pos: {x: 0, y: 1, z: 6}
+	  pos: {x: 0, y: 1, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90

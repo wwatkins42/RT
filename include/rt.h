@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 19:43:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 08:58:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct		s_cam
 	t_img			img;
 	t_ray			ray;
 	int				index;
+	double			xa;
+	double			ya;
 	double			fov;
 	double			dist;
 	struct s_cam	*prev;
