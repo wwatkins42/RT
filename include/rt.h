@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 09:15:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 10:22:04 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <time.h>
+# include <bmp_exporter.h>
 
 # include <stdio.h> // TEMPORARY
 
@@ -262,5 +263,10 @@ int					key_pressed(int keycode,t_env *e);
 */
 
 void				viewer_export(t_env *e, t_img *img);
+
+/*
+**	bmp_exporter.c
+*/
+void				bmp_exporter(t_img image, char *name);
 
 #endif

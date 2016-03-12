@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 15:52:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 10:27:36 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_img			img_init(t_env *e, int w, int h)
 		&img.endian)))
 		error(E_IMG_INIT, NULL, 1);
 	img.opp = img.bpp / 8;
+	img.h = e->win.h;
+	img.w = e->win.w;
 	return (img);
 }
 
