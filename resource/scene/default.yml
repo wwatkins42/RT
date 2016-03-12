@@ -3,7 +3,7 @@ cameras: 1
 	- camera:
 	  pos: {x: 0, y: 0.5, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
-	  fov: 90
+	  fov: 120
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
@@ -19,13 +19,13 @@ objects: 4
 	  pos: {x: 0, y: 1, z: 20}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x364A90
-		  ambient: 0.325
-		  diffuse: 0.675
+		  color: 0x1F1F1F
+		  ambient: 0.225
+		  diffuse: 0.775
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.2
-		  refract: 0
+		  reflect: 0.25
+		  refract: 0.95
 	---
 	- type: PLANE
 	  scale: 1
@@ -37,7 +37,7 @@ objects: 4
 		  diffuse: 0.975
 		  specular: 1.0
 		  shininess: 256
-		  reflect: 0.05
+		  reflect: 0
 		  refract: 0
 	---
 	- type: CONE
@@ -50,7 +50,7 @@ objects: 4
 		  diffuse: 0.775
 		  specular: 8.0
 		  shininess: 512
-		  reflect: 0.15
+		  reflect: 0
 		  refract: 0
 	---
 	- type: CYLINDER
@@ -63,7 +63,7 @@ objects: 4
 		  diffuse: 0.875
 		  specular: 2.0
 		  shininess: 256
-		  reflect: 1
+		  reflect: 0
 		  refract: 0
 	---
 ...

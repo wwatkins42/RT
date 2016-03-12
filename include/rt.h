@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 10:22:04 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/12 12:13:42 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct		s_ray
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			hit;
+	double			refract_index;
 }					t_ray;
 
 typedef	struct		s_grad
@@ -135,6 +136,8 @@ typedef struct		s_refract
 {
 	int				depth;
 	int				depth_max;
+	double			n1;
+	double			n2;
 }					t_refract;
 
 typedef struct		s_win

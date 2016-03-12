@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 10:31:52 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 12:15:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ t_vec3	raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 
 t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 {
+	double	n;
+	double	cosI;
+	double	cosT;
+	double	sinT2;
 	t_vec3	color;
 
 	color = (t_vec3) {0, 0, 0};
@@ -100,10 +104,25 @@ t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 	{
 		e->refract.depth++;
 		ray.pos = ray.hit;
-		// WIP
-		color += raytracing_draw(e, ray);
+		cosI = -vec3_dot(obj->normal, ray.dir);
+		if (cosI > 0)
+		{
+			e->refract.n1 = obj->mat.refract;
+			e->refract.n2 = 1.0f;
+			obj->normal = vec3_sub(vec3_zero(), obj->normal);
+		}
+		else
+		{
+			e->refract.n1 = 1.0f;
+			e->refract.n2 = obj->mat.refract;
+			cosI = -cosI;
+		}
+		n = n1 / n2;
+		sinT2 = n * n * (1.0 - cosI * cosI);
+		cosT = sqrt(1.0 - sinT2);
+		ray.dir = vec3_add(vec3_fmul(ray.dir, n),
+		vec3_fmul(obj->normal, (n * cosI - cosT)));
+		color = vec3_add(color, raytracing_draw(e, ray));
 	}
-	else
-		e->refract.depth = 0;
 	return (color);
 }

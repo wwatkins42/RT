@@ -25,7 +25,7 @@ lights: 3
 	  intensity: 1.0
 	  shadow: HARD
 	---
-objects: 1
+objects: 3
 	- type: SPHERE
 	  scale: 2
 	  pos: {x: 0, y: 0, z: 10}
@@ -36,7 +36,33 @@ objects: 1
 		  diffuse: 0.975
 		  specular: 1.0
 		  shininess: 1024
-		  reflect: 0.2
+		  reflect: 0
+		  refract: 1.33
+	---
+	- type: CYLINDER
+	  scale: 2
+	  pos: {x: 0, y: 0, z: 15}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x0000FF
+		  ambient: 0.125
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 1
+		  refract: 1
+	---
+	- type: SPHERE
+	  scale: 2
+	  pos: {x: 0, y: 0, z: -5}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x00FF00
+		  ambient: 0.125
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
 		  refract: 0
 	---
 ...

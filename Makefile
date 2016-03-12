@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/11 16:58:49 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/12 10:48:58 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
-			raytracing_color.c raytracing_intersect.c raytracing.c
+			raytracing_color.c raytracing_intersect.c raytracing.c \
+			bmp_exporter.c
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
