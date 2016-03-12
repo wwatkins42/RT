@@ -1,9 +1,9 @@
 ---
 cameras: 1
 	- camera:
-	  pos: {x: 10, y: 0, z: 0}
-	  dir: {x: 0, y: 0, z: 1}
-	  fov: 70
+	  pos: {x: 10, y: 1, z: 0}
+	  dir: {x: 10, y: 45, z: -5}
+	  fov: 80
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 2
@@ -21,8 +21,8 @@ lights: 2
 	---
 objects: 5
 	- type: SPHERE
-	  scale: 1
-	  pos: {x: 8, y: 0, z: 4}
+	  scale: 1.5
+	  pos: {x: 8, y: 0.25, z: 4}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x6F6F6F
