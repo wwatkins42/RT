@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 09:09:45 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/12 09:15:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 **	raytracing_intersect.c
 */
 
-t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin, double *t);
+t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin);
 double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
 double				intersect_cone(t_ray *ray, t_obj *obj);

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 08:59:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 09:41:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,19 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 	t_obj	*obj;
 	t_vec3	color;
 	double	tmin;
-	double	t;
 
 	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
-	obj = intersect_object(e, &ray, &tmin, &t);
+	obj = intersect_object(e, &ray, &tmin);
 	if (obj != NULL && tmin != INFINITY)
 	{
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
 		set_normal(&ray, obj);
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
-		// if (obj->mat.reflect > 0)
-		// 	color = vec3_add(color, raytracing_reflect(e, ray, obj));
+		if (obj->mat.reflect > 0.0)
+			color = vec3_add(color, raytracing_reflect(e, ray, obj));
 		// if (obj->mat.refract > 0)
 			// color = vec3_add(color, raytracing_refract(e, ray, obj));
-	//	printf("color:(%f, %f, %f)\n", color.x, color.y, color.z);
-	//	exit(0);
 	}
 	vec3_clamp(&color, 0, 1);
 	return (color);
@@ -85,13 +82,12 @@ t_vec3	raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 	color = (t_vec3) {0, 0, 0};
 	if (e->reflect.depth < e->reflect.depth_max)
 	{
+		e->reflect.depth++;
+		ray.pos = ray.hit;
 		ray.dir = vec3_reflect(ray.dir, obj->normal);
 		color = vec3_add(color, raytracing_draw(e, ray));
-		e->reflect.depth++;
+		color = vec3_fmul(color, obj->mat.reflect);
 	}
-	else
-		e->reflect.depth = 0;
-	// reflection coefficient to implement
 	return (color);
 }
 

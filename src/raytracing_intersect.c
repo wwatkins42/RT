@@ -6,26 +6,27 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 19:57:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 09:14:44 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, double *t)
+t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin)
 {
 	t_obj	*obj;
 	t_obj	*out;
+	double	t;
 
 	out = NULL;
 	obj = e->obj;
 	while (obj != NULL)
 	{
-		*t = e->intersect[obj->type](ray, obj);
-		if (*t > EPSILON && *t < *tmin)
+		t = e->intersect[obj->type](ray, obj);
+		if (t > EPSILON && t < *tmin)
 		{
 			out = obj;
-			*tmin = *t;
+			*tmin = t;
 		}
 		obj = obj->next;
 	}

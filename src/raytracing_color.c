@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 19:55:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/12 09:21:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 		specular = set_specular(e, ray->hit, obj, light);
 		color = vec3_add(color, vec3_add(diffuse, specular));
 		color = vec3_mul(color, obj->mat.color);
-		//set_shadow(e, &color, light->ray, obj);
+		set_shadow(e, &color, light->ray, obj);
 		light = light->next;
 	}
 	return (color);
@@ -67,9 +67,8 @@ void	set_light(t_vec3 hit, t_lgt *light)
 void	set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj)
 {
 	double	tmin;
-	double	t;
 
 	tmin = INFINITY;
-	if (intersect_object(e, &ray, &tmin, &t) != obj)
+	if (intersect_object(e, &ray, &tmin) != obj)
 		*color = vec3_fmul(*color, 0.5);
 }
