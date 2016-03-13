@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/11 17:14:55 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/13 15:00:00 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void		parse_lights(t_env *e, char *str)
 	t_lgt	*current;
 
 	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
-	if ((current = (t_lgt*)malloc(sizeof(t_lgt))) == NULL)
-		error(E_MALLOC, NULL, 1);
+	!(current = (t_lgt*)malloc(sizeof(t_lgt))) ? error(E_MALLOC, NULL, 1) : 0;
 	e->lgt = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{

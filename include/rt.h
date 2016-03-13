@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 13:04:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:56:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,5 +299,10 @@ void				viewer_export(t_env *e, t_img *img);
 **	bmp_exporter.c
 */
 void				bmp_exporter(t_img image, char *name);
+
+/*
+**	yml_exporter.c
+*/
+void				yml_exporter(t_env *e, char *name);
 
 #endif

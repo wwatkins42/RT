@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/12 16:16:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:58:36 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ void		parse_objects(t_env *e, char *str)
 	t_obj	*current;
 
 	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_OINIT, NULL, 1) : 0;
-	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
-		error(E_MALLOC, NULL, 1);
+	!(current = (t_obj*)malloc(sizeof(t_obj))) ? error(E_MALLOC, NULL, 1) : 0;
 	e->obj = current;
 	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 11:41:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:57:28 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	key_pressed(int keycode, t_env *e)
 	keycode == 53 ? exit(0) : 0;
 	keycode == 42 ? viewer_export(e, &e->cam->img) : 0;
 	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
+	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next, raytracing(e) : 0;
 	keycode == 47 ? e->cam = e->cam->prev, raytracing(e) : 0;
 	keycode == 126 ? e->key.up = 1 : 0;
