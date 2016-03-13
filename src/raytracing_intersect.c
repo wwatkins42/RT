@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 18:41:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 09:08:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 void	set_normal(t_ray *ray, t_obj *obj)
 {
 	if (obj->type == PLANE)
-		obj->normal = vec3_sub(obj->pos, obj->dir);
+		obj->normal = vec3_norm(obj->dir);//vec3_sub(obj->pos, obj->dir);
 	if (obj->type == SPHERE)
 		obj->normal = vec3_sub(obj->pos, ray->hit);
 	if (obj->type == CYLINDER || obj->type == CONE)

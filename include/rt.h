@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 18:18:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 09:37:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct		s_cam
 {
 	t_vec3			pos;
 	t_vec3			dir;
-	t_vec3			rot;
 	t_vec3			origin;
 	t_grad			gradient;
 	t_img			img;

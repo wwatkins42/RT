@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 17:43:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 09:30:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 		e->refract.depth++;
 		refract_dir(e, &ray, obj);
 		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray),
-				obj->mat.transparency));
-		//color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale * 2.0));
+			obj->mat.transparency));
+		if (obj->mat.absorbtion < 1.0)
+			color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale));
 		// obj->scale * 2.0 is not correct, t is distance traced in object
 	}
 	return (color);
