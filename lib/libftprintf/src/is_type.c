@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:10:07 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/06 10:14:03 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/13 11:08:54 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	is_type(char ty)
 {
 	if (ty == 'd' || ty == 'D' || ty == 's' || ty == 'S' || ty == 'x' ||
 		ty == 'X' || ty == 'p' || ty == 'o' || ty == 'O' || ty == 'c' ||
-		ty == 'C' || ty == 'u' || ty == 'U' || ty == 'i' || ty == 'b')
+		ty == 'C' || ty == 'u' || ty == 'U' || ty == 'i' || ty == 'b' ||
+		ty == 'f')
 		return (1);
 	return (0);
 }

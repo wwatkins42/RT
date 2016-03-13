@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 13:40:40 by scollon           #+#    #+#              #
-#    Updated: 2016/03/08 19:53:30 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/13 11:46:38 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_NAME	= 	ft_printf.c ft_printf_fd.c check_err.c get_flags.c get_mods.c \
 				nbr_len_base.c print_base.c print_char.c print_int.c print_mem.c \
 				print_str.c print_unsigned_int.c str_len.c print_wchar.c \
 				nbr_binary.c nbr_len_unsigned.c print_wstr.c \
-				print_arg_notype.c is_type.c is_mod.c is_flag.c
+				print_arg_notype.c is_type.c is_mod.c is_flag.c \
+				print_arg_float.c  
 
 OBJ_NAME 	= 	$(SRC_NAME:.c=.o)
 

@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 19:52:39 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/08 19:54:11 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/13 10:42:19 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf_utils.h>
 
-int			ft_printf_fd(int fd, const char *format, ...)
+int			ft_printf_fd(const int fd, const char *format, ...)
 {
 	t_e		e;
 	t_a		arg;
@@ -32,7 +32,7 @@ int			ft_printf_fd(int fd, const char *format, ...)
 		}
 		else
 		{
-			write(1, &format[e.alen++], 1);
+			write(e.out, &format[e.alen++], 1);
 			e.plen++;
 		}
 	}
