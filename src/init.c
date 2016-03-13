@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 17:06:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 13:27:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_env(t_env *e)
 {
-	e->reflect.depth_max = 3;
-	e->refract.depth_max = 3;
+	e->reflect.depth_max = 4;
+	e->refract.depth_max = 4;
 	e->arg.w = (e->arg.w < 320 || e->arg.w > 10000 ? 1000 : e->arg.w);
 	e->arg.h = (e->arg.h < 200 || e->arg.h > 5000 ? 900 : e->arg.h);
 	e->win.w = e->arg.w;

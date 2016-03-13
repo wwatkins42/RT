@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 15:30:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 11:41:10 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	loop_hook(t_env *e)
 {
+	// e->key.up ? e->lgt->pos.z += 0.5 : 0;
+	// e->key.down ? e->lgt->pos.z -= 0.5 : 0;
+	// e->key.left ? e->lgt->pos.x -= 0.5 : 0;
+	// e->key.right ? e->lgt->pos.x += 0.5 : 0;
 	e->key.up ? e->obj->pos.z += 0.5 : 0;
 	e->key.down ? e->obj->pos.z -= 0.5 : 0;
 	e->key.left ? e->obj->pos.x -= 0.5 : 0;

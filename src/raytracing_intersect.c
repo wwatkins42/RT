@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 09:08:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 13:08:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin)
 		{
 			out = obj;
 			*tmin = t;
+			out->t = t;
 		}
 		obj = obj->next;
 	}
@@ -40,7 +41,7 @@ double	intersect_plane(t_ray *ray, t_obj *obj)
 	calc.a = vec3_dot(obj->dir, ray->dir);
 	calc.b = vec3_dot(obj->dir, vec3_sub(ray->pos, obj->pos));
 	if (calc.a == 0)
-		return (-1);
+		return (INFINITY);
 	return (-calc.b / calc.a > 0 ? -calc.b / calc.a : -1);
 }
 
@@ -50,20 +51,22 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	calc.a = vec3_dot(ray->dir, ray->dir);
-	calc.b = vec3_dot(calc.len, ray->dir);
+	calc.b = 2.0 * vec3_dot(calc.len, ray->dir);
 	calc.c = vec3_dot(calc.len, calc.len) - obj->scale * obj->scale;
-	calc.disc = calc.b * calc.b - calc.a * calc.c;
+	calc.disc = calc.b * calc.b - 4.0 * calc.a * calc.c;
 	if (calc.disc < EPSILON)
-		return (-1.0);
-	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+		return (INFINITY);
+	calc.eq = (-calc.b - sqrt(calc.disc)) / (2.0 * calc.a);
+	if (calc.eq < -EPSILON)
+		calc.eq = (-calc.b + sqrt(calc.disc)) / (2.0 * calc.a);
+	return (calc.eq);
 }
 
 double	intersect_cylinder(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
 
-	if (obj->dir.x == 0 && obj->dir.y == 0 && obj->dir.z == 0)
-		return (-1);
+	vec3_normalize(&obj->dir);
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	calc.a = vec3_dot(ray->dir, ray->dir) - vec3_dot(ray->dir, obj->dir) *
 		vec3_dot(ray->dir, obj->dir);
@@ -73,7 +76,7 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 		vec3_dot(calc.len, obj->dir) - obj->scale * obj->scale;
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
-		return (-1);
+		return (INFINITY);
 	return ((-calc.b - sqrt(calc.disc)) / calc.a);
 }
 
@@ -92,15 +95,15 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 		vec3_dot(calc.len, obj->dir) * vec3_dot(calc.len, obj->dir);
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
-		return (-1);
-	return (-calc.b - sqrt(calc.disc)) / (calc.a);
+		return (INFINITY);
+	return ((-calc.b - sqrt(calc.disc)) / calc.a);
 }
 
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
 	if (obj->type == PLANE)
-		obj->normal = vec3_norm(obj->dir);//vec3_sub(obj->pos, obj->dir);
+		obj->normal = obj->dir;
 	if (obj->type == SPHERE)
 		obj->normal = vec3_sub(obj->pos, ray->hit);
 	if (obj->type == CYLINDER || obj->type == CONE)

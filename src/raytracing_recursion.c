@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 09:30:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 13:17:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 
 	ray->pos = ray->hit;
 	cosI = vec3_dot(obj->normal, ray->dir);
-	e->refract.n1 = 1;
+	e->refract.n1 = 1.0;
 	e->refract.n2 = obj->mat.refract;
 	n = e->refract.n1 / e->refract.n2;
 	sinT2 = n * n * (1.0 - cosI * cosI);

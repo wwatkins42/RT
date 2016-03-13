@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 09:37:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 13:04:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct		s_calc
 	double			b;
 	double			c;
 	double			disc;
+	double			eq;
 	t_vec3			len;
 }					t_calc;
 
@@ -128,6 +129,7 @@ typedef struct		s_obj
 	t_mat			mat;
 	short			type;
 	double			scale;
+	double			t;
 	struct s_obj	*next;
 }					t_obj;
 

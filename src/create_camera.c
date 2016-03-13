@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 17:12:41 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/13 09:45:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	default_camera(t_env *e, t_cam *current)
 	{
 		current->pos = vec3_zero();
 		current->dir = vec3(0, 0, 0);
-		current->rot = vec3_zero();
 		current->index = 0;
 		current->fov = 60;
 		current->img = img_init(e, e->win.w, e->win.h);
