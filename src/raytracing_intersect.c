@@ -51,14 +51,15 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	calc.a = vec3_dot(ray->dir, ray->dir);
-	calc.b = 2.0 * vec3_dot(calc.len, ray->dir);
+	calc.b = vec3_dot(calc.len, ray->dir);
 	calc.c = vec3_dot(calc.len, calc.len) - obj->scale * obj->scale;
-	calc.disc = calc.b * calc.b - 4.0 * calc.a * calc.c;
+	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
-	calc.eq = (-calc.b - sqrt(calc.disc)) / (2.0 * calc.a);
+	calc.disc = sqrt(calc.disc);
+	calc.eq = (-calc.b - calc.disc) / calc.a;
 	if (calc.eq < -EPSILON)
-		calc.eq = (-calc.b + sqrt(calc.disc)) / (2.0 * calc.a);
+		calc.eq = (-calc.b + calc.disc) / calc.a;
 	return (calc.eq);
 }
 
