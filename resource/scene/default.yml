@@ -10,7 +10,7 @@ lights: 1
 	- type: POINT
 	  pos: {x: 0, y: 5, z: 10}
 	  color: 0xF6E392
-	  intensity: 1.0
+	  intensity: 1.6
 	  shadow: HARD
 	---
 objects: 4
@@ -37,7 +37,7 @@ objects: 4
 		  color: 0xE9E0A4
 		  ambient: 0.325
 		  diffuse: 0.675
-		  specular: 1.0
+		  specular: 0.3
 		  shininess: 256
 		  reflect: 0
 		  refract: 0
