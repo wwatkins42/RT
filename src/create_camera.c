@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:42:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 17:29:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	default_camera(t_env *e, t_cam *current)
 		current->filter.invert = 0;
 		current->filter.gray_scale = 0;
 		current->filter.gamma = 1.0;
+		current->aa.supersampling = 1;
 	}
 }
 
@@ -40,6 +41,8 @@ static void	create_camera(t_env *e, t_cam *cam, t_cam *prev)
 			cam->dir = parse_vector(line);
 		else if (ft_strstr(line, "fov: "))
 			cam->fov = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "supersampling: "))
+			e->cam->aa.supersampling = ft_atoi(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "background: "))
 			parse_gradient(cam, line);
 		ft_strdel(&line);

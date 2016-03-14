@@ -4,6 +4,7 @@ cameras: 1
 	  pos: {x: 0, y: 2, z: -2}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 70
+	  supersampling: 1
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
@@ -40,7 +41,7 @@ objects: 7
 		  specular: 4.0
 		  shininess: 1024
 		  reflect: 0.05
-		  refract: 2.27
+		  refract: 2.17
 		  transparency: 0.81
 		  absorbtion: 0.8
 	---

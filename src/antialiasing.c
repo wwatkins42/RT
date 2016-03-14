@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:59:26 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 13:11:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 16:17:37 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	supersampling(t_env *e, int x, int y)
 	float	sx;
 	float	sy;
 	t_vec3	color;
-	t_vec3	fragc;
 
 	color = (t_vec3) {0, 0, 0};
-	fragc = (t_vec3) {0, 0, 0};
 	sx = (float)x;
 	while (sx < x + 1.0)
 	{
@@ -28,8 +26,8 @@ void	supersampling(t_env *e, int x, int y)
 		while (sy < y + 1.0)
 		{
 			raytracing_init(e, sx, sy);
-			fragc = vec3_fmul(raytracing_draw(e, e->cam->ray), e->cam->aa.coef);
-			color = vec3_add(color, fragc);
+			color = vec3_add(color, vec3_fmul(raytracing_draw(e, e->cam->ray),
+			e->cam->aa.coef));
 			sy += e->cam->aa.inc;
 		}
 		sx += e->cam->aa.inc;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 10:35:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 15:52:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ void	set_normal(t_ray *ray, t_obj *obj)
 	if (obj->type == SPHERE)
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 	if (obj->type == CYLINDER || obj->type == CONE)
+	{
+	//	vec3_rotate(&ray->hit, vec3(0, 0, -45));
 		obj->normal = vec3(obj->pos.x - ray->hit.x, 0.0,
 		obj->pos.z - ray->hit.z);
+	}
 	vec3_normalize(&obj->normal);
 }

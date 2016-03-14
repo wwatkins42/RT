@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 13:11:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 17:17:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef	struct		s_grad
 
 typedef struct		s_aa
 {
-	double			supersampling;
+	int				supersampling;
 	double			inc;
 	double			coef;
 }					t_aa;
