@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:52:37 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 09:31:11 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 	//calc.a = vec3_dot(ray->dir, ray->dir);
 	calc.b = vec3_dot(calc.len, ray->dir);
 	calc.c = vec3_dot(calc.len, calc.len) - obj->scale2;
-	calc.disc = calc.b * calc.b - /*calc.a **/ calc.c;
+	calc.disc = calc.b * calc.b - /*calc.a*/  calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
 	calc.disc = sqrt(calc.disc);
-	calc.eq = (-calc.b - calc.disc)/* / calc.a*/;
+	calc.eq = (-calc.b - calc.disc) /*/ calc.a*/;
 	if (calc.eq < -EPSILON)
-		calc.eq = (-calc.b + calc.disc)/* / calc.a*/;
+		calc.eq = (-calc.b + calc.disc) /*/ calc.a*/;
 	return (calc.eq);
 }
 
@@ -73,7 +73,7 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	ro = vec3_dot(ray->dir, obj->dir);
 	lo = vec3_dot(calc.len, obj->dir);
-	calc.a = vec3_dot(ray->dir, ray->dir) - ro * ro;
+	calc.a = 1.0 - ro * ro;
 	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
 	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale2; // can be done only at each modification of value.
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
@@ -94,7 +94,7 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	k *= k;			// instead of each ray for each frame.
 	lo = vec3_dot(calc.len, obj->dir);
 	ro = vec3_dot(ray->dir, obj->dir);
-	calc.a = /*vec3_dot(ray->dir, ray->dir)*/ 1.0 - (1 + k) * ro * ro;
+	calc.a = 1.0 - (1 + k) * ro * ro;
 	calc.b = vec3_dot(ray->dir, calc.len) - (1 + k) * ro * lo;
 	calc.c = vec3_dot(calc.len, calc.len) - (1 + k) * lo * lo; // redondant calcul, can be done once and re-used
 	calc.disc = calc.b * calc.b - calc.a * calc.c;

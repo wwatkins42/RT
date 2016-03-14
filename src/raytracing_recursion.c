@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:55:38 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 09:30:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	cosT = sqrt(1.0 - sinT2);
 	ray->dir = vec3_add(vec3_fmul(ray->dir, n),
 	vec3_fmul(obj->normal, (n * cosI - cosT)));
+	vec3_normalize(&ray->dir);
 }
 
 t_vec3		raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
