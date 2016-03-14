@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/12 10:22:01 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 08:03:58 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ static char	*get_full_name(char *name)
 	time_t	epoch;
 	char	*del;
 	char	*buffer;
-	char	*full_name;
+	char	*f_name;
 
 	time(&epoch);
-	buffer = ft_strdup(name);
+	!(buffer = ft_strdup(name)) ? error(E_MALLOC, NULL, 1) : 0;
 	del = buffer;
 	buffer = ft_strrchr(buffer, '/');
 	buffer[ft_strrchr(buffer, '.') - buffer] = '\0';
-	buffer = ft_strjoin(buffer, "_%d_%m_%Y_%H-%M-%S");
+	if (!(buffer = ft_strjoin(buffer, "_%d_%m_%Y_%H-%M-%S")))
+		error(E_MALLOC, NULL, 1);
 	ft_strdel(&del);
-	full_name = (char *)malloc(sizeof(char) * 128);
-	strftime(full_name, 128, buffer, localtime(&epoch));
+	if (!(f_name = (char *)malloc(sizeof(char) * 128)))
+		error(E_MALLOC, NULL, 1);
+	strftime(f_name, 128, buffer, localtime(&epoch));
 	ft_strdel(&buffer);
-	del = full_name;
-	if (!(full_name = ft_strjoin(BMP_LOCATION, full_name)))
-		error(E_MALLOC, NULL, 1);
+	del = f_name;
+	!(f_name = ft_strjoin(BMP_LOCATION, f_name)) ? error(E_MALLOC, NULL, 1) : 0;
 	ft_strdel(&del);
-	del = full_name;
-	if (!(full_name = ft_strjoin(full_name, ".bmp")))
-		error(E_MALLOC, NULL, 1);
+	del = f_name;
+	!(f_name = ft_strjoin(f_name, ".bmp")) ? error(E_MALLOC, NULL, 1) : 0;
 	ft_strdel(&del);
-	return (full_name);
+	return (f_name);
 }
 
 static void	create_header(t_header *header, t_infos *h_infos, t_img img)

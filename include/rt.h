@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:56:02 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 08:12:44 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void				parse_lights(t_env *e, char *str);
 **	create_object.c
 */
 
-void				parse_objects(t_env *e, char *str);s
+void				parse_objects(t_env *e, char *str);
 
 /*
 **	init.c
@@ -299,8 +299,11 @@ void				viewer_export(t_env *e, t_img *img);
 void				bmp_exporter(t_img image, char *name);
 
 /*
-**	yml_exporter.c
+**	yml_exporter.c && yml_write.c
 */
 void				yml_exporter(t_env *e, char *name);
+void				export_object(const int fd, t_env *e);
+void				export_light(const int fd, t_env *e);
+void				export_camera(const int fd, t_env *e);
 
 #endif
