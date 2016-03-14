@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:52:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:56:02 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,21 +199,18 @@ int					parse_load(t_env *e, int ac, char **av, int i);
 */
 
 void				parse_camera(t_env *e, char *str);
-void				create_camera(t_env *e, t_cam *cam, t_cam *prev);
 
 /*
 **	create_light.c
 */
 
 void				parse_lights(t_env *e, char *str);
-void				create_light(t_env *e, t_lgt *lgt, char *type);
 
 /*
 **	create_object.c
 */
 
-void				parse_objects(t_env *e, char *str);
-void				create_object(t_env *e, t_obj *obj, char *type);
+void				parse_objects(t_env *e, char *str);s
 
 /*
 **	init.c
@@ -237,7 +234,6 @@ t_vec3				raytracing_draw(t_env *e, t_ray ray);
 
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
-void				refract_dir(t_env *e, t_ray *ray, t_obj *obj);
 
 /*
 **	raytracing_intersect.c

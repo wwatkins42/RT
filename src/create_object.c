@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 07:51:47 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:56:13 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	get_object_type(t_obj *current, char *type)
 		error(E_OTYPE, type, 0);
 }
 
-void		create_object(t_env *e, t_obj *obj, char *type)
+static void	create_object(t_env *e, t_obj *obj, char *type)
 {
 	char	*line;
 

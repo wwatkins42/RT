@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_recursion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 13:17:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 07:55:38 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-
-t_vec3	raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
+t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 {
 	t_vec3	color;
 
@@ -29,25 +28,7 @@ t_vec3	raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 	return (color);
 }
 
-t_vec3	raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
-{
-	t_vec3	color;
-
-	color = (t_vec3) {0, 0, 0};
-	if (e->refract.depth < e->refract.depth_max)
-	{
-		e->refract.depth++;
-		refract_dir(e, &ray, obj);
-		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray),
-			obj->mat.transparency));
-		if (obj->mat.absorbtion < 1.0)
-			color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale));
-		// obj->scale * 2.0 is not correct, t is distance traced in object
-	}
-	return (color);
-}
-
-void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
+static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 {
 	double	n;
 	double	cosI;
@@ -63,4 +44,22 @@ void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	cosT = sqrt(1.0 - sinT2);
 	ray->dir = vec3_add(vec3_fmul(ray->dir, n),
 	vec3_fmul(obj->normal, (n * cosI - cosT)));
+}
+
+t_vec3		raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
+{
+	t_vec3	color;
+
+	color = (t_vec3) {0, 0, 0};
+	if (e->refract.depth < e->refract.depth_max)
+	{
+		e->refract.depth++;
+		refract_dir(e, &ray, obj);
+		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray),
+			obj->mat.transparency));
+		if (obj->mat.absorbtion < 1.0)
+			color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale));
+		// obj->scale * 2.0 is not correct, t is distance traced in object
+	}
+	return (color);
 }

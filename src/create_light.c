@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/13 15:00:00 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:56:54 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,7 @@ static void	get_shadow_type(t_lgt *current, char *line)
 		error(E_STYPE, line, 0);
 }
 
-void		parse_lights(t_env *e, char *str)
-{
-	int		i;
-	char	*line;
-	t_lgt	*current;
-
-	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
-	!(current = (t_lgt*)malloc(sizeof(t_lgt))) ? error(E_MALLOC, NULL, 1) : 0;
-	e->lgt = current;
-	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
-	{
-		if (ft_strstr(line, "- type:"))
-		{
-			i--;
-			create_light(e, current, line);
-			if (i > 0)
-				if (!(current->next = (t_lgt*)malloc(sizeof(t_lgt))))
-					error(E_MALLOC, NULL, 1);
-			current = current->next;
-		}
-		ft_strdel(&line);
-	}
-	ft_strdel(&line);
-}
-
-void		create_light(t_env *e, t_lgt *lgt, char *type)
+static void	create_light(t_env *e, t_lgt *lgt, char *type)
 {
 	char	*line;
 
@@ -94,4 +69,29 @@ void		create_light(t_env *e, t_lgt *lgt, char *type)
 	}
 	ft_strdel(&line);
 	lgt->next = NULL;
+}
+
+void		parse_lights(t_env *e, char *str)
+{
+	int		i;
+	char	*line;
+	t_lgt	*current;
+
+	(i = ft_atoi(ft_strstr(str, ":") + 1)) == 0 ? error(E_LINIT, NULL, 1) : 0;
+	!(current = (t_lgt*)malloc(sizeof(t_lgt))) ? error(E_MALLOC, NULL, 1) : 0;
+	e->lgt = current;
+	while (i > 0 && get_next_line(e->arg.fd, &line) > 0)
+	{
+		if (ft_strstr(line, "- type:"))
+		{
+			i--;
+			create_light(e, current, line);
+			if (i > 0)
+				if (!(current->next = (t_lgt*)malloc(sizeof(t_lgt))))
+					error(E_MALLOC, NULL, 1);
+			current = current->next;
+		}
+		ft_strdel(&line);
+	}
+	ft_strdel(&line);
 }
