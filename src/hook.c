@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:06:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:24:54 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ int	loop_hook(t_env *e)
 int	expose_hook(t_env *e)
 {
 	if (e->key.up || e->key.down || e->key.left || e->key.right)
-	{
 		raytracing(e);
-		image_filter(&e->cam->img, &e->cam->filter, invert);
-	}
-	//image_filter(&e->cam->img, &e->cam->filter, gamma);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	return (0);
 }
@@ -38,6 +34,7 @@ int	key_pressed(int keycode, t_env *e)
 {
 	keycode == 53 ? exit(0) : 0;
 	keycode == 18 ? kswitch(&e->cam->filter.invert) : 0;
+	keycode == 19 ? kswitch(&e->cam->filter.grey_scale) : 0;
 	keycode == 42 ? viewer_export(e, &e->cam->img) : 0;
 	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;

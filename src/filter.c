@@ -3,40 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   filter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 10:41:39 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:03:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:24:28 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	image_filter(t_img *img, t_filter *filter,
-					void (*f)(t_filter *filter, char *, char *, char *))
-{
-	unsigned int	len;
-	unsigned int	i;
-
-	i = 0;
-	len = img->sl * img->h;
-	if (img->img == NULL || f == NULL)
-		return ;
-	while (i < len)
-	{
-		if (i + 4 < len)
-			f(filter, &img->img[i], &img->img[i + 1],
-				&img->img[i + 2]);
-		i += 4;
-	}
-}
-
-void	invert(t_filter *filter, char *r, char *g, char *b)
+void	invert(t_filter *filter, t_vec3 *color)
 {
 	if (filter->invert)
 	{
-		*r = 255 - *r;
-		*g = 255 - *g;
-		*b = 255 - *b;
+		color->x = 1.0 - color->x;
+		color->y = 1.0 - color->y;
+		color->z = 1.0 - color->z;
+	}
+}
+
+void	grey_scale(t_filter *filter, t_vec3 *color)
+{
+	char	m;
+
+	if (filter->grey_scale)
+	{
+		m = (color->x + color->y + color->z) / 3;
+		*color = vec3(m, m, m);
+		vec3_clamp(color, 0, 1);
 	}
 }
