@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 09:49:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:02:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ typedef struct		s_img
 	int				h;
 }					t_img;
 
+typedef struct		s_filter
+{
+	char			invert;
+	double			gamma;
+}					t_filter;
+
 typedef struct		s_mat
 {
 	t_vec3			color;
@@ -102,6 +108,7 @@ typedef struct		s_cam
 	t_grad			gradient;
 	t_img			img;
 	t_ray			ray;
+	t_filter		filter;
 	int				index;
 	double			xa;
 	double			ya;
@@ -272,6 +279,7 @@ int					vec3_hex(const t_vec3 vec);
 
 int					str_digit(char *str);
 void				vec3_print(const t_vec3 vec); //TEMPORARY
+void				kswitch(char *k);
 
 /*
 **	core.c
@@ -287,6 +295,14 @@ int					loop_hook(t_env *e);
 int					expose_hook(t_env *e);
 int					key_pressed(int keycode, t_env *e);
 int					key_released(int keycode, t_env *e);
+
+/*
+**	filter.c
+*/
+
+void				image_filter(t_img *img, t_filter *filter,
+						void (*f)(t_filter *filter, char *, char *, char *));
+void				invert(t_filter *filter, char *r, char *g, char *b);
 
 /*
 **	viewer_export.c
