@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 08:03:58 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 08:15:45 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static char	*get_full_name(char *name)
 	if (!(buffer = ft_strjoin(buffer, "_%d_%m_%Y_%H-%M-%S")))
 		error(E_MALLOC, NULL, 1);
 	ft_strdel(&del);
-	if (!(f_name = (char *)malloc(sizeof(char) * 128)))
-		error(E_MALLOC, NULL, 1);
+	!(f_name = ft_strnew(128)) ? error(E_MALLOC, NULL, 1) : 0;
 	strftime(f_name, 128, buffer, localtime(&epoch));
 	ft_strdel(&buffer);
 	del = f_name;
