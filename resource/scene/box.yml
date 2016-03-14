@@ -31,7 +31,7 @@ objects: 5
 		  specular: 2
 		  shininess: 2048
 		  reflect: 0.15
-		  refract: 1.33
+		  refract: 1.13
 		  transparency: 0.7
 		  absorbtion: 0.8
 	---

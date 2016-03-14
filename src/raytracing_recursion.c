@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_recursion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 09:30:15 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 10:33:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,28 @@ static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	double	cosI;
 	double	cosT;
 	double	sinT2;
+	t_vec3	normal;
 
 	ray->pos = ray->hit;
-	cosI = vec3_dot(obj->normal, ray->dir);
-	e->refract.n1 = 1.0;
-	e->refract.n2 = obj->mat.refract;
+	normal = obj->normal;
+	cosI = vec3_dot(normal, ray->dir);
+	if (cosI > 0.0)
+	{
+		e->refract.n1 = obj->mat.refract;
+		e->refract.n2 = 1.0;
+		normal = vec3_fmul(normal, -1.0);
+	}
+	else
+	{
+		e->refract.n1 = 1.0;
+		e->refract.n2 = obj->mat.refract;
+		cosI = -cosI;
+	}
 	n = e->refract.n1 / e->refract.n2;
 	sinT2 = n * n * (1.0 - cosI * cosI);
 	cosT = sqrt(1.0 - sinT2);
 	ray->dir = vec3_add(vec3_fmul(ray->dir, n),
-	vec3_fmul(obj->normal, (n * cosI - cosT)));
+	vec3_fmul(normal, (n * cosI - cosT)));
 	vec3_normalize(&ray->dir);
 }
 
