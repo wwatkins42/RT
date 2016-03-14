@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 08:12:44 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 09:49:08 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ typedef struct		s_obj
 	t_mat			mat;
 	short			type;
 	double			scale;
-	double			scale2; // test opti
+	double			scale2;
+	double			k;
 	double			t;
 	struct s_obj	*next;
 }					t_obj;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 07:56:13 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 09:50:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 	}
 	parse_material(e, obj);
 	obj->scale2 = obj->scale * obj->scale;
+	obj->k = tan(obj->scale);
+	obj->k *= obj->k;
 	ft_strdel(&line);
 	obj->next = NULL;
 }
