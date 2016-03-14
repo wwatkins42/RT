@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 14:57:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 08:24:18 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ int	key_pressed(int keycode, t_env *e)
 	keycode == 42 ? viewer_export(e, &e->cam->img) : 0;
 	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
-	keycode == 43 ? e->cam = e->cam->next, raytracing(e) : 0;
-	keycode == 47 ? e->cam = e->cam->prev, raytracing(e) : 0;
+	keycode == 43 ? e->cam = e->cam->next : 0;
+	keycode == 47 ? e->cam = e->cam->prev : 0;
 	keycode == 126 ? e->key.up = 1 : 0;
 	keycode == 125 ? e->key.down = 1 : 0;
 	keycode == 123 ? e->key.left = 1 : 0;
 	keycode == 124 ? e->key.right = 1 : 0;
+	if (keycode == 43 || keycode == 47) // TMP
+		raytracing(e);
 	return (0);
 }
 

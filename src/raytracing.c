@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 11:50:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 08:21:25 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	raytracing(t_env *e)
 	int		y;
 	t_vec3	color;
 
+	init_cam(e, e->cam);
 	color = (t_vec3) {0, 0, 0};
 	y = -1;
 	while (++y < e->win.h)

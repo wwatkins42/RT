@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 14:33:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 08:24:24 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	core(t_env *e)
 {
-	init_cam(e, e->cam);
 	init_key(e);
 	raytracing(e);
 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
