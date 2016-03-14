@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:37:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:51:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,9 +305,9 @@ int					key_released(int keycode, t_env *e);
 **	filter.c
 */
 
-void				filter_gamma(t_filter *filter, t_vec3 *color);
-void				filter_invert(t_filter *filter, t_vec3 *color);
-void				filter_gray_scale(t_filter *filter, t_vec3 *color);
+void				filter_gamma(double gamma, t_vec3 *color);
+void				filter_invert(t_vec3 *color);
+void				filter_gray_scale(t_vec3 *color);
 
 /*
 **	viewer_export.c

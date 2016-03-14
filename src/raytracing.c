@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:34:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:53:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	raytracing(t_env *e)
 		{
 			raytracing_init(e, x, y);
 			color = raytracing_draw(e, e->cam->ray);
-			filter_invert(&e->cam->filter, &color);
-			filter_gamma(&e->cam->filter, &color);
-			filter_gray_scale(&e->cam->filter, &color);
+			e->cam->filter.invert ? filter_invert(&color) : 0;
+			e->cam->filter.gray_scale ? filter_gray_scale(&color) : 0;
+			filter_gamma(e->cam->filter.gamma, &color);
+			vec3_clamp(&color, 0, 1);
 			img_pixel_put(e, x, y, color);
 		}
 	}
@@ -69,6 +70,5 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		if (obj->mat.transparency > 0 && obj->mat.refract > 0)
 		 	color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}
-	vec3_clamp(&color, 0, 1);
 	return (color);
 }

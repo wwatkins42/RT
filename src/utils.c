@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 10:58:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:43:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ int				str_digit(char *str)
 	return (0);
 }
 
-
-
-// TEMPORARY
-void			vec3_print(const t_vec3 vec)
-{
-	printf("vec3(%f, %f, %f)\n", vec.x, vec.y, vec.z);
-}
-
 void    kswitch(char *k)
 {
     int t;
@@ -36,4 +28,10 @@ void    kswitch(char *k)
     *k == 1 ? t = 1 : 0;
     *k == 1 ? *k = 0 : 0;
     *k == 0 && t != 1 ? *k = 1 : 0;
+}
+
+// TEMPORARY
+void			vec3_print(const t_vec3 vec)
+{
+	printf("vec3(%f, %f, %f)\n", vec.x, vec.y, vec.z);
 }

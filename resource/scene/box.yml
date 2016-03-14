@@ -41,11 +41,11 @@ objects: 5
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0xFF0000
-		  ambient: 0.125
+		  ambient: 0.225
 		  diffuse: 0.775
-		  specular: 8
+		  specular: 2
 		  shininess: 700
-		  reflect: 0.2
+		  reflect: 0.1
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
@@ -56,11 +56,11 @@ objects: 5
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x00FF00
-		  ambient: 0.125
+		  ambient: 0.225
 		  diffuse: 0.775
-		  specular: 8
+		  specular: 2
 		  shininess: 700
-		  reflect: 0.2
+		  reflect: 0.1
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
@@ -73,9 +73,9 @@ objects: 5
 		  color: 0x0000FF
 		  ambient: 0.125
 		  diffuse: 0.775
-		  specular: 8
+		  specular: 2
 		  shininess: 700
-		  reflect: 0.2
+		  reflect: 0.1
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1

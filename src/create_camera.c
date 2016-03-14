@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_camera.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 14:19:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:26:35 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 11:42:23 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	default_camera(t_env *e, t_cam *current)
 		current->fov = 60;
 		current->img = img_init(e, e->win.w, e->win.h);
 		current->filter.invert = 0;
-		current->filter.grey_scale = 0;
+		current->filter.gray_scale = 0;
 		current->filter.gamma = 1.0;
 	}
 }
