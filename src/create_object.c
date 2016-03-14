@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/13 14:58:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:51:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		create_object(t_env *e, t_obj *obj, char *type)
 		ft_strdel(&line);
 	}
 	parse_material(e, obj);
+	obj->scale2 = obj->scale * obj->scale;
 	ft_strdel(&line);
 	obj->next = NULL;
 }

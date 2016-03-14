@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 13:08:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 07:52:37 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	//calc.a = vec3_dot(ray->dir, ray->dir);
 	calc.b = vec3_dot(calc.len, ray->dir);
-	calc.c = vec3_dot(calc.len, calc.len) - obj->scale * obj->scale;
+	calc.c = vec3_dot(calc.len, calc.len) - obj->scale2;
 	calc.disc = calc.b * calc.b - /*calc.a **/ calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
@@ -66,15 +66,16 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 double	intersect_cylinder(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
+	double		ro; //TMP
+	double		lo; //TMP
 
 	vec3_normalize(&obj->dir);
 	calc.len = vec3_sub(ray->pos, obj->pos);
-	calc.a = vec3_dot(ray->dir, ray->dir) - vec3_dot(ray->dir, obj->dir) *
-		vec3_dot(ray->dir, obj->dir);
-	calc.b = vec3_dot(ray->dir, calc.len) - vec3_dot(ray->dir, obj->dir) *
-		vec3_dot(calc.len, obj->dir);
-	calc.c = vec3_dot(calc.len, calc.len) - vec3_dot(calc.len, obj->dir) *
-		vec3_dot(calc.len, obj->dir) - obj->scale * obj->scale; // can be done only at each modification of value.
+	ro = vec3_dot(ray->dir, obj->dir);
+	lo = vec3_dot(calc.len, obj->dir);
+	calc.a = vec3_dot(ray->dir, ray->dir) - ro * ro;
+	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
+	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale2; // can be done only at each modification of value.
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
@@ -85,16 +86,17 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
 	double		k;
+	double		lo; // tmp
+	double		ro; // tmp
 
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	k = tan(obj->scale);	// tan(obj->scale) can be done at each modification of obj-scale value
 	k *= k;			// instead of each ray for each frame.
-	calc.a = /*vec3_dot(ray->dir, ray->dir)*/ 1.0 - (1 + k) *
-		vec3_dot(ray->dir, obj->dir) * vec3_dot(ray->dir, obj->dir);
-	calc.b = vec3_dot(ray->dir, calc.len) - (1 + k) *
-		vec3_dot(ray->dir, obj->dir) * vec3_dot(calc.len, obj->dir);
-	calc.c = vec3_dot(calc.len, calc.len) - (1 + k) *
-		vec3_dot(calc.len, obj->dir) * vec3_dot(calc.len, obj->dir); // redondant calcul, can be done once and re-used
+	lo = vec3_dot(calc.len, obj->dir);
+	ro = vec3_dot(ray->dir, obj->dir);
+	calc.a = /*vec3_dot(ray->dir, ray->dir)*/ 1.0 - (1 + k) * ro * ro;
+	calc.b = vec3_dot(ray->dir, calc.len) - (1 + k) * ro * lo;
+	calc.c = vec3_dot(calc.len, calc.len) - (1 + k) * lo * lo; // redondant calcul, can be done once and re-used
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:34:47 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:52:25 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct		s_obj
 	t_mat			mat;
 	short			type;
 	double			scale;
+	double			scale2; // test opti
 	double			t;
 	struct s_obj	*next;
 }					t_obj;
@@ -255,7 +256,7 @@ void				set_normal(t_ray *ray, t_obj *obj);
 
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
-t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light);
+t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj);
 /*
