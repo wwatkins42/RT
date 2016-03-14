@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/11 19:10:02 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 13:21:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	parse(t_env *e)
 	char	*line;
 
 	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
-		error(strerror(errno), NULL, 1);
-	//ft_strdel(&e->arg.file);
+		error(strerror(errno), e->arg.file, 1);
 	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "...") != 0)
 	{
 		if (ft_strstr(line, "cameras:"))

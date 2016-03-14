@@ -39,9 +39,9 @@ objects: 7
 		  diffuse: 0.275
 		  specular: 4.0
 		  shininess: 1024
-		  reflect: 0.15
-		  refract: 1.83
-		  transparency: 0.74
+		  reflect: 0.05
+		  refract: 2.27
+		  transparency: 0.81
 		  absorbtion: 0.8
 	---
 	- type: PLANE
