@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:25:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 11:34:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	raytracing(t_env *e)
 		{
 			raytracing_init(e, x, y);
 			color = raytracing_draw(e, e->cam->ray);
-			invert(&e->cam->filter, &color);
-			grey_scale(&e->cam->filter, &color); 
+			filter_invert(&e->cam->filter, &color);
+			filter_gamma(&e->cam->filter, &color);
+			filter_gray_scale(&e->cam->filter, &color);
 			img_pixel_put(e, x, y, color);
 		}
 	}

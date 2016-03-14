@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 13:27:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 11:38:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,8 @@ void	init_key(t_env *e)
 	e->key.down = 0;
 	e->key.left = 0;
 	e->key.right = 0;
+	e->key.invert = 0;
+	e->key.gray_scale = 0;
+	e->key.gamma_m = 0;
+	e->key.gamma_p = 0;
 }

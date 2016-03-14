@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:21:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 11:37:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ typedef struct		s_key
 	short			down;
 	short			left;
 	short			right;
+	short			invert;
+	short			gray_scale;
+	short			gamma_m;
+	short			gamma_p;
 }					t_key;
 
 typedef struct		s_img
@@ -70,7 +74,7 @@ typedef struct		s_img
 typedef struct		s_filter
 {
 	char			invert;
-	char			grey_scale;
+	char			gray_scale;
 	double			gamma;
 }					t_filter;
 
@@ -301,8 +305,10 @@ int					key_released(int keycode, t_env *e);
 **	filter.c
 */
 
-void				invert(t_filter *filter, t_vec3 *color);
-void				grey_scale(t_filter *filter, t_vec3 *color);
+void				filter_gamma(t_filter *filter, t_vec3 *color);
+void				filter_invert(t_filter *filter, t_vec3 *color);
+void				filter_gray_scale(t_filter *filter, t_vec3 *color);
+
 /*
 **	viewer_export.c
 */

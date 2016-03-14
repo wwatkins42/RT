@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   filter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 10:41:39 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:24:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 11:38:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	invert(t_filter *filter, t_vec3 *color)
+void	filter_invert(t_filter *filter, t_vec3 *color)
 {
 	if (filter->invert)
 	{
@@ -22,14 +22,24 @@ void	invert(t_filter *filter, t_vec3 *color)
 	}
 }
 
-void	grey_scale(t_filter *filter, t_vec3 *color)
+void	filter_gray_scale(t_filter *filter, t_vec3 *color)
 {
-	char	m;
+	double	m;
 
-	if (filter->grey_scale)
+	if (filter->gray_scale)
 	{
-		m = (color->x + color->y + color->z) / 3;
+		m = (color->x + color->y + color->z) / 3.0;
 		*color = vec3(m, m, m);
 		vec3_clamp(color, 0, 1);
+	}
+}
+
+void	filter_gamma(t_filter *filter, t_vec3 *color)
+{
+	if (filter->gamma != 1.0)
+	{
+		color->x = powf(color->x, filter->gamma);
+		color->y = powf(color->y, filter->gamma);
+		color->z = powf(color->z, filter->gamma);
 	}
 }
