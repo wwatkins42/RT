@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/12 10:27:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:34:31 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ t_vec3	hex_vec3(const int hex)
 	color.y = (hex >> 8) % 256 / 255.0;
 	color.x = (hex >> 16) % 256 / 255.0;
 	return (color);
+}
+
+int		vec3_hex(const t_vec3 vec)
+{
+	int		hex;
+
+	hex = (vec.z * 255);
+	hex += (vec.y * 255) * 256;
+	hex += (vec.x * 255) * 256 * 256;
+	return (hex);
 }

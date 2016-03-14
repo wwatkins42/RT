@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 14:56:57 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/14 07:34:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ t_img				img_init(t_env *e, int w, int h);
 void				img_pixel_put(t_env *e, int x, int y, t_vec3 color);
 void				img_pixel_put_hex(t_env *e, int x, int y, int hex);
 t_vec3				hex_vec3(const int hex);
+int					vec3_hex(const t_vec3 vec);
 
 /*
 **	utils.c
