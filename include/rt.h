@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:51:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/14 12:20:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,13 @@ typedef	struct		s_grad
 	float			*pos;
 }					t_grad;
 
+typedef struct		s_aa
+{
+	double			supersampling;
+	double			supersampling_inc;
+	double			supersampling_coeff;
+}					t_aa;
+
 typedef struct		s_cam
 {
 	t_vec3			pos;
@@ -114,6 +121,7 @@ typedef struct		s_cam
 	t_img			img;
 	t_ray			ray;
 	t_filter		filter;
+	t_aa			aa;
 	int				index;
 	double			xa;
 	double			ya;
@@ -238,7 +246,7 @@ void				init_key(t_env *e);
 */
 
 void				raytracing(t_env *e);
-void				raytracing_init(t_env *e, int x, int y);
+void				raytracing_init(t_env *e, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
 
 /*
@@ -268,6 +276,13 @@ t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj);
+
+/*
+**	antialiasing.c
+*/
+
+void				supersampling(t_env *e, int x, int y);
+
 /*
 **	draw.c
 */
