@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/15 10:13:32 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/15 14:12:43 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 NAME = rt
 VIEWER = ./viewer/
 CC = gcc
-CFLGS = -Werror -Wextra -Wall -Ofast
+CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
-			filter.c antialiasing.c bmp_importer.c
+			filter.c antialiasing.c
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

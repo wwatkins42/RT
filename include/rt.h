@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 12:06:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 12:36:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct		s_filter
 typedef struct		s_mat
 {
 	t_vec3			color;
+	t_texture		texture;
 	double			ambient;
 	double			diffuse;
 	double			specular;
@@ -158,7 +159,6 @@ typedef struct		s_obj
 	t_vec3			dir;
 	t_vec3			normal;
 	t_mat			mat;
-	t_texture		texture;
 	short			type;
 	double			scale;
 	double			scale2;
