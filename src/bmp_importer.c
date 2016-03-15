@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 17:17:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:52:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 static t_texture	read_header(char *file_path)
 {
 	t_texture	texture;
+	FILE		*file;
 
-	FILE *file = fopen(file_path, "r");
+	if ((file = fopen(file_path, "r")) == NULL)
+		error(strerror(errno), file_path, 1);
 	fseek(file, 18, SEEK_SET);
     fread(&texture.w, 4, 1, file);
     fread(&texture.h, 4, 1, file);
 	fseek(file, 2, SEEK_CUR);
 	fread(&texture.bpp, 2, 1, file);
 	fseek(file, 54, SEEK_SET);
-	fclose(file);
+	if ((fclose(file)) != 0)
+		error(strerror(errno), NULL, 1);
 	texture.opp = texture.bpp / 8;
 	texture.sl = texture.w * texture.opp;
 	texture.defined = 1;
@@ -38,17 +41,20 @@ static void			read_image(t_texture *texture, int fd)
 	int			y;
 	char		*buf;
 
-	buf = (char*)malloc(sizeof(char) * texture->sl * texture->h + 1);
+	if ((buf = malloc(sizeof(char) * texture->sl * texture->h + 1)) == NULL)
+		error(E_MALLOC, NULL, 1);
 	texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h);
 	lseek(fd, 54, SEEK_SET);
-	i = read(fd, buf, texture->sl * texture->h);
+	if ((i = read(fd, buf, texture->sl * texture->h)) == -1)
+		error(strerror(errno), NULL, 1);
 	y = 0;
 	while (i >= 0)
 	{
 		i -= texture->sl;
 		j = 0;
 		x = 0;
-		texture->img[y] = (t_vec3*)malloc(sizeof(t_vec3) * texture->w);
+		if ((texture->img[y] = malloc(sizeof(t_vec3) * texture->w)) == NULL)
+			error(E_MALLOC, NULL, 1);
 		while (j < texture->sl)
 		{
 			texture->img[y][x].x = (double)(buf[i + j + 2] & 0xFF) / 255.0;

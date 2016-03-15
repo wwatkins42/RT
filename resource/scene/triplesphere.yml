@@ -34,8 +34,8 @@ objects: 2
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.225
-		  diffuse: 0.875
+		  ambient: 0.125
+		  diffuse: 0.975
 		  specular: 1.0
 		  shininess: 1024
 		  reflect: 0.075
@@ -45,19 +45,19 @@ objects: 2
 		  texture: resource/texture/earth.bmp
 	---
 	- type: SPHERE
-	  scale: 1
+	  scale: 0.75
 	  pos: {x: 0, y: 0, z: 7}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.225
-		  diffuse: 0.875
+		  ambient: 0.125
+		  diffuse: 0.775
 		  specular: 1.0
 		  shininess: 1024
 		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/hedge.bmp
+		  texture: resource/texture/jupiter.bmp
 	---
 ...
