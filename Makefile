@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/14 12:09:39 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/15 09:18:45 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 NAME = rt
 VIEWER = ./viewer/
 CC = gcc
-CFLGS = -Werror -Wextra -Wall
+CFLGS = -Werror -Wextra -Wall -Ofast
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \

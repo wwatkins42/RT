@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 08:15:27 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/15 09:20:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,9 +322,9 @@ int					key_released(int keycode, t_env *e);
 */
 
 void				filter(t_img *img, const t_filter filter);
-void				filter_gamma(double gamma, char *r, char *g, char *b);
-void				filter_invert(char *r, char *g, char *b);
-void				filter_gray_scale(char *r, char *g, char *b);
+void				filter_invert(t_vec3 *color);
+void				filter_gray_scale(t_vec3 *color);
+void				filter_gamma(double gamma, t_vec3 *color);
 
 /*
 **	viewer_export.c
