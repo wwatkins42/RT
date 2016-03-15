@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/13 15:01:02 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/15 12:06:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	parse(&e);
+	e->obj->texture = bmp_importer("resource/images/wallsphere_15_03_2016_10-19-39.bmp");
 	core(&e);
 	return (0);
 }

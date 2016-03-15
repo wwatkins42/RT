@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/15 09:18:45 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/15 10:13:32 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
-			filter.c antialiasing.c
+			filter.c antialiasing.c bmp_importer.c
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 09:20:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 12:06:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ typedef struct		s_key
 	short			gamma_m;
 	short			gamma_p;
 }					t_key;
+
+typedef struct		s_texture
+{
+	t_vec3			*img;
+	int				w;
+	int				h;
+	int				sl;
+	short			bpp;
+	short			opp;
+}					t_texture;
 
 typedef struct		s_img
 {
@@ -148,6 +158,7 @@ typedef struct		s_obj
 	t_vec3			dir;
 	t_vec3			normal;
 	t_mat			mat;
+	t_texture		texture;
 	short			type;
 	double			scale;
 	double			scale2;
@@ -335,7 +346,14 @@ void				viewer_export(t_env *e, t_img *img);
 /*
 **	bmp_exporter.c
 */
+
 void				bmp_exporter(t_img image, char *name);
+
+/*
+**	bmp_importer.c
+*/
+
+t_texture			bmp_importer(char *file_path);
 
 /*
 **	yml_exporter.c && yml_write.c
