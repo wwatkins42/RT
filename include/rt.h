@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 12:36:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:09:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ typedef struct		s_key
 
 typedef struct		s_texture
 {
-	t_vec3			*img;
+	t_vec3			**img;
 	int				w;
 	int				h;
 	int				sl;
 	short			bpp;
 	short			opp;
+	short			defined;
 }					t_texture;
 
 typedef struct		s_img
@@ -288,6 +289,13 @@ t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj);
+
+/*
+**	texture.c
+*/
+
+t_vec3				texture_mapping_sphere(t_vec3 hit, t_obj *obj);
+
 
 /*
 **	antialiasing.c

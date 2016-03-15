@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 16:57:23 by wwatkins         ###   ########.fr       */
+/*   Created: 2016/03/15 17:08:14 by wwatkins          #+#    #+#             */
+/*   Updated: 2016/03/15 17:11:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	core(t_env *e)
+t_vec3	texture_mapping_sphere(t_vec3 hit, t_obj *obj)
 {
-	init_key(e);
-	raytracing(e);
-	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
-	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
-	mlx_expose_hook(e->win.adr, expose_hook, e);
-	mlx_loop_hook(e->mlx, loop_hook, e);
-	mlx_loop(e->mlx);
+	t_vec3	d;
+	double	u;
+	double	v;
+	int		i;
+	int		j;
+
+	if (!obj->mat.texture.defined)
+		return (obj->mat.color);
+	else
+	{
+		d = vec3_sub(hit, obj->pos);
+		u = 0.5 + atan2(d.z, d.x) / (2.0 * M_PI);
+		v = 0.5 - asin(d.y) / M_PI;
+		i = (u * obj->mat.texture.w);
+		j = (v * obj->mat.texture.h);
+		return (obj->mat.texture.img[j][i]);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 09:50:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:19:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	default_object(t_obj *obj)
 	obj->mat.refract = 0;
 	obj->mat.transparency = 0;
 	obj->mat.absorbtion = 0;
+	obj->mat.texture.defined = 0;
 }
 
 static void	parse_material(t_env *e, t_obj *obj)
@@ -55,6 +56,8 @@ static void	parse_material(t_env *e, t_obj *obj)
 			obj->mat.transparency = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "absorbtion: "))
 			obj->mat.absorbtion = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "texture: "))
+			obj->mat.texture = bmp_importer(ft_strstr(line, ":") + 2);
 		else
 			error(E_OPARAM, line, 0);
 		ft_strdel(&line);

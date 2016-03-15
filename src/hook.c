@@ -6,11 +6,29 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:40:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 16:57:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+// static void	disp_texture(t_env *e)
+// {
+// 	int	x;
+// 	int	y;
+//
+// 	y = 0;
+// 	while (y < e->obj->mat.texture.h)
+// 	{
+// 		x = 0;
+// 		while (x < e->obj->mat.texture.w)
+// 		{
+// 			img_pixel_put(&e->cam->img, x, y, e->obj->mat.texture.img[y][x]);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 int	loop_hook(t_env *e)
 {
@@ -31,6 +49,7 @@ int	expose_hook(t_env *e)
 	if (e->key.up || e->key.down || e->key.left || e->key.right ||
 		e->key.invert || e->key.gray_scale || e->key.gamma_m || e->key.gamma_p)
 		raytracing(e);
+	// disp_texture(e);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	return (0);
 }

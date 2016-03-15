@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 14:11:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:16:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	parse(&e);
+//	e.obj->mat.texture = bmp_importer("earth.bmp");
 	core(&e);
 	return (0);
 }

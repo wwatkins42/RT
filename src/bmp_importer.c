@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 14:05:02 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:17:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_texture	read_header(char *file_path)
 	fclose(file);
 	texture.opp = texture.bpp / 8;
 	texture.sl = texture.w * texture.opp;
+	texture.defined = 1;
 	return (texture);
 }
 
@@ -33,27 +34,30 @@ static void			read_image(t_texture *texture, int fd)
 {
 	int			i;
 	int			j;
-	int			k;
+	int			x;
+	int			y;
 	char		*buf;
 
-	buf = malloc(sizeof(char) * texture->sl * texture->h + 1);
-	texture->img = malloc(sizeof(t_vec3) * texture->w * texture->h);
+	buf = (char*)malloc(sizeof(char) * texture->sl * texture->h + 1);
+	texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h);
 	lseek(fd, 54, SEEK_SET);
-	read(fd, buf, texture->sl * texture->h);
-	i = texture->sl * texture->h - 1;
-	j = 0;
+	i = read(fd, buf, texture->sl * texture->h);
+	y = 0;
 	while (i >= 0)
 	{
 		i -= texture->sl;
-		k = 0;
-		while (k < texture->sl)
+		j = 0;
+		x = 0;
+		texture->img[y] = (t_vec3*)malloc(sizeof(t_vec3) * texture->w);
+		while (j < texture->sl)
 		{
-			texture->img[j].x = (float)buf[i + k] / 255.0;
-			texture->img[j].y = (float)buf[i + k + 1] / 255.0;
-			texture->img[j].z = (float)buf[i + k + 2] / 255.0;
-			j++;
-			k += 3;
+			texture->img[y][x].x = (double)(buf[i + j + 2] & 0xFF) / 255.0;
+			texture->img[y][x].y = (double)(buf[i + j + 1] & 0xFF) / 255.0;
+			texture->img[y][x].z = (double)(buf[i + j] & 0xFF) / 255.0;
+			x++;
+			j += 3;
 		}
+		y++;
 	}
 	ft_strdel(&buf);
 }
