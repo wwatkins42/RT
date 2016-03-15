@@ -4,3 +4,4 @@
 *.git
 *.DS_Store
 *._.DS_Store
+errors.log
