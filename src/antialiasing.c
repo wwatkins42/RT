@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   antialiasing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:59:26 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 16:17:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 08:16:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	supersampling(t_env *e, int x, int y)
 		}
 		sx += e->cam->aa.inc;
 	}
-	e->cam->filter.invert ? filter_invert(&color) : 0;
-	e->cam->filter.gray_scale ? filter_gray_scale(&color) : 0;
-	filter_gamma(e->cam->filter.gamma, &color);
+	//e->cam->filter.invert ? filter_invert(&color) : 0;
+	//e->cam->filter.gray_scale ? filter_gray_scale(&color) : 0;
+	//filter_gamma(e->cam->filter.gamma, &color);
 	vec3_clamp(&color, 0, 1);
-	img_pixel_put(e, x, y, color);
+	img_pixel_put(&e->cam->img, x, y, color);
 }

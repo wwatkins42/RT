@@ -6,17 +6,17 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 07:34:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/15 08:16:16 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_img			img_init(t_env *e, int w, int h)
+t_img			img_init(t_env *e)
 {
 	t_img	img;
 
-	if (!(img.adr = mlx_new_image(e->mlx, w, h)))
+	if (!(img.adr = mlx_new_image(e->mlx, e->win.w, e->win.h)))
 		error(E_IMG_INIT, NULL, 1);
 	if (!(img.img = mlx_get_data_addr(img.adr, &img.bpp, &img.sl,
 		&img.endian)))
@@ -27,31 +27,31 @@ t_img			img_init(t_env *e, int w, int h)
 	return (img);
 }
 
-void	img_pixel_put_hex(t_env *e, int x, int y, int hex)
+void	img_pixel_put_hex(t_img *img, int x, int y, int hex)
 {
 	int pos;
 
-	if (x >= 0 && x < e->win.w && y >= 0 && y < e->win.h)
+	if (x >= 0 && x < img->w && y >= 0 && y < img->h)
 	{
-		pos = (x * e->cam->img.opp) + (y * e->cam->img.sl);
-		e->cam->img.img[pos] = hex % 256 / 255.0;
-		e->cam->img.img[pos + 1] = (hex >> 8) % 256 / 255.0;
-		e->cam->img.img[pos + 2] = (hex >> 16) % 256 / 255.0;
-		e->cam->img.img[pos + 3] = 0;
+		pos = (x * img->opp) + (y * img->sl);
+		img->img[pos] = hex % 256 / 255.0;
+		img->img[pos + 1] = (hex >> 8) % 256 / 255.0;
+		img->img[pos + 2] = (hex >> 16) % 256 / 255.0;
+		img->img[pos + 3] = 0;
 	}
 }
 
-void	img_pixel_put(t_env *e, int x, int y, t_vec3 color)
+void	img_pixel_put(t_img *img, int x, int y, t_vec3 color)
 {
 	int pos;
 
-	if (x >= 0 && x < e->win.w && y >= 0 && y < e->win.h)
+	if (x >= 0 && x < ing->w && y >= 0 && y < img->h)
 	{
-		pos = (x * e->cam->img.opp) + (y * e->cam->img.sl);
-		e->cam->img.img[pos] = color.z * 255;
-		e->cam->img.img[pos + 1] = color.y * 255;
-		e->cam->img.img[pos + 2] = color.x * 255;
-		e->cam->img.img[pos + 3] = 0;
+		pos = (x * img->opp) + (y * img->sl);
+		img->img[pos] = color.z * 255;
+		img->img[pos + 1] = color.y * 255;
+		img->img[pos + 2] = color.x * 255;
+		img->img[pos + 3] = 0;
 	}
 }
 

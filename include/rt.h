@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 17:17:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/15 08:15:27 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct		s_img
 
 typedef struct		s_filter
 {
+	t_img			img;
 	char			invert;
 	char			gray_scale;
 	double			gamma;
@@ -287,9 +288,9 @@ void				supersampling(t_env *e, int x, int y);
 **	draw.c
 */
 
-t_img				img_init(t_env *e, int w, int h);
-void				img_pixel_put(t_env *e, int x, int y, t_vec3 color);
-void				img_pixel_put_hex(t_env *e, int x, int y, int hex);
+t_img				img_init(t_env *e);
+void				img_pixel_put(t_img *img, int x, int y, t_vec3 color);
+void				img_pixel_put_hex(t_img *img, int x, int y, int hex);
 t_vec3				hex_vec3(const int hex);
 int					vec3_hex(const t_vec3 vec);
 
@@ -320,9 +321,10 @@ int					key_released(int keycode, t_env *e);
 **	filter.c
 */
 
-void				filter_gamma(double gamma, t_vec3 *color);
-void				filter_invert(t_vec3 *color);
-void				filter_gray_scale(t_vec3 *color);
+void				filter(t_img *img, const t_filter filter);
+void				filter_gamma(double gamma, char *r, char *g, char *b);
+void				filter_invert(char *r, char *g, char *b);
+void				filter_gray_scale(char *r, char *g, char *b);
 
 /*
 **	viewer_export.c
