@@ -22,7 +22,7 @@ objects: 2
 	  material:
 		  color: 0x5F5F5F
 		  ambient: 0.0025
-		  diffuse: 0.115
+		  diffuse: 0.085
 		  specular: 0.6
 		  shininess: 2048
 		  reflect: 0.25
@@ -37,9 +37,9 @@ objects: 2
 	  material:
 		  color: 0x0000FF
 		  ambient: 0.025
-		  diffuse: 0.975
-		  specular: 1.0
-		  shininess: 512
+		  diffuse: 0.875
+		  specular: 0.9
+		  shininess: 1024
 		  reflect: 0.2
 		  refract: 1
 		  transparency: 0

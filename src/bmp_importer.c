@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 17:52:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 09:48:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ static t_texture	read_header(char *file_path)
 	if ((file = fopen(file_path, "r")) == NULL)
 		error(strerror(errno), file_path, 1);
 	fseek(file, 18, SEEK_SET);
-    fread(&texture.w, 4, 1, file);
-    fread(&texture.h, 4, 1, file);
+	fread(&texture.w, 4, 1, file);
+	fread(&texture.h, 4, 1, file);
 	fseek(file, 2, SEEK_CUR);
 	fread(&texture.bpp, 2, 1, file);
-	fseek(file, 54, SEEK_SET);
 	if ((fclose(file)) != 0)
 		error(strerror(errno), NULL, 1);
 	texture.opp = texture.bpp / 8;

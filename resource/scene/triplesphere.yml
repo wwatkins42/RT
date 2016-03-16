@@ -14,36 +14,14 @@ cameras: 2
 	  supersampling: 1
 	  background: "./resource/gradient/sunset.yml"
 	---
-lights: 2
+lights: 1
 	- type: POINT
-	  pos: {x: 0, y: 2, z: 8}
-	  color: 0xF1CB29
-	  intensity: 0.85
-	  shadow: HARD
-	---
-	- type: POINT
-	  pos: {x: 5, y: -2, z: 7}
+	  pos: {x: 1, y: 3.5, z: 4}
 	  color: 0xF9DAC9
-	  intensity: 1.0
+	  intensity: 1.25
 	  shadow: HARD
 	---
-objects: 2
-	- type: SPHERE
-	  scale: 1
-	  pos: {x: 0, y: 0, z: 5}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.125
-		  diffuse: 0.975
-		  specular: 1.0
-		  shininess: 1024
-		  reflect: 0.075
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-		  texture: resource/texture/earth.bmp
-	---
+objects: 3
 	- type: SPHERE
 	  scale: 0.75
 	  pos: {x: 0, y: 0, z: 7}
@@ -52,12 +30,44 @@ objects: 2
 		  color: 0x364A90
 		  ambient: 0.125
 		  diffuse: 0.775
-		  specular: 1.0
-		  shininess: 1024
+		  specular: 0.2
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+		  texture: resource/texture/mars.bmp
+	---
+	- type: SPHERE
+	  scale: 0.75
+	  pos: {x: 1.5, y: 0, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.125
+		  diffuse: 0.775
+		  specular: 0.2
+		  shininess: 512
 		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
 		  texture: resource/texture/jupiter.bmp
+	---
+	- type: SPHERE
+	  scale: 0.75
+	  pos: {x: -1.5, y: 0, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.125
+		  diffuse: 0.775
+		  specular: 0.2
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+		  texture: resource/texture/pluto.bmp
 	---
 ...

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 17:08:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 09:59:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 		color = vec3_add(color, vec3_add(diffuse, specular));
 		color = vec3_mul(color, obj->mat.color);
 		color = vec3_fmul(color, light->intensity);
-		set_shadow(e, &color, light->ray, obj);
+		set_shadow(e, &color, *light, obj);
 		light = light->next;
 	}
 	return (color);
@@ -63,16 +63,18 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 
 void	set_light(t_vec3 hit, t_lgt *light)
 {
-	light->ray.pos = light->pos;
-	light->ray.dir = vec3_sub(hit, light->pos);
+	light->ray.pos = hit;
+	light->ray.dir = vec3_sub(light->pos, hit);
 	vec3_normalize(&light->ray.dir);
 }
 
-void	set_shadow(t_env *e, t_vec3 *color, t_ray ray, t_obj *obj)
+void	set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
 	double	tmin;
 
 	tmin = INFINITY;
-	if (intersect_object(e, &ray, &tmin) != obj)
+	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
+	light.ray.pos = light.pos;
+	if (intersect_object(e, &light.ray, &tmin) != obj)
 		*color = vec3_fmul(*color, 0.5);
 }
