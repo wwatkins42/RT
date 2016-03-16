@@ -19,3 +19,4 @@ __Bonus:__
 - Texture mapping (plane, sphere)
 - Changeable field of view
 - Super-sampling (anti-aliasing)
+- Error log
