@@ -51,7 +51,7 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/clouds_3k.bmp
+		  texture: ../texture/clouds_3k.bmp
 		  shadow: 0
 	---
 	- type: SPHERE
@@ -68,7 +68,7 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/wood1.bmp
+		  texture: ../texture/wood1.bmp
 	---
 	- type: SPHERE
 	  scale: 0.75
@@ -84,6 +84,6 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/paper.bmp
+		  texture: ../texture/paper.bmp
 	---
 ...
