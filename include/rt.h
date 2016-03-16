@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 09:59:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:02:46 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ typedef struct		s_texture
 	short			opp;
 	short			defined;
 }					t_texture;
+
+typedef struct		s_noise
+{
+	double			*noise;
+	int				w_max;
+	int				h_max;
+	int				len;
+	int				pas;
+	int				octave;
+}					t_noise;
 
 typedef struct		s_img
 {
@@ -297,6 +307,11 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 t_vec3				texture_mapping_sphere(t_vec3 hit, t_obj *obj);
 
 
+/*
+**	noise.c && texture_generator.c
+*/
+double				noise(t_noise *noise, double x, double y, double per);
+t_noise				init_noise_structure(int w, int h, int pas, int octave);
 /*
 **	antialiasing.c
 */

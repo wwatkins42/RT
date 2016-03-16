@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/15 17:09:11 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/16 11:04:09 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
-			filter.c antialiasing.c bmp_importer.c texture.c
+			filter.c antialiasing.c bmp_importer.c texture.c noise.c
 
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
