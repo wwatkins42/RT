@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 11:02:46 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/16 12:11:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct		s_mat
 	double			refract;
 	double			transparency;
 	double			absorbtion;
+	short			shadow;
 }					t_mat;
 
 typedef struct		s_ray
@@ -306,12 +307,20 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 
 t_vec3				texture_mapping_sphere(t_vec3 hit, t_obj *obj);
 
+/*
+**	texture_generator.c
+*/
+
+t_texture			texture_generator(int type, int width, int height);
+
 
 /*
 **	noise.c && texture_generator.c
 */
+
 double				noise(t_noise *noise, double x, double y, double per);
 t_noise				init_noise_structure(int w, int h, int pas, int octave);
+
 /*
 **	antialiasing.c
 */

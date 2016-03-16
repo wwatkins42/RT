@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:08:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 17:11:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 10:36:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ t_vec3	texture_mapping_sphere(t_vec3 hit, t_obj *obj)
 		return (obj->mat.color);
 	else
 	{
-		d = vec3_sub(hit, obj->pos);
+		d = vec3_norm(vec3_sub(hit, obj->pos));
 		u = 0.5 + atan2(d.z, d.x) / (2.0 * M_PI);
 		v = 0.5 - asin(d.y) / M_PI;
 		i = (u * obj->mat.texture.w);
 		j = (v * obj->mat.texture.h);
+		i > obj->mat.texture.w - 1 ? i = obj->mat.texture.w - 1 : 0;
+		j > obj->mat.texture.h - 1 ? j = obj->mat.texture.h - 1 : 0;
+		 i < 0 ? i = 0 : 0;
+		 j < 0 ? j = 0 : 0;
 		return (obj->mat.texture.img[j][i]);
 	}
 }

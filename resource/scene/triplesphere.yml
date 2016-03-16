@@ -3,8 +3,8 @@ cameras: 2
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 70
-	  supersampling: 1
+	  fov: 60
+	  supersampling: 2
 	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
@@ -21,7 +21,7 @@ lights: 1
 	  intensity: 1.25
 	  shadow: HARD
 	---
-objects: 3
+objects: 4
 	- type: SPHERE
 	  scale: 0.75
 	  pos: {x: 0, y: 0, z: 7}
@@ -32,11 +32,27 @@ objects: 3
 		  diffuse: 0.775
 		  specular: 0.2
 		  shininess: 512
+		  reflect: 1
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+	---
+	- type: SPHERE
+	  scale: 50
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.925
+		  diffuse: 0.075
+		  specular: 0.2
+		  shininess: 512
 		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/mars.bmp
+		  texture: resource/texture/clouds_3k.bmp
+		  shadow: 0
 	---
 	- type: SPHERE
 	  scale: 0.75
@@ -52,7 +68,7 @@ objects: 3
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/jupiter.bmp
+		  texture: resource/texture/wood1.bmp
 	---
 	- type: SPHERE
 	  scale: 0.75
@@ -60,14 +76,14 @@ objects: 3
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.125
-		  diffuse: 0.775
-		  specular: 0.2
-		  shininess: 512
+		  ambient: 0.425
+		  diffuse: 0.875
+		  specular: 1
+		  shininess: 1024
 		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: resource/texture/pluto.bmp
+		  texture: resource/texture/paper.bmp
 	---
 ...
