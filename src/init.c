@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 15:51:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:15:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	init_cam(t_env *e, t_cam *cam)
 	double	h;
 	double  coeff;
 
-	printf("ss: %d\n", e->cam->aa.supersampling);
 	e->cam->aa.inc = 1.0 / e->cam->aa.supersampling;
 	e->cam->aa.coef = 1.0 / powf(e->cam->aa.supersampling, 2);
 	coeff = (e->win.w < e->win.h ? e->win.w : e->win.h);

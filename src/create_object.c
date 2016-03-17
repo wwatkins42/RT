@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 15:53:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:41:10 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void	default_object(t_obj *obj)
 {
 	obj->type = SPHERE;
-	obj->pos = vec3_zero();
-	obj->dir = vec3_zero();
+	obj->pos = vec3(0, 0, 5);
+	obj->dir = vec3(0, 0, 1);
 	obj->scale = 1;
 	obj->mat.color = vec3(1, 1, 1);
-	obj->mat.ambient = 0.025;
-	obj->mat.diffuse = 0.975;
+	obj->mat.ambient = 0.225;
+	obj->mat.diffuse = 0.875;
 	obj->mat.specular = 1.0;
 	obj->mat.shininess = 256;
 	obj->mat.reflect = 0;

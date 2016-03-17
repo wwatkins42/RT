@@ -3,7 +3,7 @@ cameras: 4
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 90
+	  fov: 110
 	  supersampling: 1
 	---
 	- camera:
@@ -11,21 +11,18 @@ cameras: 4
 	  dir: {x: 1, y: 90, z: 0}
 	  fov: 110
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
 	  pos: {x: 0, y: 2, z: 10}
 	  dir: {x: 10, y: 180, z: 0}
 	  fov: 110
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
 	  pos: {x: -3, y: 1, z: 5}
 	  dir: {x: 1, y: -90, z: 0}
 	  fov: 110
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
 	- type: POINT
@@ -41,11 +38,11 @@ objects: 4
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.125
+		  ambient: 0.025
 		  diffuse: 0.775
-		  specular: 0.2
-		  shininess: 512
-		  reflect: 0.9
+		  specular: 0.5
+		  shininess: 1024
+		  reflect: 1
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
@@ -64,8 +61,8 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/underwater.bmp
-		  texture_filtering: 0
+		  texture: ../texture/panoramic/sunny.bmp
+		  texture_filtering: 1
 		  shadow: 0
 	---
 	- type: SPHERE
@@ -82,7 +79,7 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/wood1.bmp
+		  texture: MARBLE
 		  texture_filtering: 1
 	---
 	- type: SPHERE

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 16:04:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:28:44 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ void	display_info(t_env *e, char *str)
 	}
 	mlx_string_put(e->mlx, e->win.adr, 0, y, 0x81E259, str);
 	mlx_do_sync(e->mlx);
+}
+
+void	display_loading(t_env *e, int u, int v)
+{
+	static int	prev = 0;
+	int			percent;
+	float		progress;
+	float		goal;
+
+	progress = u * (v + 1);
+	goal = e->win.w * e->win.h;
+	percent = progress / goal * 100;
+	if (percent != prev)
+	{
+		mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+		mlx_do_sync(e->mlx);
+		system("clear");
+		ft_printf("%d%%\n", percent);
+		prev = percent;
+	}
 }
 
 // TEMPORARY
