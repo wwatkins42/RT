@@ -29,3 +29,5 @@ __Bonus:__
 - Error log
 - Bilinear filtering
 - Loading infos
+- Loading percentage
+- Line loading display
