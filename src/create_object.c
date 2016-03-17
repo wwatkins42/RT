@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 12:17:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:53:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	parse_material(t_env *e, t_obj *obj)
 		else if (ft_strstr(line, "absorbtion: "))
 			obj->mat.absorbtion = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "texture: "))
-			parse_texture(obj, line);
+			parse_texture(e, obj, line);
 		else if (ft_strstr(line, "texture_filtering: "))
 			obj->mat.texture.filtering = ft_atoi(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "shadow: "))
@@ -111,6 +111,7 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 	obj->k *= obj->k;
 	ft_strdel(&line);
 	obj->next = NULL;
+	e->count.obj++;
 }
 
 void		parse_objects(t_env *e, char *str)

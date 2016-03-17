@@ -5,14 +5,12 @@ cameras: 2
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 130
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
 	  pos: {x: 0, y: 2, z: 0}
 	  dir: {x: 0, y: 0, z: 15}
 	  fov: 100
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
 	- type: POINT

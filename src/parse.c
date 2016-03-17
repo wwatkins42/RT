@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 10:28:59 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:57:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void			parse(t_env *e)
 {
 	char	*line;
+	char	info[256];
 
 	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
 		error(strerror(errno), e->arg.file, 1);
+	sprintf(info, "FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
+	display_info(e, info);
 	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "...") != 0)
 	{
 		if (ft_strstr(line, "cameras:"))
@@ -29,35 +32,9 @@ void			parse(t_env *e)
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
-}
-
-void			parse_gradient(t_cam *cam, char *str)
-{
-	char	*line;
-	int		fd;
-	int		i;
-
-	i = 0;
-	if ((cam->gradient.color = (t_vec3*)malloc(sizeof(t_vec3) * 32)) == NULL)
-		error(E_MALLOC, NULL, 1);
-	if ((cam->gradient.pos = (float*)malloc(sizeof(float) * 32)) == NULL)
-		error(E_MALLOC, NULL, 1);
-	str = ft_strstr(str, ".");
-	str[ft_strlen(str) - 1] = '\0';
-	if ((fd = open(str, O_RDWR)) == -1)
-		error(strerror(errno), str, 1);
-	while (i < MAX_COLOR && get_next_line(fd, &line) > 0)
-	{
-		if (ft_strstr(line, "color:"))
-		{
-			cam->gradient.pos[i] = ft_atof(ft_strstr(line, "pos:") + 4);
-			line[ft_strchr(line, ',') - line] = '\0';
-			cam->gradient.color[i] = hex_vec3(ft_atoi_base(line, 16));
-		}
-		i++;
-		ft_strdel(&line);
-	}
-	ft_strdel(&line);
+	sprintf(info, "SCENE:[cam:%d, lgt:%d, obj:%d]\n",
+	e->count.cam, e->count.lgt, e->count.obj);
+	display_info(e, info);
 }
 
 static short	get_texture_type(const char *line)
@@ -74,17 +51,27 @@ static short	get_texture_type(const char *line)
 		return (BMP);
 }
 
-void			parse_texture(t_obj *obj, const char *line)
+void			parse_texture(t_env *e, t_obj *obj, const char *line)
 {
 	short		type;
+	char		info[256];
 
-	type  = get_texture_type(line);
+	type = get_texture_type(line);
 	if (type == NONE)
 		return ;
 	else if (type == BMP)
+	{
 		obj->mat.texture = bmp_importer(ft_strstr(line, ":") + 2);
+		sprintf(info, "->import:(%dx%d)%s\n", obj->mat.texture.w,
+			obj->mat.texture.h, ft_strstr(line, ":") + 2);
+	}
 	else
+	{
 		obj->mat.texture = texture_generator(type, T_RES_W, T_RES_H);
+		sprintf(info, "->perlin:(%dx%d)[%s]\n", obj->mat.texture.w,
+			obj->mat.texture.h, ft_strstr(line, ":") + 2);
+	}
+	display_info(e, info);
 }
 
 t_vec3			parse_vector(const char *line)

@@ -5,7 +5,6 @@ cameras: 1
 	  dir: {x: 10, y: 45, z: -5}
 	  fov: 80
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 2
 	- type: POINT

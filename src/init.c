@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 11:42:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:51:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	init_env(t_env *e)
 	e->intersect[1] = intersect_cone;
 	e->intersect[2] = intersect_plane;
 	e->intersect[3] = intersect_cylinder;
+	e->count.cam = 0;
+	e->count.lgt = 0;
+	e->count.obj = 0;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

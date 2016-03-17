@@ -1,9 +1,0 @@
----
-gradient:
-    - gradient:
-      color: {color: 0xC74D2D, pos: 0.0}
-      color: {color: 0xE09879, pos: 0.06}
-      color: {color: 0xF9C863, pos: 0.18}
-      color: {color: 0x3B209C, pos: 0.36}
-      color: {color: 0x55A0B8, pos: 0.96}
-...

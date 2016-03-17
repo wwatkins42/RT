@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_light.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:31 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 07:56:54 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/17 15:53:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	create_light(t_env *e, t_lgt *lgt, char *type)
 	}
 	ft_strdel(&line);
 	lgt->next = NULL;
+	e->count.lgt++;
 }
 
 void		parse_lights(t_env *e, char *str)

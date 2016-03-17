@@ -5,7 +5,6 @@ cameras: 1
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
-	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
 	- type: POINT
@@ -75,7 +74,7 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-		  texture: ../texture/wood1.bmp
+		  texture: MARBLE
 	---
 	- type: PLANE
 	  scale: 1
@@ -107,7 +106,7 @@ objects: 7
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/wood2.bmp
+		  texture: ../texture/paper.bmp
 	---
 	- type: PLANE
 	  scale: 1

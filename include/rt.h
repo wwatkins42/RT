@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 12:13:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 15:52:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define FILE_NAME_LENGTH 255
 # define T_RES_W 2560
 # define T_RES_H 1440
-
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
@@ -129,12 +128,6 @@ typedef struct		s_ray
 	double			refract_index;
 }					t_ray;
 
-typedef	struct		s_grad
-{
-	t_vec3			*color;
-	float			*pos;
-}					t_grad;
-
 typedef struct		s_aa
 {
 	int				supersampling;
@@ -147,7 +140,6 @@ typedef struct		s_cam
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			origin;
-	t_grad			gradient;
 	t_img			img;
 	t_ray			ray;
 	t_filter		filter;
@@ -222,6 +214,13 @@ typedef struct		s_refract
 	double			n2;
 }					t_refract;
 
+typedef struct		s_count
+{
+	int				cam;
+	int				lgt;
+	int				obj;
+}					t_count;
+
 typedef struct		s_win
 {
 	void			*adr;
@@ -237,6 +236,7 @@ typedef struct		s_env
 	t_win			win;
 	t_arg			arg;
 	t_key			key;
+	t_count			count;
 	t_cam			*cam;
 	t_obj			*obj;
 	t_lgt			*lgt;
@@ -255,7 +255,7 @@ void				parse(t_env *e);
 void				parse_gradient(t_cam *cam, char *str);
 t_vec3				parse_vector(const char *line);
 int					parse_load(t_env *e, int ac, char **av, int i);
-void				parse_texture(t_obj *obj, const char *line);
+void				parse_texture(t_env *e, t_obj *obj, const char *line);
 
 /*
 **	create_camera.c
@@ -371,6 +371,7 @@ void				kswitch(char *k);
 */
 
 void				core(t_env *e);
+void				display_info(t_env *e, char *str); // TEMPORARY
 
 /*
 **	hook.c
