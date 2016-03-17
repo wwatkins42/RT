@@ -50,9 +50,9 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	// http://www.opengl-tutorial.org/beginners-tutorials/tutorial-8-basic-shading/
 	// better shading model, light intensity and distance is taken into account, 
 	// light->intensity multiplication in raytracing_color function can be deleted,
-	// obj->t is the distance from light
+	// obj->t is the distance from light specular component also takes distance into account,
+	// DON'T ERASE ME !
 	/*double	diff;
-
 	diff = ft_clampf(vec3_dot(light->ray.dir, obj->normal), 0, 1);
 	return (vec3_fmul(light->color, obj->mat.diffuse * light->intensity * diff / (obj->t * obj->t)));*/
 }
