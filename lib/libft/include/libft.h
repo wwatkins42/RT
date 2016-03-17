@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:33:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 17:05:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 11:52:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,8 @@ int					ft_atoi_base(char *str, int base);
 double				ft_atof(const char *str);
 char				*ft_itoa_base(int value, int base);
 int					get_next_line(int const fd, char **line);
+
+double				ft_clampf(double value, double min, double max);
+int					ft_clamp(int value, int min, int max);
 
 #endif

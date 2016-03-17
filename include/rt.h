@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 10:36:26 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/17 12:13:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_texture
 	short			bpp;
 	short			opp;
 	short			type;
+	short			filtering;
 	short			defined;
 }					t_texture;
 
@@ -169,6 +170,17 @@ typedef struct		s_calc
 	double			eq;
 	t_vec3			len;
 }					t_calc;
+
+typedef struct		s_bfi
+{
+	int				x;
+	int				y;
+	double			ur;
+	double			vr;
+	double			uo;
+	double			vo;
+	t_vec3			c[4];
+}					t_bfi;
 
 typedef struct		s_obj
 {

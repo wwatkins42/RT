@@ -4,7 +4,7 @@ cameras: 2
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 90
-	  supersampling: 2
+	  supersampling: 1
 	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
@@ -24,7 +24,7 @@ lights: 1
 objects: 4
 	- type: SPHERE
 	  scale: 0.75
-	  pos: {x: 0, y: 0, z: 7}
+	  pos: {x: 0, y: 0, z: 1.75}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
@@ -51,7 +51,8 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/bridge.bmp
+		  texture: ../texture/panoramic/narthex.bmp
+		  texture_filtering: 1
 		  shadow: 0
 	---
 	- type: SPHERE
@@ -69,6 +70,7 @@ objects: 4
 		  transparency: 0
 		  absorbtion: 1
 		  texture: ../texture/wood1.bmp
+		  texture_filtering: 1
 	---
 	- type: SPHERE
 	  scale: 0.75
