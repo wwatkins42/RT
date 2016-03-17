@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 10:32:45 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/17 10:36:26 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,7 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 t_vec3				texture_mapping(t_obj *obj, t_vec3 hit);
 t_vec3				texture_mapping_plane(t_obj *obj, t_vec3 hit);
 t_vec3				texture_mapping_sphere(t_obj *obj, t_vec3 hit);
+t_vec3				bilinear_filtering(t_obj *obj, float u, float v);
 
 /*
 **	texture_generator.c

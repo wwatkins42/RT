@@ -91,7 +91,7 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-		  texture: ../texture/leaf.bmp
+		  texture: ../texture/clouds_3k.bmp
 	---
 	- type: PLANE
 	  scale: 1
