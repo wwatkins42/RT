@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 16:15:47 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 16:46:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ t_vec3	texture_mapping(t_obj *obj, t_vec3 hit)
 
 t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 hit)
 {
-	double	u;
-	double	v;
 	int		i;
 	int		j;
+	t_vec3	u_axis;
+	t_vec3	v_axis;
 
-	t_vec3	uaxis = vec3(obj->normal.y, obj->normal.z, obj->normal.x);
-	t_vec3	vaxis = vec3_cross(uaxis, obj->normal);
-
-	u = vec3_dot(hit, uaxis) * 0.25 + 1;
-	v =	vec3_dot(hit, vaxis) * 0.25 + 1;
-	i = u * obj->mat.texture.w * 0.5;
-	j = v * obj->mat.texture.h * 0.5;
+	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
+	v_axis = vec3_cross(u_axis, obj->normal);
+	// 1.0 is offset, 0.35 is texture scale
+	i = (1.0 + vec3_dot(hit, u_axis) * 0.35) * obj->mat.texture.w * 0.5;
+	j = (1.0 + vec3_dot(hit, v_axis) * 0.35) * obj->mat.texture.h * 0.5;
 	while (i > obj->mat.texture.w - 1)
 		i = i - obj->mat.texture.w - 1;
 	while (j > obj->mat.texture.h - 1)
@@ -51,8 +49,8 @@ t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 hit)
 t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 hit)
 {
 	t_vec3	d;
-	double	u;
-	double	v;
+	float	u;
+	float	v;
 	int		i;
 	int		j;
 
@@ -65,3 +63,7 @@ t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 hit)
 	j > obj->mat.texture.h - 1 ? j = obj->mat.texture.h - 1 : 0;
 	return (obj->mat.texture.img[j][i]);
 }
+//
+// t_vec3	bilinear_filtering(t_obj *obj, float u, float v);
+// {
+// }

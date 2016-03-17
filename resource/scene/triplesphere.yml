@@ -3,7 +3,7 @@ cameras: 2
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 60
+	  fov: 90
 	  supersampling: 2
 	  background: "./resource/gradient/sunset.yml"
 	---
@@ -32,26 +32,26 @@ objects: 4
 		  diffuse: 0.775
 		  specular: 0.2
 		  shininess: 512
-		  reflect: 1
+		  reflect: 0.9
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
 	---
 	- type: SPHERE
-	  scale: 50
+	  scale: 30
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
 		  ambient: 0.925
-		  diffuse: 0.075
-		  specular: 0.2
+		  diffuse: 0
+		  specular: 0
 		  shininess: 512
 		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/clouds_3k.bmp
+		  texture: ../texture/panoramic/bridge.bmp
 		  shadow: 0
 	---
 	- type: SPHERE
@@ -76,14 +76,13 @@ objects: 4
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.425
-		  diffuse: 0.875
+		  ambient: 0.025
+		  diffuse: 0.175
 		  specular: 1
 		  shininess: 1024
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-		  texture: ../texture/paper.bmp
+		  reflect: 0.1
+		  refract: 1.33
+		  transparency: 1.0
+		  absorbtion: 0.75
 	---
 ...
