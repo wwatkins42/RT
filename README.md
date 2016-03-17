@@ -27,3 +27,5 @@ __Bonus:__
 - Super-sampling (anti-aliasing)
 - Beer law
 - Error log
+- Bilinear filtering
+- Loading infos
