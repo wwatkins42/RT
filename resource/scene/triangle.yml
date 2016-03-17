@@ -1,0 +1,44 @@
+---
+cameras: 1
+    - camera:
+      pos: {x: 0, y: 0, z: 0}
+      dir: {x: 0, y: 0, z: 0}
+      fov: 80
+      background: "./resource/gradient/sunset.yml"
+    ---
+lights: 2
+    - type: POINT
+      pos: {x: 0, y: 2, z: 8}
+      color: 0xF1CB29
+      intensity: 0.55
+      shadow: HARD
+    ---
+    - type: POINT
+      pos: {x: 5, y: -2, z: 7}
+      color: 0xF9DAC9
+      intensity: 1.0
+      shadow: HARD
+    ---
+objects: 2
+    - type: TRIANGLE
+      pos: {x: 0, y: 0, z: 10}
+      pos2: {x: 0, y: 5, z: 0}
+      pos3: {x: 5, y: 0, z: 0}
+      material:
+              color: 0xff00ff
+	---
+	- type: PLANE
+	  pos: {x: 0, y:0, z: 30}
+	  dir: {x: 0, y:0, z: 1}
+	  material:
+		 	  color: 0xffffff
+		      ambient: 0.425
+              diffuse: 0.675
+              specular: 1.0
+              shininess: 2048
+              reflect: 0.15
+              refract: 0
+			  transparency: 0
+			  absorbtion: 1
+    ---
+...

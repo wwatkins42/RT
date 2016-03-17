@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 13:11:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:23:21 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	init_env(t_env *e)
 	e->win.dh = e->win.h / 2;
 	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
 		error(E_WIN_INIT, NULL, 1);
-	e->intersect[0] = intersect_sphere;
-	e->intersect[1] = intersect_cone;
-	e->intersect[2] = intersect_plane;
-	e->intersect[3] = intersect_cylinder;
+	e->intersect[SPHERE] = intersect_sphere;
+	e->intersect[CONE] = intersect_cone;
+	e->intersect[PLANE] = intersect_plane;
+	e->intersect[CYLINDER] = intersect_cylinder;
+	e->intersect[TRIANGLE] = intersect_triangle;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

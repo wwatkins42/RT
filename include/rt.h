@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 13:11:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:48:58 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <time.h>
 # include <bmp_exporter.h>
 # include <stdio.h> // TEMPORARY
-
+# include "keycodes.h"
 # define ABS(x) (x < 0 ? -x : x)
 # define MIN_POS -1000.0
 # define MAX_POS 1000.0
@@ -35,7 +35,7 @@
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
 
-enum { SPHERE, CONE, PLANE, CYLINDER };
+enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { HARD, SOFT };
 
@@ -139,11 +139,14 @@ typedef struct		s_calc
 	double			disc;
 	double			eq;
 	t_vec3			len;
+
 }					t_calc;
 
 typedef struct		s_obj
 {
 	t_vec3			pos;
+	t_vec3			pos2;
+	t_vec3			pos3;
 	t_vec3			dir;
 	t_vec3			normal;
 	t_mat			mat;
@@ -265,6 +268,7 @@ double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
 double				intersect_cone(t_ray *ray, t_obj *obj);
 double				intersect_cylinder(t_ray *ray, t_obj *obj);
+double				intersect_triangle(t_ray *r, t_obj *t);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*

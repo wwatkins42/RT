@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 10:35:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:54:19 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 		return (INFINITY);
 	return ((-calc.b - sqrt(calc.disc)) / calc.a);
 }
-
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
@@ -109,5 +108,7 @@ void	set_normal(t_ray *ray, t_obj *obj)
 	if (obj->type == CYLINDER || obj->type == CONE)
 		obj->normal = vec3(obj->pos.x - ray->hit.x, 0.0,
 		obj->pos.z - ray->hit.z);
+	if (obj->type == TRIANGLE)
+		obj->normal = vec3_norm(vec3_cross(obj->pos2, obj->pos3));
 	vec3_normalize(&obj->normal);
 }

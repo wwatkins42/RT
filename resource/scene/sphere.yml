@@ -13,20 +13,35 @@ lights: 1
 	  intensity: 2.0
 	  shadow: HARD
 	---
-objects: 2
+objects: 4
+    - type: TRIANGLE
+      pos: {x: 0, y: 0, z: 10}
+      pos2: {x: 0, y: 5, z: 0}
+      pos3: {x: 5, y: 0, z: 0}
+      material:
+          color: 0xff00ff
+		  ambient: 0.225
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 256
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
+	---
 	- type: SPHERE
-	  scale: 2
+	  scale: 1
 	  pos: {x: 0, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x5F5F5F
-		  ambient: 0.0025
-		  diffuse: 0.115
-		  specular: 0.6
-		  shininess: 2048
-		  reflect: 0.25
-		  refract: 0.95
-		  transparency: 1.0
+		  color: 0x00FF00
+		  ambient: 0.225
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 256
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
 		  absorbtion: 1
 	---
 	- type: CYLINDER
@@ -35,13 +50,27 @@ objects: 2
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
 		  color: 0x0000FF
-		  ambient: 0.025
-		  diffuse: 0.975
+		  ambient: 0.225
+		  diffuse: 0.875
 		  specular: 1.0
-		  shininess: 512
-		  reflect: 0.2
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 0.5
+		  shininess: 256
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
+	---
+	- type: PLANE
+	  pos: {x: 0, y: 0, z: 50}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0xffffff
+		  ambient: 0.225
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 256
+		  reflect: 0.15
+		  refract: 1.05
+		  transparency: 0.1
+		  absorbtion: 1
 	---
 ...

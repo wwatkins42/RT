@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 09:50:23 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:53:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void	get_object_type(t_obj *current, char *type)
 		current->type = PLANE;
 	else if (ft_strstr(type, "CYLINDER"))
 		current->type = CYLINDER;
+	else if (ft_strstr(type, "TRIANGLE"))
+		current->type = TRIANGLE;
 	else
 		error(E_OTYPE, type, 0);
 }
@@ -88,6 +90,10 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 			break ;
 		if (ft_strstr(line, "pos: "))
 			obj->pos = parse_vector(line);
+		else if (ft_strstr(line, "pos2: "))
+			obj->pos2 = parse_vector(line);
+		else if (ft_strstr(line, "pos3: "))
+			obj->pos3 = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
 			obj->dir = parse_vector(line);
 		else if (ft_strstr(line, "scale: "))
@@ -119,6 +125,9 @@ void		parse_objects(t_env *e, char *str)
 		{
 			i--;
 			create_object(e, current, line);
+			if (current->type == TRIANGLE)
+				current->dir = vec3_norm(
+					vec3_cross(current->pos2, current->pos3));
 			if (i > 0)
 				if (!(current->next = (t_obj*)malloc(sizeof(t_obj))))
 					error(E_MALLOC, NULL, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/14 11:40:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:08:39 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,37 @@ int	expose_hook(t_env *e)
 
 int	key_pressed(int keycode, t_env *e)
 {
-	keycode == 53 ? exit(0) : 0;
-	keycode == 18 ? e->key.invert = 1 : 0;
-	keycode == 19 ? e->key.gray_scale = 1 : 0;
-	keycode == 27 ? e->key.gamma_m = 1 : 0;
-	keycode == 24 ? e->key.gamma_p = 1 : 0;
-	keycode == 42 ? viewer_export(e, &e->cam->img) : 0;
-	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
-	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
-	keycode == 43 ? e->cam = e->cam->next : 0;
-	keycode == 47 ? e->cam = e->cam->prev : 0;
-	keycode == 126 ? e->key.up = 1 : 0;
-	keycode == 125 ? e->key.down = 1 : 0;
-	keycode == 123 ? e->key.left = 1 : 0;
-	keycode == 124 ? e->key.right = 1 : 0;
-	if (keycode == 43 || keycode == 47) // TMP
+	keycode == KEY_ESC ? exit(0) : 0;
+	keycode == KEY_1 ? e->key.invert = 1 : 0;
+	keycode == KEY_2 ? e->key.gray_scale = 1 : 0;
+	keycode == KEY_MOINS ? e->key.gamma_m = 1 : 0;
+	keycode == KEY_PLUS ? e->key.gamma_p = 1 : 0;
+	keycode == KEY_BSLASH ? viewer_export(e, &e->cam->img) : 0;
+	keycode == KEY_BRACK_OUV ? bmp_exporter(e->cam->img, e->arg.file) : 0;
+	keycode == KEY_BRACK_FER ? yml_exporter(e, e->arg.file) : 0;
+	keycode == KEY_COMMA ? e->cam = e->cam->next : 0;
+	keycode == KEY_DOT ? e->cam = e->cam->prev : 0;
+	keycode == UP ? e->key.up = 1 : 0;
+	keycode == DOWN ? e->key.down = 1 : 0;
+	keycode == LEFT ? e->key.left = 1 : 0;
+	keycode == RIGHT ? e->key.right = 1 : 0;
+	if (keycode == KEY_COMMA || keycode == KEY_DOT) // TMP
 		raytracing(e);
+		printf("pos(%f; %f; %f) "    , e->obj->pos.x , e->obj->pos.y , e->obj->pos.z);
+		printf("dir(%f; %f; %f) "    , e->obj->pos2.x , e->obj->pos2.y , e->obj->pos2.z);
+		printf("dir2(%f; %f; %f)\n\n", e->obj->pos3.x, e->obj->pos3.y, e->obj->pos3.z);
 	return (0);
 }
 
 int	key_released(int keycode, t_env *e)
 {
-	keycode == 126 ? e->key.up = 0 : 0;
-	keycode == 125 ? e->key.down = 0 : 0;
-	keycode == 123 ? e->key.left = 0 : 0;
-	keycode == 124 ? e->key.right = 0 : 0;
-	keycode == 18 ? e->key.invert = 0 : 0;
-	keycode == 19 ? e->key.gray_scale = 0 : 0;
-	keycode == 27 ? e->key.gamma_m = 0 : 0;
-	keycode == 24 ? e->key.gamma_p = 0 : 0;
+	keycode == UP ? e->key.up = 0 : 0;
+	keycode == DOWN ? e->key.down = 0 : 0;
+	keycode == LEFT ? e->key.left = 0 : 0;
+	keycode == RIGHT ? e->key.right = 0 : 0;
+	keycode == KEY_1 ? e->key.invert = 0 : 0;
+	keycode == KEY_2 ? e->key.gray_scale = 0 : 0;
+	keycode == KEY_MOINS ? e->key.gamma_m = 0 : 0;
+	keycode == KEY_PLUS ? e->key.gamma_p = 0 : 0;
 	return (0);
 }
