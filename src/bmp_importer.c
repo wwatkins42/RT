@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 11:02:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 16:18:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ static t_texture	read_header(char *file_path)
 	texture.defined = 1;
 	texture.w < 0 ? texture.w = -texture.w : 0;
 	texture.h < 0 ? texture.h = -texture.h : 0;
-	printf("  w:%d\n", texture.w);
-	printf("  h:%d\n", texture.h);
-	printf(" sl:%d\n", texture.sl);
-	printf("bpp:%d\n", texture.bpp);
 	return (texture);
 }
 

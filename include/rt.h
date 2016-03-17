@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 12:11:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:39:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,9 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 **	texture.c
 */
 
-t_vec3				texture_mapping_sphere(t_vec3 hit, t_obj *obj);
+t_vec3				texture_mapping(t_obj *obj, t_vec3 hit);
+t_vec3				texture_mapping_plane(t_obj *obj, t_vec3 hit);
+t_vec3				texture_mapping_sphere(t_obj *obj, t_vec3 hit);
 
 /*
 **	texture_generator.c

@@ -10,7 +10,7 @@ cameras: 1
 lights: 1
 	- type: POINT
 	  pos: {x: 0, y: 3, z: 5}
-	  color: 0xF7F7F4
+	  color: 0xD2EBC3
 	  intensity: 1.05
 	  shadow: HARD
 	---
@@ -59,6 +59,7 @@ objects: 7
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
+		  texture: ../texture/paper.bmp
 	---
 	- type: PLANE
 	  scale: 1
@@ -74,6 +75,7 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
+		  texture: ../texture/wood1.bmp
 	---
 	- type: PLANE
 	  scale: 1
@@ -89,6 +91,7 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
+		  texture: ../texture/leaf.bmp
 	---
 	- type: PLANE
 	  scale: 1
@@ -101,9 +104,10 @@ objects: 7
 		  specular: 0.1
 		  shininess: 16
 		  reflect: 0
-		  refract: 0
+		  refract: 1
 		  transparency: 0
-		  absorbtion: 0.7
+		  absorbtion: 1
+		  texture: ../texture/wood2.bmp
 	---
 	- type: PLANE
 	  scale: 1
@@ -116,8 +120,9 @@ objects: 7
 		  specular: 0.1
 		  shininess: 16
 		  reflect: 0
-		  refract: 0
+		  refract: 1
 		  transparency: 0
-		  absorbtion: 0
+		  absorbtion: 1
+		  texture: ../texture/wood2.bmp
 	---
 ...
