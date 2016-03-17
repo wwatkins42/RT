@@ -1,5 +1,5 @@
 ---
-cameras: 2
+cameras: 4
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
@@ -8,8 +8,22 @@ cameras: 2
 	  background: "./resource/gradient/sunset.yml"
 	---
 	- camera:
+	  pos: {x: 3, y: 1, z: 5}
+	  dir: {x: 1, y: 90, z: 0}
+	  fov: 110
+	  supersampling: 1
+	  background: "./resource/gradient/sunset.yml"
+	---
+	- camera:
 	  pos: {x: 0, y: 2, z: 10}
 	  dir: {x: 10, y: 180, z: 0}
+	  fov: 110
+	  supersampling: 1
+	  background: "./resource/gradient/sunset.yml"
+	---
+	- camera:
+	  pos: {x: -3, y: 1, z: 5}
+	  dir: {x: 1, y: -90, z: 0}
 	  fov: 110
 	  supersampling: 1
 	  background: "./resource/gradient/sunset.yml"
@@ -51,7 +65,7 @@ objects: 4
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/narthex.bmp
+		  texture: ../texture/panoramic/desert.bmp
 		  texture_filtering: 1
 		  shadow: 0
 	---

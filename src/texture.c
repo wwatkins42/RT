@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 12:18:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 12:31:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ t_vec3	bilinear_filtering(t_obj *obj, float u, float v)
 
 	u = u * obj->mat.texture.w - 0.5;
 	v = v * obj->mat.texture.h - 0.5;
-	bfi.x = ft_clamp(floor(u), 0, obj->mat.texture.w - 1);
-	bfi.y = ft_clamp(floor(v), 0, obj->mat.texture.h - 1);
+	bfi.x = ft_clamp(floor(u), 0, obj->mat.texture.w - 2);
+	bfi.y = ft_clamp(floor(v), 0, obj->mat.texture.h - 2);
 	bfi.ur = u - bfi.x;
 	bfi.vr = v - bfi.y;
 	bfi.uo = 1 - bfi.ur;
