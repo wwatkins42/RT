@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/16 11:20:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 09:57:06 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	parse_material(t_env *e, t_obj *obj)
 		else if (ft_strstr(line, "absorbtion: "))
 			obj->mat.absorbtion = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "texture: "))
-			obj->mat.texture = bmp_importer(ft_strstr(line, ":") + 2);
+			parse_texture(obj, line);
 		else if (ft_strstr(line, "shadow: "))
 			obj->mat.shadow = ft_atoi(ft_strstr(line, ":") + 1);
 		else

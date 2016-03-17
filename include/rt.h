@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/16 13:39:19 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 10:32:45 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@
 # define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
+# define T_RES_W 2560
+# define T_RES_H 1440
+
 
 enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
+enum { NONE, MARBLE, WOOD, EARTH, BMP };
 enum { HARD, SOFT };
 
 typedef struct		s_arg
@@ -67,6 +71,7 @@ typedef struct		s_texture
 	int				sl;
 	short			bpp;
 	short			opp;
+	short			type;
 	short			defined;
 }					t_texture;
 
@@ -238,6 +243,7 @@ void				parse(t_env *e);
 void				parse_gradient(t_cam *cam, char *str);
 t_vec3				parse_vector(const char *line);
 int					parse_load(t_env *e, int ac, char **av, int i);
+void				parse_texture(t_obj *obj, const char *line);
 
 /*
 **	create_camera.c
@@ -320,7 +326,7 @@ t_texture			texture_generator(int type, int width, int height);
 **	noise.c && texture_generator.c
 */
 
-double				noise(t_noise *noise, double x, double y, double per);
+double				noise(t_noise *noise, double x, double y);
 t_noise				init_noise_structure(int w, int h, int pas, int octave);
 
 /*
