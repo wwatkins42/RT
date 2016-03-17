@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 18:53:10 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/17 22:44:00 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ static void	get_object_type(t_obj *current, char *type)
 		current->type = CYLINDER;
 	else if (ft_strstr(type, "TRIANGLE"))
 		current->type = TRIANGLE;
+	else if (ft_strstr(type, "ELLIPSOID"))
+		current->type = ELLIPSOID;
+	else if (ft_strstr(type, "HYPERBOLOID_ONE"))
+		current->type = HYPERBOLOID_ONE;
+	else if (ft_strstr(type, "HYPERBOLOID_TWO"))
+		current->type = HYPERBOLOID_TWO;
+	else if (ft_strstr(type, "PARABOLOID"))
+		current->type = PARABOLOID;
 	else
 		error(E_OTYPE, type, 0);
 }
@@ -95,7 +103,7 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 		else if (ft_strstr(line, "pos3: "))
 			obj->pos3 = parse_vector(line);
 		else if (ft_strstr(line, "dir: "))
-			obj->dir = parse_vector(line);
+			obj->dir = vec3_norm(parse_vector(line));
 		else if (ft_strstr(line, "scale: "))
 			obj->scale = ft_atof(ft_strstr(line, ":") + 1);
 		else

@@ -13,43 +13,27 @@ lights: 1
 	  intensity: 2.0
 	  shadow: HARD
 	---
-objects: 3
-    - type: TRIANGLE
-      pos: {x: 0, y: 0, z: 10}
-      pos2: {x: 0, y: 5, z: 0}
-      pos3: {x: 5, y: 0, z: 0}
-      material:
-          color: 0xff00ff
-		  ambient: 0.275
-		  diffuse: 0.875
-		  specular: 1
-		  shininess: 256
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
-	---
-	- type: SPHERE
+objects: 2
+	- type: HYPERBOLOID_TWO
+	  pos: {x: 0, y: 0, z: 10}
 	  scale: 1
-	  pos: {x: 2, y: 2, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x00FF00
+		  color: 0xFFFF00
 		  ambient: 0.225
 		  diffuse: 0.875
 		  specular: 1.0
 		  shininess: 256
 		  reflect: 0.15
 		  refract: 1.05
-		  transparency: 0.1
+		  transparency: 0
 		  absorbtion: 1
 	---
-	- type: CYLINDER
-	  scale: 2
-	  pos: {x: 0, y: 0, z: 15}
-	  dir: {x: 1, y: 1, z: 1}
+	- type: SPHERE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 10}
+	  dir: {x: 0, y: 0, z: 1}
 	  material:
-		  color: 0x0000FF
+		  color: 0x00FF00
 		  ambient: 0.225
 		  diffuse: 0.875
 		  specular: 1.0

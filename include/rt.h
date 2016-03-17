@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 18:48:58 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/17 22:43:04 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
 
-enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE };
+enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE, ELLIPSOID,
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { HARD, SOFT };
 
@@ -57,6 +58,8 @@ typedef struct		s_key
 	short			gray_scale;
 	short			gamma_m;
 	short			gamma_p;
+	short			scale_p;
+	short			scale_m;
 }					t_key;
 
 typedef struct		s_img
@@ -153,6 +156,7 @@ typedef struct		s_obj
 	short			type;
 	double			scale;
 	double			scale2;
+	double			scale3;
 	double			k;
 	double			t;
 	struct s_obj	*next;
@@ -206,7 +210,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[6])(t_ray *, t_obj *);
+	double			(*intersect[10])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -269,6 +273,10 @@ double				intersect_sphere(t_ray *ray, t_obj *obj);
 double				intersect_cone(t_ray *ray, t_obj *obj);
 double				intersect_cylinder(t_ray *ray, t_obj *obj);
 double				intersect_triangle(t_ray *r, t_obj *t);
+double				intersect_ellipsoid(t_ray *r, t_obj *e);
+double				intersect_hyperboloid1(t_ray *r, t_obj *o);
+double				intersect_hyperboloid2(t_ray *r, t_obj *o);
+double				intersect_paraboloid(t_ray *ray, t_obj *o);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*

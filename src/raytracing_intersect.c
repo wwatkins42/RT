@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 18:54:19 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/17 22:05:27 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ void	set_normal(t_ray *ray, t_obj *obj)
 {
 	if (obj->type == PLANE)
 		obj->normal = obj->dir;
-	if (obj->type == SPHERE)
+	if (obj->type == SPHERE || obj->type == ELLIPSOID)
 		obj->normal = vec3_sub(ray->hit, obj->pos);
-	if (obj->type == CYLINDER || obj->type == CONE)
+	if (obj->type == CYLINDER || obj->type == CONE ||
+		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO)
 		obj->normal = vec3(obj->pos.x - ray->hit.x, 0.0,
 		obj->pos.z - ray->hit.z);
 	if (obj->type == TRIANGLE)
