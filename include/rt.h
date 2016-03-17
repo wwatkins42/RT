@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 15:52:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 16:03:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,13 +365,13 @@ int					vec3_hex(const t_vec3 vec);
 int					str_digit(char *str);
 void				vec3_print(const t_vec3 vec); //TEMPORARY
 void				kswitch(char *k);
+void				display_info(t_env *e, char *str);
 
 /*
 **	core.c
 */
 
 void				core(t_env *e);
-void				display_info(t_env *e, char *str); // TEMPORARY
 
 /*
 **	hook.c
