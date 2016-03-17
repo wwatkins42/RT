@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 17:39:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:03:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	raytracing(t_env *e)
 		{
 			supersampling(e, x, y);
 		}
-	//	y % 10 ? display_loading(e, x, y) : 0;
+		y % 10 ? display_loading(e, x, y) : 0;
 	}
 }
 

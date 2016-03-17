@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 16:11:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/17 18:00:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,12 @@ typedef struct		s_count
 	int				obj;
 }					t_count;
 
+typedef struct		s_scene
+{
+	short			resync;
+	short			percent;
+}					t_scene;
+
 typedef struct		s_win
 {
 	void			*adr;
@@ -236,6 +242,7 @@ typedef struct		s_env
 	t_win			win;
 	t_arg			arg;
 	t_key			key;
+	t_scene			scene;
 	t_count			count;
 	t_cam			*cam;
 	t_obj			*obj;
@@ -244,7 +251,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[6])(t_ray *, t_obj *);
+	double			(*intersect[10])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -413,6 +420,7 @@ t_texture			bmp_importer(char *file_path);
 /*
 **	yml_exporter.c && yml_write.c
 */
+
 void				yml_exporter(t_env *e, char *name);
 void				export_object(const int fd, t_env *e);
 void				export_light(const int fd, t_env *e);
