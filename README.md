@@ -31,3 +31,4 @@ __Bonus:__
 - Loading infos
 - Loading percentage
 - Line loading display
+- Generate normal-map from texture (sobel filter)
