@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/18 12:24:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:44:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ t_vec3	texture_mapping(t_obj *obj, t_vec3 hit)
 
 t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 hit)
 {
-	int		i;
-	int		j;
 	float	u;
 	float	v;
 	t_vec3	u_axis;
@@ -37,16 +35,13 @@ t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 hit)
 	// 1.0 is offset, 0.175 is texture scale
 	u = 1.0 + vec3_dot(hit, u_axis) * 0.175;
 	v = 1.0 + vec3_dot(hit, v_axis) * 0.175;
-	u = ABS((u - trunc(u)));
-	v = ABS((v - trunc(v)));
+	u = u - floor(u);
+	v = v - floor(v);
 	if (obj->mat.texture.filtering)
 		return (bilinear_filtering(obj, u, v));
 	else
-	{
-		i = u * (obj->mat.texture.w - 1);
-		j = v * (obj->mat.texture.h - 1);
-		return (obj->mat.texture.img[j][i]);
-	}
+		return (obj->mat.texture.img[(int)(v * (obj->mat.texture.h - 1))]
+									[(int)(u * (obj->mat.texture.w - 1))]);
 }
 
 t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 hit)

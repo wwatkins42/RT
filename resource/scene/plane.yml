@@ -29,6 +29,6 @@ objects: 1
 		  transparency: 0
 		  absorbtion: 0
 		  texture: ../texture/venus.bmp
-		  texture_filtering: 1
+		  texture_filtering: 0
 	---
 ...
