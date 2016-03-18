@@ -42,10 +42,19 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 {
 	double	diff;
-
+	
 	diff = vec3_dot(light->ray.dir, obj->normal);
 	diff < 0 ? diff = 0 : 0;
 	return (vec3_fmul(light->color, diff * obj->mat.diffuse));
+	
+	// http://www.opengl-tutorial.org/beginners-tutorials/tutorial-8-basic-shading/
+	// better shading model, light intensity and distance is taken into account, 
+	// light->intensity multiplication in raytracing_color function can be deleted,
+	// obj->t is the distance from light specular component also takes distance into account,
+	// DON'T ERASE ME !
+	/*double	diff;
+	diff = ft_clampf(vec3_dot(light->ray.dir, obj->normal), 0, 1);
+	return (vec3_fmul(light->color, obj->mat.diffuse * light->intensity * diff / (obj->t * obj->t)));*/
 }
 
 t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
