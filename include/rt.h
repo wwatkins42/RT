@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 18:00:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/18 11:47:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, EARTH, BMP };
 enum { HARD, SOFT };
+enum { SUP, INF };
 
 typedef struct		s_arg
 {
@@ -370,7 +371,7 @@ int					vec3_hex(const t_vec3 vec);
 */
 
 int					str_digit(char *str);
-void				vec3_print(const t_vec3 vec); //TEMPORARY
+void				repeat(float *value, float bound, float size, short type);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);

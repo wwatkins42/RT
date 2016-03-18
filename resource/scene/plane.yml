@@ -1,0 +1,34 @@
+---
+cameras: 1
+	- camera:
+	  pos: {x: 0, y: 2, z: -3}
+	  dir: {x: 5, y: 0, z: 0}
+	  fov: 80
+	  supersampling: 1
+	---
+lights: 1
+	- type: POINT
+	  pos: {x: 0, y: 3, z: 5}
+	  color: 0xD2EBC3
+	  intensity: 1.05
+	  shadow: HARD
+	---
+objects: 1
+	- type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 6}
+	  dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: 0xE2E2D1
+		  ambient: 0.325
+		  diffuse: 0.975
+		  specular: 0.1
+		  shininess: 16
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0
+		  texture: ../texture/venus.bmp
+		  texture_filtering: 1
+	---
+...

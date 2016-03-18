@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 18:17:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/18 10:38:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_env(t_env *e)
 	e->count.obj = 0;
 	// information to put in .yml and parsing (boolean)
 	e->scene.resync = 0;
-	e->scene.percent = 1;
+	e->scene.percent = 0;
 }
 
 void	init_cam(t_env *e, t_cam *cam)
