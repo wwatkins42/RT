@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/19 09:16:12 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/19 09:57:55 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ typedef struct		s_env
 }					t_env;
 
 /*
-**	parse.c
+**	PARSING FUNCTIONS
 */
 
 void				parse(t_env *e);
@@ -265,27 +265,12 @@ void				parse_gradient(t_cam *cam, char *str);
 t_vec3				parse_vector(const char *line);
 int					parse_load(t_env *e, int ac, char **av, int i);
 void				parse_texture(t_env *e, t_obj *obj, const char *line);
-
-/*
-**	create_camera.c
-*/
-
 void				parse_camera(t_env *e, char *str);
-
-/*
-**	create_light.c
-*/
-
 void				parse_lights(t_env *e, char *str);
-
-/*
-**	create_object.c
-*/
-
 void				parse_objects(t_env *e, char *str);
 
 /*
-**	init.c
+**	ENVIRONNEMENT INIT FUNCTIONS
 */
 
 void				init_env(t_env *e);
@@ -293,24 +278,29 @@ void				init_cam(t_env *e, t_cam *cam);
 void				init_key(t_env *e);
 
 /*
-**	raytracing.c
+**	CORE FUNCTIONS
 */
 
+void				core(t_env *e);
+int					loop_hook(t_env *e);
+int					expose_hook(t_env *e);
+int					key_pressed(int keycode, t_env *e);
+int					key_released(int keycode, t_env *e);
+
+/*
+**	RAYTRACING FUNCTIONS
+*/
+
+/*
+**			Main functions
+*/
 void				raytracing(t_env *e);
 void				raytracing_init(t_env *e, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
 
 /*
-**	raytracing_recursion.c
+**			Primitives intersections
 */
-
-t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
-t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
-
-/*
-**	raytracing_intersect.c
-*/
-
 t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin);
 double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
@@ -319,50 +309,47 @@ double				intersect_cylinder(t_ray *ray, t_obj *obj);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*
-**	raytracing_color.c
+**			Reflection / Refraction
 */
+t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
+t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 
+
+/*
+**			Color and light
+*/
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
+void				supersampling(t_env *e, int x, int y);
 
 /*
-**	texture.c
+**	TEXTURE FUNCTIONS
 */
-
-t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 
 /*
-**	texture_generator.c
+**			Texture generator && perlin noise
 */
-
 t_texture			texture_generator(int type, int width, int height);
-
-
-/*
-**	normal_map.c
-*/
-
-void				create_normal_map(t_obj *obj);
-void				bump_normal(t_obj *obj, t_ray *ray);
-
-/*
-**	noise.c
-*/
-
 double				noise(t_noise *noise, double x, double y);
 t_noise				init_noise_structure(int w, int h, int pas, int octave);
 
 /*
-**	antialiasing.c
+**			Texture mapping
 */
-
-void				supersampling(t_env *e, int x, int y);
+t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 
 /*
-**	draw.c
+**			Normal mapping
+*/
+void				create_normal_map(t_obj *obj);
+void				bump_normal(t_obj *obj, t_ray *ray);
+
+
+/*
+**	IMAGES HANDLES FUNCTIONS
 */
 
 t_img				img_init(t_env *e);
@@ -372,7 +359,7 @@ t_vec3				hex_vec3(const int hex);
 int					vec3_hex(const t_vec3 vec);
 
 /*
-**	utils.c
+**	UTILS FUNCTIONS
 */
 
 int					str_digit(char *str);
@@ -381,23 +368,9 @@ void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);
 
-/*
-**	core.c
-*/
-
-void				core(t_env *e);
 
 /*
-**	hook.c
-*/
-
-int					loop_hook(t_env *e);
-int					expose_hook(t_env *e);
-int					key_pressed(int keycode, t_env *e);
-int					key_released(int keycode, t_env *e);
-
-/*
-**	filter.c
+**	FILTER FUNCTIONS
 */
 
 void				filter(t_img *img, const t_filter filter);
@@ -406,25 +379,20 @@ void				filter_gray_scale(t_vec3 *color);
 void				filter_gamma(double gamma, t_vec3 *color);
 
 /*
-**	viewer_export.c
+**	VIEWER
 */
 
 void				viewer_export(t_env *e, t_img *img);
 
 /*
-**	bmp_exporter.c
+**	BMP IMPORTER / EXPORTER
 */
 
 void				bmp_exporter(t_img image, char *name);
-
-/*
-**	bmp_importer.c
-*/
-
 t_texture			bmp_importer(char *file_path);
 
 /*
-**	yml_exporter.c && yml_write.c
+**	YML EXPORTER
 */
 
 void				yml_exporter(t_env *e, char *name);
