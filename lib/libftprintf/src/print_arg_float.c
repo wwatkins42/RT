@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 11:10:43 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/13 11:51:15 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/19 10:05:52 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	print_float(double f, t_a *a)
 	write(a->out, ".", 1);
 	len++;
 	tmp = f * 1000;
-	len += print_int(len % 1000, a);
+	len += print_int(tmp % 1000, a);
 	return (len);
 }
 
