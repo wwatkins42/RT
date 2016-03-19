@@ -3,69 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/18 12:44:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/19 09:32:52 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vec3	texture_mapping(t_obj *obj, t_vec3 hit)
-{
-	if (!obj->mat.texture.defined)
-		return (obj->mat.color);
-	if (obj->type == PLANE)
-		return (texture_mapping_plane(obj, hit));
-	if (obj->type == SPHERE)
-		return (texture_mapping_sphere(obj, hit));
-	return (obj->mat.color);
-}
-
-t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 hit)
-{
-	float	u;
-	float	v;
-	t_vec3	u_axis;
-	t_vec3	v_axis;
-
-	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
-	v_axis = vec3_cross(u_axis, obj->normal);
-	// 1.0 is offset, 0.175 is texture scale
-	u = 1.0 + vec3_dot(hit, u_axis) * 0.175;
-	v = 1.0 + vec3_dot(hit, v_axis) * 0.175;
-	u = u - floor(u);
-	v = v - floor(v);
-	if (obj->mat.texture.filtering)
-		return (bilinear_filtering(obj, u, v));
-	else
-		return (obj->mat.texture.img[(int)(v * (obj->mat.texture.h - 1))]
-									[(int)(u * (obj->mat.texture.w - 1))]);
-}
-
-t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 hit)
-{
-	t_vec3	d;
-	float	u;
-	float	v;
-	int		i;
-	int		j;
-
-	d = vec3_norm(vec3_sub(hit, obj->pos));
-	u = 0.5 + atan2(d.z, d.x) / (2.0 * M_PI);
-	v = 0.5 - asin(d.y) / M_PI;
-	if (obj->mat.texture.filtering)
-		return (bilinear_filtering(obj, u, v));
-	else
-	{
-		i = ft_clamp(u * obj->mat.texture.w, 0, obj->mat.texture.w - 1);
-		j = ft_clamp(v * obj->mat.texture.h, 0, obj->mat.texture.h - 1);
-		return (obj->mat.texture.img[j][i]);
-	}
-}
-
-t_vec3	bilinear_filtering(t_obj *obj, float u, float v)
+static t_vec3	bilinear_filtering(t_obj *obj, float u, float v)
 {
 	t_vec3	color;
 	t_bfi	bfi;
@@ -85,4 +32,57 @@ t_vec3	bilinear_filtering(t_obj *obj, float u, float v)
 	color = vec3_add(vec3_fmul(vec3_add(bfi.c[0], bfi.c[1]), bfi.vo),
 			vec3_fmul(vec3_add(bfi.c[2], bfi.c[3]), bfi.vr));
 	return (color);
+}
+
+static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
+{
+	float	u;
+	float	v;
+	t_vec3	u_axis;
+	t_vec3	v_axis;
+
+	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
+	v_axis = vec3_cross(u_axis, obj->normal);
+	// 1.0 is offset, 0.175 is texture scale
+	u = 1.0 + vec3_dot(hit, u_axis) * 0.175;
+	v = 1.0 + vec3_dot(hit, v_axis) * 0.175;
+	u = u - floor(u);
+	v = v - floor(v);
+	if (obj->mat.texture.filtering)
+		return (bilinear_filtering(obj, u, v));
+	else
+		return (img[(int)(v * (obj->mat.texture.h - 1))]
+				[(int)(u * (obj->mat.texture.w - 1))]);
+}
+
+static t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 **img, t_vec3 hit)
+{
+	t_vec3	d;
+	float	u;
+	float	v;
+	int		i;
+	int		j;
+
+	d = vec3_norm(vec3_sub(hit, obj->pos));
+	u = 0.5 + atan2(d.z, d.x) / (2.0 * M_PI);
+	v = 0.5 - asin(d.y) / M_PI;
+	if (obj->mat.texture.filtering)
+		return (bilinear_filtering(obj, u, v));
+	else
+	{
+		i = ft_clamp(u * obj->mat.texture.w, 0, obj->mat.texture.w - 1);
+		j = ft_clamp(v * obj->mat.texture.h, 0, obj->mat.texture.h - 1);
+		return (img[j][i]);
+	}
+}
+
+t_vec3			texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit)
+{
+	if (!obj->mat.texture.defined)
+		return (obj->mat.color);
+	if (obj->type == PLANE)
+		return (texture_mapping_plane(obj, img, hit));
+	if (obj->type == SPHERE)
+		return (texture_mapping_sphere(obj, img, hit));
+	return (obj->mat.color);
 }

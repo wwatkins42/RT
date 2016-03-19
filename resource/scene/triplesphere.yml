@@ -3,7 +3,7 @@ cameras: 4
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 110
+	  fov: 90
 	  supersampling: 1
 	---
 	- camera:
@@ -31,70 +31,22 @@ lights: 1
 	  intensity: 1.25
 	  shadow: HARD
 	---
-objects: 4
+objects: 1
 	- type: SPHERE
 	  scale: 0.75
-	  pos: {x: 0, y: 0, z: 1.75}
+	  pos: {x: 0, y: 0, z: 7}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.025
-		  diffuse: 0.775
-		  specular: 0.5
-		  shininess: 1024
+		  ambient: 0.525
+		  diffuse: 0.575
+		  specular: 10
+		  shininess: 512
 		  reflect: 1
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: SPHERE
-	  scale: 30
-	  pos: {x: 0, y: 0, z: 0}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.925
-		  diffuse: 0
-		  specular: 0
-		  shininess: 512
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-		  texture: ../texture/panoramic/sunny.bmp
+		  texture: ../texture/wood1.bmp
 		  texture_filtering: 1
-		  shadow: 0
-	---
-	- type: SPHERE
-	  scale: 0.75
-	  pos: {x: 1.5, y: 0, z: 7}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.125
-		  diffuse: 0.775
-		  specular: 0.2
-		  shininess: 512
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-		  texture: MARBLE
-		  texture_filtering: 1
-	---
-	- type: SPHERE
-	  scale: 0.75
-	  pos: {x: -1.5, y: 0, z: 7}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.025
-		  diffuse: 0.175
-		  specular: 1
-		  shininess: 1024
-		  reflect: 0.1
-		  refract: 1.33
-		  transparency: 1.0
-		  absorbtion: 0.75
 	---
 ...

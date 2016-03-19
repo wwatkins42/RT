@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/18 12:32:38 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/19 09:15:58 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
 			filter.c antialiasing.c bmp_importer.c texture.c \
-			texture_generator.c noise.c
+			texture_generator.c noise.c normal_map.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 10:17:41 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/19 09:34:07 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 	{
 		set_light(ray->hit, light);
 		if (obj->mat.texture.defined)
-			obj->mat.color = texture_mapping(obj, ray->hit);
+			obj->mat.color = texture_mapping(obj, obj->mat.texture.img, ray->hit);
 		color = vec3_add(color, vec3_fmul(light->color,
 				obj->mat.ambient));// - 0.005 * obj->t));
 		diffuse = set_diffuse(obj, light);
@@ -42,13 +42,13 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 {
 	double	diff;
-	
+
 	diff = vec3_dot(light->ray.dir, obj->normal);
 	diff < 0 ? diff = 0 : 0;
 	return (vec3_fmul(light->color, diff * obj->mat.diffuse));
-	
+
 	// http://www.opengl-tutorial.org/beginners-tutorials/tutorial-8-basic-shading/
-	// better shading model, light intensity and distance is taken into account, 
+	// better shading model, light intensity and distance is taken into account,
 	// light->intensity multiplication in raytracing_color function can be deleted,
 	// obj->t is the distance from light specular component also takes distance into account,
 	// DON'T ERASE ME !

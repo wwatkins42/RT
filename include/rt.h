@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/18 11:47:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/19 09:16:12 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_key
 typedef struct		s_texture
 {
 	t_vec3			**img;
+	t_vec3			**bump;
 	int				w;
 	int				h;
 	int				sl;
@@ -331,10 +332,7 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 **	texture.c
 */
 
-t_vec3				texture_mapping(t_obj *obj, t_vec3 hit);
-t_vec3				texture_mapping_plane(t_obj *obj, t_vec3 hit);
-t_vec3				texture_mapping_sphere(t_obj *obj, t_vec3 hit);
-t_vec3				bilinear_filtering(t_obj *obj, float u, float v);
+t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 
 /*
 **	texture_generator.c
@@ -344,7 +342,14 @@ t_texture			texture_generator(int type, int width, int height);
 
 
 /*
-**	noise.c && texture_generator.c
+**	normal_map.c
+*/
+
+void				create_normal_map(t_obj *obj);
+void				bump_normal(t_obj *obj, t_ray *ray);
+
+/*
+**	noise.c
 */
 
 double				noise(t_noise *noise, double x, double y);

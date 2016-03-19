@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 17:41:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/19 09:22:36 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 		ft_strdel(&line);
 	}
 	parse_material(e, obj);
+	obj->mat.texture.defined ? create_normal_map(obj) : 0;
 	obj->scale2 = obj->scale * obj->scale;
 	obj->k = tan(obj->scale);
 	obj->k *= obj->k;
