@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/19 09:15:58 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/19 10:41:58 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 			$(LIB_PATH)libftprintf/include/
 
 NAME = rt
-VIEWER = ./viewer/
 CC = gcc
 CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
@@ -46,7 +45,6 @@ $(NAME): $(OBJ)
 	make -C $(LIB_PATH)mlx
 	make -C $(LIB_PATH)libftprintf
 	make -C $(LIB_PATH)libvec
-	make -C $(VIEWER) re
 	$(CC) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
@@ -65,7 +63,6 @@ fclean: clean
 	make -C $(LIB_PATH)libftprintf fclean
 	make -C $(LIB_PATH)libvec fclean
 	make -C $(LIB_PATH)mlx clean
-	make -C $(VIEWER) fclean
 	rm -fv $(NAME)
 
 re: fclean all
