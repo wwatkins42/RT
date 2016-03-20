@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 22:10:58 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/20 05:46:57 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	loop_hook(t_env *e)
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
 	e->key.gamma_p ? e->cam->filter.gamma -= 0.05 : 0;
-	e->key.scale_p ? e->obj->scale += 0.01 : 0;
-	e->key.scale_m ? e->obj->scale -= 0.01 : 0;
+	e->key.scale_p ? e->obj->gr += 0.1 : 0;
+	e->key.scale_m ? e->obj->gr -= 0.1 : 0;
+	e->obj->scale2 = e->obj->scale * e->obj->scale;
+	e->obj->k = tan(e->obj->scale);
+	e->obj->k *= e->obj->k;
 	expose_hook(e);
 	return (0);
 }
@@ -58,7 +61,7 @@ int	key_pressed(int keycode, t_env *e)
 	if (keycode == KEY_COMMA || keycode == KEY_DOT) // TMP
 		raytracing(e);
 	printf("pos(%f; %f; %f)\n"    , e->obj->pos.x , e->obj->pos.y , e->obj->pos.z);
-	printf("scale: %f\n", e->obj->scale);
+	printf("gr: %f\n", e->obj->gr);
 	return (0);
 }
 

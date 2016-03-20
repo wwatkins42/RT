@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 22:43:04 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/20 08:41:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define FILE_NAME_LENGTH 255
 
 enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE, ELLIPSOID,
-	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID };
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID , TORUS , CUBE_TROUE};
 enum { POINT, SPOT, DIRECTIONAL };
 enum { HARD, SOFT };
 
@@ -99,6 +99,7 @@ typedef struct		s_ray
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			hit;
+	double			t;
 	double			refract_index;
 }					t_ray;
 
@@ -154,6 +155,8 @@ typedef struct		s_obj
 	t_vec3			normal;
 	t_mat			mat;
 	short			type;
+	double			pr;
+	double			gr;
 	double			scale;
 	double			scale2;
 	double			scale3;
@@ -197,6 +200,20 @@ typedef struct		s_win
 	int				dh;
 }					t_win;
 
+typedef struct		s_poly4
+{
+	double			a0;
+	double			a1;
+	double			a2;
+	double			a3;
+	double			a4;
+	double			root1;
+	double			root2;
+	double			root3;
+	double			root4;
+}					t_poly4;
+
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -210,7 +227,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[10])(t_ray *, t_obj *);
+	double			(*intersect[11])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -277,7 +294,10 @@ double				intersect_ellipsoid(t_ray *r, t_obj *e);
 double				intersect_hyperboloid1(t_ray *r, t_obj *o);
 double				intersect_hyperboloid2(t_ray *r, t_obj *o);
 double				intersect_paraboloid(t_ray *ray, t_obj *o);
+double				intersect_torus(t_ray *ray, t_obj *obj);
+double		intersect_cube_troue(t_ray *ray, t_obj *obj);
 void				set_normal(t_ray *ray, t_obj *obj);
+double	choose_root(t_poly4 p, int r);
 
 /*
 **	raytracing_color.c
@@ -354,5 +374,12 @@ void				yml_exporter(t_env *e, char *name);
 void				export_object(const int fd, t_env *e);
 void				export_light(const int fd, t_env *e);
 void				export_camera(const int fd, t_env *e);
+
+/*
+** solvers
+*/
+int					solve_quadratic(t_poly4 *p);
+int					solve_cubic(t_poly4 *p);
+int					solve_quartic(t_poly4 *p);
 
 #endif

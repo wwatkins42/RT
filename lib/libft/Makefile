@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/15 09:15:55 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/02 16:01:40 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/20 06:59:46 by tbeauman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_NAME  = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 			ft_putendl_fd.c ft_putnbr_fd.c ft_nbrlen.c ft_lstnew.c ft_lstdelone.c \
 			ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_strrev.c \
 			ft_nbrlen.c ft_wordcount.c ft_isblank.c ft_itoa_base.c ft_atoi_base.c \
-			ft_atof.c get_next_line.c
+			ft_atof.c get_next_line.c ft_pow.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

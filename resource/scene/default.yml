@@ -19,56 +19,11 @@ lights: 1
 	  intensity: 1.6
 	  shadow: HARD
 	---
-objects: 4
-	- type: SPHERE
-	  scale: 2
-	  pos: {x: 0, y: 1, z: 5}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x4F4F4F
-		  ambient: 0.025
-		  diffuse: 0.275
-		  specular: 0.7
-		  shininess: 1024
-		  reflect: 0
-		  refract: 1.53
-		  transparency: 0.9
-		  absorbtion: 0.9
-	---
-	- type: PLANE
-	  scale: 1
-	  pos: {x: 0, y: -0.1, z: 0}
-	  dir: {x: 0, y: 1, z: 0}
-	  material:
-		  color: 0xE9E0A4
-		  ambient: 0.325
-		  diffuse: 0.675
-		  specular: 0.3
-		  shininess: 256
-		  reflect: 0
-		  refract: 0
-		  transparency: 1.0
-		  absorbtion: 0.7
-	---
-	- type: CONE
-	  scale: 0.5
-	  pos: {x: 3, y: 2, z: 6}
-	  dir: {x: 0.5, y: 1, z: 0}
-	  material:
-		  color: 0x93DD4A
-		  ambient: 0.225
-		  diffuse: 0.775
-		  specular: 8.0
-		  shininess: 512
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 0.7
-	---
+objects: 1
 	- type: CYLINDER
 	  scale: 1
-	  pos: {x: -5, y: -0.1, z: 15}
-	  dir: {x: -0.5, y: 1, z: 0}
+	  pos: {x: 1, y: 0, z: 15}
+	  dir: {x: 1, y: 1, z: 0}
 	  material:
 		  color: 0x7FD4DD
 		  ambient: 0.125

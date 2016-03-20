@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 22:05:27 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/20 09:10:52 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	lo = vec3_dot(calc.len, obj->dir);
 	calc.a = 1.0 - ro * ro;
 	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
-	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale2;
+	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale * obj->scale;
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
@@ -101,15 +101,45 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
-	if (obj->type == PLANE)
+	if (obj->type == PLANE || obj->type == TRIANGLE)
 		obj->normal = obj->dir;
-	if (obj->type == SPHERE || obj->type == ELLIPSOID)
+	if (obj->type == SPHERE || obj->type == CUBE_TROUE)
 		obj->normal = vec3_sub(ray->hit, obj->pos);
+	if (obj->type == TORUS)
+	{
+		double	k = vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir);
+		t_vec3	a = vec3_sub(ray->hit, vec3_fmul(obj->dir, k));
+		double	m = sqrt(obj->pr * obj->pr - k * k);
+		obj->normal = vec3_sub(vec3_sub(ray->hit, a),
+			vec3_fmul(vec3_sub(obj->pos, a), m / (obj->gr + m)));
+		// ray->hit = vec3_sub(ray->hit, obj->pos);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 4 * obj->gr * obj->gr *
+		// 	(vec3_dot(ray->hit, ray->hit) - ray->hit.y * ray->hit.y);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 4 * obj->gr * obj->gr *
+		// 	(vec3_dot(ray->hit, ray->hit) - ray->hit.y * ray->hit.y);
+		// ray->hit = vec3_add(ray->hit, obj->pos);
+	}
 	if (obj->type == CYLINDER || obj->type == CONE ||
 		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO)
-		obj->normal = vec3(obj->pos.x - ray->hit.x, 0.0,
-		obj->pos.z - ray->hit.z);
+	{
+		double	m = vec3_dot(ray->dir, obj->dir) * ray->t +
+			vec3_dot(vec3_sub(obj->pos, ray->pos), obj->dir);
+		obj->normal = (t_vec3){ray->hit.x - obj->pos.x,
+							   ray->hit.y - obj->pos.y,
+						   	   -ray->hit.z + obj->pos.z};
+	}
 	if (obj->type == TRIANGLE)
 		obj->normal = vec3_norm(vec3_cross(obj->pos2, obj->pos3));
+	// if (obj->type == CUBE_TROUE)
+	// {
+	// 	t_vec3	x = vec3_sub(ray->hit, obj->pos);
+	// 	obj->normal = (t_vec3){4 * ft_pow(x.x, 3) - 10 * x.x,
+	// 		4 * ft_pow(x.y, 3) - 10 * x.y,
+	// 		4 * ft_pow(x.z, 3) - 10 * x.z};
+	// }
 	vec3_normalize(&obj->normal);
 }

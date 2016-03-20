@@ -1,8 +1,8 @@
 ---
 cameras: 1
 	- camera:
-	  pos: {x: 0, y: 2, z: -2}
-	  dir: {x: 5, y: 0, z: 0}
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 0}
 	  fov: 70
 	  background: "./resource/gradient/sunset.yml"
 	---
@@ -13,10 +13,26 @@ lights: 1
 	  intensity: 1.55
 	  shadow: HARD
 	---
-objects: 7
+objects: 2
+	- type: TORUS
+	  pos: {x: 0, y: 0, z: 10}
+	  dir: {x: 1, y: 1, z: 0}
+	  pr: 1
+	  gr: 2
+	  material:
+		  color: 0xFFFF00
+		  ambient: 0.325
+		  diffuse: 0.24
+		  specular: 0.1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 0
+		  transparency: 1.0
+		  absorbtion: 0.7
+	---
 	- type: SPHERE
 	  scale: 0.75
-	  pos: {x: -1.25, y: 0.75, z: 5}
+	  pos: {x: -1.25, y: 0, z: 5}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x252525
@@ -31,7 +47,7 @@ objects: 7
 	---
 	- type: SPHERE
 	  scale: 0.75
-	  pos: {x: 1.25, y: 0.75, z: 4}
+	  pos: {x: 0, y: 0, z: 4}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x252525

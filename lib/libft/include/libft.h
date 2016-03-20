@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:33:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/09 17:05:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/20 07:00:32 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+double				ft_pow(double n, int pow);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
