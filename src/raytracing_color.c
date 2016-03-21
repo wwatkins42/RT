@@ -47,7 +47,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	double	res;
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
-	res = obj->mat.diffuse * light->intensity * theta / (obj->t * obj->t * 0.1);
+	res = obj->mat.diffuse * light->intensity * theta / (1 + obj->t * obj->t * 0.1);
 	return (vec3_fmul(light->color, res));
 }
 
@@ -64,7 +64,7 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 	halfdir = vec3_norm(vec3_add(lighdir, viewdir));
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
 	res = pow(theta, obj->mat.shininess);
-	res = res * obj->mat.specular * light->intensity / (obj->t * obj->t * 0.1);
+	res = res * obj->mat.specular * light->intensity / (1 + obj->t * obj->t * 0.1);
 	return (vec3_fmul(light->color, res));
 }
 
