@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/18 12:25:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/21 11:08:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ int		str_digit(char *str)
 		if (ft_isdigit(*str++))
 			return (1);
 	return (0);
-}
-
-void	repeat(float *value, float bound, float size, short type)
-{
-	if (type == SUP)
-		while (*value > bound)
-			*value -= size;
-	else
-		while (*value < bound)
-			*value += size;
 }
 
 void    kswitch(char *k)
@@ -67,11 +57,11 @@ void	display_loading(t_env *e, int u, int v)
 	percent = progress / goal * 100;
 	if (percent != prev)
 	{
-		if (e->scene.resync)
-		{
-			mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
-			mlx_do_sync(e->mlx);
-		}
+		// if (e->scene.resync)
+		// {
+		// 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+		// 	mlx_do_sync(e->mlx);
+		// }
 		if (e->scene.percent)
 		{
 			system("clear");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/19 09:34:07 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/21 12:46:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 	{
 		set_light(ray->hit, light);
 		if (obj->mat.texture.defined)
+		{
 			obj->mat.color = texture_mapping(obj, obj->mat.texture.img, ray->hit);
-		color = vec3_add(color, vec3_fmul(light->color,
-				obj->mat.ambient));// - 0.005 * obj->t));
+			bump_normal(obj, ray);
+		}
+		color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));// - 0.005 * obj->t));
 		diffuse = set_diffuse(obj, light);
 		specular = set_specular(e, ray->hit, obj, light);
 		color = vec3_add(color, vec3_add(diffuse, specular));
