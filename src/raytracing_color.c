@@ -47,6 +47,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	double	res;
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
+	// '0.1' is attenuation factor, maybe great to put in parsing to be modular
 	res = obj->mat.diffuse * light->intensity * theta / (1 + obj->t * obj->t * 0.1);
 	return (vec3_fmul(light->color, res));
 }
