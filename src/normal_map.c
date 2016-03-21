@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/21 13:33:49 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:10:08 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static t_vec3	compute_gradient(double **grad)
 	// when calculating diffx and diffy, changing order of sub values changes
 	// the invertion of colors (depth).
 	scale = 2.5;
-	diffx = grad[1][2] - grad[1][0];
-	diffy = grad[2][1] - grad[0][1];
+	diffx = grad[1][0] - grad[1][2];
+	diffy = grad[0][1] - grad[2][1];
 	color.x = vec3_norm(vec3(1, diffx * scale, 0)).y;
 	color.y = vec3_norm(vec3(1, diffy * scale, 0)).y;
 	color.z = sqrt(1 - ft_clampf(color.x * color.x + color.y * color.y, 0, 1));
@@ -96,13 +96,13 @@ void			create_normal_map(t_obj *obj)
 	}
 }
 
-void			bump_normal(t_obj *obj, t_ray *ray)
+t_vec3			bump_normal(t_obj *obj, t_ray *ray)
 {
+	t_vec3		normal;
 	t_vec3		tangent;
 	t_vec3		binormal;
-	t_vec3		c[2];
 	t_vec3		bump;
-	t_vec3		normal;
+	t_vec3		c[2];
 
 	normal = obj->normal;
 	bump = texture_mapping(obj, obj->mat.texture.bump, ray->hit);
@@ -114,8 +114,9 @@ void			bump_normal(t_obj *obj, t_ray *ray)
 	vec3_normalize(&tangent);
 	binormal = vec3_cross(normal, tangent);
 	vec3_normalize(&binormal);
-	obj->normal.x = vec3_dot(bump, tangent);
-	obj->normal.y = vec3_dot(bump, binormal);
-	obj->normal.z = vec3_dot(bump, normal);
-	vec3_normalize(&obj->normal);
+	normal.x = vec3_dot(bump, tangent);
+	normal.y = vec3_dot(bump, binormal);
+	normal.z = vec3_dot(bump, obj->normal);
+	vec3_normalize(&normal);
+	return (normal);
 }

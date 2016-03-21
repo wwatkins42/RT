@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/21 12:46:47 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:45:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 		if (obj->mat.texture.defined)
 		{
 			obj->mat.color = texture_mapping(obj, obj->mat.texture.img, ray->hit);
-			bump_normal(obj, ray);
+			obj->mat.texture.normal = bump_normal(obj, ray);
 		}
 		color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));// - 0.005 * obj->t));
 		diffuse = set_diffuse(obj, light);
@@ -45,7 +45,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 {
 	double	diff;
 
-	diff = vec3_dot(light->ray.dir, obj->normal);
+	diff = vec3_dot(light->ray.dir, obj->mat.texture.normal);
 	diff < 0 ? diff = 0 : 0;
 	return (vec3_fmul(light->color, diff * obj->mat.diffuse));
 
@@ -69,7 +69,7 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 	lighdir = vec3_norm(vec3_sub(light->pos, hit));
 	viewdir = vec3_norm(vec3_sub(e->cam->pos, hit));
 	halfdir = vec3_norm(vec3_add(lighdir, viewdir));
-	spec = pow(vec3_dot(obj->normal, halfdir), obj->mat.shininess);
+	spec = pow(vec3_dot(obj->mat.texture.normal, halfdir), obj->mat.shininess);
 	return (vec3_fmul(light->color, spec * obj->mat.specular));
 }
 
