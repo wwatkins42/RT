@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/19 09:10:51 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/21 13:14:21 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,6 @@ static double	**get_gradient(t_vec3 **img, int y, int x, t_texture text)
 				get_intensity(img[y + 1][x + 1]) : zero;
 	return (grad);
 }
-
-// static t_vec3	compute_gradient(double **grad)
-// {
-// 	double		top_side;
-// 	double		bottom_side;
-// 	double		right_side;
-// 	double		left_side;
-// 	t_vec3		normal;
-//
-// 	top_side = grad[0][0] + grad[0][1] + grad[0][2];
-// 	bottom_side = grad[2][0] + grad[2][1] + grad[2][2];
-// 	right_side = grad[0][2] + grad[1][2] + grad[2][2];
-// 	left_side = grad[0][0] + grad[1][0] + grad[2][0];
-// 	normal.x = right_side - left_side;
-// 	normal.y = bottom_side - top_side;
-// 	normal.z = 8.0;
-// 	ft_memdel((void*)&grad[0]);
-// 	ft_memdel((void*)&grad[1]);
-// 	ft_memdel((void*)&grad[2]);
-// 	ft_memdel((void*)grad);
-// 	vec3_clamp(&normal, 0.0, 1);
-// 	return (vec3_norm(vec3_fmul(vec3_add(normal, vec3(1, 1, 1)), 0.5)));
-// }
 
 static t_vec3	compute_gradient(double **grad)
 {
@@ -123,17 +100,22 @@ void			bump_normal(t_obj *obj, t_ray *ray)
 {
 	t_vec3		tangent;
 	t_vec3		binormal;
+	t_vec3		c[2];
 	t_vec3		bump;
+	t_vec3		normal;
 
+	normal = obj->normal;
 	bump = texture_mapping(obj, obj->mat.texture.bump, ray->hit);
-	// tangent = vec3_cross(obj->normal, vec3(1, 0, 0));
-	tangent = vec3_cross(obj->normal, vec3(0, 1, 0));
-	binormal = vec3_cross(tangent, obj->normal);
-	// obj->normal = vec3_add(obj->normal, vec3_add(vec3_fmul(
-	// 			vec3_cross(obj->normal, tangent), bump.x),
-	// 			vec3_fmul(vec3_cross(binormal, obj->normal), bump.y)));
-	// obj->normal = vec3_sub(vec3_fmul(obj->normal, 2), vec3(1, 1, 1));
-	obj->normal = vec3_add(vec3_fmul(tangent, bump.x),
-	vec3_add(vec3_fmul(binormal, bump.y), vec3_fmul(obj->normal, bump.z)));
+	bump = vec3_sub(vec3_fmul(bump, 2.0), vec3(1, 1, 1));
+	c[0] = vec3_cross(normal, vec3(0, 0, 1));
+	c[1] = vec3_cross(normal, vec3(0, 1, 0));
+	// tangent = vec3_magnitude(c[0]) > vec3_magnitude(c[1]) ? c[0] : c[1];
+	tangent = c[1];
+	vec3_normalize(&tangent);
+	binormal = vec3_cross(normal, tangent);
+	vec3_normalize(&binormal);
+	obj->normal.x = vec3_dot(bump, tangent);
+	obj->normal.y = vec3_dot(bump, binormal);
+	obj->normal.z = vec3_dot(bump, normal);
 	vec3_normalize(&obj->normal);
 }
