@@ -10,7 +10,7 @@ lights: 1
 	- type: POINT
 	  pos: {x: 4, y: 3, z: 5}
 	  color: 0xFFFFFF
-	  intensity: 2.0
+	  intensity: 10.0
 	  shadow: HARD
 	---
 objects: 2

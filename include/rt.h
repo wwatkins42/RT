@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/21 13:44:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/21 17:35:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
-void				set_light(t_vec3 hit, t_lgt *light);
+void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
 void				supersampling(t_env *e, int x, int y);
 
