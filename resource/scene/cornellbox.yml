@@ -6,7 +6,7 @@ scene:
 	sensibility: 0.2
 	lerp: true
 	resync: false
-	load: false
+	percent: false
 
 cameras:
 	- camera:
