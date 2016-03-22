@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 09:22:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:30:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static t_lgt	*create_light(t_line *light_line)
 			new->attenuation = parse_value(line->line);
 		line = line->next;
 	}
+	e->count.lgt++;
 	new->next = NULL;
 	return (new);
 }
@@ -80,7 +81,6 @@ t_lgt			*parse_light(t_env *e, t_line *light_line)
 		{
 			current->next = create_light(line->next);
 			current = current->next;
-			e->count.lgt++;
 		}
 		line = line->next;
 	}

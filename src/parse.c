@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 07:53:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 10:10:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,15 @@ static void	destroy_parse(t_parse *core)
 
 void		parse(t_env *e, t_parse *core)
 {
+	char	info[256];
+
+	sprintf(info, "FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
+	display_info(e, info);
 	e->cam = parse_camera(e, core->cam);
 	e->lgt = parse_light(e, core->lgt);
 	e->obj = parse_object(e, core->obj);
 	destroy_parse(core);
+	sprintf(info, "SCENE:[cam:%d, lgt:%d, obj:%d]\n",
+	e->count.cam, e->count.lgt, e->count.obj);
+	display_info(e, info);
 }

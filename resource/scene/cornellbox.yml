@@ -3,7 +3,7 @@ cameras:
 	- camera:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
-	  fov: 80
+	  fov: 75
 	  supersampling: 1
 
 lights:
@@ -11,7 +11,7 @@ lights:
 	  pos: {x: 0, y: 3.5, z: 4.5}
 	  color: 0xFFF2EE
 	  intensity: 1.25
-	  attenuation: 0.05
+	  attenuation: 0.1
 	  shadow: HARD
 
 objects:
@@ -54,7 +54,7 @@ objects:
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
 		  color: 0xD2D2D1
-		  ambient: 0.325
+		  ambient: 0.225
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16
@@ -70,7 +70,7 @@ objects:
 	  dir: {x: 0, y: 0, z: -1}
 	  material:
 		  color: 0xE2E2D1
-		  ambient: 0.325
+		  ambient: 0.225
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16
@@ -86,7 +86,7 @@ objects:
 	  dir: {x: 0, y: -1, z: 0}
 	  material:
 		  color: 0x323232
-		  ambient: 0.325
+		  ambient: 0.225
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16
@@ -102,7 +102,7 @@ objects:
 	  dir: {x: 1, y: 0, z: 0}
 	  material:
 		  color: 0xD03838
-		  ambient: 0.325
+		  ambient: 0.225
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16
@@ -118,7 +118,7 @@ objects:
 	  dir: {x: -1, y: 0, z: 0}
 	  material:
 		  color: 0x1B59C3
-		  ambient: 0.325
+		  ambient: 0.225
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16

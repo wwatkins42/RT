@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 09:34:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 10:29:57 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->pos = parse_vector(line->line);
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
-		else if (ft_strstr(line->line, "material:"))
-			parse_material(e, &new->mat, line);
 		else if (ft_strstr(line->line, "scale:"))
 			new->scale = parse_value(line->line);
+		else if (ft_strstr(line->line, "material:"))
+			parse_material(e, &new->mat, line);
 		line = line->next;
 	}
+	e->count.obj++;
 	new->mat.texture.normal_map ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;
-	new->k = tan(new->scale);
-	new->k *= new->k;
+	new->k = tan(new->scale) * tan(new->scale);
 	new->next = NULL;
 	return (new);
 }
@@ -94,7 +94,6 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 		{
 			current->next = create_object(e, line->next);
 			current = current->next;
-			e->count.obj++;
 		}
 		line = line->next;
 	}

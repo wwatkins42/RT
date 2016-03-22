@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 09:19:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:11:10 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,7 @@ int					key_released(int keycode, t_env *e);
 /*
 **			Main functions
 */
+
 void				raytracing(t_env *e);
 void				raytracing_init(t_env *e, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
@@ -322,6 +323,7 @@ t_vec3				raytracing_draw(t_env *e, t_ray ray);
 /*
 **			Primitives intersections
 */
+
 t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin);
 double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
@@ -332,6 +334,7 @@ void				set_normal(t_ray *ray, t_obj *obj);
 /*
 **			Reflection / Refraction
 */
+
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 
@@ -339,6 +342,7 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 /*
 **			Color and light
 */
+
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
@@ -353,6 +357,7 @@ void				supersampling(t_env *e, int x, int y);
 /*
 **			Texture generator && perlin noise
 */
+
 t_texture			texture_generator(int type, int width, int height);
 double				noise(t_noise *noise, double x, double y);
 t_noise				init_noise_structure(int w, int h, int pas, int octave);
@@ -360,11 +365,13 @@ t_noise				init_noise_structure(int w, int h, int pas, int octave);
 /*
 **			Texture mapping
 */
+
 t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 
 /*
 **			Normal mapping
 */
+
 void				create_normal_map(t_obj *obj);
 t_vec3				bump_normal(t_obj *obj, t_ray *ray);
 

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 09:46:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:23:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,15 @@ t_vec3			bump_normal(t_obj *obj, t_ray *ray)
 
 	normal = obj->normal;
 	bump = texture_mapping(obj, obj->mat.texture.bump, ray->hit);
-	bump = vec3_sub(vec3_fmul(bump, 2.0), vec3(1, 1, 1));
+	bump = vec3_sub(vec3_fmul(bump, 2), vec3(1, 1, 1));
 	c[0] = vec3_cross(normal, vec3(0, 0, 1));
 	c[1] = vec3_cross(normal, vec3(0, 1, 0));
 	// tangent = vec3_magnitude(c[0]) > vec3_magnitude(c[1]) ? c[0] : c[1];
 	tangent = c[1];
 	vec3_normalize(&tangent);
-	binormal = vec3_cross(normal, tangent);
-	vec3_normalize(&binormal);
+	binormal = vec3_norm(vec3_cross(normal, tangent));
 	normal.x = vec3_dot(bump, tangent);
 	normal.y = vec3_dot(bump, binormal);
 	normal.z = vec3_dot(bump, obj->normal);
-	vec3_normalize(&normal);
-	return (normal);
+	return (vec3_norm(normal));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 09:32:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 09:54:49 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	double	res;
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
-	// '0.1' is attenuation factor, maybe great to put in parsing to be modular
 	res = obj->mat.diffuse * light->intensity * theta /
 		(1 + obj->t * obj->t * light->attenuation);
 	return (vec3_fmul(light->color, res));
