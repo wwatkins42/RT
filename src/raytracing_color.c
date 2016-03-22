@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 17:46:38 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:59:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
 	res = obj->mat.diffuse * light->intensity * theta /
-		(1 + obj->t * obj->t * light->attenuation);
+		(1.0 + obj->t * obj->t * light->attenuation);
 	return (vec3_fmul(light->color, res));
 }
 
@@ -67,7 +67,7 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
 	res = pow(theta, obj->mat.shininess);
 	res = res * obj->mat.specular * light->intensity /
-		(1 + obj->t * obj->t * light->attenuation);
+		(1.0 + obj->t * obj->t * light->attenuation);
 	return (vec3_fmul(light->color, res));
 }
 

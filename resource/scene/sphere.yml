@@ -1,4 +1,13 @@
 ---
+scene:
+	velocity: 0.8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: false
+	load_resync: false
+	load_percent: false
+
 cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}

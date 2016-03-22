@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 17:17:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:05:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ static void	parse_scene(t_env *e, t_line *scene)
 	line = scene;
 	while (line != NULL)
 	{
-		if (ft_strstr(line->line, "reflect_max:"))
+		if (ft_strstr(line->line, "recursion_reflect:"))
 			e->reflect.depth_max = parse_value(line->line, 0, 16);
-		else if (ft_strstr(line->line, "refract_max:"))
+		else if (ft_strstr(line->line, "recursion_refract:"))
 			e->refract.depth_max = parse_value(line->line, 0, 16);
-		else if (ft_strstr(line->line, "sensibility:"))
+		else if (ft_strstr(line->line, "mouse_sensibility:"))
 			e->mouse.sensibility = parse_value(line->line, 0, 0.6);
-		else if (ft_strstr(line->line, "lerp:"))
+		else if (ft_strstr(line->line, "mouse_interpolation:"))
 			e->mouse.lerp = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "velocity:"))
 			e->scene.velocity = parse_value(line->line, 0, 10);
-		else if (ft_strstr(line->line, "resync:"))
+		else if (ft_strstr(line->line, "load_resync:"))
 			e->scene.resync = parse_boolean(line->line);
-		else if (ft_strstr(line->line, "percent:"))
+		else if (ft_strstr(line->line, "load_percent:"))
 			e->scene.percent = parse_boolean(line->line);
 		line = line->next;
 	}

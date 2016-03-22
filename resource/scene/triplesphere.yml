@@ -1,10 +1,10 @@
 ---
 scene:
-	reflect_max: 4
-	refract_max: 4
 	velocity: 0.8
-	sensibility: 0.2
-	lerp: true
+	recursion_reflect: 4
+	recursion_refract: 4
+	mouse_sensibility: 0.2
+	mouse_interpolation: true
 	resync: false
 	percent: false
 

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 16:41:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:07:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ void	init_env(t_env *e)
 	e->count.cam = 0;
 	e->count.lgt = 0;
 	e->count.obj = 0;
-	e->scene.resync = 0;
-	e->scene.percent = 0;
 	e->scene.velocity = 0.6;
 	e->reflect.depth_max = 1;
 	e->refract.depth_max = 1;
 	e->mouse.sensibility = 0.3;
+	e->mouse.lerp = 0;
+	e->scene.resync = 0;
+	e->scene.percent = 0;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

@@ -1,12 +1,12 @@
 ---
 scene:
-	reflect_max: 2
-	refract_max: 1
 	velocity: 0.8
-	sensibility: 0.2
-	lerp: true
-	resync: false
-	percent: false
+	recursion_reflect: 2
+	recursion_refract: 1
+	mouse_sensibility: 0.2
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
 
 cameras:
 	- camera:
@@ -19,7 +19,7 @@ lights:
 	- type: POINT
 	  pos: {x: 0, y: 3.5, z: 4.5}
 	  color: 0xFFF2EE
-	  intensity: 1.25
+	  intensity: 1.35
 	  attenuation: 0.1
 	  shadow: HARD
 
@@ -65,8 +65,8 @@ objects:
 		  color: 0xD2D2D1
 		  ambient: 0.225
 		  diffuse: 0.975
-		  specular: 0.1
-		  shininess: 16
+		  specular: 1
+		  shininess: 2048
 		  reflect: 0.05
 		  refract: 0
 		  transparency: 1.0
