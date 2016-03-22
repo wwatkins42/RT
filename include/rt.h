@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 08:04:06 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 08:33:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,7 @@ t_obj				*parse_object(t_env *e, t_line *object_line);
 double				parse_value(const char *line);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
-t_texture			parse_texture(t_env *e, const char *line);
-t_mat				parse_material(t_env *e, t_line *line);
+void				parse_material(t_env *e, t_mat *mat, t_line *line);
 
 /*
 **	ENVIRONNEMENT INIT FUNCTIONS

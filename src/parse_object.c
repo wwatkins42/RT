@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 07:57:55 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 08:32:09 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "material:"))
-			new->mat = parse_material(e, line);
+			parse_material(e, &new->mat, line);
 		else if (ft_strstr(line->line, "scale:"))
 			new->scale = parse_value(line->line);
 		line = line->next;
