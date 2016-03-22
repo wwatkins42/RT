@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:39:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:55:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,7 +395,7 @@ int					str_digit(char *str);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);
-
+void				display_texture(t_env *e, t_vec3 **img, t_texture texture);
 
 /*
 **	FILTER FUNCTIONS

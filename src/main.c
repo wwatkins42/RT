@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 09:39:41 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:51:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	args_get(t_env *e, int ac, char **av)
 	int		fd;
 
 	i = 0;
-	e->arg.w = 0;
-	e->arg.h = 0;
+	e->arg.w = 1280;
+	e->arg.h = 720;
 	e->arg.file = NULL;
 	while (++i < ac)
 	{

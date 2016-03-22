@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/21 11:08:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:55:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,30 @@ void	display_loading(t_env *e, int u, int v)
 	percent = progress / goal * 100;
 	if (percent != prev)
 	{
-		// if (e->scene.resync)
-		// {
-		// 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
-		// 	mlx_do_sync(e->mlx);
-		// }
+		if (e->scene.resync)
+		{
+			mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+			mlx_do_sync(e->mlx);
+		}
 		if (e->scene.percent)
 		{
 			system("clear");
 			ft_printf("%d%%\n", percent);
 		}
 		prev = percent;
+	}
+}
+
+void	disp_texture(t_env *e, t_vec3 **img, t_texture texture)
+{
+	int		x;
+	int		y;
+
+	y = -1;
+	while (++y < texture.h)
+	{
+		x = -1;
+		while (++x < texture.w)
+			img_pixel_put(&e->cam->img, x, y, img[y][x]);
 	}
 }
