@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 07:55:13 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 08:41:39 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ double		parse_value(const char *line)
 	i = 0;
 	while (!ft_isdigit(line[i]))
 		i++;
+	(line[i - 1] == '-') ? i -= 1 : 0;
 	value = ft_atof(&line[i]);
 	return (value);
 }
