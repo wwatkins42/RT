@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:11:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:39:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ typedef struct		s_arg
 
 typedef struct		s_key
 {
-	short			up;
-	short			down;
-	short			left;
-	short			right;
-	short			rot_up;
-	short			rot_down;
-	short			rot_left;
-	short			rot_right;
+	short			ku;
+	short			kd;
+	short			kl;
+	short			kr;
+	short			i;
+	short			k;
+	short			j;
+	short			l;
+	short			debug;
 	short			invert;
 	short			gray_scale;
 	short			gamma_m;
