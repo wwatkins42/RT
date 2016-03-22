@@ -35,3 +35,4 @@ __Bonus:__
 - Normal mapping
 - Light attenuation with distance
 - Camera orientation with mouse
+- Mouse smooth (linear interpolation)
