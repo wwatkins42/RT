@@ -33,3 +33,4 @@ __Bonus:__
 - Line loading display
 - Generate normal-map from texture (sobel filter)
 - Normal mapping
+- Light attenuation with distance

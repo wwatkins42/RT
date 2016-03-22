@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 07:56:51 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 07:59:20 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ enum { SPHERE, CONE, PLANE, CYLINDER };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, EARTH, BMP };
 enum { HARD, SOFT };
-enum { SUP, INF };
 
 typedef struct		s_arg
 {
@@ -57,6 +56,10 @@ typedef struct		s_key
 	short			down;
 	short			left;
 	short			right;
+	short			rot_up;
+	short			rot_down;
+	short			rot_left;
+	short			rot_right;
 	short			invert;
 	short			gray_scale;
 	short			gamma_m;
@@ -67,6 +70,7 @@ typedef struct		s_texture
 {
 	t_vec3			**img;
 	t_vec3			**bump;
+	t_vec3			normal;
 	int				w;
 	int				h;
 	int				sl;
@@ -330,8 +334,13 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
+<<<<<<< HEAD
 void				set_light(t_vec3 hit, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
+=======
+void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
+void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
+>>>>>>> aed913ae5518556200a4c0cf929304bb679dc746
 void				supersampling(t_env *e, int x, int y);
 
 /*
@@ -354,7 +363,7 @@ t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 **			Normal mapping
 */
 void				create_normal_map(t_obj *obj);
-void				bump_normal(t_obj *obj, t_ray *ray);
+t_vec3				bump_normal(t_obj *obj, t_ray *ray);
 
 
 /*
@@ -372,7 +381,6 @@ int					vec3_hex(const t_vec3 vec);
 */
 
 int					str_digit(char *str);
-void				repeat(float *value, float bound, float size, short type);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);

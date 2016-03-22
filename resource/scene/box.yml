@@ -8,9 +8,9 @@ cameras: 1
 	---
 lights: 2
 	- type: POINT
-	  pos: {x: 6, y: 6, z: 5}
+	  pos: {x: 6, y: 1, z: 3}
 	  color: 0xFFFFFF
-	  intensity: 1.0
+	  intensity: 4.0
 	  shadow: HARD
 	---
 	- type: POINT
@@ -86,7 +86,7 @@ objects: 5
 	  dir: {x: 0, y: 1, z: -0.015}
 	  material:
 		  color: 0x1864AB
-		  ambient: 0.425
+		  ambient: 0.225
 		  diffuse: 0.675
 		  specular: 1.0
 		  shininess: 2048
