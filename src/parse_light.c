@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:30:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:31:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		get_light_type(char *line)
 	return (POINT);
 }
 
-static t_lgt	*create_light(t_line *light_line)
+static t_lgt	*create_light(t_env *e, t_line *light_line)
 {
 	t_lgt		*new;
 	t_line		*line;
@@ -73,13 +73,13 @@ t_lgt			*parse_light(t_env *e, t_line *light_line)
 
 	line = light_line->next->next;
 	current = NULL;
-	current = create_light(line);
+	current = create_light(e, line);
 	light = current;
 	while (line != NULL)
 	{
 		if (ft_strstr(line->line, "- light:"))
 		{
-			current->next = create_light(line->next);
+			current->next = create_light(e, line->next);
 			current = current->next;
 		}
 		line = line->next;
