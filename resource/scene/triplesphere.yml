@@ -48,6 +48,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/wood1.bmp
+		  texture: MARBLE
 		  texture_filtering: 1
+		  bump: 0
 ...

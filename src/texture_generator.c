@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:25:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 10:13:27 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 09:29:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_texture		texture_generator(int type, int width, int height)
 	text.w = width;
 	text.h = height;
 	text.defined = 1;
+	text.normal_map = 0;
 	noise = init_noise_structure(width, height, 100, 7);
 	if (!(text.img = (t_vec3**)malloc(sizeof(t_vec3*) * height)))
 		error(E_MALLOC, NULL, 1);

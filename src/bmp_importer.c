@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_importer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 14:52:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 09:29:46 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_texture			bmp_importer(char *file_path)
 	int			fd;
 
 	texture = read_header(file_path);
+	texture.normal_map = 0;
 	if (texture.bpp != 24)
 		error("bmp bpp (bytePerPixel) not handled.", NULL, 1);
 	if ((fd = open(file_path, O_RDWR)) == -1)

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 08:32:09 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 09:34:40 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->scale = parse_value(line->line);
 		line = line->next;
 	}
+	new->mat.texture.normal_map ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;
 	new->k = tan(new->scale);
 	new->k *= new->k;
