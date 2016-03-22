@@ -34,5 +34,6 @@ __Bonus:__
 - Generate normal-map from texture (sobel filter)
 - Normal mapping
 - Light attenuation with distance
+- Camera movement
 - Camera orientation with mouse
 - Mouse smooth (linear interpolation)
