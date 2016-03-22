@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 08:11:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 08:11:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 08:21:18 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		export_camera(const int fd, t_env *e)
 	i = -1;
 	cam = e->cam;
 	ft_printf_fd(fd, "cameras:\n");
-	while (++i < 1)
+	while (++i < e->count.cam)
 	{
 		ft_printf_fd(fd, "- camera:\n");
 		ft_printf_fd(fd, "  pos: {x: %f, y: %f, z: %f}\n",
@@ -52,6 +52,7 @@ void		export_camera(const int fd, t_env *e)
 		ft_printf_fd(fd, "  dir: {x: %f, y: %f, z: %f}\n",
 					cam->dir.x, cam->dir.y, cam->dir.z);
 		ft_printf_fd(fd, "  fov: %ld\n", cam->fov);
+		ft_printf_fd(fd, "  supersampling: %d", cam->aa.supersampling);
 		write(fd, "\n", 1);
 		cam = cam->next;
 	}
@@ -65,7 +66,8 @@ void		export_light(const int fd, t_env *e)
 	ft_printf_fd(fd, "lights:\n");
 	while (lgt != NULL)
 	{
-		ft_printf_fd(fd, "- type: %s\n", get_type(lgt->type, 0));
+		ft_printf_fd(fd, "- light:\n");
+		ft_printf_fd(fd, "  type: %s\n", get_type(lgt->type, 0));
 		ft_printf_fd(fd, "  pos: {x: %f, y: %f, z: %f}\n",
 					lgt->pos.x, lgt->pos.y, lgt->pos.z);
 		ft_printf_fd(fd, "  color: %#x\n", vec3_hex(lgt->color));
@@ -84,7 +86,8 @@ void		export_object(const int fd, t_env *e)
 	write(fd, "objects:\n", 9);
 	while (obj != NULL)
 	{
-		ft_printf_fd(fd, "- type: %s\n", get_type(obj->type, 1));
+		ft_printf_fd(fd, "- object:\n");
+		ft_printf_fd(fd, "  type: %s\n", get_type(obj->type, 1));
 		ft_printf_fd(fd, "  pos: {x: %f, y: %f, z: %f}\n",
 					obj->pos.x, obj->pos.y, obj->pos.z);
 		ft_printf_fd(fd, "  pos: {x: %f, y: %f, z: %f}\n",
