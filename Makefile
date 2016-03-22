@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/19 10:41:58 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/22 08:04:34 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ CC = gcc
 CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
-SRC_NAME = 	main.c parse.c create_camera.c create_light.c create_object.c \
+SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
+			parse_object.c parse_utils.c parse_material.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \

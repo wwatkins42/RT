@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 07:59:20 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 08:04:06 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_texture
 	short			type;
 	short			filtering;
 	short			defined;
+	short			normal_map;
 }					t_texture;
 
 typedef struct		s_noise
@@ -242,6 +243,13 @@ typedef struct		s_win
 	int				dh;
 }					t_win;
 
+typedef struct		s_line
+{
+	char			*line;
+	struct s_line	*next;
+	struct s_line	*prev;
+}					t_line;
+
 typedef struct		s_parse
 {
 	t_line			*cam;
@@ -334,13 +342,8 @@ t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
-<<<<<<< HEAD
-void				set_light(t_vec3 hit, t_lgt *light);
-void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
-=======
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
-void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
->>>>>>> aed913ae5518556200a4c0cf929304bb679dc746
+void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 void				supersampling(t_env *e, int x, int y);
 
 /*

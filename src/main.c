@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/17 15:58:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 08:02:10 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			main(int ac, char **av)
 	!(e.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
 	args_get(&e, ac, av);
 	init_env(&e);
-	parse(&e);
+	parse_yml(&e);
 	core(&e);
 	return (0);
 }
