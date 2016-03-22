@@ -1,26 +1,29 @@
 ---
-cameras: 1
+cameras:
 	- camera:
 	  pos: {x: 10, y: 1, z: 0}
 	  dir: {x: 10, y: 45, z: -5}
 	  fov: 80
 	  supersampling: 1
-	---
-lights: 2
-	- type: POINT
+
+lights:
+	- light:
+	  type: POINT
 	  pos: {x: 6, y: 1, z: 3}
 	  color: 0xFFFFFF
 	  intensity: 4.0
 	  shadow: HARD
-	---
-	- type: POINT
+
+	- light:
+	  type: POINT
 	  pos: {x: 6, y: 6, z: -10}
 	  color: 0xF9E79E
 	  intensity: 0.7
 	  shadow: HARD
-	---
-objects: 5
-	- type: SPHERE
+
+objects:
+	- object:
+	  type: SPHERE
 	  scale: 1.5
 	  pos: {x: 8, y: 0.25, z: 4}
 	  dir: {x: 0, y: 0, z: 1}
@@ -34,8 +37,9 @@ objects: 5
 		  refract: 1.13
 		  transparency: 0.7
 		  absorbtion: 0.8
-	---
-	- type: SPHERE
+
+	- object:
+	  type: SPHERE
 	  scale: 1
 	  pos: {x: -1, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
@@ -49,8 +53,9 @@ objects: 5
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: SPHERE
+
+	- object:
+	  type: SPHERE
 	  scale: 1
 	  pos: {x: 0, y: 1.7, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
@@ -64,8 +69,9 @@ objects: 5
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: SPHERE
+
+	- object:
+	  type: SPHERE
 	  scale: 1
 	  pos: {x: 1, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
@@ -79,8 +85,9 @@ objects: 5
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: 0, y: -1, z: 10}
 	  dir: {x: 0, y: 1, z: -0.015}
@@ -94,5 +101,5 @@ objects: 5
 		  refract: 0
 		  transparency: 1
 		  absorbtion: 0.8
-	---
+
 ...

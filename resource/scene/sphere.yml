@@ -1,20 +1,22 @@
 ---
-cameras: 1
+cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
-	---
-lights: 1
-	- type: POINT
+
+lights:
+	- light:
+	  type: POINT
 	  pos: {x: 4, y: 3, z: 5}
 	  color: 0xFFFFFF
 	  intensity: 10.0
 	  shadow: HARD
-	---
-objects: 2
-	- type: SPHERE
+
+objects:
+	- object:
+	  type: SPHERE
 	  scale: 2
 	  pos: {x: 0, y: 0, z: 10}
 	  dir: {x: 0, y: 0, z: 1}
@@ -28,8 +30,9 @@ objects: 2
 		  refract: 0.95
 		  transparency: 1.0
 		  absorbtion: 1
-	---
-	- type: CYLINDER
+
+	- object:
+	  type: CYLINDER
 	  scale: 2
 	  pos: {x: 0, y: 0, z: 15}
 	  dir: {x: 0, y: 1, z: 0}
@@ -43,5 +46,4 @@ objects: 2
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 0.5
-	---
 ...

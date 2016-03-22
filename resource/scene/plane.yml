@@ -1,20 +1,22 @@
 ---
-cameras: 1
+cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
-	---
-lights: 1
-	- type: POINT
+
+lights:
+	- light:
+	  type: POINT
 	  pos: {x: 0, y: 0, z: 1}
 	  color: 0xD2EBC3
 	  intensity: 1.05
 	  shadow: HARD
-	---
-objects: 1
-	- type: SPHERE
+
+objects:
+	- object:
+	  type: SPHERE
 	  scale: 1
 	  pos: {x: 0, y: 0, z: 3}
 	  dir: {x: 0, y: 0, z: -1}
@@ -30,5 +32,4 @@ objects: 1
 		  absorbtion: 0
 		  texture: ../texture/wwatkins.bmp
 		  texture_filtering: 1
-	---
 ...

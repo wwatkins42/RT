@@ -1,20 +1,21 @@
 ---
-cameras: 1
+cameras:
 	- camera:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
-	---
-lights: 1
+
+lights:
 	- type: POINT
 	  pos: {x: 0, y: 3.5, z: 4.5}
 	  color: 0xFFF2EE
 	  intensity: 1.25
 	  shadow: HARD
-	---
-objects: 7
-	- type: SPHERE
+
+objects:
+	- object:
+	  type: SPHERE
 	  scale: 0.75
 	  pos: {x: -1.25, y: 0.75, z: 5}
 	  dir: {x: 0, y: 0, z: 1}
@@ -28,8 +29,9 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
-	---
-	- type: SPHERE
+
+	- object:
+	  type: SPHERE
 	  scale: 0.75
 	  pos: {x: 1.05, y: 0.75, z: 4}
 	  dir: {x: 0, y: 0, z: 1}
@@ -43,8 +45,9 @@ objects: 7
 		  refract: 3.57
 		  transparency: 0.81
 		  absorbtion: 0.8
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 1, z: 0}
@@ -58,8 +61,9 @@ objects: 7
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: 0, y: 0, z: 6}
 	  dir: {x: 0, y: 0, z: -1}
@@ -74,8 +78,9 @@ objects: 7
 		  transparency: 0
 		  absorbtion: 0
 		  texture: ../texture/snow.bmp
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: 0, y: 4, z: 0}
 	  dir: {x: 0, y: -1, z: 0}
@@ -89,8 +94,9 @@ objects: 7
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: -2.5, y: 0, z: 0}
 	  dir: {x: 1, y: 0, z: 0}
@@ -104,8 +110,9 @@ objects: 7
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: PLANE
+
+	- object:
+	  type: PLANE
 	  scale: 1
 	  pos: {x: 2.5, y: 0, z: 0}
 	  dir: {x: -1, y: 0, z: 0}
@@ -119,5 +126,3 @@ objects: 7
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-	---
-...

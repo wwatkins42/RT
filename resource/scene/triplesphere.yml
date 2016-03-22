@@ -1,38 +1,40 @@
 ---
-cameras: 4
+cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 90
 	  supersampling: 1
-	---
+
 	- camera:
 	  pos: {x: 3, y: 1, z: 5}
 	  dir: {x: 1, y: 90, z: 0}
 	  fov: 110
 	  supersampling: 1
-	---
+
 	- camera:
 	  pos: {x: 0, y: 2, z: 10}
 	  dir: {x: 10, y: 180, z: 0}
 	  fov: 110
 	  supersampling: 1
-	---
+
 	- camera:
 	  pos: {x: -3, y: 1, z: 5}
 	  dir: {x: 1, y: -90, z: 0}
 	  fov: 110
 	  supersampling: 1
-	---
-lights: 1
-	- type: POINT
+
+lights:
+	- light:
+	  type: POINT
 	  pos: {x: 1, y: 3.5, z: 4}
 	  color: 0xF9DAC9
 	  intensity: 1.25
 	  shadow: HARD
-	---
-objects: 1
-	- type: SPHERE
+
+objects:
+	- object:
+	  type: SPHERE
 	  scale: 0.75
 	  pos: {x: 0, y: 0, z: 7}
 	  dir: {x: 0, y: 0, z: 1}
@@ -48,5 +50,4 @@ objects: 1
 		  absorbtion: 1
 		  texture: ../texture/wood1.bmp
 		  texture_filtering: 1
-	---
 ...
