@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:24:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:48:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	move_zoom(t_env *e)
 	double	h;
 	double	coeff;
 
-	e->key.kp ? e->cam->fov -= 3 : 0;
-	e->key.km ? e->cam->fov += 3 : 0;
+	e->key.kp || e->mouse.kp ? e->cam->fov -= 3 : 0;
+	e->key.km || e->mouse.km ? e->cam->fov += 3 : 0;
 	e->cam->fov = ft_clampf(e->cam->fov, 1, 180);
 	coeff = (e->win.w < e->win.h ? e->win.w : e->win.h);
 	w = e->win.w / coeff;

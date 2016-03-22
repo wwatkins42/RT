@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:17:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:47:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ typedef struct		s_key
 typedef struct		s_mouse
 {
 	t_vec3			pos;
-	char			lerp;
 	double			sensibility;
+	char			lerp;
+	char			km;
+	char			kp;
 }					t_mouse;
 
 typedef struct		s_texture
@@ -324,6 +326,7 @@ int					expose_hook(t_env *e);
 int					key_pressed(int keycode, t_env *e);
 int					key_released(int keycode, t_env *e);
 int					mouse_pos(int x, int y, t_env *e);
+int					mouse_hook(int button, int x, int y, t_env *e);
 
 /*
 **	MOVEMENT FUNCTIONS
