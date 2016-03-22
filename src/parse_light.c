@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 07:57:46 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 09:22:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void		default_light(t_lgt *light)
 	light->dir = vec3(0, 0, 1);
 	light->color = vec3(1, 1, 1);
 	light->intensity = 1;
+	light->attenuation = 0.1;
 	light->shadow = HARD;
 }
 
@@ -55,6 +56,8 @@ static t_lgt	*create_light(t_line *light_line)
 			new->color = parse_color(line->line);
 		else if (ft_strstr(line->line, "intensity:"))
 			new->intensity = parse_value(line->line);
+		else if (ft_strstr(line->line, "attenuation:"))
+			new->attenuation = parse_value(line->line);
 		line = line->next;
 	}
 	new->next = NULL;
