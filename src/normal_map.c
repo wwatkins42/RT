@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/21 14:10:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 09:46:37 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,20 @@ static double	get_intensity(t_vec3 color)
 	return (m);
 }
 
-static double	**get_gradient(t_vec3 **img, int y, int x, t_texture text)
+static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 {
-	int		i;
-	double	**grad;
-	double	zero;
+	double	*grad;
 
-	i = -1;
-	zero = 1;
-	if (!(grad = (double**)malloc(sizeof(double*) * 3)))
+	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
 		error(E_MALLOC, NULL, 1);
-	while (++i < 3)
-		if (!(grad[i] = (double*)malloc(sizeof(double) * 3)))
-			error(E_MALLOC, NULL, 1);
-	grad[0][0] = x - 1 > 0 && y - 1 > 0 ? get_intensity(img[y - 1][x - 1]) : zero;
-	grad[0][1] = y - 1 > 0 ? get_intensity(img[y - 1][x]) : zero;
-	grad[0][2] = y - 1 > 0 && x + 1 < text.w ? get_intensity(img[y - 1][x + 1])
-				: zero;
-	grad[1][0] = x - 1 > 0 ? get_intensity(img[y][x - 1]) : zero;
-	grad[1][1] = 0.0;
-	grad[1][2] = x + 1 < text.w ? get_intensity(img[y][x + 1]) : zero;
-	grad[2][0] = y + 1 < text.h && x - 1 > 0 ? get_intensity(img[y + 1][x - 1])
-				: zero;
-	grad[2][1] = y + 1 < text.h ? get_intensity(img[y + 1][x]) : zero;
-	grad[2][2] = y + 1 < text.h && x + 1 < text.w ?
-				get_intensity(img[y + 1][x + 1]) : zero;
+	grad[0] = y - 1 > 0 ? get_intensity(img[y - 1][x]) : 1;
+	grad[1] = x - 1 > 0 ? get_intensity(img[y][x - 1]) : 1;
+	grad[2] = x + 1 < text.w ? get_intensity(img[y][x + 1]) : 1;
+	grad[3] = y + 1 < text.h ? get_intensity(img[y + 1][x]) : 1;
 	return (grad);
 }
 
-static t_vec3	compute_gradient(double **grad)
+static t_vec3	compute_gradient(double *grad)
 {
 	t_vec3		color;
 	double		diffx;
@@ -58,17 +43,14 @@ static t_vec3	compute_gradient(double **grad)
 	// when calculating diffx and diffy, changing order of sub values changes
 	// the invertion of colors (depth).
 	scale = 2.5;
-	diffx = grad[1][0] - grad[1][2];
-	diffy = grad[0][1] - grad[2][1];
+	diffx = grad[1] - grad[2];
+	diffy = grad[0] - grad[3];
 	color.x = vec3_norm(vec3(1, diffx * scale, 0)).y;
 	color.y = vec3_norm(vec3(1, diffy * scale, 0)).y;
 	color.z = sqrt(1 - ft_clampf(color.x * color.x + color.y * color.y, 0, 1));
 	vec3_normalize(&color);
 	color = vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5));
-	ft_memdel((void*)&grad[0]);
-	ft_memdel((void*)&grad[1]);
-	ft_memdel((void*)&grad[2]);
-	ft_memdel((void*)grad);
+	ft_memdel((void**)&grad);
 	return (color);
 }
 
@@ -76,7 +58,7 @@ void			create_normal_map(t_obj *obj)
 {
 	int		x;
 	int		y;
-	double	**grad;
+	double	*grad;
 
 	y = -1;
 	obj->mat.texture.bump =

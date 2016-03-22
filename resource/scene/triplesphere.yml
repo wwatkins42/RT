@@ -40,8 +40,8 @@ objects:
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.525
-		  diffuse: 0.575
+		  ambient: 0.125
+		  diffuse: 0.875
 		  specular: 10
 		  shininess: 512
 		  reflect: 1
@@ -50,5 +50,5 @@ objects:
 		  absorbtion: 1
 		  texture: MARBLE
 		  texture_filtering: 1
-		  bump: 0
+		  bump: 1
 ...
