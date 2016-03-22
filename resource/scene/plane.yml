@@ -1,4 +1,13 @@
 ---
+scene:
+	reflect_max: 1
+	refract_max: 1
+	velocity: 0.8
+	sensibility: 0.33
+	lerp: true
+	resync: false
+	percent: false
+
 cameras:
 	- camera:
 	  pos: {x: 0, y: 0.5, z: 0}
@@ -33,5 +42,5 @@ objects:
 		  absorbtion: 0
 		  texture: ../texture/planet/earth.bmp
 		  texture_filtering: true
-		  bump: true
+		  texture_normal: true
 ...

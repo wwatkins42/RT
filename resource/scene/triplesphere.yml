@@ -44,7 +44,7 @@ lights:
 objects:
 	- object:
 	  type: SPHERE
-	  scale: 0.75
+	  scale: 3
 	  pos: {x: 0, y: 0, z: 7}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
@@ -74,7 +74,7 @@ objects:
 		  transparency: 0
 		  absorbtion: 1
 		  texture: ../texture/panoramic/sunny.bmp
-		  texture_filtering: true
-		  shadow: false
-		  bump: false
+		  texture_filtering: false
+		  texture_normal: false
+		  receive_shadow: false
 ...
