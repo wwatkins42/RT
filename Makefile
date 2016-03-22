@@ -6,7 +6,7 @@
 #    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/22 11:10:49 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/22 15:58:52 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,16 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 
 NAME = rt
 CC = gcc
-CFLGS = -Werror -Wextra -Wall
+CFLGS = -Werror -Wextra -Wall -Ofast
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
-			parse_object.c parse_utils.c parse_material.c \
+			parse_object.c parse_utils.c parse_material.c noise.c \
 			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
-			filter.c antialiasing.c bmp_importer.c texture.c \
-			texture_generator.c noise.c normal_map.c movement.c
+			filter.c antialiasing.c bmp_importer.c texture.c movement.c \
+			texture_generator.c normal_map.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:47:14 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 17:05:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		line = line->next;
 	}
 	e->count.obj++;
-	new->mat.texture.normal_map ? create_normal_map(new) : 0;
+	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;
 	new->k = tan(new->scale) * tan(new->scale);
 	new->next = NULL;

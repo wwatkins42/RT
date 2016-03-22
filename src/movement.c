@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 14:11:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:53:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ void	mouse_orientation(t_env *e)
 
 	dif = vec3_add(e->mouse.pos, old);
 	old = e->mouse.pos;
-	angle = vec3_fmul(dif, PIOVER4 * 0.5);
-	angle = vec3_fmul(vec3_add(angle, old_angle), e->mouse.sensibility);
-	old_angle = angle;
+	angle = vec3_fmul(dif, PIOVER4 * e->mouse.sensibility);
+	if (e->mouse.lerp)
+	{
+		angle = vec3_fmul(vec3_add(angle, old_angle), 0.5);
+		old_angle = angle;
+	}
 	e->cam->dir.x = angle.y;
 	e->cam->dir.y = -angle.x;
 }

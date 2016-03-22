@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 11:03:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 16:53:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ t_vec3		parse_color(char *line)
 		line++;
 	color = hex_vec3(ft_atoi_base(line, 16));
 	return (color);
+}
+
+short		parse_boolean(const char *line)
+{
+	if (ft_strstr(line, "true") || ft_strstr(line, "TRUE"))
+		return (1);
+	if (ft_strstr(line, "false") || ft_strstr(line, "FALSE"))
+		return (0);
+	return (0);
 }
 
 double		parse_value(const char *line, double min, double max)

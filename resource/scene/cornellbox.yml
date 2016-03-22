@@ -1,11 +1,12 @@
 ---
 scene:
-	refrect_max: 4
-	refract_max: 4
+	reflect_max: 2
+	refract_max: 1
 	velocity: 0.8
 	sensibility: 0.2
-	resync: 0
-	load: 0
+	lerp: true
+	resync: false
+	load: false
 
 cameras:
 	- camera:
@@ -66,7 +67,7 @@ objects:
 		  diffuse: 0.975
 		  specular: 0.1
 		  shininess: 16
-		  reflect: 0
+		  reflect: 0.05
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
@@ -134,3 +135,4 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
+...

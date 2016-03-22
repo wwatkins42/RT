@@ -1,11 +1,12 @@
 ---
 scene:
-	refrect_max: 4
+	reflect_max: 4
 	refract_max: 4
-	sensibility: 0.2
 	velocity: 0.8
-	resync: 0
-	load: 0
+	sensibility: 0.2
+	lerp: true
+	resync: false
+	load: false
 
 cameras:
 	- camera:
@@ -48,14 +49,32 @@ objects:
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.525
-		  diffuse: 0.575
+		  ambient: 0.325
+		  diffuse: 0.775
 		  specular: 10
 		  shininess: 512
 		  reflect: 1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 30
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.925
+		  diffuse: 0.075
+		  specular: 0
+		  shininess: 512
+		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/wood1.bmp
-		  texture_filtering: 1
+		  texture: ../texture/panoramic/sunny.bmp
+		  texture_filtering: true
+		  shadow: false
+		  bump: false
 ...

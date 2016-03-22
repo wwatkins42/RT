@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 11:03:03 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 16:59:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ static void			parse_material_bis(t_env *e, t_mat *mat, char *line)
 	else if (ft_strstr(line, "texture:"))
 		parse_material_texture(e, mat, line);
 	else if (ft_strstr(line, "texture_filtering:"))
-		mat->texture.filtering = parse_value(line, 0, 1);
+		mat->texture.filtering = parse_boolean(line);
 	else if (ft_strstr(line, "shadow:"))
-		mat->shadow = parse_value(line, 0, 1);
+		mat->shadow = parse_boolean(line);
 	else if (ft_strstr(line, "bump:"))
-		mat->texture.normal_map = parse_value(line, 0, 1);
+		mat->texture.normal_map = parse_boolean(line);
 }
 
 void				parse_material(t_env *e, t_mat *mat, t_line *line)

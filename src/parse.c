@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 14:12:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:52:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static void	parse_scene(t_env *e, t_line *scene)
 			e->refract.depth_max = parse_value(line->line, 0, 16);
 		else if (ft_strstr(line->line, "sensibility:"))
 			e->mouse.sensibility = parse_value(line->line, 0, 0.6);
+		else if (ft_strstr(line->line, "lerp:"))
+			e->mouse.lerp = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "velocity:"))
 			e->scene.velocity = parse_value(line->line, 0, 10);
 		else if (ft_strstr(line->line, "resync:"))
-			e->scene.resync = parse_value(line->line, 0, 1);
+			e->scene.resync = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "percent:"))
-			e->scene.percent = parse_value(line->line, 0, 1);
+			e->scene.percent = parse_boolean(line->line);
 		line = line->next;
 	}
 }

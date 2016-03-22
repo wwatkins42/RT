@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 14:21:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:52:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,26 @@ typedef struct		s_arg
 
 typedef struct		s_key
 {
-	short			ku;
-	short			kd;
-	short			kl;
-	short			kr;
-	short			i;
-	short			k;
-	short			j;
-	short			l;
+	char			ku;
+	char			kd;
+	char			kl;
+	char			kr;
+	char			i;
+	char			k;
+	char			j;
+	char			l;
 	char			mouse;
-	short			debug;
-	short			invert;
-	short			gray_scale;
-	short			gamma_m;
-	short			gamma_p;
+	char			debug;
+	char			invert;
+	char			gray_scale;
+	char			gamma_m;
+	char			gamma_p;
 }					t_key;
 
 typedef struct		s_mouse
 {
 	t_vec3			pos;
+	char			lerp;
 	double			sensibility;
 }					t_mouse;
 
@@ -297,6 +298,7 @@ void				parse(t_env *e, t_parse *core);
 t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
+short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);

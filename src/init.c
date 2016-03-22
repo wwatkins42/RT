@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 14:21:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:41:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ void	init_key(t_env *e)
 	e->key.gray_scale = 0;
 	e->key.gamma_m = 0;
 	e->key.gamma_p = 0;
-	e->mouse.pos = (t_vec3) {0, 0, 0};
+	e->mouse.pos = (t_vec3) {e->win.dw, e->win.dh, 0};
 }
