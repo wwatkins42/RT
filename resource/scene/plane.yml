@@ -1,7 +1,7 @@
 ---
 cameras:
 	- camera:
-	  pos: {x: 0, y: 0, z: 0}
+	  pos: {x: 0, y: 0.5, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
@@ -11,7 +11,7 @@ lights:
 	  type: POINT
 	  pos: {x: 0, y: 0, z: 0}
 	  color: 0xD2EBC3
-	  intensity: 1.35
+	  intensity: 2.35
 	  attenuation: 0.015
 	  shadow: HARD
 
@@ -23,7 +23,7 @@ objects:
 	  dir: {x: 0, y: 0, z: -1}
 	  material:
 		  color: 0xE2E2D1
-		  ambient: 0.125
+		  ambient: 0.075
 		  diffuse: 0.875
 		  specular: 0.8
 		  shininess: 512
@@ -32,6 +32,6 @@ objects:
 		  transparency: 0
 		  absorbtion: 0
 		  texture: ../texture/planet/earth.bmp
-		  texture_filtering: 1
-		  bump: 1
+		  texture_filtering: true
+		  bump: true
 ...
