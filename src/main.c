@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 08:02:10 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 09:02:30 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	args_disp(void)
 static void	args_get(t_env *e, int ac, char **av)
 {
 	int		i;
+	int		fd;
 
 	i = 0;
 	e->arg.w = 0;
@@ -43,6 +44,9 @@ static void	args_get(t_env *e, int ac, char **av)
 	}
 	if (e->arg.file == NULL)
 		e->arg.file = ft_strdup("./resource/scene/default.yml");
+	if ((fd = open(e->arg.file, O_RDWR)) == -1)
+		error(strerror(errno), e->arg.file, 1);
+	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
 }
 
 int			main(int ac, char **av)

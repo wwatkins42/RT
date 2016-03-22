@@ -10,7 +10,7 @@ cameras:
 	  pos: {x: 3, y: 1, z: 5}
 	  dir: {x: 1, y: 90, z: 0}
 	  fov: 110
-	  supersampling: 1
+	  supersampling:
 
 	- camera:
 	  pos: {x: 0, y: 2, z: 10}
