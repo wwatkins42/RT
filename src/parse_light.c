@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:31:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:58:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 		else if (ft_strstr(line->line, "color:"))
 			new->color = parse_color(line->line);
 		else if (ft_strstr(line->line, "intensity:"))
-			new->intensity = parse_value(line->line);
+			new->intensity = parse_value(line->line, 0, 10);
 		else if (ft_strstr(line->line, "attenuation:"))
-			new->attenuation = parse_value(line->line);
+			new->attenuation = parse_value(line->line, 0.0001, 10);
 		line = line->next;
 	}
 	e->count.lgt++;

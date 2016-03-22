@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 07:57:34 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 10:57:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static t_cam	*create_cam(t_env *e, t_line *cam_line, t_cam *prev)
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "fov:"))
-			new->fov = parse_value(line->line);
+			new->fov = parse_value(line->line, 1, 180);
 		else if (ft_strstr(line->line, "supersampling:"))
-			new->aa.supersampling = parse_value(line->line);
+			new->aa.supersampling = parse_value(line->line, 1, 16);
 		line = line->next;
 	}
 	e->count.cam++;

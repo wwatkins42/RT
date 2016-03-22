@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:29:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:47:14 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "scale:"))
-			new->scale = parse_value(line->line);
+			new->scale = parse_value(line->line, 0.1, 1000);
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
 		line = line->next;

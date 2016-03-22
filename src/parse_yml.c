@@ -6,23 +6,11 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 09:02:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 10:37:40 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-static int		is_yml(const char *str)
-{
-	char	*buffer;
-
-	buffer = ft_strrchr(str, '.');
-	if (buffer == NULL)
-		return (0);
-	if (ft_strcmp(buffer, ".yml") != 0 && ft_strcmp(buffer, ".yaml") != 0)
-		return (0);
-	return (1);
-}
 
 static t_line	*init_list(char *line, t_line *prev)
 {
@@ -35,7 +23,35 @@ static t_line	*init_list(char *line, t_line *prev)
 	return (new);
 }
 
-static char		*get_line(const int fd, t_line *first, char *c1, char *c2)
+static int		get_condition(int line_type, char *line)
+{
+	if (line_type == 0)
+	{
+		return (ft_strncmp(line, "cameras:", 8) == 0 ||
+				ft_strncmp(line, "lights:", 7) == 0 ||
+				ft_strncmp(line, "objects:", 8) == 0);
+	}
+	else if (line_type == 1)
+	{
+		return (ft_strncmp(line, "scenes:", 6) == 0 ||
+				ft_strncmp(line, "lights:", 7) == 0 ||
+				ft_strncmp(line, "objects:", 8) == 0);
+	}
+	else if (line_type == 2)
+	{
+		return (ft_strncmp(line, "cameras:", 8) == 0 ||
+				ft_strncmp(line, "scenes:", 6) == 0 ||
+				ft_strncmp(line, "objects:", 8) == 0);
+	}
+	else
+	{
+		return (ft_strncmp(line, "cameras:", 8) == 0 ||
+				ft_strncmp(line, "lights:", 7) == 0 ||
+				ft_strncmp(line, "scenes:", 6) == 0);
+	}
+}
+
+static char		*get_line(const int fd, t_line *first, int line_type)
 {
 	char	*line;
 	t_line	*prev;
@@ -45,8 +61,7 @@ static char		*get_line(const int fd, t_line *first, char *c1, char *c2)
 	cur = first;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_strncmp(line, c1, ft_strlen(c1)) == 0 ||
-			ft_strncmp(line, c2, ft_strlen(c2)) == 0)
+		if (get_condition(line_type, line))
 			return (line);
 		prev = cur;
 		cur->next = init_list(line, prev);
@@ -57,31 +72,42 @@ static char		*get_line(const int fd, t_line *first, char *c1, char *c2)
 	return (NULL);
 }
 
-void			parse_yml(t_env *e)
+static void		parse_loop(const int fd, t_parse *core)
 {
-	char		*line;
 	char		*tmp;
-	t_parse		core;
+	char		*line;
 
-	!is_yml(e->arg.file) ? error(E_IFILE, e->arg.file, 1) : 0;
-	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
-		error(strerror(errno), e->arg.file, 1);
-	core.cam = init_list("cameras", NULL);
-	core.lgt = init_list("lights", NULL);
-	core.obj = init_list("objects", NULL);
-	while (get_next_line(e->arg.fd, &line) > 0 && ft_strcmp(line, "...") != 0)
+	while (get_next_line(fd, &line) > 0 && ft_strcmp(line, "...") != 0)
 	{
 		tmp = ft_strdup(line);
+		if (ft_strncmp(tmp, "scene:", 6) == 0 && ft_strdel(&tmp))
+			tmp = get_line(fd, core->scene, 0);
 		if (ft_strncmp(tmp, "cameras:", 8) == 0 && ft_strdel(&tmp))
-			tmp = get_line(e->arg.fd, core.cam, "lights:", "objects:");
+			tmp = get_line(fd, core->cam, 1);
 		if (ft_strncmp(tmp, "lights:", 7) == 0 && ft_strdel(&tmp))
-			tmp = get_line(e->arg.fd, core.lgt, "cameras:", "objects:");
+			tmp = get_line(fd, core->lgt, 2);
 		if (ft_strncmp(tmp, "objects:", 8) == 0 && ft_strdel(&tmp))
-			tmp = get_line(e->arg.fd, core.obj, "cameras:", "lights:");
+			tmp = get_line(fd, core->obj, 3);
 		ft_strdel(&tmp);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
+}
+
+void			parse_yml(t_env *e)
+{
+	t_parse		core;
+
+	if ((e->arg.fd = open(e->arg.file, O_RDWR)) == -1)
+		error(strerror(errno), e->arg.file, 1);
+	core.scene = init_list("scene", NULL);
+	core.cam = init_list("cameras", NULL);
+	core.lgt = init_list("lights", NULL);
+	core.obj = init_list("objects", NULL);
+	parse_loop(e->arg.fd, &core);
+	if (core.cam->next == NULL || core.lgt->next == NULL ||
+		core.obj->next == NULL)
+		error(E_SEMPTY, NULL, 1);
 	close(e->arg.fd) == -1 ? error(strerror(errno), e->arg.file, 0) : 0;
 	parse(e, &core);
 }

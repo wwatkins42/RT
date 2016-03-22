@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:55:26 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:07:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ typedef struct		s_line
 
 typedef struct		s_parse
 {
+	t_line			*scene;
 	t_line			*cam;
 	t_line			*obj;
 	t_line			*lgt;
@@ -286,7 +287,7 @@ void				parse(t_env *e, t_parse *core);
 t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
-double				parse_value(const char *line);
+double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);

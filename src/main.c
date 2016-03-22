@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:51:47 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:07:24 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ static void	args_disp(void)
 	ft_putendl("-h <height>    set specified program window height.");
 	ft_putendl("--help         show help.\n");
 	exit(0);
+}
+
+static int		is_yml(const char *str)
+{
+	char	*buffer;
+
+	buffer = ft_strrchr(str, '.');
+	if (buffer == NULL)
+		return (0);
+	if (ft_strcmp(buffer, ".yml") != 0 && ft_strcmp(buffer, ".yaml") != 0)
+		return (0);
+	return (1);
 }
 
 static void	args_get(t_env *e, int ac, char **av)
@@ -44,6 +56,7 @@ static void	args_get(t_env *e, int ac, char **av)
 	}
 	if (e->arg.file == NULL)
 		e->arg.file = ft_strdup("./resource/scene/default.yml");
+	!is_yml(e->arg.file) ? error(E_IFILE, e->arg.file, 1) : 0;
 	if ((fd = open(e->arg.file, O_RDWR)) == -1)
 		error(strerror(errno), e->arg.file, 1);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;

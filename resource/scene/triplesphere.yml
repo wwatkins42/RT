@@ -1,4 +1,10 @@
 ---
+scene:
+	refrect_max: 4
+	refract_max: 4
+	resync: 1
+	load: 0
+
 cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
@@ -10,7 +16,7 @@ cameras:
 	  pos: {x: 3, y: 1, z: 5}
 	  dir: {x: 1, y: 90, z: 0}
 	  fov: 110
-	  supersampling:
+	  supersampling: 1
 
 	- camera:
 	  pos: {x: 0, y: 2, z: 10}
@@ -40,15 +46,14 @@ objects:
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.125
-		  diffuse: 0.875
+		  ambient: 0.525
+		  diffuse: 0.575
 		  specular: 10
 		  shininess: 512
 		  reflect: 1
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: MARBLE
+		  texture: ../texture/wood1.bmp
 		  texture_filtering: 1
-		  bump: 1
 ...

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 08:41:39 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 11:03:50 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec3		parse_color(char *line)
 	return (color);
 }
 
-double		parse_value(const char *line)
+double		parse_value(const char *line, double min, double max)
 {
 	int			i;
 	double		value;
@@ -33,6 +33,7 @@ double		parse_value(const char *line)
 		i++;
 	(line[i - 1] == '-') ? i -= 1 : 0;
 	value = ft_atof(&line[i]);
+	value = ft_clampf(value, min, max);
 	return (value);
 }
 
@@ -48,11 +49,11 @@ t_vec3		parse_vector(const char *line)
 	while (tab[++i] != NULL)
 	{
 		if (ft_strstr(tab[i], "x:"))
-			vec.x = parse_value(tab[i]);
+			vec.x = parse_value(tab[i], -1000, 1000);
 		else if (ft_strstr(tab[i], "y:"))
-			vec.y = parse_value(tab[i]);
+			vec.y = parse_value(tab[i], -1000, 1000);
 		else if (ft_strstr(tab[i], "z:"))
-			vec.z = parse_value(tab[i]);
+			vec.z = parse_value(tab[i], -1000, 1000);
 		ft_strdel(&tab[i]);
 	}
 	ft_memdel((void**)tab);

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 09:34:10 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 11:03:03 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ static void	parse_material_texture(t_env *e, t_mat *mat, char *line)
 static void			parse_material_bis(t_env *e, t_mat *mat, char *line)
 {
 	if (ft_strstr(line, "refract:"))
-		mat->refract = parse_value(line);
+		mat->refract = parse_value(line, 0, 10);
 	else if (ft_strstr(line, "transparency:"))
-		mat->transparency = parse_value(line);
+		mat->transparency = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "absorbtion:"))
-		mat->absorbtion = parse_value(line);
+		mat->absorbtion = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "texture:"))
 		parse_material_texture(e, mat, line);
 	else if (ft_strstr(line, "texture_filtering:"))
-		mat->texture.filtering = parse_value(line);
+		mat->texture.filtering = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "shadow:"))
-		mat->shadow = parse_value(line);
+		mat->shadow = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "bump:"))
-		mat->texture.normal_map = parse_value(line);
+		mat->texture.normal_map = parse_value(line, 0, 1);
 }
 
 void				parse_material(t_env *e, t_mat *mat, t_line *line)
@@ -74,15 +74,15 @@ void				parse_material(t_env *e, t_mat *mat, t_line *line)
 		if (ft_strstr(line->line, "color:"))
 			mat->color = parse_color(line->line);
 		else if (ft_strstr(line->line, "ambient:"))
-			mat->ambient = parse_value(line->line);
+			mat->ambient = parse_value(line->line, 0, 1);
 		else if (ft_strstr(line->line, "diffuse:"))
-			mat->diffuse = parse_value(line->line);
+			mat->diffuse = parse_value(line->line, 0, 10);
 		else if (ft_strstr(line->line, "specular:"))
-			mat->specular = parse_value(line->line);
+			mat->specular = parse_value(line->line, 0, 50);
 		else if (ft_strstr(line->line, "shininess:"))
-			mat->shininess = parse_value(line->line);
+			mat->shininess = parse_value(line->line, 0, 16384);
 		else if (ft_strstr(line->line, "reflect:"))
-			mat->reflect = parse_value(line->line);
+			mat->reflect = parse_value(line->line, 0, 1);
 		else
 			parse_material_bis(e, mat, line->line);
 		line = line->next;
