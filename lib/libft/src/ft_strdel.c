@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 15:48:11 by wwatkins          #+#    #+#             */
-/*   Updated: 2015/11/26 09:49:42 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 07:56:11 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_strdel(char **as)
+int		ft_strdel(char **as)
 {
 	if (as != NULL)
 		ft_memdel((void**)as);
+	return (1);
 }

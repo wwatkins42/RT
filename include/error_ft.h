@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_ft.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:49:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/09 11:55:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 07:57:17 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 # define E_ARG 			"invalid argument"
 # define E_MALLOC 		"malloc() failed"
+# define E_IFILE		"invalid file format"
 
 /*
 **	FUNCTION ERROR

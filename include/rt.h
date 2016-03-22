@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/19 09:57:55 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 07:56:51 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,13 @@ typedef struct		s_win
 	int				dh;
 }					t_win;
 
+typedef struct		s_parse
+{
+	t_line			*cam;
+	t_line			*obj;
+	t_line			*lgt;
+}					t_parse;
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -260,14 +267,16 @@ typedef struct		s_env
 **	PARSING FUNCTIONS
 */
 
-void				parse(t_env *e);
-void				parse_gradient(t_cam *cam, char *str);
+void				parse_yml(t_env *e);
+void				parse(t_env *e, t_parse *core);
+t_cam				*parse_camera(t_env *e, t_line *cam_line);
+t_lgt				*parse_light(t_env *e, t_line *light_line);
+t_obj				*parse_object(t_env *e, t_line *object_line);
+double				parse_value(const char *line);
 t_vec3				parse_vector(const char *line);
-int					parse_load(t_env *e, int ac, char **av, int i);
-void				parse_texture(t_env *e, t_obj *obj, const char *line);
-void				parse_camera(t_env *e, char *str);
-void				parse_lights(t_env *e, char *str);
-void				parse_objects(t_env *e, char *str);
+t_vec3				parse_color(char *line);
+t_texture			parse_texture(t_env *e, const char *line);
+t_mat				parse_material(t_env *e, t_line *line);
 
 /*
 **	ENVIRONNEMENT INIT FUNCTIONS
@@ -322,7 +331,7 @@ t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_lgt *light);
-void				set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj);
+void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 void				supersampling(t_env *e, int x, int y);
 
 /*
