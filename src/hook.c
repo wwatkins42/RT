@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 12:05:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:21:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	loop_hook(t_env *e)
 {
 	move_translate(e);
 	move_rotate(e);
-	mouse_orientation(e);
+	e->key.mouse ? mouse_orientation(e) : 0;
 	e->key.invert ? kswitch(&e->cam->filter.invert) : 0;
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
@@ -47,6 +47,7 @@ int	key_pressed(int keycode, t_env *e)
 	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next : 0;
+	keycode == 46 ? kswitch(&e->key.mouse) : 0;
 	keycode == 47 ? e->cam = e->cam->prev : 0;
 	keycode == 126 ? e->key.ku = 1 : 0;
 	keycode == 125 ? e->key.kd = 1 : 0;

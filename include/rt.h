@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 12:05:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:21:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct		s_key
 	short			k;
 	short			j;
 	short			l;
+	char			mouse;
 	short			debug;
 	short			invert;
 	short			gray_scale;
@@ -241,6 +242,7 @@ typedef struct		s_scene
 {
 	short			resync;
 	short			percent;
+	double			velocity;
 }					t_scene;
 
 typedef struct		s_win

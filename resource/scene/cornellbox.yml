@@ -1,4 +1,12 @@
 ---
+scene:
+	refrect_max: 4
+	refract_max: 4
+	velocity: 0.8
+	sensibility: 0.2
+	resync: 0
+	load: 0
+
 cameras:
 	- camera:
 	  pos: {x: 0, y: 2, z: -3}

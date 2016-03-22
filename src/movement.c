@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 12:04:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:11:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 
 void	move_translate(t_env *e)
 {
-	e->key.ku ? e->cam->pos.z += 0.5 : 0;
-	e->key.kd ? e->cam->pos.z -= 0.5 : 0;
-	e->key.kl ? e->cam->pos.x -= 0.5 : 0;
-	e->key.kr ? e->cam->pos.x += 0.5 : 0;
+	t_vec3	dir;
+	t_vec3	pln;
+
+	dir = vec3(0, 0, 1);
+	pln = vec3(1, 0, 0);
+	vec3_rotate(&dir, e->cam->dir);
+	vec3_rotate(&pln, e->cam->dir);
+	if (e->key.ku)
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(dir, e->scene.velocity));
+	if (e->key.kd)
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(dir, e->scene.velocity));
+	if (e->key.kl)
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(pln, e->scene.velocity));
+	if (e->key.kr)
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(pln, e->scene.velocity));
 }
 
 void	move_rotate(t_env *e)
