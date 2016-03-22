@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 15:28:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:17:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	loop_hook(t_env *e)
 {
 	move_translate(e);
 	move_rotate(e);
+	e->key.kp || e->key.km ? move_zoom(e) : 0;
 	e->key.mouse ? mouse_orientation(e) : 0;
 	e->key.invert ? kswitch(&e->cam->filter.invert) : 0;
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
@@ -53,6 +54,8 @@ int	key_pressed(int keycode, t_env *e)
 	keycode == 125 ? e->key.kd = 1 : 0;
 	keycode == 123 ? e->key.kl = 1 : 0;
 	keycode == 124 ? e->key.kr = 1 : 0;
+	keycode == 69 ? e->key.kp = 1 : 0;
+	keycode == 78 ? e->key.km = 1 : 0;
 	keycode == 34 ? e->key.i = 1 : 0;
 	keycode == 40 ? e->key.k = 1 : 0;
 	keycode == 38 ? e->key.j = 1 : 0;
@@ -68,6 +71,8 @@ int	key_released(int keycode, t_env *e)
 	keycode == 125 ? e->key.kd = 0 : 0;
 	keycode == 123 ? e->key.kl = 0 : 0;
 	keycode == 124 ? e->key.kr = 0 : 0;
+	keycode == 69 ? e->key.kp = 0 : 0;
+	keycode == 78 ? e->key.km = 0 : 0;
 	keycode == 34 ? e->key.i = 0 : 0;
 	keycode == 40 ? e->key.k = 0 : 0;
 	keycode == 38 ? e->key.j = 0 : 0;

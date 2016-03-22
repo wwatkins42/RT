@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 16:53:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:24:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,25 @@ void	move_rotate(t_env *e)
 	e->key.k ? e->cam->dir.x -= 5 : 0;
 	e->key.j ? e->cam->dir.y += 5 : 0;
 	e->key.l ? e->cam->dir.y -= 5 : 0;
+}
+
+void	move_zoom(t_env *e)
+{
+	double	w;
+	double	h;
+	double	coeff;
+
+	e->key.kp ? e->cam->fov -= 3 : 0;
+	e->key.km ? e->cam->fov += 3 : 0;
+	e->cam->fov = ft_clampf(e->cam->fov, 1, 180);
+	coeff = (e->win.w < e->win.h ? e->win.w : e->win.h);
+	w = e->win.w / coeff;
+	h = e->win.h / coeff;
+	e->cam->dist = 1.0 / tan(e->cam->fov / 2.0 * DEG2RAD);
+	e->cam->origin = vec3_sub(vec3_add(vec3(0, 0, 0),
+		vec3_add(vec3_fmul(vec3(0, 0, 1), e->cam->dist),
+		vec3_fmul(vec3_up(), h / 2.0))),
+		vec3_fmul(vec3_right(), w / 2.0));
 }
 
 void	mouse_orientation(t_env *e)

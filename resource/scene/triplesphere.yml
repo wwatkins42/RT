@@ -5,8 +5,8 @@ scene:
 	recursion_refract: 4
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
-	resync: false
-	percent: false
+	load_resync: false
+	load_percent: false
 
 cameras:
 	- camera:

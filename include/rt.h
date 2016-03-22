@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 17:47:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:17:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct		s_key
 	char			k;
 	char			j;
 	char			l;
+	char			kp;
+	char			km;
 	char			mouse;
 	char			debug;
 	char			invert;
@@ -329,6 +331,7 @@ int					mouse_pos(int x, int y, t_env *e);
 
 void				move_translate(t_env *e);
 void				move_rotate(t_env *e);
+void				move_zoom(t_env *e);
 void				mouse_orientation(t_env *e);
 
 /*
