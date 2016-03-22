@@ -45,7 +45,7 @@ objects:
 		  reflect: 0.05
 		  refract: 3.57
 		  transparency: 0.81
-		  absorbtion: 0.8
+		  absorbtion: 0.85
 
 	- object:
 	  type: PLANE

@@ -2,7 +2,8 @@
 scene:
 	refrect_max: 4
 	refract_max: 4
-	resync: 1
+	sensibility: 0.6
+	resync: 0
 	load: 0
 
 cameras:

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:55:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/22 12:05:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 int	loop_hook(t_env *e)
 {
-	e->key.ku ? e->lgt->pos.z += 0.5 : 0;
-	e->key.kd ? e->lgt->pos.z -= 0.5 : 0;
-	e->key.kl ? e->lgt->pos.x -= 0.5 : 0;
-	e->key.kr ? e->lgt->pos.x += 0.5 : 0;
-	e->key.i ? e->cam->dir.x += 5 : 0;
-	e->key.k ? e->cam->dir.x -= 5 : 0;
-	e->key.j ? e->cam->dir.y += 5 : 0;
-	e->key.l ? e->cam->dir.y -= 5 : 0;
+	move_translate(e);
+	move_rotate(e);
+	mouse_orientation(e);
 	e->key.invert ? kswitch(&e->cam->filter.invert) : 0;
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
@@ -32,9 +27,9 @@ int	loop_hook(t_env *e)
 
 int	expose_hook(t_env *e)
 {
-	if (e->key.ku || e->key.kd || e->key.kl || e->key.kr || e->key.i ||
-		e->key.k || e->key.j || e->key.l || e->key.invert ||
-		e->key.gray_scale || e->key.gamma_m || e->key.gamma_p)
+	// if (e->key.ku || e->key.kd || e->key.kl || e->key.kr || e->key.i ||
+	// 	e->key.k || e->key.j || e->key.l || e->key.invert ||
+	// 	e->key.gray_scale || e->key.gamma_m || e->key.gamma_p)
 		raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
@@ -80,5 +75,12 @@ int	key_released(int keycode, t_env *e)
 	keycode == 19 ? e->key.gray_scale = 0 : 0;
 	keycode == 27 ? e->key.gamma_m = 0 : 0;
 	keycode == 24 ? e->key.gamma_p = 0 : 0;
+	return (0);
+}
+
+int	mouse_pos(int x, int y, t_env *e)
+{
+	e->mouse.pos.x = x;
+	e->mouse.pos.y = y;
 	return (0);
 }

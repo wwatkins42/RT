@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 11:03:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 12:28:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ static void	parse_scene(t_env *e, t_line *scene)
 			e->reflect.depth_max = parse_value(line->line, 0, 16);
 		else if (ft_strstr(line->line, "refract_max:"))
 			e->refract.depth_max = parse_value(line->line, 0, 16);
+		else if (ft_strstr(line->line, "sensibility:"))
+			e->mouse.sensibility = parse_value(line->line, 0, 0.6);
 		else if (ft_strstr(line->line, "resync:"))
 			e->scene.resync = parse_value(line->line, 0, 1);
-		else if (ft_strstr(line->line, "refract_max:"))
+		else if (ft_strstr(line->line, "percent:"))
 			e->scene.percent = parse_value(line->line, 0, 1);
 		line = line->next;
 	}

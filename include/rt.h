@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 11:07:49 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/22 12:05:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define MIN_POS -1000.0
 # define MAX_POS 1000.0
 # define EPSILON 1e-9
+# define PIOVER4 0.78539816
 # define MAX_COLOR 32
 # define IMG_PATH "./resource/images/"
 # define IMG_EXTENSION ".mlx"
@@ -66,6 +67,12 @@ typedef struct		s_key
 	short			gamma_m;
 	short			gamma_p;
 }					t_key;
+
+typedef struct		s_mouse
+{
+	t_vec3			pos;
+	double			sensibility;
+}					t_mouse;
 
 typedef struct		s_texture
 {
@@ -266,6 +273,7 @@ typedef struct		s_env
 	t_win			win;
 	t_arg			arg;
 	t_key			key;
+	t_mouse			mouse;
 	t_scene			scene;
 	t_count			count;
 	t_cam			*cam;
@@ -309,6 +317,15 @@ int					loop_hook(t_env *e);
 int					expose_hook(t_env *e);
 int					key_pressed(int keycode, t_env *e);
 int					key_released(int keycode, t_env *e);
+int					mouse_pos(int x, int y, t_env *e);
+
+/*
+**	MOVEMENT FUNCTIONS
+*/
+
+void				move_translate(t_env *e);
+void				move_rotate(t_env *e);
+void				mouse_orientation(t_env *e);
 
 /*
 **	RAYTRACING FUNCTIONS
