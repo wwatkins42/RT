@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 11:32:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:50:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,6 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			parse_material(e, &new->mat, line);
 		line = line->next;
 	}
-	new->type == PARALLELOGRAM ? printf("pos2: {%f, %f, %f}\n", new->pos2.x,
-		new->pos2.y, new->pos2.z) : 0;
-	new->type == PARALLELOGRAM ? printf("pos3: {%f, %f, %f}\n", new->pos3.x,
-		new->pos3.y, new->pos3.z) : 0;
 	e->count.obj++;
 	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;

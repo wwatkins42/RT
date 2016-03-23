@@ -2,7 +2,7 @@
 scene:
 	velocity: 0.8
 	recursion_reflect: 3
-	recursion_refract: 3
+	recursion_refract: 2
 	mouse_sensibility: 0.4
 	mouse_interpolation: true
 	load_resync: false
@@ -10,9 +10,9 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 1, z: 0}
-	  dir: {x: 0, y: 0, z: 0}
-	  fov: 110
+	  pos: {x: -5, y: 2, z: 0}
+	  dir: {x: 10, y: -50, z: 0}
+	  fov: 120
 	  supersampling: 1
 
 lights:
@@ -20,40 +20,122 @@ lights:
 	  type: POINT
 	  pos: {x: 0, y: 1, z: 0}
 	  color: #F1F1F1
-	  intensity: 1.6
+	  intensity: 1.0
 	  attenuation: 0.01
 	  shadow: HARD
 
 objects:
 	- object:
 	  type: SPHERE
-	  scale: 2
-	  pos: {x: 0, y: 1, z: 5}
+	  scale: 30
+	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: #3753C8
-		  ambient: 0.125
-		  diffuse: 0.875
-		  specular: 0.7
-		  shininess: 1024
+		  ambient: 0.985
+		  diffuse: 0.075
+		  specular: 0
+		  shininess: 128
 		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+		  texture: ../texture/panoramic/bioshock.bmp
+		  texture_filtering: true
+		  receive_shadow: false
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 5}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #3753C8
+		  ambient: 0.085
+		  diffuse: 0.875
+		  specular: 0.95
+		  shininess: 2048
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 1.33, y: 0, z: 3.67}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #F4153D
+		  ambient: 0.085
+		  diffuse: 0.875
+		  specular: 0.95
+		  shininess: 2048
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 0.66, y: 1.66, z: 4.33}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #2DF415
+		  ambient: 0.085
+		  diffuse: 0.875
+		  specular: 0.95
+		  shininess: 2048
+		  reflect: 0.1
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
 
 	- object:
 	  type: PARALLELOGRAM
-	  scale: 10
-	  pos: {x: 0, y: 0, z: 10}
-	  pos2: {x: 10, y: 0, z: 0}
-	  pos3: {x: 0, y: 10, z: 0}
+	  pos: {x: -3, y: -2, z: 7}
+	  pos2: {x: 6, y: 0, z: 0}
+	  pos3: {x: 0, y: 6, z: 0}
 	  material:
 		  color: #E2E2E2
-		  ambient: 0.325
+		  ambient: 0.045
 		  diffuse: 0.075
 		  specular: 2.0
-		  shininess: 512
-		  reflect: 1
+		  shininess: 1024
+		  reflect: 0.8
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.7
+
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: 3, y: -2, z: 7}
+	  pos2: {x: 0, y: 0, z: -6}
+	  pos3: {x: 0, y: 6, z: 0}
+	  material:
+		  color: #E2E2E2
+		  ambient: 0.045
+		  diffuse: 0.075
+		  specular: 2.0
+		  shininess: 1024
+		  reflect: 0.8
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.7
+
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: -3, y: -2, z: 7}
+	  pos2: {x: 0, y: 0, z: -6}
+	  pos3: {x: 6, y: 0, z: 0}
+	  material:
+		  color: #E2E2E2
+		  ambient: 0.045
+		  diffuse: 0.075
+		  specular: 2.0
+		  shininess: 1024
+		  reflect: 0.8
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.7
