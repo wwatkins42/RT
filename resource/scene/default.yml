@@ -10,10 +10,10 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 1, z: 0}
+	  pos: {x: 0, y: 1, z: -2}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 130
-	  supersampling: 1
+	  fov: 100
+	  supersampling: 2
 
 	- camera:
 	  pos: {x: 0, y: 2, z: 0}
@@ -27,6 +27,7 @@ lights:
 	  pos: {x: 0, y: 5, z: 10}
 	  color: 0xF6E392
 	  intensity: 1.6
+	  attenuation: 0.01
 	  shadow: HARD
 
 objects:
@@ -52,12 +53,12 @@ objects:
 	  pos: {x: 0, y: -0.1, z: 0}
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
-		  color: 0xE9E0A4
-		  ambient: 0.325
-		  diffuse: 0.675
-		  specular: 0.3
-		  shininess: 256
-		  reflect: 0
+		  color: #426CA3
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 0.9
+		  shininess: 512
+		  reflect: 0.14
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
@@ -79,14 +80,14 @@ objects:
 		  absorbtion: 0.7
 
 	- object:
-	  type: CONE
+	  type: CYLINDER
 	  scale: 2
-	  pos: {x: 2, y: 2, z: 15}
-	  dir: {x: 0, y: 1, z: 0}
-	  min: -10
-	  max: 0
+	  pos: {x: -4, y: 0, z: 15}
+	  dir: {x: -1, y: 1, z: 0}
+	  min: -4
+	  max: 16
 	  material:
-		  color: #DE2620
+		  color: #DF3156
 		  ambient: 0.125
 		  diffuse: 0.875
 		  specular: 2.0

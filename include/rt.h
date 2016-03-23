@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 10:36:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 14:46:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,8 @@ typedef struct		s_count
 	int				cam;
 	int				lgt;
 	int				obj;
+	int				rps;
+	int				fps;
 }					t_count;
 
 typedef struct		s_scene
@@ -284,6 +286,12 @@ typedef struct		s_parse
 	t_line			*lgt;
 }					t_parse;
 
+typedef struct		s_tick
+{
+	clock_t			current;
+	clock_t			last;
+}					t_tick;
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -293,6 +301,7 @@ typedef struct		s_env
 	t_mouse			mouse;
 	t_scene			scene;
 	t_count			count;
+	t_tick			tick;
 	t_cam			*cam;
 	t_obj			*obj;
 	t_lgt			*lgt;
@@ -482,6 +491,7 @@ void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);
 void				display_texture(t_env *e, t_vec3 **img, t_texture texture);
+void				display_stats(t_env *e);
 
 /*
 **	FILTER FUNCTIONS

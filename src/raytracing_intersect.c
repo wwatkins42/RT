@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 10:19:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 14:56:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ void	set_normal(t_ray *ray, t_obj *obj)
 	{
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
-		obj->normal = vec3_fmul(obj->normal, -1);
 	}
 	vec3_normalize(&obj->normal);
 }

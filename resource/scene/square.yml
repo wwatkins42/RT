@@ -103,8 +103,8 @@ objects:
 		  diffuse: 0.075
 		  specular: 2.0
 		  shininess: 1024
-		  reflect: 0.8
-		  refract: 0
+		  reflect: 0.67
+		  refract: 1.5
 		  transparency: 0
 		  absorbtion: 0.7
 
@@ -119,8 +119,8 @@ objects:
 		  diffuse: 0.075
 		  specular: 2.0
 		  shininess: 1024
-		  reflect: 0.8
-		  refract: 0
+		  reflect: 0.67
+		  refract: 1.5
 		  transparency: 0
 		  absorbtion: 0.7
 
@@ -135,8 +135,8 @@ objects:
 		  diffuse: 0.075
 		  specular: 2.0
 		  shininess: 1024
-		  reflect: 0.8
-		  refract: 0
+		  reflect: 0.67
+		  refract: 1.5
 		  transparency: 0
 		  absorbtion: 0.7
 

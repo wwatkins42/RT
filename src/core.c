@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:41:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 14:40:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	core(t_env *e)
 {
 	init_key(e);
+	e->tick.last = clock();
+	e->count.fps = 0;
+	e->count.rps = 0;
 	raytracing(e);
 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
 	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);

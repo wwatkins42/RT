@@ -1,0 +1,79 @@
+---
+scene:
+	velocity: 0.95
+	recursion_reflect: 2
+	recursion_refract: 2
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 1, z: -4}
+	  dir: {x: 5, y: 0, z: 0}
+	  fov: 100
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 1, z: 0}
+	  color: #F1F1F1
+	  intensity: 1.0
+	  attenuation: 0.01
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 0, y: 1, z: 5}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #3753C8
+		  ambient: 0.185
+		  diffuse: 0.875
+		  specular: 0.95
+		  shininess: 2048
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+
+	- object:
+	  type: SPHERE
+	  scale: 40
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #3753C8
+		  ambient: 0.985
+		  diffuse: 0.475
+		  specular: 0
+		  shininess: 2048
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+		  texture: ../texture/panoramic/city.bmp
+		  texture_filtering: false
+		  receive_shadow: false
+
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: -10, y: -0.5, z: -4}
+	  pos2: {x: 0, y: 0, z: 20}
+	  pos3: {x: 20, y: 0, z: 0}
+	  material:
+		  color: #E2E2E2
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 0.8
+		  shininess: 512
+		  reflect: 0.57
+		  refract: 2
+		  transparency: 0
+		  absorbtion: 0.7
+
+...

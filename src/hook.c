@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:47:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 14:49:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int	loop_hook(t_env *e)
+int		loop_hook(t_env *e)
 {
 	move_translate(e);
 	move_rotate(e);
@@ -28,7 +28,7 @@ int	loop_hook(t_env *e)
 	return (0);
 }
 
-int	expose_hook(t_env *e)
+int		expose_hook(t_env *e)
 {
 	// if (e->key.ku || e->key.kd || e->key.kl || e->key.kr || e->key.i ||
 	// 	e->key.k || e->key.j || e->key.l || e->key.invert ||
@@ -36,10 +36,11 @@ int	expose_hook(t_env *e)
 		raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+	display_stats(e);
 	return (0);
 }
 
-int	key_pressed(int keycode, t_env *e)
+int		key_pressed(int keycode, t_env *e)
 {
 	keycode == 53 ? exit(0) : 0;
 	keycode == 18 ? e->key.invert = 1 : 0;
@@ -67,7 +68,7 @@ int	key_pressed(int keycode, t_env *e)
 	return (0);
 }
 
-int	key_released(int keycode, t_env *e)
+int		key_released(int keycode, t_env *e)
 {
 	keycode == 126 ? e->key.ku = 0 : 0;
 	keycode == 125 ? e->key.kd = 0 : 0;
@@ -84,4 +85,27 @@ int	key_released(int keycode, t_env *e)
 	keycode == 27 ? e->key.gamma_m = 0 : 0;
 	keycode == 24 ? e->key.gamma_p = 0 : 0;
 	return (0);
+}
+
+void	display_stats(t_env *e)
+{
+	static char	*fps = NULL;
+	static char	*rps = NULL;
+	int			diff;
+
+	e->count.fps++;
+	e->tick.current = clock();
+	diff = e->tick.current - e->tick.last;
+	if (diff >= 1000000)
+	{
+		e->tick.last = e->tick.current;
+		fps = ft_strnew(32);
+		rps = ft_strnew(32);
+		sprintf(fps, "fps:%d\n", e->count.fps);
+		sprintf(rps, "rps:%d\n", e->count.rps);
+		e->count.rps = 0;
+		e->count.fps = 0;
+	}
+	fps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 0, 0xFFFFFF, fps) : 0;
+	rps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 15, 0xFFFFFF, rps) : 0;
 }
