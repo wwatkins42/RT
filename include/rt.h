@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 15:38:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:25:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct		s_texture
 	short			filtering;
 	short			defined;
 	short			normal_map;
+	double			normal_strength;
 }					t_texture;
 
 typedef struct		s_noise

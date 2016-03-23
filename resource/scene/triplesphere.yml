@@ -49,17 +49,18 @@ objects:
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.325
-		  diffuse: 0.775
+		  ambient: 0.025
+		  diffuse: 0.275
 		  specular: 10
 		  shininess: 512
 		  reflect: 1
-		  refract: 0
+		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/planet/earth.bmp
+		  texture: ../texture/earth.bmp
 		  texture_filtering: true
 		  texture_normal: true
+		  texture_normal_strength: 2
 
 	- object:
 	  type: SPHERE

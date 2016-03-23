@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 17:37:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:22:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	return (grad);
 }
 
-static t_vec3	compute_gradient(double *grad)
+static t_vec3	compute_gradient(double *grad, t_obj *obj)
 {
 	t_vec3		color;
 	double		diffx;
@@ -44,7 +44,7 @@ static t_vec3	compute_gradient(double *grad)
 
 	// when calculating diffx and diffy, changing order of sub values changes
 	// the invertion of colors (depth).
-	scale = 2.5;
+	scale = obj->mat.texture.normal_strength;
 	diffx = grad[1] - grad[2];
 	diffy = grad[0] - grad[3];
 	color.x = vec3_norm(vec3(1, diffx * scale, 0)).y;
@@ -75,7 +75,7 @@ void			create_normal_map(t_obj *obj)
 		while (++x < obj->mat.texture.w)
 		{
 			grad = get_gradient(obj->mat.texture.img, y, x, obj->mat.texture);
-			obj->mat.texture.bump[y][x] = compute_gradient(grad);
+			obj->mat.texture.bump[y][x] = compute_gradient(grad, obj);
 		}
 	}
 }

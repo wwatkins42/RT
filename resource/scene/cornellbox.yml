@@ -13,7 +13,7 @@ cameras:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 75
-	  supersampling: 2
+	  supersampling: 1
 
 lights:
 	- type: POINT
@@ -72,8 +72,9 @@ objects:
 		  transparency: 1.0
 		  absorbtion: 0.7
 		  texture: ../texture/brick.bmp
-		  texture_normal: true
 		  texture_filtering: true
+		  texture_normal: true
+		  texture_normal_strength: 2
 
 	- object:
 	  type: PLANE

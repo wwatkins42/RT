@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 17:46:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:16:04 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	t_vec3	normal;
 
 	ray->pos = ray->hit;
-	normal = obj->normal;
+	if (obj->mat.texture.normal_map)
+		normal = obj->mat.texture.normal;
+	else
+		normal = obj->normal;
 	cosI = vec3_dot(normal, ray->dir);
 	if (cosI > 0.0)
 	{
