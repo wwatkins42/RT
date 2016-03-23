@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/20 05:52:32 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/22 00:08:48 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
 	obj = intersect_object(e, &ray, &tmin);
-	if (obj != NULL && tmin != INFINITY)
+	if (obj != NULL && (tmin != INFINITY || tmin < 0))
 	{
 		ray.t = tmin;
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));

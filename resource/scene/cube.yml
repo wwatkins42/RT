@@ -1,0 +1,83 @@
+---
+cameras: 1
+	- camera:
+	  pos: {x: 10, y: 1, z: 0}
+	  dir: {x: 10, y: 45, z: -5}
+	  fov: 80
+	  background: "./resource/gradient/sunset.yml"
+	---
+lights: 1
+	- type: POINT
+	  pos: {x: 60, y: 60, z: 5}
+	  color: 0xFFFFFF
+	  intensity: 1.0
+	  shadow: HARD
+	---
+	- type: POINT
+	  pos: {x: 6, y: 6, z: -10}
+	  color: 0xF9E79E
+	  intensity: 0.7
+	  shadow: HARD
+	---
+objects: 4
+	- type: CUBE
+	  pos: {x: -1.5, y: 0, z: 8}
+	  dir: {x: 1, y: 1, z: 1}
+	  scale: 1
+      material:
+		  color: 0x00FF00
+		  ambient: 0.225
+		  diffuse: 0.775
+		  specular: 2
+		  shininess: 700
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
+	---
+	- type: SPHERE
+	  scale: 1
+	  pos: {x: -1, y: 0, z: 10}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0xFF0000
+		  ambient: 0.225
+		  diffuse: 0.775
+		  specular: 2
+		  shininess: 700
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
+	---
+	- type: SPHERE
+	  scale: 1
+	  pos: {x: 1, y: 0, z: 10}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: 0x0000FF
+		  ambient: 0.125
+		  diffuse: 0.775
+		  specular: 2
+		  shininess: 700
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
+	---
+	- type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -1, z: 10}
+	  dir: {x: 0, y: 1, z: -0.015}
+	  material:
+		  color: 0x1864AB
+		  ambient: 0.425
+		  diffuse: 0.675
+		  specular: 1.0
+		  shininess: 2048
+		  reflect: 0.15
+		  refract: 0
+		  transparency: 1
+		  absorbtion: 0.8
+	---
+...

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/20 08:41:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 07:09:18 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
 
-enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE, ELLIPSOID,
-	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID , TORUS , CUBE_TROUE};
+enum { SPHERE, CONE, PLANE, CYLINDER , TRIANGLE, PARALLELOGRAMME , ELLIPSOID,
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID , TORUS , CUBE_TROUE, CUBE};
 enum { POINT, SPOT, DIRECTIONAL };
 enum { HARD, SOFT };
+typedef enum e_bool {FALSE, TRUE} t_bool;
 
 typedef struct		s_arg
 {
@@ -160,8 +161,12 @@ typedef struct		s_obj
 	double			scale;
 	double			scale2;
 	double			scale3;
+	double			y_min;
+	double			y_max;
 	double			k;
 	double			t;
+	int 			comp_hit;
+	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
 
@@ -200,20 +205,6 @@ typedef struct		s_win
 	int				dh;
 }					t_win;
 
-typedef struct		s_poly4
-{
-	double			a0;
-	double			a1;
-	double			a2;
-	double			a3;
-	double			a4;
-	double			root1;
-	double			root2;
-	double			root3;
-	double			root4;
-}					t_poly4;
-
-
 typedef struct		s_env
 {
 	void			*mlx;
@@ -227,7 +218,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[11])(t_ray *, t_obj *);
+	double			(*intersect[20])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -297,8 +288,8 @@ double				intersect_paraboloid(t_ray *ray, t_obj *o);
 double				intersect_torus(t_ray *ray, t_obj *obj);
 double		intersect_cube_troue(t_ray *ray, t_obj *obj);
 void				set_normal(t_ray *ray, t_obj *obj);
-double	choose_root(t_poly4 p, int r);
-
+double	intersect_parallelogramme(t_ray *r, t_obj *t);
+double		intersect_cube(t_ray *ray, t_obj *cube);
 /*
 **	raytracing_color.c
 */
@@ -378,8 +369,54 @@ void				export_camera(const int fd, t_env *e);
 /*
 ** solvers
 */
+typedef struct		s_poly6
+{
+	double			a[7];
+	double			root[6];
+}					t_poly6;
+
+typedef struct		s_euclid
+{
+	t_poly6			q;
+	t_poly6			r;
+}					t_euclid;
+
+typedef struct		s_sturm
+{
+	t_poly6			*s;
+	int				len;
+}					t_sturm;
+
+typedef struct		s_poly4
+{
+	double			a0;
+	double			a1;
+	double			a2;
+	double			a3;
+	double			a4;
+	double			root1;
+	double			root2;
+	double			root3;
+	double			root4;
+}					t_poly4;
+
+
 int					solve_quadratic(t_poly4 *p);
 int					solve_cubic(t_poly4 *p);
 int					solve_quartic(t_poly4 *p);
+void				fix_zeros(t_poly6 *p);
+int 				est_polynome_nul(t_poly6 p);
+int					degree(t_poly6 p);
+void				print_poly(t_poly6 p, char *name);
+t_poly6				poly_sub(t_poly6 p, t_poly6 q);
+t_poly6				poly_mult(t_poly6 p, t_poly6 q);
+t_poly6				poly_smult(t_poly6 p, double scal);
+t_euclid			division(t_poly6 a, t_poly6 b);
+void				print_suite_poly(t_poly6 *s);
+t_sturm				cree_suite_poly(t_poly6 p);
+double				eval_poly(t_poly6 p, double x);
+int					nombre_cs(double x, t_sturm suite);
+int 				number_roots(t_poly6 p);
+double	choose_root(t_poly4 p, int r);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/20 09:10:52 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 07:37:01 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	t_calc		calc;
 	double		ro;
 	double		lo;
+	double		m;
+	double		tmp;
 
 	vec3_normalize(&obj->dir);
 	calc.len = vec3_sub(ray->pos, obj->pos);
@@ -78,7 +80,37 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
-	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
+	if (tmp < 0)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		if (tmp < 0)
+			return (INFINITY);
+	}
+	m = vec3_dot(ray->dir, obj->dir) * tmp +
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+	if (m > obj->y_max)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp +
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->y_max)
+			return (INFINITY);
+	}
+	else if (m < obj->y_min)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
+			obj->pos), obj->dir);
+		if (m < obj->y_min)
+			return (INFINITY);
+	}
+	// if (m > -2.01 && m < -2)
+	// {
+	// 	obj->pos = (t_vec3){m, 0, 15};
+	// 	return (intersect_plane(ray, obj));
+	// }
+	return (tmp);
 }
 
 double	intersect_cone(t_ray *ray, t_obj *obj)
@@ -86,6 +118,8 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	t_calc		calc;
 	double		lo;
 	double		ro;
+	double		m;
+	double		tmp;
 
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	lo = vec3_dot(calc.len, obj->dir);
@@ -96,22 +130,50 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
-	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
+	if (tmp < 0)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		if (tmp < 0)
+			return (INFINITY);
+	}
+	m = vec3_dot(ray->dir, obj->dir) * tmp +
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+	if (m > obj->y_max)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp +
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->y_max)
+			return (INFINITY);
+	}
+	else if (m < obj->y_min)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
+			obj->pos), obj->dir);
+		if (m < obj->y_min)
+			return (INFINITY);
+	}
+	return (tmp);
 }
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
-	if (obj->type == PLANE || obj->type == TRIANGLE)
+	if (obj->type == PLANE || obj->type == TRIANGLE || obj->type == PARALLELOGRAMME)
 		obj->normal = obj->dir;
-	if (obj->type == SPHERE || obj->type == CUBE_TROUE)
-		obj->normal = vec3_sub(ray->hit, obj->pos);
+	if (obj->type == SPHERE)
+		obj->normal = vec3_sub(obj->pos, ray->hit);
 	if (obj->type == TORUS)
 	{
+		// obj->dir = (t_vec3){0, 1, 0};
 		double	k = vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir);
 		t_vec3	a = vec3_sub(ray->hit, vec3_fmul(obj->dir, k));
 		double	m = sqrt(obj->pr * obj->pr - k * k);
+
 		obj->normal = vec3_sub(vec3_sub(ray->hit, a),
 			vec3_fmul(vec3_sub(obj->pos, a), m / (obj->gr + m)));
+		// obj->normal = (t_vec3){0, 1, 0};
 		// ray->hit = vec3_sub(ray->hit, obj->pos);
 		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
 		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 4 * obj->gr * obj->gr *
@@ -124,22 +186,31 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		// ray->hit = vec3_add(ray->hit, obj->pos);
 	}
 	if (obj->type == CYLINDER || obj->type == CONE ||
-		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO)
+		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO ||
+		obj->type == PARABOLOID)
 	{
 		double	m = vec3_dot(ray->dir, obj->dir) * ray->t +
-			vec3_dot(vec3_sub(obj->pos, ray->pos), obj->dir);
-		obj->normal = (t_vec3){ray->hit.x - obj->pos.x,
-							   ray->hit.y - obj->pos.y,
-						   	   -ray->hit.z + obj->pos.z};
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, m));
+		obj->normal = vec3_fmul(obj->normal, -1);
+		// if (m > -2.01 && m < -2)
+		// 	obj->normal = obj->dir;
+		// obj->normal = (t_vec3){
+		// 	ray->hit.x - obj->pos.x - vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir),
+		// 	ray->hit.y - obj->pos.y - vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir),
+		// 	ray->hit.z - obj->pos.z - vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir)};
 	}
-	if (obj->type == TRIANGLE)
-		obj->normal = vec3_norm(vec3_cross(obj->pos2, obj->pos3));
-	// if (obj->type == CUBE_TROUE)
-	// {
-	// 	t_vec3	x = vec3_sub(ray->hit, obj->pos);
-	// 	obj->normal = (t_vec3){4 * ft_pow(x.x, 3) - 10 * x.x,
-	// 		4 * ft_pow(x.y, 3) - 10 * x.y,
-	// 		4 * ft_pow(x.z, 3) - 10 * x.z};
-	// }
+	if (obj->type == CUBE_TROUE)
+	{
+		t_vec3	x = vec3_sub(ray->hit, obj->pos);
+		obj->normal = (t_vec3){4 * ft_pow(x.x, 3) - 10 * x.x,
+			4 * ft_pow(x.y, 3) - 10 * x.y,
+			4 * ft_pow(x.z, 3) - 10 * x.z};
+	}
+	if (obj->type == CUBE)
+	{
+		obj->normal = obj->comp[obj->comp_hit].dir;
+	}
 	vec3_normalize(&obj->normal);
 }

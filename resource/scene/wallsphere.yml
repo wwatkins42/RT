@@ -15,11 +15,11 @@ lights: 1
 	---
 objects: 2
 	- type: TORUS
-	  pos: {x: 0, y: 0, z: 10}
-	  dir: {x: 1, y: 1, z: 0}
+	  pos: {x: -20, y: 0, z: 15}
+	  dir: {x: 0, y: 1, z: 0}
 	  pr: 1
 	  gr: 2
-	  material:
+      material:
 		  color: 0xFFFF00
 		  ambient: 0.325
 		  diffuse: 0.24

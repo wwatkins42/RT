@@ -2,47 +2,33 @@
 cameras: 1
 	- camera:
 	  pos: {x: 0, y: 0, z: 0}
-	  dir: {x: 0, y: 0, z: 1}
+	  dir: {x: 0, y: 0, z: 0}
 	  fov: 70
 	  background: "./resource/gradient/sunset.yml"
 	---
 lights: 1
 	- type: POINT
-	  pos: {x: 0, y: 5, z: 4.5}
+	  pos: {x: 20, y: 20, z: 10}
 	  color: 0xF7F7F4
 	  intensity: 1.55
 	  shadow: HARD
 	---
-objects: 2
-	- type: TORUS
-	  pos: {x: 0, y: 0, z: 10000000}
+objects: 1
+    - type: CONE
+	  pos: {x: 1, y: -1, z: 15}
 	  dir: {x: 0, y: 1, z: 0}
-	  pr: 100
-	  gr: 4
+	  scale: 0.8
+      y_min: -50
+      y_max: -2
 	  material:
 		  color: 0xFFFF00
-		  ambient: 0.325
-		  diffuse: 0.24
+		  ambient: 0.25
+		  diffuse: 0.44
 		  specular: 0.1
 		  shininess: 2048
 		  reflect: 0
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: SPHERE
-	  pos: {x: 0, y: -0.5, z: 15}
-	  dir: {x: 0, y: 1, z: 0}
-	  scale: 2
-  	  material:
-  		  color: 0xFF00FF
-  		  ambient: 0.225
-  		  diffuse: 0.2
-  		  specular: 1.0
-  		  shininess: 256
-  		  reflect: 0
-  		  refract: 0
-  		  transparency: 0
-  		  absorbtion: 1
   	---
 ...

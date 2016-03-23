@@ -1,39 +1,68 @@
 ---
 cameras: 1
 	- camera:
-	  pos: {x: 10, y: 1, z: 0}
-	  dir: {x: 10, y: 45, z: -5}
+	  pos: {x: -10, y: 10, z: 0}
+	  dir: {x: 45, y: -45, z: 0}
 	  fov: 80
 	  background: "./resource/gradient/sunset.yml"
 	---
-lights: 2
+lights: 1
 	- type: POINT
-	  pos: {x: 6, y: 6, z: 5}
+	  pos: {x: 60, y: 60, z: -15}
 	  color: 0xFFFFFF
 	  intensity: 1.0
 	  shadow: HARD
 	---
 	- type: POINT
-	  pos: {x: 6, y: 6, z: -10}
+	  pos: {x: 6, y: 60, z: -10}
 	  color: 0xF9E79E
 	  intensity: 0.7
 	  shadow: HARD
 	---
 objects: 5
-	- type: SPHERE
-	  scale: 1.5
-	  pos: {x: 8, y: 0.25, z: 4}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x6F6F6F
-		  ambient: 0.025
-		  diffuse: 0.275
+	- type: CUBE
+	  pos: {x: -1.5, y: 0, z: 5}
+      scale: 1
+      material:
+		  color: 0x00FF00
+		  ambient: 0.225
+		  diffuse: 0.775
 		  specular: 2
+		  shininess: 700
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
+	---
+    - type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -1, z: 10}
+	  dir: {x: 0, y: 1, z: -0.015}
+	  material:
+		  color: 0x1864AB
+		  ambient: 0.425
+		  diffuse: 0.675
+		  specular: 1.0
 		  shininess: 2048
 		  reflect: 0.15
-		  refract: 1.13
-		  transparency: 0.7
+		  refract: 0
+		  transparency: 1
 		  absorbtion: 0.8
+	---
+	- type: SPHERE
+	  scale: 1
+	  pos: {x: 1, y: 0, z: 10}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: 0x0000FF
+		  ambient: 0.125
+		  diffuse: 0.775
+		  specular: 2
+		  shininess: 700
+		  reflect: 0.1
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 1
 	---
 	- type: SPHERE
 	  scale: 1
@@ -50,12 +79,12 @@ objects: 5
 		  transparency: 0
 		  absorbtion: 1
 	---
-	- type: SPHERE
-	  scale: 1
-	  pos: {x: 0, y: 1.7, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x00FF00
+    - type: TRIANGLE
+	  pos: {x: -0.5, y: 0, z: 5}
+	  pos2: {x: 0, y: 0, z: 1}
+	  pos3: {x: 0, y: 1, z: 0}
+      material:
+		  color: 0xFF0000
 		  ambient: 0.225
 		  diffuse: 0.775
 		  specular: 2
@@ -64,35 +93,5 @@ objects: 5
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-	---
-	- type: SPHERE
-	  scale: 1
-	  pos: {x: 1, y: 0, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x0000FF
-		  ambient: 0.125
-		  diffuse: 0.775
-		  specular: 2
-		  shininess: 700
-		  reflect: 0.1
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
-	---
-	- type: PLANE
-	  scale: 1
-	  pos: {x: 0, y: -1, z: 10}
-	  dir: {x: 0, y: 1, z: -0.015}
-	  material:
-		  color: 0x1864AB
-		  ambient: 0.425
-		  diffuse: 0.675
-		  specular: 1.0
-		  shininess: 2048
-		  reflect: 0.15
-		  refract: 0
-		  transparency: 1
-		  absorbtion: 0.8
 	---
 ...

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/20 06:44:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 06:39:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ void	init_env(t_env *e)
 	e->intersect[PLANE] = intersect_plane;
 	e->intersect[CYLINDER] = intersect_cylinder;
 	e->intersect[TRIANGLE] = intersect_triangle;
+	e->intersect[PARALLELOGRAMME] = intersect_parallelogramme;
 	e->intersect[ELLIPSOID] = intersect_ellipsoid;
 	e->intersect[HYPERBOLOID_ONE] = intersect_hyperboloid1;
 	e->intersect[HYPERBOLOID_TWO] = intersect_hyperboloid2;
 	e->intersect[PARABOLOID] = intersect_paraboloid;
 	e->intersect[TORUS] = intersect_torus;
 	e->intersect[CUBE_TROUE] = intersect_cube_troue;
+	e->intersect[CUBE] = intersect_cube;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

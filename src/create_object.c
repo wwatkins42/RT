@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:29:14 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/20 07:02:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 07:36:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	default_object(t_obj *obj)
 	obj->pos = vec3_zero();
 	obj->dir = vec3_zero();
 	obj->scale = 1;
+	obj->y_min = -1;
+	obj->y_max = 1;
 	obj->mat.color = vec3(1, 1, 1);
 	obj->mat.ambient = 0.025;
 	obj->mat.diffuse = 0.975;
@@ -74,6 +76,8 @@ static void	get_object_type(t_obj *current, char *type)
 		current->type = CYLINDER;
 	else if (ft_strstr(type, "TRIANGLE"))
 		current->type = TRIANGLE;
+	else if (ft_strstr(type, "PARALLELOGRAMME"))
+		current->type = PARALLELOGRAMME;
 	else if (ft_strstr(type, "ELLIPSOID"))
 		current->type = ELLIPSOID;
 	else if (ft_strstr(type, "HYPERBOLOID_ONE"))
@@ -86,8 +90,48 @@ static void	get_object_type(t_obj *current, char *type)
 		current->type = TORUS;
 	else if (ft_strstr(type, "CUBE_TROUE"))
 		current->type = CUBE_TROUE;
+	else if (ft_strstr(type, "CUBE"))
+		current->type = CUBE;
 	else
 		error(E_OTYPE, type, 0);
+}
+
+static void create_cube(t_obj *cube)
+{
+	double	k;
+
+	!(cube->comp = malloc(6 * sizeof(t_obj))) ? error(E_MALLOC, NULL, 0) : 0;
+	k = cube->scale;
+	cube->comp[0].type = PARALLELOGRAMME;
+	cube->comp[0].pos = cube->pos;
+	cube->comp[0].pos2 = (t_vec3){k, 0, 0};
+	cube->comp[0].pos3 = (t_vec3){0, k, 0};
+	cube->comp[0].dir = vec3_norm(vec3_cross(cube->comp[0].pos2, cube->comp[0].pos3));
+	cube->comp[1].type = PARALLELOGRAMME;
+	cube->comp[1].pos = vec3_add(cube->pos, (t_vec3){k, 0, 0});
+	cube->comp[1].pos2 = (t_vec3){0, 0, k};
+	cube->comp[1].pos3 = (t_vec3){0, k, 0};
+	cube->comp[1].dir = vec3_norm(vec3_cross(cube->comp[1].pos2, cube->comp[1].pos3));
+	cube->comp[2].type = PARALLELOGRAMME;
+	cube->comp[2].pos = vec3_add(cube->pos, (t_vec3){0, 0, k});
+	cube->comp[2].pos2 = (t_vec3){0, 0, -k};
+	cube->comp[2].pos3 = (t_vec3){0, k, 0};
+	cube->comp[2].dir = vec3_norm(vec3_cross(cube->comp[2].pos2, cube->comp[2].pos3));
+	cube->comp[3].type = PARALLELOGRAMME;
+	cube->comp[3].pos = vec3_add(cube->pos, (t_vec3){0, k, 0});
+	cube->comp[3].pos2 = (t_vec3){k, 0, 0};
+	cube->comp[3].pos3 = (t_vec3){0, 0, k};
+	cube->comp[3].dir = vec3_norm(vec3_cross(cube->comp[3].pos2, cube->comp[3].pos3));
+	cube->comp[4].type = PARALLELOGRAMME;
+	cube->comp[4].pos = cube->pos;
+	cube->comp[4].pos2 = (t_vec3){k, 0, 0};
+	cube->comp[4].pos3 = (t_vec3){0, 0, k};
+	cube->comp[4].dir = vec3_norm(vec3_cross(cube->comp[4].pos2, cube->comp[4].pos3));
+	cube->comp[5].type = PARALLELOGRAMME;
+	cube->comp[5].pos = vec3_add(cube->pos, (t_vec3){k, 0, k});
+	cube->comp[5].pos2 = (t_vec3){-k, 0, 0};
+	cube->comp[5].pos3 = (t_vec3){0, k, 0};
+	cube->comp[5].dir = vec3_norm(vec3_cross(cube->comp[5].pos2, cube->comp[5].pos3));
 }
 
 static void	create_object(t_env *e, t_obj *obj, char *type)
@@ -110,6 +154,10 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 			obj->dir = vec3_norm(parse_vector(line));
 		else if (ft_strstr(line, "scale: "))
 			obj->scale = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "y_min: "))
+			obj->y_min = ft_atof(ft_strstr(line, ":") + 1);
+		else if (ft_strstr(line, "y_max: "))
+			obj->y_max = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "pr: "))
 			obj->pr = ft_atof(ft_strstr(line, ":") + 1);
 		else if (ft_strstr(line, "gr: "))
@@ -123,6 +171,12 @@ static void	create_object(t_env *e, t_obj *obj, char *type)
 	obj->k = tan(obj->scale);
 	obj->k *= obj->k;
 	ft_strdel(&line);
+	if (obj->type == TRIANGLE || obj->type == PARALLELOGRAMME)
+		obj->dir = vec3_norm(vec3_cross(obj->pos2, obj->pos3));
+	if (obj->type == CUBE)
+		create_cube(obj);
+	else
+		obj->comp = NULL;
 	obj->next = NULL;
 }
 

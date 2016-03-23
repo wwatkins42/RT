@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/20 05:46:57 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 07:45:52 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	loop_hook(t_env *e)
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
 	e->key.gamma_p ? e->cam->filter.gamma -= 0.05 : 0;
-	e->key.scale_p ? e->obj->gr += 0.1 : 0;
-	e->key.scale_m ? e->obj->gr -= 0.1 : 0;
+	e->key.scale_p ? e->obj->pos.y += 0.1 : 0;
+	e->key.scale_m ? e->obj->pos.y -= 0.1 : 0;
 	e->obj->scale2 = e->obj->scale * e->obj->scale;
 	e->obj->k = tan(e->obj->scale);
 	e->obj->k *= e->obj->k;
@@ -33,7 +33,7 @@ int	loop_hook(t_env *e)
 
 int	expose_hook(t_env *e)
 {
-	if (e->key.up || e->key.down || e->key.left || e->key.right ||
+	if (e->key.up || e->key.down || e->key.left || e->key.right || e->key.scale_p || e->key.scale_m ||
 		e->key.invert || e->key.gray_scale || e->key.gamma_m || e->key.gamma_p)
 		raytracing(e);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
@@ -50,7 +50,7 @@ int	key_pressed(int keycode, t_env *e)
 	keycode == PAD_PLUS ? e->key.scale_p = 1 : 0;
 	keycode == PAD_MOINS ? e->key.scale_m = 1 : 0;
 	keycode == KEY_BSLASH ? viewer_export(e, &e->cam->img) : 0;
-	keycode == KEY_BRACK_OUV ? bmp_exporter(e->cam->img, e->arg.file) : 0;
+	keycode == KEY_BRACK_OUV ? bmp_exporter(e->cam->img, e->arg.file) :
 	keycode == KEY_BRACK_FER ? yml_exporter(e, e->arg.file) : 0;
 	keycode == KEY_COMMA ? e->cam = e->cam->next : 0;
 	keycode == KEY_DOT ? e->cam = e->cam->prev : 0;
@@ -61,7 +61,7 @@ int	key_pressed(int keycode, t_env *e)
 	if (keycode == KEY_COMMA || keycode == KEY_DOT) // TMP
 		raytracing(e);
 	printf("pos(%f; %f; %f)\n"    , e->obj->pos.x , e->obj->pos.y , e->obj->pos.z);
-	printf("gr: %f\n", e->obj->gr);
+	// printf("scale: %f\n", e->obj->scale);
 	return (0);
 }
 

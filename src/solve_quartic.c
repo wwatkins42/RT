@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 23:36:24 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/20 04:33:15 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/22 02:22:54 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		solve_quadratic(t_poly4 *p)
 			return (0);
 		else
 		{
-			p->root1 = -p->a1 / p->a0;
+			p->root1 = -p->a0 / p->a1;
 			return (1);
 		}
 	}
@@ -47,7 +47,7 @@ int	solve_cubic(t_poly4 *p)
 	double	c;
 	double	d;
 
-	if (fabs(p->a3) < 0.01)
+	if (fabsl(p->a3) < EPSILON)
 		return (solve_quadratic(p));
 	d = p->a0 / p->a3;
 	c = p->a1 / p->a3;
@@ -72,7 +72,7 @@ int	solve_cubic(t_poly4 *p)
 	}
 	else
 	{
-		double	a2 = -cbrt(fabs(r) + sqrt(rr - qqq));
+		double	a2 = -cbrt(fabsl(r) + sqrt(rr - qqq));
 		if (a2 != 0)
 		{
 			if (r < 0)
