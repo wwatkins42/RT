@@ -79,34 +79,18 @@ objects:
 		  absorbtion: 0.7
 
 	- object:
-	  type: CYLINDER
-	  scale: 1
-	  pos: {x: -5, y: -0.1, z: 15}
-	  dir: {x: -1, y: 1, z: 0}
-	  min: -2
-	  max: 10
-	  material:
-		  color: 0x7FD4DD
-		  ambient: 0.125
-		  diffuse: 0.875
-		  specular: 2.0
-		  shininess: 256
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 0.7
-
-	- object:
-	  type: PARALLELOGRAM
-	  scale: 1
-	  pos: {x: -2, y: 1, z: 10}
+	  type: CONE
+	  scale: 2
+	  pos: {x: 2, y: 2, z: 15}
 	  dir: {x: 0, y: 1, z: 0}
+	  min: -10
+	  max: 0
 	  material:
-		  color: 0x7FD4DD
+		  color: #DE2620
 		  ambient: 0.125
 		  diffuse: 0.875
 		  specular: 2.0
-		  shininess: 256
+		  shininess: 512
 		  reflect: 0
 		  refract: 0
 		  transparency: 0

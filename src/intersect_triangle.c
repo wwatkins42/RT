@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tbeauman_triangle_intersect.c                      :+:      :+:    :+:   */
+/*   intersect_triangle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 05:00:13 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:30:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ double	intersect_trianglexy(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.y -
-		t->pos2.y * t->pos3.x) == 0)
+	if ((c.det = t->pos2.x * t->pos3.y - t->pos2.y * t->pos3.x) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.y / c.det;
 	c.dirinv[1][0] = -t->pos2.y / c.det;
@@ -50,8 +49,7 @@ double	intersect_trianglexz(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.z -
-		t->pos2.z * t->pos3.x) == 0)
+	if ((c.det = t->pos2.x * t->pos3.z - t->pos2.z * t->pos3.x) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.z / c.det;
 	c.dirinv[1][0] = -t->pos2.z / c.det;
@@ -72,8 +70,7 @@ double	intersect_triangleyz(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.y * t->pos3.z -
-		t->pos2.z * t->pos3.y) == 0)
+	if ((c.det = t->pos2.y * t->pos3.z - t->pos2.z * t->pos3.y) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.z / c.det;
 	c.dirinv[1][0] = -t->pos2.z / c.det;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:38:04 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:37:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_env(t_env *e)
 	e->intersect[PLANE] = intersect_plane;
 	e->intersect[CYLINDER] = intersect_cylinder;
 	e->intersect[TRIANGLE] = intersect_triangle;
-	e->intersect[PARALLELOGRAM] = intersect_parallelogramme;
+	e->intersect[PARALLELOGRAM] = intersect_parallelogram;
 	e->intersect[HYPERBOLOID_ONE] = intersect_hyperboloid1;
 	e->intersect[HYPERBOLOID_TWO] = intersect_hyperboloid2;
 	e->intersect[PARABOLOID] = intersect_paraboloid;

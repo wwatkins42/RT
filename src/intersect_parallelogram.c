@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 04:56:21 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 10:03:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:36:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_cal
 	double		q;
 }				t_cal;
 
-double	intersect_parallelogrammexy(t_ray *r, t_obj *t)
+double	intersect_parallelogramxy(t_ray *r, t_obj *t)
 {
 	t_cal		c;
 
@@ -43,7 +43,7 @@ double	intersect_parallelogrammexy(t_ray *r, t_obj *t)
 	return (c.tmp);
 }
 
-double	intersect_parallelogrammexz(t_ray *r, t_obj *t)
+double	intersect_parallelogramxz(t_ray *r, t_obj *t)
 {
 	t_cal		c;
 
@@ -64,7 +64,7 @@ double	intersect_parallelogrammexz(t_ray *r, t_obj *t)
 	return (c.tmp);
 }
 
-double	intersect_parallelogrammeyz(t_ray *r, t_obj *t)
+double	intersect_parallelogramyz(t_ray *r, t_obj *t)
 {
 	t_cal		c;
 
@@ -85,16 +85,16 @@ double	intersect_parallelogrammeyz(t_ray *r, t_obj *t)
 	return (c.tmp);
 }
 
-double	intersect_parallelogramme(t_ray *r, t_obj *t)
+double	intersect_parallelogram(t_ray *r, t_obj *t)
 {
 	if ((t->pos2.x != 0 || t->pos2.y != 0) &&
 		(t->pos3.x != 0 || t->pos3.y != 0))
-		return (intersect_parallelogrammexy(r, t));
+		return (intersect_parallelogramxy(r, t));
 	if ((t->pos2.x != 0 || t->pos2.z != 0) &&
 		(t->pos3.x != 0 || t->pos3.z != 0))
-		return (intersect_parallelogrammexz(r, t));
+		return (intersect_parallelogramxz(r, t));
 	if ((t->pos2.y != 0 || t->pos2.z != 0) &&
 		(t->pos3.y != 0 || t->pos3.z != 0))
-		return (intersect_parallelogrammeyz(r, t));
+		return (intersect_parallelogramyz(r, t));
 	return (INFINITY);
 }

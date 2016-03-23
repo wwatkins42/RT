@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 10:21:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:32:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,33 +77,33 @@ static void create_cube(t_obj *cube)
 	k = cube->scale;
 	cube->comp[0].type = PARALLELOGRAM;
 	cube->comp[0].pos = cube->pos;
-	cube->comp[0].pos2 = (t_vec3){k, 0, 0};
-	cube->comp[0].pos3 = (t_vec3){0, k, 0};
+	cube->comp[0].pos2 = (t_vec3) {k, 0, 0};
+	cube->comp[0].pos3 = (t_vec3) {0, k, 0};
 	cube->comp[0].dir = vec3_norm(vec3_cross(cube->comp[0].pos2, cube->comp[0].pos3));
 	cube->comp[1].type = PARALLELOGRAM;
-	cube->comp[1].pos = vec3_add(cube->pos, (t_vec3){k, 0, 0});
-	cube->comp[1].pos2 = (t_vec3){0, 0, k};
-	cube->comp[1].pos3 = (t_vec3){0, k, 0};
+	cube->comp[1].pos = vec3_add(cube->pos, (t_vec3) {k, 0, 0});
+	cube->comp[1].pos2 = (t_vec3) {0, 0, k};
+	cube->comp[1].pos3 = (t_vec3) {0, k, 0};
 	cube->comp[1].dir = vec3_norm(vec3_cross(cube->comp[1].pos2, cube->comp[1].pos3));
 	cube->comp[2].type = PARALLELOGRAM;
-	cube->comp[2].pos = vec3_add(cube->pos, (t_vec3){0, 0, k});
-	cube->comp[2].pos2 = (t_vec3){0, 0, -k};
-	cube->comp[2].pos3 = (t_vec3){0, k, 0};
+	cube->comp[2].pos = vec3_add(cube->pos, (t_vec3) {0, 0, k});
+	cube->comp[2].pos2 = (t_vec3) {0, 0, -k};
+	cube->comp[2].pos3 = (t_vec3) {0, k, 0};
 	cube->comp[2].dir = vec3_norm(vec3_cross(cube->comp[2].pos2, cube->comp[2].pos3));
 	cube->comp[3].type = PARALLELOGRAM;
-	cube->comp[3].pos = vec3_add(cube->pos, (t_vec3){0, k, 0});
-	cube->comp[3].pos2 = (t_vec3){k, 0, 0};
-	cube->comp[3].pos3 = (t_vec3){0, 0, k};
+	cube->comp[3].pos = vec3_add(cube->pos, (t_vec3) {0, k, 0});
+	cube->comp[3].pos2 = (t_vec3) {k, 0, 0};
+	cube->comp[3].pos3 = (t_vec3) {0, 0, k};
 	cube->comp[3].dir = vec3_norm(vec3_cross(cube->comp[3].pos2, cube->comp[3].pos3));
 	cube->comp[4].type = PARALLELOGRAM;
 	cube->comp[4].pos = cube->pos;
-	cube->comp[4].pos2 = (t_vec3){k, 0, 0};
-	cube->comp[4].pos3 = (t_vec3){0, 0, k};
+	cube->comp[4].pos2 = (t_vec3) {k, 0, 0};
+	cube->comp[4].pos3 = (t_vec3) {0, 0, k};
 	cube->comp[4].dir = vec3_norm(vec3_cross(cube->comp[4].pos2, cube->comp[4].pos3));
 	cube->comp[5].type = PARALLELOGRAM;
-	cube->comp[5].pos = vec3_add(cube->pos, (t_vec3){k, 0, k});
-	cube->comp[5].pos2 = (t_vec3){-k, 0, 0};
-	cube->comp[5].pos3 = (t_vec3){0, k, 0};
+	cube->comp[5].pos = vec3_add(cube->pos, (t_vec3) {k, 0, k});
+	cube->comp[5].pos2 = (t_vec3) {-k, 0, 0};
+	cube->comp[5].pos3 = (t_vec3) {0, k, 0};
 	cube->comp[5].dir = vec3_norm(vec3_cross(cube->comp[5].pos2, cube->comp[5].pos3));
 }
 
@@ -121,26 +121,30 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->type = get_object_type(line->line);
 		else if (ft_strstr(line->line, "pos:"))
 			new->pos = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos2: "))
-			new->pos2 = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos3: "))
-			new->pos3 = parse_vector(line->line);
+		else if (ft_strstr(line->line, "pos2:"))
+			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
+		else if (ft_strstr(line->line, "pos3:"))
+			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "scale:"))
 			new->scale = parse_value(line->line, 0.1, 1000);
-		else if (ft_strstr(line->line, "min: "))
+		else if (ft_strstr(line->line, "min:"))
 			new->min = parse_value(line->line, -INFINITY, INFINITY);
-		else if (ft_strstr(line->line, "max: "))
+		else if (ft_strstr(line->line, "max:"))
 			new->max = parse_value(line->line, -INFINITY, INFINITY);
-		else if (ft_strstr(line->line, "pr: "))
+		else if (ft_strstr(line->line, "pr:"))
 			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "gr: "))
+		else if (ft_strstr(line->line, "gr:"))
 			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
 		line = line->next;
 	}
+	new->type == PARALLELOGRAM ? printf("pos2: {%f, %f, %f}\n", new->pos2.x,
+		new->pos2.y, new->pos2.z) : 0;
+	new->type == PARALLELOGRAM ? printf("pos3: {%f, %f, %f}\n", new->pos3.x,
+		new->pos3.y, new->pos3.z) : 0;
 	e->count.obj++;
 	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;

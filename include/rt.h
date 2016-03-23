@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 10:19:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:36:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,7 @@ double				intersect_hyperboloid2(t_ray *r, t_obj *o);
 double				intersect_paraboloid(t_ray *ray, t_obj *o);
 double				intersect_torus(t_ray *ray, t_obj *obj);
 double				intersect_cube_troue(t_ray *ray, t_obj *obj);
-double				intersect_parallelogramme(t_ray *r, t_obj *t);
+double				intersect_parallelogram(t_ray *r, t_obj *t);
 double				intersect_cube(t_ray *ray, t_obj *cube);
 void				set_normal(t_ray *ray, t_obj *obj);
 

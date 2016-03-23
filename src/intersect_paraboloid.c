@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_paraboloid.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 22:32:06 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/22 02:32:09 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:35:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ double	intersect_paraboloid(t_ray *ray, t_obj *o)
 	c.len = vec3_sub(ray->pos, o->pos);
 	xv = vec3_dot(c.len, o->dir);
 	dv = vec3_dot(ray->dir, o->dir);
-
 	c.a = vec3_dot(ray->dir, ray->dir) - dv * dv;
 	c.b = 2 * (vec3_dot(ray->dir, c.len) - dv * (xv + 2 * o->scale));
 	c.c = vec3_dot(c.len, c.len) - xv * (xv + 4 * o->scale);

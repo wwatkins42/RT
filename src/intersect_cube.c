@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 02:52:56 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 09:49:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:36:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double		intersect_cube(t_ray *ray, t_obj *cube)
 	tmin = INFINITY;
 	while (i < 6)
 	{
-		t = intersect_parallelogramme(ray, &cube->comp[i]);
+		t = intersect_parallelogram(ray, &cube->comp[i]);
 		if (t > EPSILON && t < tmin)
 		{
 			cube->comp_hit = i;
