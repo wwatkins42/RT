@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:43:20 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 09:46:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,15 +157,20 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
-	if (obj->type == PLANE)
+	if (obj->type == PLANE || obj->type == TRIANGLE
+		|| obj->type == PARALLELOGRAM)
 		obj->normal = obj->dir;
 	if (obj->type == SPHERE)
-		obj->normal = vec3_sub(ray->hit, obj->pos);
-	if (obj->type == CYLINDER || obj->type == CONE)
+		obj->normal = vec3_sub(ray->pos, obj->pos);
+	if (obj->type == CYLINDER || obj->type == CONE ||
+		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO ||
+		obj->type == PARABOLOID)
 	{
 		obj->normal = vec3_sub(ray->hit, obj->pos);
-		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, m));
-		obj->normal = vec3_fmul(obj->normal, -1);	
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
+		obj->normal = vec3_fmul(obj->normal, -1);
 	}
+	if (obj->type == CUBE)
+		obj->normal = obj->comp[obj->comp_hit].dir;
 	vec3_normalize(&obj->normal);
 }
