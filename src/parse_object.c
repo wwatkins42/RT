@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 17:48:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 08:04:00 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ static int		get_object_type(char *line)
 		return (PLANE);
 	else if (ft_strstr(line, "CYLINDER"))
 		return (CYLINDER);
+	else if (ft_strstr(line, "TRIANGLE"))
+		return (TRIANGLE);
+	else if (ft_strstr(line, "CUBE"))
+		return (CUBE);
+	else if (ft_strstr(line, "PARALLELOGRAM"))
+		return (PARALLELOGRAM);
+	else if (ft_strstr(line, "HYPERBOLOID_ONE"))
+		return (HYPERBOLOID_ONE);
+	else if (ft_strstr(line, "HYPERBOLOID_TWO"))
+		return (HYPERBOLOID_TWO);
+	else if (ft_strstr(line, "PARABOLOID"))
+		return (PARABOLOID);
+	else if (ft_strstr(line, "TORUS"))
+		return (TORUS);
 	else
 		error(E_OTYPE, line, 0);
 	return (SPHERE);

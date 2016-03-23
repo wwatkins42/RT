@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:47:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 07:58:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define T_RES_W 2560
 # define T_RES_H 1440
 
-enum { SPHERE, CONE, PLANE, CYLINDER };
+enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
+		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, EARTH, BMP };
 enum { HARD, SOFT };
@@ -358,6 +359,15 @@ double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
 double				intersect_cone(t_ray *ray, t_obj *obj);
 double				intersect_cylinder(t_ray *ray, t_obj *obj);
+double				intersect_triangle(t_ray *r, t_obj *t);
+double				intersect_ellipsoid(t_ray *r, t_obj *e);
+double				intersect_hyperboloid1(t_ray *r, t_obj *o);
+double				intersect_hyperboloid2(t_ray *r, t_obj *o);
+double				intersect_paraboloid(t_ray *ray, t_obj *o);
+double				intersect_torus(t_ray *ray, t_obj *obj);
+double				intersect_cube_troue(t_ray *ray, t_obj *obj);
+double				intersect_parallelogramme(t_ray *r, t_obj *t);
+double				intersect_cube(t_ray *ray, t_obj *cube);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*
