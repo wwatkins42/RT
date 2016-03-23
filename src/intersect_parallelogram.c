@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersect_rectangle.c                              :+:      :+:    :+:   */
+/*   intersect_parallelogram.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 04:56:21 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 08:10:19 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:03:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
 typedef struct	s_cal
 {
 	double		tmp;
@@ -27,8 +28,7 @@ double	intersect_parallelogrammexy(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.y -
-		t->pos2.y * t->pos3.x) == 0)
+	if ((c.det = t->pos2.x * t->pos3.y - t->pos2.y * t->pos3.x) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.y / c.det;
 	c.dirinv[1][0] = -t->pos2.y / c.det;
@@ -49,8 +49,7 @@ double	intersect_parallelogrammexz(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.z -
-		t->pos2.z * t->pos3.x) == 0)
+	if ((c.det = t->pos2.x * t->pos3.z - t->pos2.z * t->pos3.x) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.z / c.det;
 	c.dirinv[1][0] = -t->pos2.z / c.det;
@@ -71,8 +70,7 @@ double	intersect_parallelogrammeyz(t_ray *r, t_obj *t)
 
 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
 		return (INFINITY);
-	if ((c.det = t->pos2.y * t->pos3.z -
-		t->pos2.z * t->pos3.y) == 0)
+	if ((c.det = t->pos2.y * t->pos3.z - t->pos2.z * t->pos3.y) == 0)
 		return (INFINITY);
 	c.dirinv[0][0] = t->pos3.z / c.det;
 	c.dirinv[1][0] = -t->pos2.z / c.det;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:32:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:19:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,8 +210,8 @@ typedef struct		s_obj
 	double			gr;
 	double			scale;
 	double			scale2;
-	double			y_min;
-	double			y_max;
+	double			min;
+	double			max;
 	double			k;
 	double			t;
 	int 			comp_hit;

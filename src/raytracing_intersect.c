@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:46:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 10:19:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 		calc.eq = -calc.b + calc.disc;
 	return (calc.eq);
 }
+
 double	intersect_cylinder(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
@@ -87,21 +88,21 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 			return (INFINITY);
 	}
 	m = vec3_dot(ray->dir, obj->dir) * tmp +
-			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	if (m > obj->y_max)
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+	if (m > obj->max)
 	{
 		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
 		m = vec3_dot(ray->dir, obj->dir) * tmp +
-		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m > obj->y_max)
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->max)
 			return (INFINITY);
 	}
-	else if (m < obj->y_min)
+	else if (m < obj->min)
 	{
 		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
 		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
 			obj->pos), obj->dir);
-		if (m < obj->y_min)
+		if (m < obj->min)
 			return (INFINITY);
 	}
 	obj->m = m;
@@ -134,20 +135,20 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	}
 	m = vec3_dot(ray->dir, obj->dir) * tmp +
 			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	if (m > obj->y_max)
+	if (m > obj->max)
 	{
 		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
 		m = vec3_dot(ray->dir, obj->dir) * tmp +
 		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m > obj->y_max)
+		if (m > obj->max)
 			return (INFINITY);
 	}
-	else if (m < obj->y_min)
+	else if (m < obj->min)
 	{
 		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
 		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
 			obj->pos), obj->dir);
-		if (m < obj->y_min)
+		if (m < obj->min)
 			return (INFINITY);
 	}
 	obj->m = m;
@@ -157,11 +158,13 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
-	if (obj->type == PLANE || obj->type == TRIANGLE
-		|| obj->type == PARALLELOGRAM)
+	if (obj->type == PLANE || obj->type == TRIANGLE ||
+		obj->type == PARALLELOGRAM)
 		obj->normal = obj->dir;
 	if (obj->type == SPHERE)
-		obj->normal = vec3_sub(ray->pos, obj->pos);
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+	if (obj->type == CUBE)
+		obj->normal = obj->comp[obj->comp_hit].dir;
 	if (obj->type == CYLINDER || obj->type == CONE ||
 		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO ||
 		obj->type == PARABOLOID)
@@ -170,7 +173,5 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
 		obj->normal = vec3_fmul(obj->normal, -1);
 	}
-	if (obj->type == CUBE)
-		obj->normal = obj->comp[obj->comp_hit].dir;
 	vec3_normalize(&obj->normal);
 }
