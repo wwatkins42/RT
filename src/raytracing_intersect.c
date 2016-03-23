@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/19 09:30:48 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/23 09:43:20 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 		calc.eq = -calc.b + calc.disc;
 	return (calc.eq);
 }
-
 double	intersect_cylinder(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
 	double		ro;
 	double		lo;
+	double		m;
+	double		tmp;
 
 	vec3_normalize(&obj->dir);
 	calc.len = vec3_sub(ray->pos, obj->pos);
@@ -74,11 +75,37 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	lo = vec3_dot(calc.len, obj->dir);
 	calc.a = 1.0 - ro * ro;
 	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
-	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale2;
+	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale * obj->scale;
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
-	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
+	if (tmp < 0)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		if (tmp < 0)
+			return (INFINITY);
+	}
+	m = vec3_dot(ray->dir, obj->dir) * tmp +
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+	if (m > obj->y_max)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp +
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->y_max)
+			return (INFINITY);
+	}
+	else if (m < obj->y_min)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
+			obj->pos), obj->dir);
+		if (m < obj->y_min)
+			return (INFINITY);
+	}
+	obj->m = m;
+	return (tmp);
 }
 
 double	intersect_cone(t_ray *ray, t_obj *obj)
@@ -86,6 +113,8 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	t_calc		calc;
 	double		lo;
 	double		ro;
+	double		m;
+	double		tmp;
 
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	lo = vec3_dot(calc.len, obj->dir);
@@ -96,7 +125,33 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	calc.disc = calc.b * calc.b - calc.a * calc.c;
 	if (calc.disc < EPSILON)
 		return (INFINITY);
-	return ((-calc.b - sqrt(calc.disc)) / calc.a);
+	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
+	if (tmp < 0)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		if (tmp < 0)
+			return (INFINITY);
+	}
+	m = vec3_dot(ray->dir, obj->dir) * tmp +
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+	if (m > obj->y_max)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp +
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->y_max)
+			return (INFINITY);
+	}
+	else if (m < obj->y_min)
+	{
+		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
+		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
+			obj->pos), obj->dir);
+		if (m < obj->y_min)
+			return (INFINITY);
+	}
+	obj->m = m;
+	return (tmp);
 }
 
 // TEMPORARY
@@ -107,7 +162,10 @@ void	set_normal(t_ray *ray, t_obj *obj)
 	if (obj->type == SPHERE)
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 	if (obj->type == CYLINDER || obj->type == CONE)
-		obj->normal = vec3(ray->hit.x - obj->pos.x, 0.0,
-		ray->hit.z - obj->pos.z);
+	{
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, m));
+		obj->normal = vec3_fmul(obj->normal, -1);	
+	}
 	vec3_normalize(&obj->normal);
 }

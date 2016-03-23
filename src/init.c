@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:15:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 09:38:04 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,17 @@ void	init_env(t_env *e)
 	e->win.dh = e->win.h / 2;
 	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
 		error(E_WIN_INIT, NULL, 1);
-	e->intersect[0] = intersect_sphere;
-	e->intersect[1] = intersect_cone;
-	e->intersect[2] = intersect_plane;
-	e->intersect[3] = intersect_cylinder;
+	e->intersect[SPHERE] = intersect_sphere;
+	e->intersect[CONE] = intersect_cone;
+	e->intersect[PLANE] = intersect_plane;
+	e->intersect[CYLINDER] = intersect_cylinder;
+	e->intersect[TRIANGLE] = intersect_triangle;
+	e->intersect[PARALLELOGRAM] = intersect_parallelogramme;
+	e->intersect[HYPERBOLOID_ONE] = intersect_hyperboloid1;
+	e->intersect[HYPERBOLOID_TWO] = intersect_hyperboloid2;
+	e->intersect[PARABOLOID] = intersect_paraboloid;
+	e->intersect[TORUS] = intersect_torus;
+	e->intersect[CUBE] = intersect_cube;
 	e->count.cam = 0;
 	e->count.lgt = 0;
 	e->count.obj = 0;

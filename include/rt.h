@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 08:18:34 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 09:32:54 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,14 +199,23 @@ typedef struct		s_bfi
 typedef struct		s_obj
 {
 	t_vec3			pos;
+	t_vec3			pos2;
+	t_vec3			pos3;
 	t_vec3			dir;
 	t_vec3			normal;
 	t_mat			mat;
 	short			type;
+	double			m;
+	double			pr;
+	double			gr;
 	double			scale;
 	double			scale2;
+	double			y_min;
+	double			y_max;
 	double			k;
 	double			t;
+	int 			comp_hit;
+	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
 
@@ -291,7 +300,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[10])(t_ray *, t_obj *);
+	double			(*intersect[12])(t_ray *, t_obj *);
 }					t_env;
 
 /*
