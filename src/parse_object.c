@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 09:34:07 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:35:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,21 +114,21 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->type = get_object_type(line->line);
 		else if (ft_strstr(line->line, "pos:"))
 			new->pos = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos2: "))
-			new->pos2 = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos3: "))
-			new->pos3 = parse_vector(line->line);
+		else if (ft_strstr(line->line, "pos2:"))
+			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
+		else if (ft_strstr(line->line, "pos3:"))
+			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
 		else if (ft_strstr(line->line, "dir:"))
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "scale:"))
 			new->scale = parse_value(line->line, 0.1, 1000);
-		else if (ft_strstr(line->line, "y_min: "))
+		else if (ft_strstr(line->line, "y_min:"))
 			new->y_min = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "y_max: "))
+		else if (ft_strstr(line->line, "y_max:"))
 			new->y_max = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "pr: "))
+		else if (ft_strstr(line->line, "pr:"))
 			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "gr: "))
+		else if (ft_strstr(line->line, "gr:"))
 			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);

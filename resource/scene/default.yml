@@ -63,15 +63,17 @@ objects:
 		  absorbtion: 0.7
 
 	- object:
-	  type: CONE
+	  type: PARABOLOID
 	  scale: 0.5
+	  y_min: -2
+	  y_max: 2
 	  pos: {x: 3, y: 2, z: 6}
 	  dir: {x: 0.5, y: 1, z: 0}
 	  material:
 		  color: 0x93DD4A
 		  ambient: 0.225
 		  diffuse: 0.775
-		  specular: 8.0
+		  specular: 0
 		  shininess: 512
 		  reflect: 0
 		  refract: 0
@@ -81,6 +83,8 @@ objects:
 	- object:
 	  type: CYLINDER
 	  scale: 1
+	  y_min: -2
+	  y_max: 2
 	  pos: {x: -5, y: -0.1, z: 15}
 	  dir: {x: -1, y: 1, z: 0}
 	  material:

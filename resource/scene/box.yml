@@ -32,9 +32,11 @@ lights:
 
 objects:
 	- object:
-	  type: CUBE
+	  type: PARABOLOID
 	  scale: 1
-	  pos: {x: -1, y: 0, z: 10}
+	  y_min: 0
+	  y_max: 5
+	  pos: {x: -1, y: -10, z: 40}
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
 		  color: 0xFF0000
@@ -47,20 +49,5 @@ objects:
 		  transparency: 0
 		  absorbtion: 1
 
-	- object:
-	  type: PLANE
-	  scale: 1
-	  pos: {x: 0, y: -1, z: 10}
-	  dir: {x: 0, y: 1, z: -0.015}
-	  material:
-		  color: 0x1864AB
-		  ambient: 0.225
-		  diffuse: 0.675
-		  specular: 1.0
-		  shininess: 2048
-		  reflect: 0.15
-		  refract: 0
-		  transparency: 1
-		  absorbtion: 0.8
 
 ...

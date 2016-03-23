@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:46:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:54:21 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,16 +161,51 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		|| obj->type == PARALLELOGRAM)
 		obj->normal = obj->dir;
 	if (obj->type == SPHERE)
-		obj->normal = vec3_sub(ray->pos, obj->pos);
-	if (obj->type == CYLINDER || obj->type == CONE ||
-		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO ||
-		obj->type == PARABOLOID)
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+	if (obj->type == CYLINDER ||
+		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO
+		)
 	{
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
 		obj->normal = vec3_fmul(obj->normal, -1);
 	}
+	if (obj->type == PARABOLOID)
+	{
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir,
+				obj->scale + obj->m));
+		obj->normal = vec3_fmul(obj->normal, -1);
+
+	}
+	if (obj->type == CONE)
+	{
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir,
+			(1 + obj->k) * obj->m));
+		obj->normal = vec3_fmul(obj->normal, -1);
+	}
 	if (obj->type == CUBE)
 		obj->normal = obj->comp[obj->comp_hit].dir;
+	if (obj->type == TORUS)
+	{
+		// obj->dir = (t_vec3){0, 1, 0};
+		double	k = vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir);
+		t_vec3	a = vec3_sub(ray->hit, vec3_fmul(obj->dir, k));
+		double	m = sqrt(obj->pr * obj->pr - k * k);
+		obj->normal = vec3_sub(vec3_sub(ray->hit, a),
+			vec3_fmul(vec3_sub(obj->pos, a), m / (obj->gr + m)));
+		// obj->normal = (t_vec3){0, 1, 0};
+		// ray->hit = vec3_sub(ray->hit, obj->pos);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 4 * obj->gr * obj->gr *
+		// 	(vec3_dot(ray->hit, ray->hit) - ray->hit.y * ray->hit.y);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr);
+		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
+		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 4 * obj->gr * obj->gr *
+		// 	(vec3_dot(ray->hit, ray->hit) - ray->hit.y * ray->hit.y);
+		// ray->hit = vec3_add(ray->hit, obj->pos);
+	}
 	vec3_normalize(&obj->normal);
 }

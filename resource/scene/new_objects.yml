@@ -10,8 +10,8 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 10, y: 1, z: 0}
-	  dir: {x: 10, y: 45, z: -5}
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
 
@@ -32,43 +32,11 @@ lights:
 
 objects:
 	- object:
-	  type: SPHERE
-	  scale: 1.5
-	  pos: {x: 8, y: 0.25, z: 4}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x6F6F6F
-		  ambient: 0.025
-		  diffuse: 0.275
-		  specular: 2
-		  shininess: 2048
-		  reflect: 0.15
-		  refract: 1.13
-		  transparency: 0.7
-		  absorbtion: 0.8
-
-	- object:
-	  type: SPHERE
-	  scale: 1
-	  pos: {x: -1, y: 0, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0xFF0000
-		  ambient: 0.225
-		  diffuse: 0.775
-		  specular: 2
-		  shininess: 700
-		  reflect: 0.1
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
-
-	- object:
-	  type: SPHERE
-	  scale: 1
-	  pos: {x: 0, y: 1.7, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
+	  type: TRIANGLE
+	  pos: {x: 0, y: 0, z: 10}
+	  pos2: {x: 1, y: 0, z: 0}
+	  pos3: {x: 0, y: 1, z: 0}
+ 	  material:
 		  color: 0x00FF00
 		  ambient: 0.225
 		  diffuse: 0.775
@@ -78,37 +46,4 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
-
-	- object:
-	  type: SPHERE
-	  scale: 1
-	  pos: {x: 1, y: 0, z: 10}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x0000FF
-		  ambient: 0.125
-		  diffuse: 0.775
-		  specular: 2
-		  shininess: 700
-		  reflect: 0.1
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
-
-	- object:
-	  type: PLANE
-	  scale: 1
-	  pos: {x: 0, y: -1, z: 10}
-	  dir: {x: 0, y: 1, z: -0.015}
-	  material:
-		  color: 0x1864AB
-		  ambient: 0.225
-		  diffuse: 0.675
-		  specular: 1.0
-		  shininess: 2048
-		  reflect: 0.15
-		  refract: 0
-		  transparency: 1
-		  absorbtion: 0.8
-
 ...

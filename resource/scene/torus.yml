@@ -1,0 +1,53 @@
+---
+scene:
+	velocity: 0.8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 70
+	  background: "./resource/gradient/sunset.yml"
+lights:
+	- type: POINT
+	  pos: {x: 0, y: 3, z: 5}
+	  color: 0xF7F7F4
+	  intensity: 1.55
+	  shadow: HARD
+objects:
+	- type: TORUS
+	  pos: {x: 0, y: 0, z: 15}
+	  dir: {x: 0, y: 1, z: 0}
+	  pr: 1
+	  gr: 2
+      material:
+		  color: 0xFFFF00
+		  ambient: 0.325
+		  diffuse: 0.24
+		  specular: 0.1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 0
+		  transparency: 1.0
+		  absorbtion: 0.7
+	- type: SPHERE
+	  scale: 0.75
+	  pos: {x: 0, y: 0, z: 15}
+	  dir: {x: 0, y: 0, z: 1}
+      material:
+		  color: 0xFFFF00
+		  ambient: 0.325
+		  diffuse: 0.24
+		  specular: 0.1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 0
+		  transparency: 1.0
+		  absorbtion: 0.7
+...
