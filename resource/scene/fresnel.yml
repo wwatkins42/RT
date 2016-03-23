@@ -68,12 +68,11 @@ objects:
 	  material:
 		  color: #E2E2E2
 		  ambient: 0.025
-		  diffuse: 0.175
+		  diffuse: 0.275
 		  specular: 0.8
 		  shininess: 512
 		  reflect: 0.57
-		  refract: 2
+		  refract: 1
 		  transparency: 0
 		  absorbtion: 0.7
-
 ...

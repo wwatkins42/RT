@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 14:46:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:38:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_key
 	char			l;
 	char			kp;
 	char			km;
+	char			stats;
 	char			mouse;
 	char			debug;
 	char			invert;
@@ -214,6 +215,7 @@ typedef struct		s_obj
 	double			max;
 	double			k;
 	double			t;
+	double			dist_attenuation;
 	int 			comp_hit;
 	struct s_obj	*comp;
 	struct s_obj	*next;

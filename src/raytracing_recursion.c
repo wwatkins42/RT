@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 13:45:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:46:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 	{
 		e->reflect.depth++;
 		ray.pos = ray.hit;
-		ray.dir = vec3_reflect(ray.dir, obj->normal);
+		if (obj->mat.texture.normal_map)
+			ray.dir = vec3_reflect(ray.dir, obj->mat.texture.normal);
+		else
+			ray.dir = vec3_reflect(ray.dir, obj->normal);
 		color = vec3_add(color, raytracing_draw(e, ray));
 		color = vec3_fmul(color, obj->mat.reflect);
 	}

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 14:49:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:35:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ int		loop_hook(t_env *e)
 
 int		expose_hook(t_env *e)
 {
-	// if (e->key.ku || e->key.kd || e->key.kl || e->key.kr || e->key.i ||
-	// 	e->key.k || e->key.j || e->key.l || e->key.invert ||
-	// 	e->key.gray_scale || e->key.gamma_m || e->key.gamma_p)
-		raytracing(e);
+	raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
-	display_stats(e);
+	e->key.stats ? display_stats(e) : 0;
 	return (0);
 }
 
@@ -52,6 +49,7 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next : 0;
 	keycode == 46 ? kswitch(&e->key.mouse) : 0;
+	keycode == 50 ? kswitch(&e->key.stats) : 0;
 	keycode == 47 ? e->cam = e->cam->prev : 0;
 	keycode == 126 ? e->key.ku = 1 : 0;
 	keycode == 125 ? e->key.kd = 1 : 0;

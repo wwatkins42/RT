@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:55:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:35:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	display_loading(t_env *e, int u, int v)
 	}
 }
 
-void	disp_texture(t_env *e, t_vec3 **img, t_texture texture)
+void	display_texture(t_env *e, t_vec3 **img, t_texture texture)
 {
 	int		x;
 	int		y;
