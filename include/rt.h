@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 07:58:34 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/23 08:18:34 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,6 +337,45 @@ void				move_translate(t_env *e);
 void				move_rotate(t_env *e);
 void				move_zoom(t_env *e);
 void				mouse_orientation(t_env *e);
+
+/*
+** polynomial solver
+*/
+
+typedef struct		s_poly6
+{
+	double			a[7];
+	double			root[6];
+}					t_poly6;
+
+typedef struct		s_euclid
+{
+	t_poly6			q;
+	t_poly6			r;
+}					t_euclid;
+
+typedef struct		s_sturm
+{
+	t_poly6			*s;
+	int				len;
+}					t_sturm;
+
+typedef struct		s_poly4
+{
+	double			a0;
+	double			a1;
+	double			a2;
+	double			a3;
+	double			a4;
+	double			root1;
+	double			root2;
+	double			root3;
+	double			root4;
+}					t_poly4;
+
+int					solve_quadratic(t_poly4 *p);
+int					solve_cubic(t_poly4 *p);
+int					solve_quartic(t_poly4 *p);
 
 /*
 **	RAYTRACING FUNCTIONS
