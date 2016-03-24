@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 14:28:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:30:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
 	if (light->type == SPOT)
 	{
 		theta = vec3_dot(light->dir, vec3_norm(vec3_fmul(light->ray.dir, -1)));
-		epsilon = light->cutoff - light->outercutoff;
-		light->cutoff_intensity = ft_clampf((theta - light->outercutoff) /
+		epsilon = light->cutoff - light->cutoff_outer;
+		light->cutoff_intensity = ft_clampf((theta - light->cutoff_outer) /
 			epsilon, 0, 1);
 	}
 	vec3_normalize(&light->ray.dir);
