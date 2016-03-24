@@ -1,0 +1,165 @@
+---
+scene:
+	velocity: 0.8
+	recursion_reflect: 4
+	recursion_refract: 4
+	mouse_sensibility: 0.2
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 0, z: -15}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 90
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: SPOT
+	  pos: {x: 0, y: 7.5, z: -5}
+      dir: {x: 0, y: -0.8, z: 0.8}
+	  color: #F9DAC9
+	  intensity: 1.75
+      attenuation: 0.001
+      cutoff: 30
+      cutoffouter: 4
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 0, y: 0, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #304BFF
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 6
+		  shininess: 512
+		  reflect: 0.35
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+    - object:
+	  type: SPHERE
+	  scale: 1.75
+	  pos: {x: 0, y: 4.66, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #FF3030
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 6
+		  shininess: 512
+		  reflect: 0.35
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1.75
+	  pos: {x: -3.66, y: -3.33, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #FF3030
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 6
+		  shininess: 512
+		  reflect: 0.35
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1.75
+	  pos: {x: 3.66, y: -3.33, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #FF3030
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 6
+		  shininess: 512
+		  reflect: 0.35
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 0.45
+	  pos: {x: 0, y: 0, z: 7}
+	  dir: {x: 0, y: 1, z: 0}
+      min: 0
+      max: 5
+	  material:
+		  color: #D2D2D2
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 0.45
+	  pos: {x: 0, y: 0, z: 7}
+	  dir: {x: -1, y: -1, z: 0}
+      min: 0
+      max: 5
+	  material:
+		  color: #D2D2D2
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 0.45
+	  pos: {x: 0, y: 0, z: 7}
+	  dir: {x: 1, y: -1, z: 0}
+      min: 0
+      max: 5
+	  material:
+		  color: #D2D2D2
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: -7, y: -5.5, z: -10}
+	  pos2: {x: 14, y: 0, z: 0}
+	  pos3: {x: 0, y: 0, z: 24}
+	  material:
+		  color: #D2D2D2
+		  ambient: 0.045
+		  diffuse: 0.775
+		  specular: 3
+		  shininess: 512
+		  reflect: 0.78
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+...

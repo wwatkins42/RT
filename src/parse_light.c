@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 14:24:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:31:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void		default_light(t_lgt *light)
 	light->color = vec3(1, 1, 1);
 	light->intensity = 1;
 	light->attenuation = 0.1;
-	light->cutoff = 45;
+	light->cutoff = 75;
+	light->cutoff_outer = 2;
 	light->shadow = HARD;
 }
 
