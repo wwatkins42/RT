@@ -1,9 +1,9 @@
 ---
 scene:
-	velocity: 0.8
+	velocity: 0.95
 	recursion_reflect: 3
 	recursion_refract: 3
-	mouse_sensibility: 0.2
+	mouse_sensibility: 0.3
 	mouse_interpolation: true
 	load_resync: false
 	load_percent: false
@@ -12,7 +12,7 @@ cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: -15}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 90
+	  fov: 80
 	  supersampling: 1
 
 lights:
