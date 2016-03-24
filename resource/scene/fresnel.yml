@@ -13,7 +13,7 @@ cameras:
 	  pos: {x: 0, y: 1, z: -4}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 50
-	  supersampling: 4
+	  supersampling: 1
 
 lights:
 	- light:

@@ -6,11 +6,21 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 12:18:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:28:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static void	set_color(t_obj *obj, t_ray *ray)
+{
+	if (obj->mat.texture.defined)
+	{
+		obj->mat.color = texture_mapping(obj, obj->mat.texture.img, ray->hit);
+		if (obj->mat.texture.normal_map)
+			obj->mat.texture.normal = bump_normal(obj, ray);
+	}
+}
 
 t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 {
@@ -18,7 +28,6 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 	t_vec3	color;
 	t_vec3	diffuse;
 	t_vec3	specular;
-	double	theta;
 
 	color = (t_vec3) {0, 0, 0};
 	light = e->lgt;
@@ -26,25 +35,13 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 	while (light != NULL)
 	{
 		set_light(ray->hit, obj, light);
-		if (obj->mat.texture.defined)
-		{
-			obj->mat.color = texture_mapping(obj, obj->mat.texture.img, ray->hit);
-			if (obj->mat.texture.normal_map)
-				obj->mat.texture.normal = bump_normal(obj, ray);
-		}
-		if (light->type == SPOT)
-			theta = vec3_dot(light->dir, vec3_norm(vec3_fmul(light->ray.dir, -1)));
-		if (!(light->type == SPOT && theta < light->cutoff) || light->type == POINT)
-		{
-			color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));
-			diffuse = set_diffuse(obj, light);
-			specular = set_specular(e, ray->hit, obj, light);
-			color = vec3_add(color, vec3_add(diffuse, specular));
-			color = vec3_mul(color, obj->mat.color);
-			obj->mat.receive_shadow ? set_shadow(e, &color, *light, obj) : 0;
-		}
-		else
-			color = vec3_add(color, vec3_fmul(obj->mat.color, obj->mat.ambient));
+		set_color(obj, ray);
+		color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));
+		diffuse = set_diffuse(obj, light);
+		specular = set_specular(e, ray->hit, obj, light);
+		color = vec3_add(color, vec3_add(diffuse, specular));
+		color = vec3_mul(color, obj->mat.color);
+		obj->mat.receive_shadow ? set_shadow(e, &color, *light, obj) : 0;
 		light = light->next;
 	}
 	return (color);
@@ -57,6 +54,8 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
 	res = obj->mat.diffuse * light->intensity * theta / obj->dist_attenuation;
+	if (light->type == SPOT)
+		res *= light->cutoff_intensity;
 	return (vec3_fmul(light->color, res));
 }
 
@@ -74,15 +73,27 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
 	res = pow(theta, obj->mat.shininess);
 	res = res * obj->mat.specular * light->intensity / obj->dist_attenuation;
+	if (light->type == SPOT)
+		res *= light->cutoff_intensity;
 	return (vec3_fmul(light->color, res));
 }
 
 void	set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
 {
+	double	theta;
+	double	epsilon;
+
 	light->ray.pos = hit;
 	light->ray.dir = vec3_sub(light->pos, hit);
 	obj->t = vec3_magnitude(light->ray.dir);
 	obj->dist_attenuation = (1.0 + obj->t * obj->t * light->attenuation);
+	if (light->type == SPOT)
+	{
+		theta = vec3_dot(light->dir, vec3_norm(vec3_fmul(light->ray.dir, -1)));
+		epsilon = light->cutoff - light->outercutoff;
+		light->cutoff_intensity = ft_clampf((theta - light->outercutoff) /
+			epsilon, 0, 1);
+	}
 	vec3_normalize(&light->ray.dir);
 }
 

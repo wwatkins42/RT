@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 12:19:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:24:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 			new->attenuation = parse_value(line->line, 0.0001, 10);
 		else if (ft_strstr(line->line, "cutoff:"))
 			new->cutoff = parse_value(line->line, 0, 360);
+		else if (ft_strstr(line->line, "cutoffouter:"))
+			new->cutoff_outer = parse_value(line->line, 0, 180);
 		line = line->next;
 	}
 	e->count.lgt++;
 	new->next = NULL;
+	new->cutoff_outer = cos((new->cutoff + new->cutoff_outer) * 0.5 * DEG2RAD);
 	new->cutoff = cos(new->cutoff * 0.5 * DEG2RAD);
 	return (new);
 }

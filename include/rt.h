@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 11:57:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 14:24:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ typedef	struct		s_lgt
 	double			intensity;
 	double			attenuation;
 	double			cutoff;
+	double			cutoff_outer;
+	double			cutoff_intensity;
 	struct s_lgt	*next;
 }					t_lgt;
 

@@ -23,7 +23,8 @@ lights:
 	  color: 0xFFF2EE
 	  intensity: 1.35
 	  attenuation: 0.1
-      cutoff: 70
+      cutoff: 75
+      cutoffouter: 1
 	  shadow: HARD
 
 objects:
