@@ -57,7 +57,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/earth.bmp
+		  texture: ../texture/planet/earth.bmp
 		  texture_filtering: true
 		  texture_normal: true
 		  texture_normal_strength: 2

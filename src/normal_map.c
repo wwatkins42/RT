@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 18:22:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:15:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_vec3			bump_normal(t_obj *obj, t_ray *ray)
 	t_vec3		binormal;
 	t_vec3		bump;
 	t_vec3		c[2];
-	double		mat3[3][3];
 
 	normal = obj->normal;
 	bump = texture_mapping(obj, obj->mat.texture.bump, ray->hit);
@@ -97,22 +96,9 @@ t_vec3			bump_normal(t_obj *obj, t_ray *ray)
 	tangent = (vec3_magnitude(c[0]) > vec3_magnitude(c[1]) ? c[0] : c[1]);
 	vec3_normalize(&tangent);
 	binormal = vec3_norm(vec3_cross(normal, tangent));
-	// TBN matrix, converts from tangent space to object space.
-	mat3[0][0] = tangent.x;
-	mat3[1][0] = tangent.y;
-	mat3[2][0] = tangent.z;
-	mat3[0][1] = binormal.x;
-	mat3[1][1] = binormal.y;
-	mat3[2][1] = binormal.z;
-	mat3[0][2] = normal.x;
-	mat3[1][2] = normal.y;
-	mat3[2][2] = normal.z;
-	normal.x = mat3[0][0] * bump.x + mat3[0][1] * bump.y + mat3[0][2] * bump.z;
-	normal.y = mat3[1][0] * bump.x + mat3[1][1] * bump.y + mat3[1][2] * bump.z;
-	normal.z = mat3[2][0] * bump.x + mat3[2][1] * bump.y + mat3[2][2] * bump.z;
-	// normal.x = vec3_dot(bump, tangent);
-	// normal.y = vec3_dot(bump, binormal);
-	// normal.z = vec3_dot(bump, obj->normal);
+	normal.x = vec3_dot(bump, vec3(tangent.x, binormal.x, normal.x));
+	normal.y = vec3_dot(bump, vec3(tangent.y, binormal.y, normal.y));
+	normal.z = vec3_dot(bump, vec3(tangent.z, binormal.z, normal.z));
 	vec3_normalize(&normal);
 	return (normal);
 }
