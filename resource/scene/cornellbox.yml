@@ -16,11 +16,14 @@ cameras:
 	  supersampling: 1
 
 lights:
-	- type: POINT
+	- light:
+      type: SPOT
 	  pos: {x: 0, y: 3.5, z: 4.5}
+      dir: {x: 0, y: -1, z: 0}
 	  color: 0xFFF2EE
 	  intensity: 1.35
 	  attenuation: 0.1
+      cutoff: 70
 	  shadow: HARD
 
 objects:
@@ -71,10 +74,6 @@ objects:
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
-		  texture: ../texture/seamless/wood3.bmp
-		  texture_filtering: true
-		  texture_normal: true
-		  texture_normal_strength: 1.5
 
 	- object:
 	  type: PLANE

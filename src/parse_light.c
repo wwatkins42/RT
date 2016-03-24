@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 12:06:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:19:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 	}
 	e->count.lgt++;
 	new->next = NULL;
-	new->cutoff = cos(new->cutoff * DEG2RAD);
+	new->cutoff = cos(new->cutoff * 0.5 * DEG2RAD);
 	return (new);
 }
 

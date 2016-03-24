@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 15:47:05 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:18:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 	t_vec3	color;
 	t_vec3	diffuse;
 	t_vec3	specular;
+	double	theta;
 
 	color = (t_vec3) {0, 0, 0};
 	light = e->lgt;
@@ -31,12 +32,19 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 			if (obj->mat.texture.normal_map)
 				obj->mat.texture.normal = bump_normal(obj, ray);
 		}
-		color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));
-		diffuse = set_diffuse(obj, light);
-		specular = set_specular(e, ray->hit, obj, light);
-		color = vec3_add(color, vec3_add(diffuse, specular));
-		color = vec3_mul(color, obj->mat.color);
-		obj->mat.receive_shadow ? set_shadow(e, &color, *light, obj) : 0;
+		if (light->type == SPOT)
+			theta = vec3_dot(light->dir, vec3_norm(vec3_fmul(light->ray.dir, -1)));
+		if (!(light->type == SPOT && theta < light->cutoff) || light->type == POINT)
+		{
+			color = vec3_add(color, vec3_fmul(light->color, obj->mat.ambient));
+			diffuse = set_diffuse(obj, light);
+			specular = set_specular(e, ray->hit, obj, light);
+			color = vec3_add(color, vec3_add(diffuse, specular));
+			color = vec3_mul(color, obj->mat.color);
+			obj->mat.receive_shadow ? set_shadow(e, &color, *light, obj) : 0;
+		}
+		else
+			color = vec3_add(color, vec3_fmul(obj->mat.color, obj->mat.ambient));
 		light = light->next;
 	}
 	return (color);
