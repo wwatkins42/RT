@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
+#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/23 08:13:28 by tbeauman         ###   ########.fr        #
+#    Updated: 2016/03/24 18:43:31 by wwatkins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			texture_generator.c normal_map.c mouse_hook.c intersect_cube.c \
 			intersect_hyperboloid.c intersect_paraboloid.c \
 			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
-			solve_quartic.c
+			solve_quartic.c fresnel.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

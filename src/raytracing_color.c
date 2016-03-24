@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 17:03:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:46:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_obj *obj)
 
 	color = (t_vec3) {0, 0, 0};
 	light = e->lgt;
-	obj->mat.texture.normal = obj->normal;
 	while (light != NULL)
 	{
 		set_light(ray->hit, obj, light);
@@ -54,8 +53,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 
 	theta = ft_clampf(vec3_dot(light->ray.dir, obj->mat.texture.normal), 0, 1);
 	res = obj->mat.diffuse * light->intensity * theta / obj->dist_attenuation;
-	if (light->type == SPOT)
-		res *= light->cutoff_intensity;
+	light->type == SPOT ? res *= light->cutoff_intensity : 0;
 	return (vec3_fmul(light->color, res));
 }
 
@@ -69,8 +67,7 @@ t_vec3	set_specular(t_env *e, t_obj *obj, t_lgt *light)
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
 	res = pow(theta, obj->mat.shininess);
 	res = res * obj->mat.specular * light->intensity / obj->dist_attenuation;
-	if (light->type == SPOT)
-		res *= light->cutoff_intensity;
+	light->type == SPOT ? res *= light->cutoff_intensity : 0;
 	return (vec3_fmul(light->color, res));
 }
 

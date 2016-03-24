@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 18:25:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:05:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static void		default_object(t_obj *object)
 	object->mat.texture.defined = 0;
 	object->mat.texture.filtering = 0;
 	object->mat.texture.normal_map = 0;
-	object->mat.texture.normal_strength = 2;	
+	object->mat.texture.normal_strength = 2;
 	object->mat.receive_shadow = 1;
+	object->mat.fresnel.defined = 0;
 }
 
 static int		get_object_type(char *line)
@@ -152,6 +153,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		create_cube(new);
 	else
 		new->comp = NULL;
+	new->mat.fresnel.defined ? set_fresnel(new) : 0;
 	new->next = NULL;
 	return (new);
 }

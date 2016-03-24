@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 18:24:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:04:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void				parse_material(t_env *e, t_mat *mat, t_line *line)
 			mat->shininess = parse_value(line->line, 0, 16384);
 		else if (ft_strstr(line->line, "reflect:"))
 			mat->reflect = parse_value(line->line, 0, 1);
+		else if (ft_strstr(line->line, "fresnel:"))
+			mat->fresnel.defined = parse_boolean(line->line);
 		else
 			parse_material_bis(e, mat, line->line);
 		line = line->next;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 18:16:04 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:02:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 			ray.dir = vec3_reflect(ray.dir, obj->normal);
 		color = vec3_add(color, raytracing_draw(e, ray));
 		color = vec3_fmul(color, obj->mat.reflect);
+		if (obj->mat.fresnel.defined)
+			color = vec3_fmul(color, get_fresnel(vec3_fmul(e->cam->ray.dir, -1),
+			obj->normal, obj->mat.fresnel.reflect));
 	}
 	return (color);
 }
@@ -78,6 +81,9 @@ t_vec3		raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 			obj->mat.transparency));
 		if (obj->mat.absorbtion < 1.0)
 			color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale));
+		if (obj->mat.fresnel.defined)
+			color = vec3_fmul(color, get_fresnel(vec3_fmul(e->cam->ray.dir, -1),
+			obj->normal, obj->mat.fresnel.refract));
 		// obj->scale * 2.0 is not correct, t is distance traced in object
 	}
 	return (color);

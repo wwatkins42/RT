@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 17:04:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 19:02:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,18 @@ typedef struct		s_filter
 	double			gamma;
 }					t_filter;
 
+typedef struct		s_fresnel
+{
+	double			reflect;
+	double			refract;
+	char			defined;
+}					t_fresnel;
+
 typedef struct		s_mat
 {
 	t_vec3			color;
 	t_texture		texture;
+	t_fresnel		fresnel;
 	double			ambient;
 	double			diffuse;
 	double			specular;
@@ -450,6 +458,8 @@ t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
+void				set_fresnel(t_obj *obj);
+double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
 void				supersampling(t_env *e, int x, int y);
 
 /*

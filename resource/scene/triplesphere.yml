@@ -10,7 +10,7 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 0, z: 0}
+	  pos: {x: 0, y: 0.1, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 90
 	  supersampling: 1
@@ -31,7 +31,7 @@ cameras:
 	  pos: {x: -3, y: 1, z: 5}
 	  dir: {x: 1, y: -90, z: 0}
 	  fov: 110
-	  supersampling: 1
+	  supersampling: 2
 
 lights:
 	- light:
@@ -51,16 +51,12 @@ objects:
 		  color: 0x364A90
 		  ambient: 0.025
 		  diffuse: 0.275
-		  specular: 10
-		  shininess: 512
+		  specular: 3.8
+		  shininess: 2048
 		  reflect: 1
-		  refract: 1
+		  refract: 1.85
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/planet/earth.bmp
-		  texture_filtering: true
-		  texture_normal: true
-		  texture_normal_strength: 2
 
 	- object:
 	  type: SPHERE
