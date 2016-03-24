@@ -37,3 +37,4 @@ __Bonus:__
 - Camera movement
 - Camera orientation with mouse
 - Mouse smooth (linear interpolation)
+- Frame per second display
