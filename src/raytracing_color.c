@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 14:30:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:37:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 	float	theta;
 	float	res;
 
-	lighdir = vec3_norm(vec3_sub(light->pos, hit));
+	if (light->type == DIRECTIONAL)
+		lighdir = light->ray.dir;
+	else
+		lighdir = vec3_norm(vec3_sub(light->pos, hit));
 	viewdir = vec3_norm(vec3_sub(e->cam->pos, hit));
 	halfdir = vec3_norm(vec3_add(lighdir, viewdir));
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
@@ -84,9 +87,17 @@ void	set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
 	double	epsilon;
 
 	light->ray.pos = hit;
-	light->ray.dir = vec3_sub(light->pos, hit);
-	obj->t = vec3_magnitude(light->ray.dir);
-	obj->dist_attenuation = (1.0 + obj->t * obj->t * light->attenuation);
+	if (light->type == DIRECTIONAL)
+	{
+		light->ray.dir = vec3_fmul(light->dir, -1);
+		obj->dist_attenuation = 1.0;
+	}
+	else
+	{
+		light->ray.dir = vec3_sub(light->pos, hit);
+		obj->t = vec3_magnitude(light->ray.dir);
+		obj->dist_attenuation = (1.0 + obj->t * obj->t * light->attenuation);
+	}
 	if (light->type == SPOT)
 	{
 		theta = vec3_dot(light->dir, vec3_norm(vec3_fmul(light->ray.dir, -1)));

@@ -1,8 +1,8 @@
 ---
 scene:
 	velocity: 0.8
-	recursion_reflect: 4
-	recursion_refract: 4
+	recursion_reflect: 3
+	recursion_refract: 3
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
 	load_resync: false
@@ -17,14 +17,12 @@ cameras:
 
 lights:
 	- light:
-	  type: SPOT
+	  type: POINT
 	  pos: {x: 0, y: 7.5, z: -5}
       dir: {x: 0, y: -0.8, z: 0.8}
 	  color: #F9DAC9
 	  intensity: 1.75
       attenuation: 0.001
-      cutoff: 30
-      cutoffouter: 4
 	  shadow: HARD
 
 objects:
