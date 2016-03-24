@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 15:37:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:37:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,13 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 
 t_vec3	set_specular(t_env *e, t_vec3 hit, t_obj *obj, t_lgt *light)
 {
-	t_vec3	lighdir;
 	t_vec3	viewdir;
 	t_vec3	halfdir;
 	float	theta;
 	float	res;
 
-	if (light->type == DIRECTIONAL)
-		lighdir = light->ray.dir;
-	else
-		lighdir = vec3_norm(vec3_sub(light->pos, hit));
 	viewdir = vec3_norm(vec3_sub(e->cam->pos, hit));
-	halfdir = vec3_norm(vec3_add(lighdir, viewdir));
+	halfdir = vec3_norm(vec3_add(light->ray.dir, viewdir));
 	theta = ft_clampf(vec3_dot(obj->mat.texture.normal, halfdir), 0, 1);
 	res = pow(theta, obj->mat.shininess);
 	res = res * obj->mat.specular * light->intensity / obj->dist_attenuation;
