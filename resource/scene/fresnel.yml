@@ -6,20 +6,20 @@ scene:
 	mouse_sensibility: 0.4
 	mouse_interpolation: true
 	load_resync: false
-	load_percent: false
+	load_percent: true
 
 cameras:
 	- camera:
 	  pos: {x: 0, y: 1, z: -4}
 	  dir: {x: 5, y: 0, z: 0}
-	  fov: 100
-	  supersampling: 1
+	  fov: 50
+	  supersampling: 4
 
 lights:
 	- light:
 	  type: POINT
 	  pos: {x: 0, y: 1, z: 0}
-	  color: #F1F1F1
+	  color: #FFFFFF
 	  intensity: 1.0
 	  attenuation: 0.01
 	  shadow: HARD
@@ -32,11 +32,11 @@ objects:
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: #3753C8
-		  ambient: 0.185
-		  diffuse: 0.875
+		  ambient: 0.085
+		  diffuse: 0.075
 		  specular: 0.95
 		  shininess: 2048
-		  reflect: 0
+		  reflect: 1
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
@@ -68,11 +68,15 @@ objects:
 	  material:
 		  color: #E2E2E2
 		  ambient: 0.025
-		  diffuse: 0.275
-		  specular: 0.8
-		  shininess: 512
-		  reflect: 0.57
+		  diffuse: 0.075
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0.87
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 0.7
+          texture: ../texture/snow.bmp
+          texture_filtering: true
+          texture_normal: true
+          texture_normal_strength: 0.5
 ...

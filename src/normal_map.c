@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 09:15:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:50:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_vec3			bump_normal(t_obj *obj, t_ray *ray)
 	c[0] = vec3_cross(normal, vec3(0, 0, 1));
 	c[1] = vec3_cross(normal, vec3(0, 1, 0));
 	tangent = (vec3_magnitude(c[0]) > vec3_magnitude(c[1]) ? c[0] : c[1]);
+	tangent = vec3_sub(tangent, vec3_fmul(normal, vec3_dot(tangent, normal)));
 	vec3_normalize(&tangent);
 	binormal = vec3_norm(vec3_cross(normal, tangent));
 	normal.x = vec3_dot(bump, vec3(tangent.x, binormal.x, normal.x));

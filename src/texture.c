@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 08:27:38 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:34:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_vec3			texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit)
 {
 	if (!obj->mat.texture.defined)
 		return (obj->mat.color);
-	if (obj->type == PLANE)
+	if (obj->type == PLANE || obj->type == TRIANGLE ||
+		obj->type == PARALLELOGRAM)
 		return (texture_mapping_plane(obj, img, hit));
 	if (obj->type == SPHERE)
 		return (texture_mapping_sphere(obj, img, hit));

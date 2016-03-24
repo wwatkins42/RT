@@ -63,18 +63,18 @@ objects:
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
 		  color: 0xD2D2D1
-		  ambient: 0.025
+		  ambient: 0.225
 		  diffuse: 0.575
-		  specular: 1
+		  specular: 2
 		  shininess: 1024
-		  reflect: 0.5
+		  reflect: 0.12
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
-		  texture: ../texture/brick.bmp
+		  texture: ../texture/seamless/wood3.bmp
 		  texture_filtering: true
 		  texture_normal: true
-		  texture_normal_strength: 2
+		  texture_normal_strength: 1.5
 
 	- object:
 	  type: PLANE
