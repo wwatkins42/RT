@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:57:47 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/25 07:56:31 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,28 @@ static t_cam	*create_cam(t_env *e, t_line *cam_line, t_cam *prev)
 t_cam			*parse_camera(t_env *e, t_line *cam_line)
 {
 	t_line	*line;
+	t_cam	*tmp;
 	t_cam	*camera;
 	t_cam	*current;
 
-	line = cam_line->next->next;
-	current = NULL;
-	current = create_cam(e, line, NULL);
+	line = cam_line;
+	if (!(current = (t_cam*)malloc(sizeof(t_cam))))
+		error(E_MALLOC, NULL, 1);
+		current->next = NULL;
 	camera = current;
-	camera->next = camera;
-	camera->prev = camera;
 	while (line != NULL)
 	{
 		if (ft_strstr(line->line, "- camera:"))
 		{
 			current->next = create_cam(e, line->next, current);
 			current = current->next;
-			camera->prev = current;
-			current->next = camera;
+			camera->next->prev = current;
+			current->next = camera->next;
 		}
 		line = line->next;
 	}
+	tmp = camera;
+	camera = camera->next;
+	ft_memdel((void**)&tmp);
 	return (camera);
 }

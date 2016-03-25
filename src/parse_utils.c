@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 16:53:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 07:46:25 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+int			is_comment(const char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '	')
+		i++;
+	return (line[i] == '#' ? 1 : 0);
+}
 
 t_vec3		parse_color(char *line)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 14:31:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 07:50:12 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 t_lgt			*parse_light(t_env *e, t_line *light_line)
 {
 	t_line	*line;
+	t_lgt	*tmp;
 	t_lgt	*light;
 	t_lgt	*current;
 
-	line = light_line->next->next;
-	current = NULL;
-	current = create_light(e, line);
+	line = light_line;
+	if (!(current = (t_lgt*)malloc(sizeof(t_lgt))))
+		error(E_MALLOC, NULL, 1);
+	current->next = NULL;
 	light = current;
 	while (line != NULL)
 	{
@@ -92,5 +94,8 @@ t_lgt			*parse_light(t_env *e, t_line *light_line)
 		}
 		line = line->next;
 	}
+	tmp = light;
+	light = light->next;
+	ft_memdel((void**)&tmp);
 	return (light);
 }

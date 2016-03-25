@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 19:02:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 07:46:58 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,11 +335,12 @@ void				parse(t_env *e, t_parse *core);
 t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
+void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
-void				parse_material(t_env *e, t_mat *mat, t_line *line);
+int					is_comment(const char *line);
 
 /*
 **	ENVIRONNEMENT INIT FUNCTIONS

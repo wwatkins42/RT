@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:09:33 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 10:37:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/25 07:51:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ static char		*get_line(const int fd, t_line *first, int line_type)
 	{
 		if (get_condition(line_type, line))
 			return (line);
-		prev = cur;
-		cur->next = init_list(line, prev);
-		cur = cur->next;
+		if (!is_comment(line))
+		{
+			prev = cur;
+			cur->next = init_list(line, prev);
+			cur = cur->next;
+		}
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
@@ -105,9 +108,6 @@ void			parse_yml(t_env *e)
 	core.lgt = init_list("lights", NULL);
 	core.obj = init_list("objects", NULL);
 	parse_loop(e->arg.fd, &core);
-	if (core.cam->next == NULL || core.lgt->next == NULL ||
-		core.obj->next == NULL)
-		error(E_SEMPTY, NULL, 1);
 	close(e->arg.fd) == -1 ? error(strerror(errno), e->arg.file, 0) : 0;
 	parse(e, &core);
 }

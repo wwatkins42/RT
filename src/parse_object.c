@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 19:05:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 07:50:27 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,14 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 t_obj			*parse_object(t_env *e, t_line *object_line)
 {
 	t_line	*line;
+	t_obj	*tmp;
 	t_obj	*object;
 	t_obj	*current;
 
-	line = object_line->next->next;
-	current = NULL;
-	current = create_object(e, line);
+	line = object_line;
+	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
+		error(E_MALLOC, NULL, 1);
+	current->next = NULL;
 	object = current;
 	while (line != NULL)
 	{
@@ -177,5 +179,8 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 		}
 		line = line->next;
 	}
+	tmp = object;
+	object = object->next;
+	ft_memdel((void**)&tmp);
 	return (object);
 }
