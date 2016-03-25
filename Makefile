@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/24 18:43:31 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/03/25 09:03:07 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,10 @@ LIB	= $(addprefix -L$(LIB_PATH),$(LIB_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C $(LIB_PATH)libft
-	make -C $(LIB_PATH)mlx
-	make -C $(LIB_PATH)libftprintf
-	make -C $(LIB_PATH)libvec
+	make -C $(LIB_PATH)libft -j
+	make -C $(LIB_PATH)mlx -j
+	make -C $(LIB_PATH)libftprintf -j
+	make -C $(LIB_PATH)libvec -j
 	$(CC) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c

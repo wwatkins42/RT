@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/24 19:04:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 08:32:26 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,20 @@ static short		get_texture_type(const char *line)
 		return (WOOD);
 	else if (ft_strstr(line, "EARTH"))
 		return (EARTH);
+	else if (ft_strstr(line, "CHECKER"))
+		return (CHECKER);
 	else
 		return (BMP);
 }
 
 static void	parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
-	short		type;
 	char		info[256];
 
-	type = get_texture_type(line);
-	if (type == NONE)
+	mat->texture.type = get_texture_type(line);
+	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
-	else if (type == BMP)
+	else if (mat->texture.type == BMP)
 	{
 		mat->texture = bmp_importer(ft_strstr(line, ":") + 2);
 		sprintf(info, "->import:(%dx%d)%s\n", mat->texture.w,
@@ -42,7 +43,7 @@ static void	parse_material_texture(t_env *e, t_mat *mat, char *line)
 	}
 	else
 	{
-		mat->texture = texture_generator(type, T_RES_W, T_RES_H);
+		mat->texture = texture_generator(mat->texture.type, T_RES_W, T_RES_H);
 		sprintf(info, "->perlin:(%dx%d)[%s]\n", mat->texture.w,
 			mat->texture.h, ft_strstr(line, ":") + 2);
 	}

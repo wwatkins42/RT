@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 07:46:58 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/25 08:28:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
 enum { POINT, SPOT, DIRECTIONAL };
-enum { NONE, MARBLE, WOOD, EARTH, BMP };
+enum { NONE, MARBLE, WOOD, EARTH, BMP, CHECKER };
 enum { HARD, SOFT };
 
 typedef struct		s_arg
