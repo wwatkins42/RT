@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 18:47:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 18:54:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	raytracing_progressive(t_env *e)
 		mlx_do_sync(e->mlx);
 		e->scene.inc /= 2;
 		inc2 /= 2;
-		// if (e->scene.inc == 16)
-			// mlx_loop(e->mlx);
 	}
-	exit(0);
 }
 
 void	raytracing_init(t_env *e, float x, float y)
