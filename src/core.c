@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:19:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:15:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	core(t_env *e)
 {
 	init_key(e);
-	raytracing(e);
+	e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
 	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
 	mlx_hook(e->win.adr, 6, (1L << 6), mouse_pos, e);

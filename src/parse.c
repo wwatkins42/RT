@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 13:43:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:01:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	parse_scene(t_env *e, t_line *scene)
 			e->scene.resync = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "load_percent:"))
 			e->scene.percent = parse_boolean(line->line);
+		else if (ft_strstr(line->line, "progressive_loading:"))
+			e->scene.progressive_loading = parse_boolean(line->line);
 		line = line->next;
 	}
 }

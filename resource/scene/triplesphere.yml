@@ -5,6 +5,7 @@ scene:
 	recursion_refract: 4
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
+    progressive_loading: true
 	load_resync: false
 	load_percent: false
 
@@ -13,7 +14,7 @@ cameras:
 	  pos: {x: 0, y: 0.1, z: 0}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 90
-	  supersampling: 1
+	  supersampling: 4
 
 	- camera:
 	  pos: {x: 3, y: 1, z: 5}

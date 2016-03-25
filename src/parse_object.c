@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 09:18:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:37:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		default_object(t_obj *object)
 	object->mat.texture.scale = 0.2;
 	object->mat.receive_shadow = 1;
 	object->mat.fresnel.defined = 0;
+	object->mat.normal_perturbation = 0;
 }
 
 static int		get_object_type(char *line)

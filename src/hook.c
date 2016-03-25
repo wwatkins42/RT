@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:46:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:24:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int		loop_hook(t_env *e)
 int		expose_hook(t_env *e)
 {
 	e->tick.frame_start = clock();
-	raytracing(e);
+	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
+		e->key.kp || e->key.km || e->key.ku || e->key.kd || e->key.kl ||
+		e->key.kr || e->key.invert || e->key.gray_scale || e->key.gamma_m ||
+		e->key.gamma_p)
+		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	e->tick.frame = (clock() - e->tick.frame_start) / (float)CLOCKS_PER_SEC;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 14:50:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:49:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,9 @@ typedef struct		s_scene
 {
 	short			resync;
 	short			percent;
+	short			progressive_loading;
 	double			velocity;
+	int				inc;
 }					t_scene;
 
 typedef struct		s_win
@@ -423,6 +425,7 @@ int					solve_quartic(t_poly4 *p);
 */
 
 void				raytracing(t_env *e);
+void				raytracing_progressive(t_env *e);
 void				raytracing_init(t_env *e, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_ray ray);
 

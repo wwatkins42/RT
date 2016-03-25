@@ -6,11 +6,25 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:59:26 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 16:38:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:04:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static void	fill_pixelated(t_env *e, int x, int y, t_vec3 color)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < e->scene.inc)
+	{
+		j = -1;
+		while (++j < e->scene.inc)
+			img_pixel_put(&e->cam->img, x + i, y + j, color);
+	}
+}
 
 void	supersampling(t_env *e, int x, int y)
 {
@@ -37,4 +51,5 @@ void	supersampling(t_env *e, int x, int y)
 	filter_gamma(e->cam->filter.gamma, &color);
 	vec3_clamp(&color, 0, 1);
 	img_pixel_put(&e->cam->img, x, y, color);
+	e->scene.progressive_loading ? fill_pixelated(e, x, y, color) : 0;
 }
