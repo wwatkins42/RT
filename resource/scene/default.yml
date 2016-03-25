@@ -73,6 +73,8 @@ objects:
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
+          texture: CHECKER
+          texture_scale: 1
 
 	- object:
 	  type: CONE
@@ -107,5 +109,6 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.7
+          texture: MARBLE
 
 ...

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 09:08:15 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/25 12:01:26 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	set_color(t_obj *obj, t_ray *ray)
 	d = 0.0;
 	if (obj->mat.texture.type == CHECKER)
 	{
-		d = fmod((floor(ray->hit.x) + floor(ray->hit.z)), 2.0) * 0.8;
+		d = fmod((floor(ray->hit.x * obj->mat.texture.scale) +
+		floor(ray->hit.z * obj->mat.texture.scale)), 2.0) * 0.8;
 		d = ABS(d);
 		obj->mat.color = vec3(d, d, d);
 	}

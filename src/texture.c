@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 09:20:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 11:48:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
 
 	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
 	v_axis = vec3_cross(u_axis, obj->normal);
-	// 1.0 is offset, 0.175 is texture scale
 	u = 1.0 + vec3_dot(hit, u_axis) * obj->mat.texture.scale;
 	v = 1.0 + vec3_dot(hit, v_axis) * obj->mat.texture.scale;
 	u = u - floor(u);
@@ -64,8 +63,30 @@ static t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	int		j;
 
 	d = vec3_norm(vec3_sub(hit, obj->pos));
-	u = 0.5 + atan2(d.z, d.x) / (2.0 * M_PI);
+	u = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
 	v = 0.5 - asin(d.y) / M_PI;
+	if (obj->mat.texture.filtering)
+		return (bilinear_filtering(obj, img, u, v));
+	else
+	{
+		i = ft_clamp(u * obj->mat.texture.w, 0, obj->mat.texture.w - 1);
+		j = ft_clamp(v * obj->mat.texture.h, 0, obj->mat.texture.h - 1);
+		return (img[j][i]);
+	}
+}
+
+static t_vec3	texture_mapping_cylinder(t_obj *obj, t_vec3 **img, t_vec3 hit)
+{
+	t_vec3	d;
+	float	u;
+	float	v;
+	int		i;
+	int		j;
+
+	d = vec3_sub(hit, vec3_mul(obj->pos, obj->dir));
+	u = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
+	v = d.y / (obj->max - obj->min);
+	v = v - floor(v);
 	if (obj->mat.texture.filtering)
 		return (bilinear_filtering(obj, img, u, v));
 	else
@@ -83,7 +104,9 @@ t_vec3			texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	if (obj->type == PLANE || obj->type == TRIANGLE ||
 		obj->type == PARALLELOGRAM)
 		return (texture_mapping_plane(obj, img, hit));
-	if (obj->type == SPHERE)
+	else if (obj->type == SPHERE)
 		return (texture_mapping_sphere(obj, img, hit));
+	else if (obj->type == CYLINDER || obj->type == CONE)
+		return (texture_mapping_cylinder(obj, img, hit));
 	return (obj->mat.color);
 }
