@@ -6,71 +6,102 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 11:07:24 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/25 16:39:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	args_disp(void)
+void		run(GtkButton *button, t_gui *e)
 {
-	ft_putendl("\nusage:\n./rt [-s scene] [-w width] [-h height] [--help]");
-	ft_putendl("\noptions:");
-	ft_putendl("-s <file_path> set specified program scene.");
-	ft_putendl("-w <width>     set specified program window width.");
-	ft_putendl("-h <height>    set specified program window height.");
-	ft_putendl("--help         show help.\n");
-	exit(0);
+	(void)button;
+	if (e->loaded == 1)
+		core(&e->env);
 }
 
-static int		is_yml(const char *str)
+void		load(GtkButton *button, t_gui *e)
 {
-	char	*buffer;
-
-	buffer = ft_strrchr(str, '.');
-	if (buffer == NULL)
-		return (0);
-	if (ft_strcmp(buffer, ".yml") != 0 && ft_strcmp(buffer, ".yaml") != 0)
-		return (0);
-	return (1);
-}
-
-static void	args_get(t_env *e, int ac, char **av)
-{
-	int		i;
-	int		fd;
-
-	i = 0;
-	e->arg.w = 1280;
-	e->arg.h = 720;
-	e->arg.file = NULL;
-	while (++i < ac)
+	(void)button;
+	if (e->filename != NULL)
 	{
-		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
-		if (!ft_strcmp(av[i], "-w") || !ft_strcmp(av[i], "--width"))
-			i + 1 < ac ? e->arg.w = ft_atoi(av[i + 1]) : 0;
-		else if (!ft_strcmp(av[i], "-h") || !ft_strcmp(av[i], "--height"))
-			i + 1 < ac ? e->arg.h = ft_atoi(av[i + 1]) : 0;
-		else if (!ft_strcmp(av[i], "-s") || !ft_strcmp(av[i], "--scene"))
-			i + 1 < ac ? e->arg.file = ft_strdup(av[i + 1]) : 0;
+		e->env.arg.file = ft_strdup(e->filename);
+		parse_yml(&e->env);
+		e->loaded = 1;
 	}
-	if (e->arg.file == NULL)
-		e->arg.file = ft_strdup("./resource/scene/default.yml");
-	!is_yml(e->arg.file) ? error(E_IFILE, e->arg.file, 1) : 0;
-	if ((fd = open(e->arg.file, O_RDWR)) == -1)
-		error(strerror(errno), e->arg.file, 1);
-	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
+}
+
+void		check_swith(GObject *button, char *check)
+{
+	(void)button;
+	if (*check == 0)
+		*check = 1;
+	else
+		*check = 0;
+	g_print("%d", (int)*check);
+}
+
+void		get_file_name(GObject *load_area, t_gui *e)
+{
+	GtkFileChooser	*tmp;
+
+	tmp = GTK_FILE_CHOOSER(load_area);
+	e->filename = gtk_file_chooser_get_filename(tmp);
+	if (e->filename == NULL)
+		error("something", NULL, 1);
 }
 
 int			main(int ac, char **av)
 {
-	t_env e;
+	t_gui	*e;
 
-	ac == 2 && !ft_strcmp(av[1], "--help") ? args_disp() : 0;
-	!(e.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
-	args_get(&e, ac, av);
-	init_env(&e);
-	parse_yml(&e);
-	core(&e);
-	return (0);
+	gtk_init(&ac, &av);
+	e = (t_gui*)malloc(sizeof(t_gui));
+	e->error = NULL;
+	e->filename = NULL;
+	e->resync = 0;
+	e->mouse_inter = 0;
+	e->builder = gtk_builder_new();
+	e->env.mlx = mlx_init();
+	e->env.arg.w = 1200;
+	e->env.arg.h = 800;
+	e->loaded = 0;
+	if (!gtk_builder_add_from_file(e->builder, "user.ui", &e->error))
+		error(e->error->message, NULL, 1);
+
+// Get Window
+	if (!(e->window =
+		gtk_builder_get_object(e->builder, "main")))
+		error("window fail", NULL, 1);
+	gtk_window_set_position(GTK_WINDOW(e->window), GTK_WIN_POS_CENTER_ALWAYS);
+	g_signal_connect(e->window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+// Get load file area
+	if (!(e->load_area =
+		gtk_builder_get_object(e->builder, "file_loader_button")))
+		error("load area fail", NULL, 1);
+	g_signal_connect(e->load_area, "file_set",
+	G_CALLBACK(get_file_name), (gpointer*)e);
+
+//Get resync button
+	if (!(e->resync_button =
+		gtk_builder_get_object(e->builder, "resync_mod_button")))
+		error("resync", NULL, 1);
+	g_signal_connect(e->resync_button, "toggled",
+	G_CALLBACK(check_swith), (gpointer*)&e->resync);
+
+//Get resync button
+	if (!(e->mouse_inter_button =
+		gtk_builder_get_object(e->builder, "mouse_interpolation_button")))
+		error("inter", NULL, 1);
+	g_signal_connect(e->mouse_inter_button, "toggled",
+	G_CALLBACK(check_swith), (gpointer*)&e->mouse_inter);
+
+	if (!(e->load = gtk_builder_get_object(e->builder, "load_button")))
+		error("run", NULL, 1);
+	g_signal_connect(e->load, "clicked", G_CALLBACK(load), (gpointer*)e);
+	if (!(e->run = gtk_builder_get_object(e->builder, "run_button")))
+		error("run", NULL, 1);
+	g_signal_connect(e->run, "clicked", G_CALLBACK(run), (gpointer*)e);
+	gtk_main();
+	return (EXIT_SUCCESS);
 }

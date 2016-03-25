@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:19:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 16:16:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@
 # include <stdlib.h>
 # include <time.h>
 # include <bmp_exporter.h>
+# include <gtk/gtk.h>
 # include <stdio.h> // TEMPORARY
 
-# define ABS(x) (x < 0 ? -x : x)
+# ifndef ABS
+#  define ABS(x) (x < 0 ? -x : x)
+# endif
 # define MIN_POS -1000.0
 # define MAX_POS 1000.0
 # define EPSILON 1e-9
@@ -328,6 +331,28 @@ typedef struct		s_env
 	t_refract		refract;
 	double			(*intersect[12])(t_ray *, t_obj *);
 }					t_env;
+
+typedef struct		s_gui
+{
+	t_env			env;
+
+	char			*filename;
+	char			mouse_inter;
+	char			resync;
+	char			loaded;
+
+	GtkBuilder		*builder;
+	GObject			*window;
+
+	GObject			*load_area;
+	GObject			*resync_button;
+	GObject			*mouse_inter_button;
+	GObject			*load;
+	GObject			*run;
+
+	GError			*error;
+
+}					t_gui;
 
 /*
 **	PARSING FUNCTIONS

@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/25 09:03:07 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/25 14:48:17 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 
 NAME = rt
 CC = gcc
+GTK_CF = $$(~/.brew/Cellar/pkg-config/0.29.1/bin/pkg-config --cflags gtk+-3.0)
+GTK_LD = $$(~/.brew/Cellar/pkg-config/0.29.1/bin/pkg-config --libs gtk+-3.0)
 CFLGS = -Werror -Wextra -Wall -Ofast
 MLXFLGS = -framework OpenGL -framework AppKit
 
@@ -49,11 +51,11 @@ $(NAME): $(OBJ)
 	make -C $(LIB_PATH)mlx -j
 	make -C $(LIB_PATH)libftprintf -j
 	make -C $(LIB_PATH)libvec -j
-	$(CC) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	$(CC) $(GTK_LD) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLGS) $(INC) -o $@ -c $<
+	$(CC) $(GTK_CF) $(CFLGS) $(INC) -o $@ -c $<
 
 nolib: $(OBJ)
 	$(CC) $(CFLGS) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
