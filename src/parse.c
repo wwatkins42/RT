@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 18:05:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:43:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	parse_scene(t_env *e, t_line *scene)
 		else if (ft_strstr(line->line, "mouse_interpolation:"))
 			e->mouse.lerp = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "velocity:"))
-			e->scene.velocity = parse_value(line->line, 0, 10);
+			e->scene.velocity = parse_value(line->line, 0, 100);
 		else if (ft_strstr(line->line, "load_resync:"))
 			e->scene.resync = parse_boolean(line->line);
 		else if (ft_strstr(line->line, "load_percent:"))

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:25:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:46:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		expose_hook(t_env *e)
 	raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
-	e->tick.frame = (clock() - e->tick.frame_start) / 100000.0;
+	e->tick.frame = (clock() - e->tick.frame_start) / (float)CLOCKS_PER_SEC;
 	e->key.stats ? display_stats(e) : 0;
 	return (0);
 }
@@ -91,6 +91,7 @@ void	display_stats(t_env *e)
 {
 	static char	*fps = NULL;
 	static char	*rps = NULL;
+	static char	*irt = NULL;
 	int			diff;
 
 	e->count.fps++;
@@ -99,13 +100,16 @@ void	display_stats(t_env *e)
 	if (diff >= CLOCKS_PER_SEC)
 	{
 		e->tick.last = e->tick.current;
-		fps = ft_strnew(32);
-		rps = ft_strnew(32);
+		fps == NULL ? fps = ft_strnew(8) : 0;
+		rps == NULL ? rps = ft_strnew(32) : 0;
 		sprintf(fps, "fps:%d\n", e->count.fps);
 		sprintf(rps, "rps:%d\n", e->count.rps);
 		e->count.rps = 0;
 		e->count.fps = 0;
 	}
+	irt == NULL ? irt = ft_strnew(12) : 0;
+	sprintf(irt, "%.3fs\n", e->tick.frame);
 	fps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 0, 0xFFFFFF, fps) : 0;
 	rps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 15, 0xFFFFFF, rps) : 0;
+	irt != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 30, 0xFFFFFF, irt) : 0;
 }

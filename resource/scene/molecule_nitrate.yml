@@ -1,6 +1,6 @@
 ---
 scene:
-	velocity: 0.95
+	velocity: 9.5
 	recursion_reflect: 3
 	recursion_refract: 3
 	mouse_sensibility: 0.3
