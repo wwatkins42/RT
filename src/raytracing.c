@@ -6,11 +6,21 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 17:12:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 18:47:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+/*
+**	pthread
+**	In order to implement multi-threaded calculs by parallelizing
+**	ray tracing on differents CPU threads we must send copies of 't_env'
+**	struct and assign lines or blocks of rays to cast  (pixels) for each thread.
+**	At the end, get all mlx_images from the structs 't_env' sent to threads
+**	and send their data (only the pixels they worked on) to the main mlx_image.
+**	Put the final mlx_image to window.
+*/
 
 void	raytracing(t_env *e)
 {
@@ -37,9 +47,10 @@ void	raytracing_progressive(t_env *e)
 	t_vec3	color;
 
 	e->scene.inc = 32;
+	int		inc2 = 64;
 	init_cam(e, e->cam);
 	color = (t_vec3) {0, 0, 0};
-	while (e->scene.inc >= 1)
+	while (e->scene.inc > 0)
 	{
 		y = 0;
 		while (y < e->win.h)
@@ -57,7 +68,11 @@ void	raytracing_progressive(t_env *e)
 		mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 		mlx_do_sync(e->mlx);
 		e->scene.inc /= 2;
+		inc2 /= 2;
+		// if (e->scene.inc == 16)
+			// mlx_loop(e->mlx);
 	}
+	exit(0);
 }
 
 void	raytracing_init(t_env *e, float x, float y)
