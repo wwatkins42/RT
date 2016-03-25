@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 19:28:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:11:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ void	move_translate(t_env *e)
 	vec3_rotate(&dir, e->cam->dir);
 	vec3_rotate(&pln, e->cam->dir);
 	if (e->key.ku)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(dir, e->scene.velocity));
+		e->cam->pos = vec3_add(e->cam->pos,
+		vec3_fmul(dir, e->scene.velocity * e->tick.frame));
 	if (e->key.kd)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(dir, e->scene.velocity));
+		e->cam->pos = vec3_sub(e->cam->pos,
+			vec3_fmul(dir, e->scene.velocity * e->tick.frame));
 	if (e->key.kl)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(pln, e->scene.velocity));
+		e->cam->pos = vec3_sub(e->cam->pos,
+			vec3_fmul(pln, e->scene.velocity * e->tick.frame));
 	if (e->key.kr)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(pln, e->scene.velocity));
+		e->cam->pos = vec3_add(e->cam->pos,
+			vec3_fmul(pln, e->scene.velocity * e->tick.frame));
 }
 
 void	move_rotate(t_env *e)

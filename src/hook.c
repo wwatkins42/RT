@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 15:36:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:25:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ int		loop_hook(t_env *e)
 
 int		expose_hook(t_env *e)
 {
+	e->tick.frame_start = clock();
 	raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+	e->tick.frame = (clock() - e->tick.frame_start) / 100000.0;
 	e->key.stats ? display_stats(e) : 0;
 	return (0);
 }
@@ -94,7 +96,7 @@ void	display_stats(t_env *e)
 	e->count.fps++;
 	e->tick.current = clock();
 	diff = e->tick.current - e->tick.last;
-	if (diff >= 1000000)
+	if (diff >= CLOCKS_PER_SEC)
 	{
 		e->tick.last = e->tick.current;
 		fps = ft_strnew(32);

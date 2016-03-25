@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 09:18:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:19:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,8 @@ typedef struct		s_tick
 {
 	clock_t			current;
 	clock_t			last;
+	clock_t			frame_start;
+	double			frame;
 }					t_tick;
 
 typedef struct		s_env
