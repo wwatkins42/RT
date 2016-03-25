@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:19:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:50:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct		s_mat
 	double			transparency;
 	double			absorbtion;
 	short			receive_shadow;
+	short			normal_perturbation;
 }					t_mat;
 
 typedef struct		s_ray

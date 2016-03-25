@@ -6,7 +6,7 @@ scene:
 	mouse_sensibility: 0.4
 	mouse_interpolation: true
 	load_resync: false
-	load_percent: true
+	load_percent: false
 
 cameras:
 	- camera:
@@ -75,8 +75,5 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 0.7
-          texture: ../texture/snow.bmp
-          texture_filtering: true
-          texture_normal: true
-          texture_normal_strength: 0.5
+
 ...
