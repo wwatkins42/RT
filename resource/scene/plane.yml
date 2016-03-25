@@ -41,6 +41,7 @@ objects:
 		  transparency: 0
 		  absorbtion: 0
 		  texture: ../texture/planet/earth.bmp
+          texture_scale: 0.01
 		  texture_filtering: true
 		  texture_normal: true
 ...

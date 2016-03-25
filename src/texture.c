@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 09:34:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/25 09:20:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
 	v_axis = vec3_cross(u_axis, obj->normal);
 	// 1.0 is offset, 0.175 is texture scale
-	u = 1.0 + vec3_dot(hit, u_axis) * 0.175;
-	v = 1.0 + vec3_dot(hit, v_axis) * 0.175;
+	u = 1.0 + vec3_dot(hit, u_axis) * obj->mat.texture.scale;
+	v = 1.0 + vec3_dot(hit, v_axis) * obj->mat.texture.scale;
 	u = u - floor(u);
 	v = v - floor(v);
 	if (obj->mat.texture.filtering)
