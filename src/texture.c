@@ -83,6 +83,7 @@ static t_vec3	texture_mapping_cylinder(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	int		i;
 	int		j;
 
+	// d divided by obj->scale to have correct texture mapping no matter the scale ?
 	d = vec3_sub(hit, vec3_mul(obj->pos, obj->dir));
 	u = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
 	v = d.y / (obj->max - obj->min);
