@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 10:31:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 11:28:07 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static void	main_init(t_env *e)
 		error("load", NULL, 1);
 	if (!(e->gui->run = gtk_builder_get_object(e->gui->builder, "run_button")))
 		error("run", NULL, 1);
+	if (!(e->gui->pbar = gtk_builder_get_object(e->gui->builder, "pbar")))
+		error("pbar", NULL, 1);
+	gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(e->gui->pbar), 0.1);
 }
 
 int			main(int ac, char **av)

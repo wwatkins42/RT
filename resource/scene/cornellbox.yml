@@ -43,6 +43,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
+          texture: MARBLE
 
 	- object:
 	  type: SPHERE
@@ -59,6 +60,7 @@ objects:
 		  refract: 3.57
 		  transparency: 0.81
 		  absorbtion: 0.85
+          texture: MARBLE
 
 	- object:
 	  type: PLANE
@@ -91,6 +93,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
+          texture: MARBLE
 
 	- object:
 	  type: PLANE
@@ -107,6 +110,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
+          texture: MARBLE
 
 	- object:
 	  type: PLANE
@@ -123,6 +127,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
+          texture: MARBLE
 
 	- object:
 	  type: PLANE
@@ -139,4 +144,5 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
+          texture: MARBLE
 ...

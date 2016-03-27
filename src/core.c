@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 09:33:22 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 10:42:41 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	core(t_env *e)
 		error(E_WIN_INIT, NULL, 1);
 	init_key(e);
 	raytracing(e);
-	ft_printf("lolo");
 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
 	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
 	mlx_hook(e->win.adr, 6, (1L << 6), mouse_pos, e);

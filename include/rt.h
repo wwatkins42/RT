@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 10:30:30 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 11:44:19 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <time.h>
 # include <bmp_exporter.h>
 # include <gtk/gtk.h>
+# include <pthread.h>
 # include <stdio.h> // TEMPORARY
 
 # ifndef ABS
@@ -319,6 +320,7 @@ typedef struct		s_gui
 
 	GObject			*file_chooser;
 	GObject			*load;
+	GObject			*pbar;
 	char			loaded;
 
 	GObject			*resync_button;
@@ -332,6 +334,8 @@ typedef struct		s_gui
 typedef struct		s_env
 {
 	t_gui			*gui;
+	pthread_t		thread1;
+	pthread_t		thread2;
 
 	void			*mlx;
 	t_win			win;
@@ -358,6 +362,7 @@ void				run_raytracer(GtkButton *button, t_env *e);
 void				load_file(GtkButton *button, t_env *e);
 void				check_swith(GObject *button, char *check);
 void				get_file_name(GtkFileChooser *file_chooser, t_env *e);
+void				fill_progress_bar(t_env *e);
 
 /*
 **	PARSING FUNCTIONS
