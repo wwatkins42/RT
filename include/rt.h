@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:16:47 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 10:30:30 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,8 +312,27 @@ typedef struct		s_tick
 	double			frame;
 }					t_tick;
 
+typedef struct		s_gui
+{
+	GtkBuilder		*builder;
+	GObject			*win;
+
+	GObject			*file_chooser;
+	GObject			*load;
+	char			loaded;
+
+	GObject			*resync_button;
+	GObject			*mouse_inter_button;
+
+	GObject			*run;
+
+	GError			*error;
+}					t_gui;
+
 typedef struct		s_env
 {
+	t_gui			*gui;
+
 	void			*mlx;
 	t_win			win;
 	t_arg			arg;
@@ -332,27 +351,13 @@ typedef struct		s_env
 	double			(*intersect[12])(t_ray *, t_obj *);
 }					t_env;
 
-typedef struct		s_gui
-{
-	t_env			env;
-
-	char			*filename;
-	char			mouse_inter;
-	char			resync;
-	char			loaded;
-
-	GtkBuilder		*builder;
-	GObject			*window;
-
-	GObject			*load_area;
-	GObject			*resync_button;
-	GObject			*mouse_inter_button;
-	GObject			*load;
-	GObject			*run;
-
-	GError			*error;
-
-}					t_gui;
+/*
+**	USER INTERFACE FUNCTIONS
+*/
+void				run_raytracer(GtkButton *button, t_env *e);
+void				load_file(GtkButton *button, t_env *e);
+void				check_swith(GObject *button, char *check);
+void				get_file_name(GtkFileChooser *file_chooser, t_env *e);
 
 /*
 **	PARSING FUNCTIONS

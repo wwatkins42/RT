@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/25 14:48:17 by scollon          ###   ########.fr        #
+#    Updated: 2016/03/27 10:24:07 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			texture_generator.c normal_map.c mouse_hook.c intersect_cube.c \
 			intersect_hyperboloid.c intersect_paraboloid.c \
 			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
-			solve_quartic.c fresnel.c
+			solve_quartic.c fresnel.c user_interface.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx
