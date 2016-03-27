@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 18:54:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/27 12:09:36 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	raytracing_progressive(t_env *e)
 {
 	int		x;
 	int		y;
+	int		p;
 	t_vec3	color;
 
 	e->scene.inc = 32;
-	int		inc2 = 64;
+	p = e->scene.inc * 2;
 	init_cam(e, e->cam);
 	color = (t_vec3) {0, 0, 0};
 	while (e->scene.inc > 0)
@@ -58,8 +59,8 @@ void	raytracing_progressive(t_env *e)
 			x = 0;
 			while (x < e->win.w)
 			{
-				// Pixels already calculated are recalculated down the line
-				supersampling(e, x, y);
+				if (!(p != 64 && x % p == 0 && y % p == 0))
+					supersampling(e, x, y);
 				x += e->scene.inc;
 			}
 			y % 10 ? display_loading(e, x, y) : 0;
@@ -67,8 +68,8 @@ void	raytracing_progressive(t_env *e)
 		}
 		mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 		mlx_do_sync(e->mlx);
+		p = e->scene.inc;
 		e->scene.inc /= 2;
-		inc2 /= 2;
 	}
 }
 
