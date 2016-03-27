@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:43:09 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 09:33:22 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	core(t_env *e)
 {
-	init_env(e);
+	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
+		error(E_WIN_INIT, NULL, 1);
 	init_key(e);
 	raytracing(e);
 	ft_printf("lolo");

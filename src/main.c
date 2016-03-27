@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:39:49 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/27 09:33:46 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		load(GtkButton *button, t_gui *e)
 	if (e->filename != NULL)
 	{
 		e->env.arg.file = ft_strdup(e->filename);
+		init_env(&e->env);
 		parse_yml(&e->env);
 		e->loaded = 1;
 	}

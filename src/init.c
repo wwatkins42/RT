@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:19:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/27 09:33:12 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	init_env(t_env *e)
 	e->win.h = e->arg.h;
 	e->win.dw = e->win.w / 2;
 	e->win.dh = e->win.h / 2;
-	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
-		error(E_WIN_INIT, NULL, 1);
 	e->intersect[SPHERE] = intersect_sphere;
 	e->intersect[CONE] = intersect_cone;
 	e->intersect[PLANE] = intersect_plane;
