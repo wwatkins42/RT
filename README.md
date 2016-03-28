@@ -41,3 +41,4 @@ __Bonus:__
 - Mouse smooth (linear interpolation)
 - Frame per second display
 - Progressive loading
+- Glossy reflection/refractions
