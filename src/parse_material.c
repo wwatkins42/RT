@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 14:53:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:09:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static short		get_texture_type(const char *line)
+static short	get_texture_type(const char *line)
 {
 	if (ft_strstr(line, "NONE"))
 		return (NONE);
@@ -28,7 +28,7 @@ static short		get_texture_type(const char *line)
 		return (BMP);
 }
 
-static void	parse_material_texture(t_env *e, t_mat *mat, char *line)
+static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
 	char		info[256];
 
@@ -50,7 +50,7 @@ static void	parse_material_texture(t_env *e, t_mat *mat, char *line)
 	display_info(e, info);
 }
 
-static void			parse_material_bis(t_env *e, t_mat *mat, char *line)
+static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
 {
 	if (ft_strstr(line, "refract:"))
 		mat->refract = parse_value(line, 0, 10);
@@ -74,7 +74,7 @@ static void			parse_material_bis(t_env *e, t_mat *mat, char *line)
 		mat->normal_perturbation = parse_boolean(line);
 }
 
-void				parse_material(t_env *e, t_mat *mat, t_line *line)
+void			parse_material(t_env *e, t_mat *mat, t_line *line)
 {
 	while (line != NULL && !ft_strstr(line->line, "- object:"))
 	{

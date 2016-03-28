@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   noise.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:55:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/17 09:55:39 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/28 10:03:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
+#include "rt.h"
 
 t_noise				init_noise_structure(int w, int h, int pas, int octave)
 {
@@ -38,7 +38,8 @@ static double		interpolate(double a, double b, double x)
 
 static double		get_value(t_noise *noise, int i, int j)
 {
-	return (noise->noise[(i % noise->w_max) + (j % noise->h_max) * noise->w_max]);
+	return (noise->noise[(i % noise->w_max) +
+		(j % noise->h_max) * noise->w_max]);
 }
 
 static double		noise_generator(t_noise *n, double x, double y)
@@ -63,7 +64,6 @@ double				noise(t_noise *noise, double x, double y)
 	int		f;
 	double	p;
 	double	ret;
-
 
 	i = -1;
 	f = 1;

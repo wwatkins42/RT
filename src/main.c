@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 14:40:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:01:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	args_disp(void)
 	exit(0);
 }
 
-static int		is_yml(const char *str)
+static int	is_yml(const char *str)
 {
 	char	*buffer;
 
@@ -71,6 +71,7 @@ int			main(int ac, char **av)
 	!(e.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
 	args_get(&e, ac, av);
 	init_env(&e);
+	init_intersect(&e);
 	parse_yml(&e);
 	core(&e);
 	return (0);

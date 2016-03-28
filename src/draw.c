@@ -6,13 +6,13 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/15 09:22:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 09:56:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_img			img_init(t_env *e)
+t_img	img_init(t_env *e)
 {
 	t_img	img;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_importer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 09:29:46 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/28 09:55:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,12 @@ static t_texture	read_header(char *file_path)
 	return (texture);
 }
 
-static void			read_image(t_texture *texture, int fd)
+static void			get_image(t_texture *texture, char *buf, int i)
 {
-	int			i;
-	int			j;
-	int			x;
-	int			y;
-	char		*buf;
+	int	j;
+	int	x;
+	int	y;
 
-	if ((buf = malloc(sizeof(char) * texture->sl * texture->h + 1)) == NULL)
-		error(E_MALLOC, NULL, 1);
-	texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h);
-	lseek(fd, 54, SEEK_SET);
-	if ((i = read(fd, buf, texture->sl * texture->h)) == -1)
-		error(strerror(errno), NULL, 1);
 	y = 0;
 	while (i >= 0)
 	{
@@ -66,6 +58,20 @@ static void			read_image(t_texture *texture, int fd)
 		}
 		y++;
 	}
+}
+
+static void			read_image(t_texture *texture, int fd)
+{
+	int			i;
+	char		*buf;
+
+	if ((buf = malloc(sizeof(char) * texture->sl * texture->h + 1)) == NULL)
+		error(E_MALLOC, NULL, 1);
+	texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h);
+	lseek(fd, 54, SEEK_SET);
+	if ((i = read(fd, buf, texture->sl * texture->h)) == -1)
+		error(strerror(errno), NULL, 1);
+	get_image(texture, buf, i);
 	ft_strdel(&buf);
 }
 

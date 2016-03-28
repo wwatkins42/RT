@@ -58,6 +58,10 @@ objects:
 		  refract: 1.85
 		  transparency: 0
 		  absorbtion: 1
+          texture: ../texture/planet/earth.bmp
+          texture_filtering: true
+          texture_normal: true
+          texture_normal_strength: 2
 
 	- object:
 	  type: SPHERE

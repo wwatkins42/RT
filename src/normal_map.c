@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 14:06:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:03:47 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ static t_vec3	compute_gradient(double *grad, t_obj *obj)
 	double		diffy;
 	double		scale;
 
-	// when calculating diffx and diffy, changing order of sub values changes
-	// the invertion of colors (depth).
 	scale = obj->mat.texture.normal_strength;
 	diffx = grad[1] - grad[2];
 	diffy = grad[0] - grad[3];

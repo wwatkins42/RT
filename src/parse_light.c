@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 07:50:12 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/28 10:08:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ static int		get_light_type(char *line)
 	return (POINT);
 }
 
+static void		arg_light(t_line *line, t_lgt *new)
+{
+	if (ft_strstr(line->line, "intensity:"))
+		new->intensity = parse_value(line->line, 0, 10);
+	else if (ft_strstr(line->line, "attenuation:"))
+		new->attenuation = parse_value(line->line, 0.0001, 10);
+	else if (ft_strstr(line->line, "cutoff:"))
+		new->cutoff = parse_value(line->line, 0, 360);
+	else if (ft_strstr(line->line, "cutoffouter:"))
+		new->cutoff_outer = parse_value(line->line, 0, 180);
+}
+
 static t_lgt	*create_light(t_env *e, t_line *light_line)
 {
 	t_lgt		*new;
@@ -56,14 +68,7 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 			new->dir = parse_vector(line->line);
 		else if (ft_strstr(line->line, "color:"))
 			new->color = parse_color(line->line);
-		else if (ft_strstr(line->line, "intensity:"))
-			new->intensity = parse_value(line->line, 0, 10);
-		else if (ft_strstr(line->line, "attenuation:"))
-			new->attenuation = parse_value(line->line, 0.0001, 10);
-		else if (ft_strstr(line->line, "cutoff:"))
-			new->cutoff = parse_value(line->line, 0, 360);
-		else if (ft_strstr(line->line, "cutoffouter:"))
-			new->cutoff_outer = parse_value(line->line, 0, 180);
+		arg_light(line, new);
 		line = line->next;
 	}
 	e->count.lgt++;

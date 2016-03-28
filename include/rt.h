@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:49:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:00:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,6 +353,7 @@ int					is_comment(const char *line);
 */
 
 void				init_env(t_env *e);
+void				init_intersect(t_env *e);
 void				init_cam(t_env *e, t_cam *cam);
 void				init_key(t_env *e);
 

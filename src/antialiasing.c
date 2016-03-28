@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:59:26 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 18:13:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 09:49:59 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	fill_pixelated(t_env *e, int x, int y, t_vec3 color)
 	}
 }
 
-void	supersampling(t_env *e, int x, int y)
+void		supersampling(t_env *e, int x, int y)
 {
 	float	sx;
 	float	sy;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:02:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:00:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@ void	init_env(t_env *e)
 	e->win.dh = e->win.h / 2;
 	if (!(e->win.adr = mlx_new_window(e->mlx, e->win.w, e->win.h, e->arg.file)))
 		error(E_WIN_INIT, NULL, 1);
-	e->intersect[SPHERE] = intersect_sphere;
-	e->intersect[CONE] = intersect_cone;
-	e->intersect[PLANE] = intersect_plane;
-	e->intersect[CYLINDER] = intersect_cylinder;
-	e->intersect[TRIANGLE] = intersect_triangle;
-	e->intersect[PARALLELOGRAM] = intersect_parallelogram;
-	e->intersect[HYPERBOLOID_ONE] = intersect_hyperboloid1;
-	e->intersect[HYPERBOLOID_TWO] = intersect_hyperboloid2;
-	e->intersect[PARABOLOID] = intersect_paraboloid;
-	e->intersect[TORUS] = intersect_torus;
-	e->intersect[CUBE] = intersect_cube;
 	e->count.cam = 0;
 	e->count.lgt = 0;
 	e->count.obj = 0;
@@ -50,11 +39,26 @@ void	init_env(t_env *e)
 	e->tick.frame = 1.0;
 }
 
+void	init_intersect(t_env *e)
+{
+	e->intersect[SPHERE] = intersect_sphere;
+	e->intersect[CONE] = intersect_cone;
+	e->intersect[PLANE] = intersect_plane;
+	e->intersect[CYLINDER] = intersect_cylinder;
+	e->intersect[TRIANGLE] = intersect_triangle;
+	e->intersect[PARALLELOGRAM] = intersect_parallelogram;
+	e->intersect[HYPERBOLOID_ONE] = intersect_hyperboloid1;
+	e->intersect[HYPERBOLOID_TWO] = intersect_hyperboloid2;
+	e->intersect[PARABOLOID] = intersect_paraboloid;
+	e->intersect[TORUS] = intersect_torus;
+	e->intersect[CUBE] = intersect_cube;
+}
+
 void	init_cam(t_env *e, t_cam *cam)
 {
 	double	w;
 	double	h;
-	double  coeff;
+	double	coeff;
 
 	e->cam->aa.inc = 1.0 / e->cam->aa.supersampling;
 	e->cam->aa.coef = 1.0 / powf(e->cam->aa.supersampling, 2);

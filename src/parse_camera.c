@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 07:56:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/28 10:04:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_cam			*parse_camera(t_env *e, t_line *cam_line)
 	line = cam_line;
 	if (!(current = (t_cam*)malloc(sizeof(t_cam))))
 		error(E_MALLOC, NULL, 1);
-		current->next = NULL;
+	current->next = NULL;
 	camera = current;
 	while (line != NULL)
 	{
