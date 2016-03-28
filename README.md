@@ -5,6 +5,8 @@ Private repository for RT team project.
 
 ## premier rendu :
 
+![glossy](https://cloud.githubusercontent.com/assets/16082039/14081611/d9028cdc-f50b-11e5-9df1-8a36d23051e8.png)
+
 ![triplesphere_16_03_2016_11-54-58](https://cloud.githubusercontent.com/assets/16072194/13810249/24626856-eb6f-11e5-9ac9-75ad2f00ace6.jpg)
 
 ![triplesphere_17_03_2016_10-08-39](https://cloud.githubusercontent.com/assets/16072194/13849567/0298bb6a-ec57-11e5-95d9-4c392deb8df5.jpg)
