@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 14:19:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 14:46:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ int		expose_hook(t_env *e)
 	e->tick.frame_start = clock();
 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
 		e->key.kp || e->key.km || e->key.ku || e->key.kd || e->key.kl ||
-		e->key.kr)
+		e->key.kr || e->key.invert || e->key.gamma_p || e->key.gamma_m ||
+		e->key.gray_scale)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
-	if (e->key.invert || e->key.gamma_p || e->key.gamma_m || e->key.gray_scale)
-		filter_img_update(e);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	e->tick.frame = (clock() - e->tick.frame_start) / (float)CLOCKS_PER_SEC;
 	e->key.stats ? display_stats(e) : 0;
@@ -96,22 +95,20 @@ void	display_stats(t_env *e)
 	static char	*fps = NULL;
 	static char	*rps = NULL;
 	static char	*irt = NULL;
-	int			diff;
 
 	e->count.fps++;
 	e->tick.current = clock();
-	diff = e->tick.current - e->tick.last;
-	if (diff >= CLOCKS_PER_SEC)
+	if (e->tick.current - e->tick.last >= CLOCKS_PER_SEC)
 	{
 		e->tick.last = e->tick.current;
-		fps == NULL ? fps = ft_strnew(8) : 0;
+		fps == NULL ? fps = ft_strnew(10) : 0;
 		rps == NULL ? rps = ft_strnew(32) : 0;
 		sprintf(fps, "fps:%d\n", e->count.fps);
 		sprintf(rps, "rps:%d\n", e->count.rps);
 		e->count.rps = 0;
 		e->count.fps = 0;
 	}
-	irt == NULL ? irt = ft_strnew(12) : 0;
+	irt == NULL ? irt = ft_strnew(16) : 0;
 	sprintf(irt, "%.3fs\n", e->tick.frame);
 	fps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 0, 0xFFFFFF, fps) : 0;
 	rps != NULL ? mlx_string_put(e->mlx, e->win.adr, 0, 15, 0xFFFFFF, rps) : 0;
