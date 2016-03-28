@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 16:37:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 16:23:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void		default_object(t_obj *object)
 	object->mat.diffuse = 0.875;
 	object->mat.specular = 1.0;
 	object->mat.shininess = 256;
+	object->mat.glossiness = 0;
+	object->mat.sampling = 1;
 	object->mat.reflect = 0;
 	object->mat.refract = 0;
 	object->mat.transparency = 0;

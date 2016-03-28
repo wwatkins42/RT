@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 13:16:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 16:35:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,48 @@ t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 	return (color);
 }
 
-// Work in progress
-// static t_vec3	glossy_reflection_direction(t_ray ray, t_obj *obj)
-// {
-// 	t_vec3	dir;
-// 	double	a = rand() / (double)RAND_MAX;
-// 	double	b = rand() / (double)RAND_MAX;
-// 	double	phi = pow(acos(1.0 - a), 1.0);
-// 	double	theta = 2.0 * M_PI * b;
-// 	double	x = sin(phi) * cos(theta);
-// 	double	y = sin(phi) * sin(theta);
-// 	double	z = cos(phi);
-// 	t_vec3	w = ray.dir;
-// 	t_vec3	u = vec3_cross(w, obj->normal);
-// 	t_vec3	v = vec3_cross(w, u);
-// 	dir = vec3_add(vec3_fmul(u, x), vec3_add(vec3_fmul(v, y), vec3_fmul(w, z)));
-// 	return (vec3_norm(dir));
-// }
-//
-// t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
-// {
-// 	t_vec3	color;
-// 	t_vec3	tmp;
-//
-// 	color = (t_vec3) {0, 0, 0};
-// 	if (e->reflect.depth < e->reflect.depth_max)
-// 	{
-// 		e->reflect.depth++;
-// 		ray.pos = ray.hit;
-// 		tmp = vec3_reflect(ray.dir, obj->normal);
-// 		ray.dir = tmp;
-// 		for (int z = 0; z < 120; z++)
-// 		{
-// 			ray.dir = glossy_reflection_direction(ray, obj);
-// 			color = vec3_add(color, raytracing_draw(e, ray));
-// 			ray.dir = tmp;
-// 			// color = vec3_fmul(color, obj->mat.reflect);
-// 		}
-// 		color = vec3_fmul(color, 1.0 / 120.0);
-// 	}
-// 	return (color);
-// }
+static t_vec3	glossy_reflection_direction(t_ray ray, t_obj *obj)
+{
+	t_vec3	cone;
+	t_vec3	ranv;
+	double	kg;
+
+	kg = obj->mat.glossiness;
+	ranv.x = rand() / (double)RAND_MAX * kg - (kg * 0.5);
+	ranv.y = rand() / (double)RAND_MAX * kg - (kg * 0.5);
+	ranv.z = rand() / (double)RAND_MAX * kg - (kg * 0.5);
+	cone = vec3_add(vec3_add(ray.pos, ray.dir), ranv);
+	return (vec3_norm(vec3_sub(cone, ray.pos)));
+}
+
+t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj)
+{
+	t_vec3	color;
+	t_vec3	dir;
+	int		i;
+
+	color = (t_vec3) {0, 0, 0};
+	if (e->reflect.depth < e->reflect.depth_max)
+	{
+		e->reflect.depth++;
+		ray.pos = ray.hit;
+		if (obj->mat.texture.normal_map)
+			ray.dir = vec3_reflect(ray.dir, obj->mat.texture.normal);
+		else
+			ray.dir = vec3_reflect(ray.dir, obj->normal);
+		dir = ray.dir;
+		i = -1;
+		while (++i < obj->mat.sampling)
+		{
+			ray.dir = glossy_reflection_direction(ray, obj);
+			color = vec3_add(color, raytracing_draw(e, ray));
+			ray.dir = dir;
+		}
+		color = vec3_fmul(color, 1.0 / (double)obj->mat.sampling);
+		color = vec3_fmul(color, obj->mat.reflect);
+	}
+	return (color);
+}
 
 static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 {

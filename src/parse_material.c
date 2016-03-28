@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/28 10:09:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 16:15:25 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ void			parse_material(t_env *e, t_mat *mat, t_line *line)
 			mat->specular = parse_value(line->line, 0, 50);
 		else if (ft_strstr(line->line, "shininess:"))
 			mat->shininess = parse_value(line->line, 0, 16384);
+		else if (ft_strstr(line->line, "glossiness:"))
+			mat->glossiness = parse_value(line->line, 0, 2);
+		else if (ft_strstr(line->line, "sampling:"))
+			mat->sampling = parse_value(line->line, 0, 4096);
 		else if (ft_strstr(line->line, "reflect:"))
 			mat->reflect = parse_value(line->line, 0, 1);
 		else if (ft_strstr(line->line, "fresnel:"))

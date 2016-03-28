@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 14:08:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 16:23:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,14 @@ typedef struct		s_mat
 	double			diffuse;
 	double			specular;
 	double			shininess;
+	double			glossiness;
 	double			reflect;
 	double			refract;
 	double			transparency;
 	double			absorbtion;
 	short			receive_shadow;
 	short			normal_perturbation;
+	short			sampling;
 }					t_mat;
 
 typedef struct		s_ray
@@ -455,6 +457,7 @@ void				set_normal(t_ray *ray, t_obj *obj);
 */
 
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
+t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
 
 

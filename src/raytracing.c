@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 10:13:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 16:31:32 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,10 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
 		set_normal(&ray, obj);
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
-		if (obj->mat.reflect > 0)
+		if (obj->mat.reflect > 0 && obj->mat.glossiness == 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, obj));
+		if (obj->mat.reflect > 0 && obj->mat.glossiness > 0)
+			color = vec3_add(color, raytracing_reflect_glossy(e, ray, obj));
 		if (obj->mat.transparency > 0)
 			color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}

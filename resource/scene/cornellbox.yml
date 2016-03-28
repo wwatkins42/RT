@@ -72,7 +72,9 @@ objects:
 		  diffuse: 0.575
 		  specular: 2
 		  shininess: 1024
-		  reflect: 0.14
+          glossiness: 0.1
+          sampling: 32
+          reflect: 0.14
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
