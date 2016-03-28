@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 10:00:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 14:08:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -522,10 +522,11 @@ void				display_stats(t_env *e);
 **	FILTER FUNCTIONS
 */
 
-void				filter(t_img *img, const t_filter filter);
+// void				filter(t_img *img, const t_filter filter);
 void				filter_invert(t_vec3 *color);
 void				filter_gray_scale(t_vec3 *color);
 void				filter_gamma(double gamma, t_vec3 *color);
+void				filter_img_update(t_env *e);
 
 /*
 **	VIEWER

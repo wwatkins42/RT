@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 17:59:19 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:30:27 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,41 @@ void	set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
 	}
 	vec3_normalize(&light->ray.dir);
 }
+
+// static t_ray	random_ray_direction(t_lgt light, t_obj *obj)
+// {
+// 	// double	c = rand() / (double)RAND_MAX * size - (size * 0.5);
+// 	// printf("(%f, %f, %f)\n", light.pos.x, light.pos.y, light.pos.z);
+// 	light.pos = vec3(light.pos.x + a, light.pos.y + b, light.pos.z + 0);
+// 	// printf("(%f, %f, %f)\n", light.pos.x, light.pos.y, light.pos.z);
+// 	light.ray.dir = vec3_norm(vec3_sub(obj->pos, light.pos));
+// 	return (light.ray);
+// }
+
+// void	set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
+// {
+// 	double	tmin;
+// 	double	shadow;
+// 	t_ray	dir;
+//
+// 	shadow = 0.0;
+// 	tmin = INFINITY;
+// 	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
+// 	light.ray.pos = light.pos;
+// 	for (int sample = 0; sample < 128; sample++)
+// 	{
+// 		double	size = 2.0;
+// 		double	a = rand() / (double)RAND_MAX * size - (size * 0.5);
+// 		double	b = rand() / (double)RAND_MAX * size - (size * 0.5);
+// 		dir.pos = vec3(light.ray.pos.x + a, light.ray.pos.y + b, light.ray.pos.z);
+// 		dir.dir = vec3_norm(vec3_sub(obj->pos, light.pos));
+// 		if (intersect_object(e, &dir, &tmin) != obj)
+// 			shadow += 1.0;
+// 	}
+// 	shadow = (128.0 - shadow) / 128.0;
+// 	*color = vec3_fmul(*color, shadow * 64.0);
+// 	// exit(0);
+// }
 
 void	set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
