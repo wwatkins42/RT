@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 12:09:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/27 15:27:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 		color = vec3_add(color, raytracing_color(e, &ray, obj));
 		if (obj->mat.reflect > 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, obj));
-		if (obj->mat.transparency > 0 && obj->mat.refract > 0)
+		if (obj->mat.transparency > 0)
 		 	color = vec3_add(color, raytracing_refract(e, ray, obj));
 	}
 	return (color);

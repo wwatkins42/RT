@@ -5,7 +5,7 @@ scene:
 	recursion_refract: 4
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
 	load_percent: false
 
@@ -61,7 +61,7 @@ objects:
 
 	- object:
 	  type: SPHERE
-	  scale: 30
+	  scale: 100
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
@@ -74,7 +74,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/sunny.bmp
+		  texture: ../texture/panoramic/stars.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false

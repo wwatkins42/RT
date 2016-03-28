@@ -5,7 +5,7 @@ scene:
 	recursion_refract: 3
 	mouse_sensibility: 0.3
 	mouse_interpolation: false
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
 	load_percent: false
 
@@ -36,7 +36,7 @@ objects:
 		  color: #304BFF
 		  ambient: 0.125
 		  diffuse: 0.875
-		  specular: 6
+		  specular: 4
 		  shininess: 512
 		  reflect: 0.35
 		  refract: 1

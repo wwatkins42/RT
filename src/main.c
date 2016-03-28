@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/27 11:36:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/27 14:40:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			main(int ac, char **av)
 {
 	t_env e;
 
+	srand(time(NULL));
 	ac == 2 && !ft_strcmp(av[1], "--help") ? args_disp() : 0;
 	!(e.mlx = mlx_init()) ? error(E_MLX_INIT, NULL, 1) : 0;
 	args_get(&e, ac, av);
