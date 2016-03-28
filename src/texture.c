@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 11:48:13 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:15:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static t_vec3	texture_mapping_cylinder(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	int		i;
 	int		j;
 
-	// d divided by obj->scale to have correct texture mapping no matter the scale ?
 	d = vec3_sub(hit, vec3_mul(obj->pos, obj->dir));
 	u = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
 	v = d.y / (obj->max - obj->min);

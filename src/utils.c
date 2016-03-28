@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 17:35:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/28 10:17:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int		str_digit(char *str)
 	return (0);
 }
 
-void    kswitch(char *k)
+void	kswitch(char *k)
 {
-    int t;
+	int	t;
 
-    t = 0;
-    *k == 1 ? t = 1 : 0;
-    *k == 1 ? *k = 0 : 0;
-    *k == 0 && t != 1 ? *k = 1 : 0;
+	t = 0;
+	*k == 1 ? t = 1 : 0;
+	*k == 1 ? *k = 0 : 0;
+	*k == 0 && t != 1 ? *k = 1 : 0;
 }
 
 void	display_info(t_env *e, char *str)
