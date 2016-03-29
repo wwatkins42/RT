@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/29 10:48:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 11:04:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		default_object(t_obj *object)
 	object->mat.texture.filtering = 0;
 	object->mat.texture.normal_map = 0;
 	object->mat.texture.normal_strength = 2;
-	object->mat.texture.scale = 0.2;
+	object->mat.texture.scale = 1;
 	object->mat.receive_shadow = 1;
 	object->mat.fresnel.defined = 0;
 	object->mat.normal_perturbation = 0;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/29 10:50:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 12:34:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,10 @@ typedef	struct		s_lgt
 	t_vec3			dir;
 	t_vec3			color;
 	t_ray			ray;
-	int				type;
-	int				shadow;
+	short			type;
+	short			shadow;
+	double			shadow_intensity;
+	double			size;
 	double			intensity;
 	double			attenuation;
 	double			cutoff;
@@ -470,10 +472,14 @@ t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
 t_vec3				set_specular(t_env *e, t_obj *obj, t_lgt *lgt);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
-void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
 void				supersampling(t_env *e, int x, int y);
+void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
+void				set_hardshadow(t_env *e, t_vec3 *color, t_lgt lgt,
+					t_obj *obj);
+void				set_softshadow(t_env *e, t_vec3 *color, t_lgt light,
+					t_obj *obj);
 
 /*
 **	TEXTURE FUNCTIONS
