@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/28 16:15:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 09:41:40 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static short	get_texture_type(const char *line)
 		return (MARBLE);
 	else if (ft_strstr(line, "WOOD"))
 		return (WOOD);
-	else if (ft_strstr(line, "EARTH"))
-		return (EARTH);
 	else if (ft_strstr(line, "CHECKER"))
 		return (CHECKER);
 	else

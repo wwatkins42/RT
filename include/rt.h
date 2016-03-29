@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 16:23:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 09:42:00 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
 enum { POINT, SPOT, DIRECTIONAL };
-enum { NONE, MARBLE, WOOD, EARTH, BMP, CHECKER };
+enum { NONE, MARBLE, WOOD, BMP, CHECKER };
 enum { HARD, SOFT };
 
 typedef struct		s_arg
@@ -108,6 +108,7 @@ typedef struct		s_noise
 	int				len;
 	int				pas;
 	int				octave;
+	t_vec3			(*noise_func[3])(struct s_noise*, int, int);
 }					t_noise;
 
 typedef struct		s_img
