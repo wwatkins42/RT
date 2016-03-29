@@ -8,6 +8,7 @@ scene:
     progressive_loading: true
 	load_resync: false
 	load_percent: false
+    sampling: 32
 
 cameras:
 	- camera:
@@ -73,7 +74,6 @@ objects:
 		  specular: 2
 		  shininess: 1024
           glossiness: 0.1
-          sampling: 32
           reflect: 0.14
 		  refract: 0
 		  transparency: 1.0

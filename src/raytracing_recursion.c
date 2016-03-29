@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 16:35:02 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 10:51:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj)
 			ray.dir = vec3_reflect(ray.dir, obj->normal);
 		dir = ray.dir;
 		i = -1;
-		while (++i < obj->mat.sampling)
+		while (++i < e->scene.sampling)
 		{
 			ray.dir = glossy_reflection_direction(ray, obj);
 			color = vec3_add(color, raytracing_draw(e, ray));
 			ray.dir = dir;
 		}
-		color = vec3_fmul(color, 1.0 / (double)obj->mat.sampling);
+		color = vec3_fmul(color, 1.0 / (double)e->scene.sampling);
 		color = vec3_fmul(color, obj->mat.reflect);
 	}
 	return (color);

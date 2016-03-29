@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/29 09:41:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/29 10:49:38 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void			parse_material(t_env *e, t_mat *mat, t_line *line)
 			mat->shininess = parse_value(line->line, 0, 16384);
 		else if (ft_strstr(line->line, "glossiness:"))
 			mat->glossiness = parse_value(line->line, 0, 2);
-		else if (ft_strstr(line->line, "sampling:"))
-			mat->sampling = parse_value(line->line, 0, 4096);
 		else if (ft_strstr(line->line, "reflect:"))
 			mat->reflect = parse_value(line->line, 0, 1);
 		else if (ft_strstr(line->line, "fresnel:"))

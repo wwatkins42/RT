@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 10:00:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/29 10:49:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_env(t_env *e)
 	e->scene.resync = 0;
 	e->scene.percent = 0;
 	e->scene.progressive_loading = 0;
+	e->scene.sampling = 0;
 	e->tick.last = clock();
 	e->count.fps = 0;
 	e->count.rps = 0;

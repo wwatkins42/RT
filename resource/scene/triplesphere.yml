@@ -5,7 +5,7 @@ scene:
 	recursion_refract: 4
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
-    progressive_loading: false
+    progressive_loading: true
 	load_resync: false
 	load_percent: false
 
@@ -54,14 +54,16 @@ objects:
 		  diffuse: 0.275
 		  specular: 3.8
 		  shininess: 2048
+          glossiness: 0.04
+          sampling: 64
 		  reflect: 1
 		  refract: 1.85
 		  transparency: 0
 		  absorbtion: 1
-          texture: ../texture/planet/earth.bmp
-          texture_filtering: true
-          texture_normal: true
-          texture_normal_strength: 2
+        #   texture: ../texture/planet/earth.bmp
+        #   texture_filtering: true
+        #   texture_normal: true
+        #   texture_normal_strength: 2
 
 	- object:
 	  type: SPHERE
@@ -78,7 +80,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/stars.bmp
+		  texture: ../texture/panoramic/bridge.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false
