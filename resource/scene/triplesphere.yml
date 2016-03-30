@@ -1,11 +1,11 @@
 ---
 scene:
 	velocity: 8
-	recursion_reflect: 4
-	recursion_refract: 4
+	recursion_reflect: 2
+	recursion_refract: 2
 	mouse_sensibility: 0.2
 	mouse_interpolation: true
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
 	load_percent: false
 
@@ -16,54 +16,55 @@ cameras:
 	  fov: 90
 	  supersampling: 1
 
-	- camera:
-	  pos: {x: 3, y: 1, z: 5}
-	  dir: {x: 1, y: 90, z: 0}
-	  fov: 110
-	  supersampling: 1
-
-	- camera:
-	  pos: {x: 0, y: 2, z: 10}
-	  dir: {x: 10, y: 180, z: 0}
-	  fov: 110
-	  supersampling: 1
-
-	- camera:
-	  pos: {x: -3, y: 1, z: 5}
-	  dir: {x: 1, y: -90, z: 0}
-	  fov: 110
-	  supersampling: 2
-
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 1, y: 3.5, z: 4}
+	  pos: {x: 1, y: 0.5, z: -100}
 	  color: 0xF9DAC9
-	  intensity: 1.25
+	  intensity: 4.25
+      attenuation: 0.00001
 	  shadow: HARD
 
 objects:
 	- object:
 	  type: SPHERE
-	  scale: 3
-	  pos: {x: 0, y: 0, z: 7}
+	  scale: 1
+	  pos: {x: 4, y: 0, z: -5}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
 		  color: 0x364A90
-		  ambient: 0.025
-		  diffuse: 0.275
-		  specular: 3.8
-		  shininess: 2048
-          glossiness: 0.04
-          sampling: 64
-		  reflect: 1
-		  refract: 1.85
+		  ambient: 0.065
+		  diffuse: 0.975
+		  specular: 0.2
+		  shininess: 256
+		  reflect: 0
+		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-        #   texture: ../texture/planet/earth.bmp
-        #   texture_filtering: true
-        #   texture_normal: true
-        #   texture_normal_strength: 2
+          texture: ../texture/planet/pluto.bmp
+          texture_normal: true
+          texture_normal_strength: 1.9
+          texture_filtering: true
+
+    - object:
+	  type: SPHERE
+	  scale: 10
+	  pos: {x: 8, y: 0, z: 13}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.065
+		  diffuse: 0.975
+		  specular: 0.2
+		  shininess: 256
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: ../texture/planet/jupiter.bmp
+          texture_normal: true
+          texture_normal_strength: 1.2
+          texture_filtering: true
 
 	- object:
 	  type: SPHERE
@@ -80,7 +81,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/bridge.bmp
+		  texture: ../texture/panoramic/stars.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false

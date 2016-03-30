@@ -1,0 +1,117 @@
+---
+scene:
+    velocity: 8
+    recursion_reflect: 3
+    recursion_refract: 2
+    mouse_sensibility: 0.2
+    mouse_interpolation: false
+    progressive_loading: false
+    load_resync: false
+    load_percent: false
+    sampling: 2
+
+cameras:
+    - camera:
+      pos: {x: 0, y: 0, z: -2}
+      dir: {x: 0, y: 0, z: 0}
+      fov: 75
+      supersampling: 1
+
+lights:
+    - light:
+      type: POINT
+      scale: 0.2
+      pos: {x: 0, y: 0, z: 2}
+      dir: {x: 0, y: 0, z: 1}
+      color: #FFFFFF
+      intensity: 0.5
+      attenuation: 0.025
+      shadow_intensity: 0.5
+      shadow: HARD
+
+objects:
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: -1, y: -1, z: 4}
+	  pos2: {x: 2, y: 0, z: 0}
+	  pos3: {x: 0, y: 2, z: 0}
+      dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #D00F54
+		  ambient: 0.225
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 1
+		  absorbtion: 1
+          texture: ../texture/mickey.bmp
+          texture_scale: 1
+
+	- object:
+	  type: SPHERE
+      scale: 1
+	  pos: {x: 0, y: 0, z: 8}
+      dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.225
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PARALLELOGRAM
+      scale: 1
+	  pos: {x: -3, y: -3, z: 10}
+	  pos2: {x: 6, y: 0, z: 0}
+	  pos3: {x: 0, y: 6, z: 0}
+      dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.225
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PARALLELOGRAM
+	  pos: {x: -10, y: -10, z: 15}
+	  pos2: {x: 20, y: 0, z: 0}
+	  pos3: {x: 0, y: 20, z: 0}
+      dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.225
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  pos: {x: 0, y: 0, z: -20}
+      dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.225
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+...

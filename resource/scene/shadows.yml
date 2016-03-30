@@ -1,0 +1,112 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 3
+	recursion_refract: 2
+	mouse_sensibility: 0.2
+	mouse_interpolation: false
+    progressive_loading: true
+	load_resync: false
+	load_percent: false
+    sampling: 2
+
+cameras:
+	- camera:
+	  pos: {x: -4, y: 4, z: -13}
+	  dir: {x: 10, y: -15, z: 0}
+	  fov: 75
+	  supersampling: 1
+
+lights:
+    - light:
+      type: SPOT
+      scale: 0.1
+      pos: {x: 0, y: 0.15, z: -5.5}
+      dir: {x: 0, y: 0.1, z: 1}
+      color: 0xFFF2EE
+      intensity: 4.25
+      attenuation: 0.025
+      cutoff: 60
+      cutoffouter: 2
+      shadow_intensity: 0.65
+      shadow: SOFT
+
+    - light:
+      type: POINT
+      scale: 0.3
+      pos: {x: 2, y: 3.15, z: 2.5}
+      dir: {x: 0, y: -1, z: -0.2}
+      color: #FFC453
+      intensity: 1.75
+      attenuation: 0.25
+      shadow_intensity: 0.35
+      shadow: SOFT
+
+objects:
+	- object:
+	  type: SPHERE
+	  scale: 0.75
+	  pos: {x: -1.25, y: 0.5, z: 0}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #D00F54
+		  ambient: 0.025
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+
+	- object:
+	  type: CYLINDER
+	  scale: 0.45
+	  pos: {x: 2.25, y: 0, z: 1}
+      dir: {x: 0, y: 1, z: 0}
+      min: 0
+      max: 5
+	  material:
+		  color: #6171C6
+		  ambient: 0.085
+		  diffuse: 0.875
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.9
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: 0xD2D2D1
+		  ambient: 0.105
+		  diffuse: 0.575
+		  specular: 2
+		  shininess: 1024
+          glossiness: 0.2
+          reflect: 0.3
+		  refract: 0
+		  transparency: 1.0
+		  absorbtion: 0.7
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 6}
+	  dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: 0xE2E2D1
+		  ambient: 0.105
+		  diffuse: 0.975
+		  specular: 0.1
+		  shininess: 16
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0
+...

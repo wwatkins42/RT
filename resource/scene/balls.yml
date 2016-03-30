@@ -18,16 +18,10 @@ cameras:
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 6, y: 1, z: 3}
+	  pos: {x: 6, y: 2, z: 3}
 	  color: 0xFFFFFF
-	  intensity: 4.0
-	  shadow: HARD
-
-	- light:
-	  type: POINT
-	  pos: {x: 6, y: 6, z: -10}
-	  color: 0xF9E79E
-	  intensity: 0.7
+	  intensity: 3.0
+      attenuation: 0.002
 	  shadow: HARD
 
 objects:
@@ -42,7 +36,7 @@ objects:
 		  diffuse: 0.275
 		  specular: 2
 		  shininess: 2048
-		  reflect: 0.15
+		  reflect: 0
 		  refract: 1.13
 		  transparency: 0.7
 		  absorbtion: 0.8

@@ -1,13 +1,13 @@
 ---
 scene:
 	velocity: 8
-	recursion_reflect: 3
-	recursion_refract: 2
+	recursion_reflect: 4
+	recursion_refract: 3
 	mouse_sensibility: 0.2
 	mouse_interpolation: false
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
-	load_percent: false
+	load_percent: true
     sampling: 128
 
 cameras:
@@ -15,11 +15,12 @@ cameras:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 75
-	  supersampling: 1
+	  supersampling: 2
 
 lights:
 	- light:
       type: SPOT
+      scale: 0.1
 	  pos: {x: 0, y: 3.95, z: 5.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: 0xFFF2EE
@@ -27,8 +28,29 @@ lights:
 	  attenuation: 0.075
       cutoff: 75
       cutoffouter: 2
-      size: 0.1
-      shadow_intensity: 0.8
+      shadow_intensity: 0.65
+      shadow: SOFT
+
+    - light:
+      type: POINT
+      scale: 0.2
+	  pos: {x: -1, y: 1.95, z: 4.5}
+      dir: {x: 0, y: -1, z: -0.2}
+	  color: #FC405D
+	  intensity: 0.75
+	  attenuation: 0.075
+      shadow_intensity: 0.65
+      shadow: SOFT
+
+    - light:
+      type: POINT
+      scale: 0.3
+	  pos: {x: 1, y: 0.15, z: 5.5}
+      dir: {x: 0, y: -1, z: -0.2}
+	  color: #FCDE40
+	  intensity: 0.75
+	  attenuation: 0.075
+      shadow_intensity: 0.65
       shadow: SOFT
 
 objects:
@@ -75,7 +97,7 @@ objects:
 		  diffuse: 0.575
 		  specular: 2
 		  shininess: 1024
-          reflect: 0.15
+          reflect: 0.05
 		  refract: 0
 		  transparency: 1.0
 		  absorbtion: 0.7
@@ -92,7 +114,7 @@ objects:
 		  specular: 0.1
 		  shininess: 16
 		  reflect: 0
-		  refract: 0
+		  refract: 1
 		  transparency: 0
 		  absorbtion: 0
 

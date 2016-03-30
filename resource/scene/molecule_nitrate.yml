@@ -25,6 +25,8 @@ lights:
 	  color: #F9DAC9
 	  intensity: 1.75
       attenuation: 0.001
+      size: 0.1
+      shadow_intensity: 0.8
 	  shadow: HARD
 
 objects:

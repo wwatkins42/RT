@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/29 12:27:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 11:18:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 static void		default_light(t_lgt *light)
 {
 	light->type = POINT;
+	light->scale = 0.12;
 	light->pos = vec3(0, 0, 0);
 	light->dir = vec3(0, 0, 1);
 	light->color = vec3(1, 1, 1);
 	light->intensity = 1;
-	light->attenuation = 0.1;
+	light->attenuation = 0.05;
 	light->cutoff = 75;
 	light->cutoff_outer = 2;
-	light->size = 0.12;
 	light->shadow_intensity = 0.8;
 	light->shadow = HARD;
 }
@@ -42,8 +42,8 @@ static int		get_light_type(char *line)
 
 static void		arg_light(t_line *line, t_lgt *new)
 {
-	if (ft_strstr(line->line, "size:"))
-		new->size = parse_value(line->line, 0, 10);
+	if (ft_strstr(line->line, "scale:"))
+		new->scale = parse_value(line->line, 0, 10);
 	else if (ft_strstr(line->line, "shadow_intensity:"))
 		new->shadow_intensity = parse_value(line->line, 0, 1);
 	else if (ft_strstr(line->line, "shadow:"))
@@ -51,7 +51,7 @@ static void		arg_light(t_line *line, t_lgt *new)
 	else if (ft_strstr(line->line, "intensity:"))
 		new->intensity = parse_value(line->line, 0, 10);
 	else if (ft_strstr(line->line, "attenuation:"))
-		new->attenuation = parse_value(line->line, 0.0001, 10);
+		new->attenuation = parse_value(line->line, 0.0000001, 10);
 	else if (ft_strstr(line->line, "cutoff:"))
 		new->cutoff = parse_value(line->line, 0, 360);
 	else if (ft_strstr(line->line, "cutoffouter:"))
