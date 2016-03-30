@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_recursion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/29 10:51:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 11:10:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,17 @@ static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	vec3_normalize(&ray->dir);
 }
 
-t_vec3		raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
+t_vec3			raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 {
 	t_vec3	color;
+	t_vec3	tex_color;
 
 	color = (t_vec3) {0, 0, 0};
+	if (obj->mat.texture.transparency_mapping)
+	{
+		tex_color = texture_mapping(obj, obj->mat.texture.img, ray.hit);
+		obj->mat.transparency = (tex_color.x + tex_color.y + tex_color.z) / 3.0;
+	}
 	if (e->refract.depth < e->refract.depth_max)
 	{
 		e->refract.depth++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/29 11:04:02 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 11:10:45 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void		default_object(t_obj *object)
 	object->mat.transparency = 0;
 	object->mat.absorbtion = 0;
 	object->mat.texture.defined = 0;
+	object->mat.texture.transparency_mapping = 0;
 	object->mat.texture.filtering = 0;
 	object->mat.texture.normal_map = 0;
 	object->mat.texture.normal_strength = 2;
