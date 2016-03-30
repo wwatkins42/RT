@@ -42,3 +42,4 @@ __Bonus:__
 - Progressive loading
 - Glossy reflection/refractions
 - Soft shadows
+- Transparent objects texture projection
