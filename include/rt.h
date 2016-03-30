@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 11:10:37 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/30 15:11:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,10 +477,6 @@ void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
 void				supersampling(t_env *e, int x, int y);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
-void				set_hardshadow(t_env *e, t_vec3 *color, t_lgt lgt,
-					t_obj *obj);
-void				set_softshadow(t_env *e, t_vec3 *color, t_lgt light,
-					t_obj *obj);
 
 /*
 **	TEXTURE FUNCTIONS
