@@ -27,10 +27,26 @@ lights:
       intensity: 0.5
       attenuation: 0.025
       shadow_intensity: 0.5
-      shadow: HARD
+      shadow: PROJECTION
 
 objects:
 	- object:
+	  type: SPHERE
+      scale: 1
+	  pos: {x: 0, y: 0, z: 8}
+      dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.225
+		  diffuse: 0.975
+		  specular: 1.0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 1
+		  absorbtion: 1
+
+    - object:
 	  type: PARALLELOGRAM
 	  pos: {x: -1, y: -1, z: 4}
 	  pos2: {x: 2, y: 0, z: 0}
@@ -48,22 +64,7 @@ objects:
 		  absorbtion: 1
           texture: ../texture/mickey.bmp
           texture_scale: 1
-
-	- object:
-	  type: SPHERE
-      scale: 1
-	  pos: {x: 0, y: 0, z: 8}
-      dir: {x: 0, y: 0, z: -1}
-	  material:
-		  color: #FFFFFF
-		  ambient: 0.225
-		  diffuse: 0.975
-		  specular: 1.0
-		  shininess: 1024
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
+          texture_rotation: 0
 
 	- object:
 	  type: PARALLELOGRAM

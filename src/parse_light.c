@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 11:18:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:19:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ static int		get_light_type(char *line)
 	return (POINT);
 }
 
+static int		get_shadow_type(char *line)
+{
+	if (ft_strstr(line, "SOFT"))
+		return (SOFT);
+	else if (ft_strstr(line, "HARD"))
+		return (HARD);
+	else if (ft_strstr(line, "PROJECTION"))
+		return (PROJECTION);
+	else
+		error(E_LTYPE, line, 0);
+	return (HARD);
+}
+
 static void		arg_light(t_line *line, t_lgt *new)
 {
 	if (ft_strstr(line->line, "scale:"))
@@ -47,7 +60,7 @@ static void		arg_light(t_line *line, t_lgt *new)
 	else if (ft_strstr(line->line, "shadow_intensity:"))
 		new->shadow_intensity = parse_value(line->line, 0, 1);
 	else if (ft_strstr(line->line, "shadow:"))
-		new->shadow = ft_strstr(line->line, "SOFT") ? SOFT : HARD;
+		new->shadow = get_shadow_type(line->line);
 	else if (ft_strstr(line->line, "intensity:"))
 		new->intensity = parse_value(line->line, 0, 10);
 	else if (ft_strstr(line->line, "attenuation:"))

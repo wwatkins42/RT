@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 11:10:45 by scollon          ###   ########.fr       */
+/*   Updated: 2016/03/30 17:32:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		default_object(t_obj *object)
 	object->mat.texture.normal_map = 0;
 	object->mat.texture.normal_strength = 2;
 	object->mat.texture.scale = 1;
+	object->mat.texture.rotation = 0;
 	object->mat.receive_shadow = 1;
 	object->mat.fresnel.defined = 0;
 	object->mat.normal_perturbation = 0;
@@ -152,12 +153,13 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	new->scale2 = new->scale * new->scale;
 	new->k = tan(new->scale) * tan(new->scale);
 	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
-		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
+		new->dir = vec3_norm(vec3_mul(vec3_cross(new->pos2, new->pos3), new->dir));
 	if (new->type == CUBE)
 		create_cube(new);
 	else
 		new->comp = NULL;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
+	printf("%f\n", new->mat.transparency);
 	new->next = NULL;
 	return (new);
 }

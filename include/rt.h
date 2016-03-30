@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 15:12:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 16:32:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, BMP, CHECKER };
-enum { HARD, SOFT };
+enum { HARD, SOFT, PROJECTION };
 
 typedef struct		s_arg
 {
@@ -99,6 +99,7 @@ typedef struct		s_texture
 	short			normal_map;
 	double			normal_strength;
 	double			scale;
+	int				rotation;
 }					t_texture;
 
 typedef struct		s_noise

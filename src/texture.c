@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 11:55:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:04:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,21 @@ static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
 {
 	float	u;
 	float	v;
+	float	offset;
 	t_vec3	u_axis;
 	t_vec3	v_axis;
 
-	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
+	offset = obj->mat.texture.scale * 0.5;
+	u_axis = vec3(-obj->normal.z, obj->normal.y, -obj->normal.x);
+	if (obj->mat.texture.rotation == 90)
+		u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
+	else if (obj->mat.texture.rotation == 180)
+		u_axis = vec3(obj->normal.z, obj->normal.y, -obj->normal.x);
+	else if (obj->mat.texture.rotation == 270)
+		u_axis = vec3(obj->normal.y, -obj->normal.z, -obj->normal.x);
 	v_axis = vec3_cross(u_axis, obj->normal);
-	u = 1.0 + vec3_dot(hit, u_axis) * obj->mat.texture.scale;
-	v = 1.0 + vec3_dot(hit, v_axis) * obj->mat.texture.scale;
+	u = offset + vec3_dot(hit, u_axis) * obj->mat.texture.scale;
+	v = offset + vec3_dot(hit, v_axis) * obj->mat.texture.scale;
 	u = u - floor(u);
 	v = v - floor(v);
 	if (obj->mat.texture.filtering)

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 15:02:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:28:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 		(float)e->scene.sampling * light.shadow_intensity);
 }
 
+static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
+{
+	double	tmin;
+
+	tmin = INFINITY;
+	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
+	if (intersect_object(e, &light.ray, &tmin) != obj)
+		*color = vec3_fmul(*color, 1.0 - light.shadow_intensity);
+}
+
 static t_vec3	get_shadow_color(t_env *e, t_lgt light, t_obj *this, t_obj *obj)
 {
 	t_vec3	color;
@@ -70,7 +80,7 @@ static t_vec3	get_shadow_color(t_env *e, t_lgt light, t_obj *this, t_obj *obj)
 	return (vec3_add(vec3(1, 1, 1), color));
 }
 
-static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
+static void		set_projectionshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
 	double	tmin;
 	double	t;
@@ -80,13 +90,10 @@ static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	light.ray.dir = vec3_sub(light.pos, light.ray.pos);
 	t = vec3_magnitude(light.ray.dir);
 	vec3_normalize(&light.ray.dir);
-	other = intersect_object(e, &light.ray, &tmin);
-	if (other == NULL)
+	if ((other = intersect_object(e, &light.ray, &tmin)) == NULL)
 		return ;
-	if (other->mat.transparency != 0 && other != obj && tmin < t)
+	if (obj->mat.transparency > 0 && other != obj && tmin < t)
 		*color = vec3_mul(*color, get_shadow_color(e, light, obj, other));
-	else if (other != obj && tmin < t)
-		*color = vec3_fmul(*color, 1.0 - light.shadow_intensity);
 }
 
 void			set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
@@ -95,4 +102,6 @@ void			set_shadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 		set_hardshadow(e, color, light, obj);
 	else if (light.shadow == SOFT)
 		set_softshadow(e, color, light, obj);
+	else if (light.shadow == PROJECTION)
+		set_projectionshadow(e, color, light, obj);
 }
