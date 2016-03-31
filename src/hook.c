@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 10:32:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:15:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int		expose_hook(t_env *e)
 {
 	e->tick.frame_start = clock();
 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
-		e->key.kp || e->key.km || e->key.ku || e->key.kd || e->key.kl ||
-		e->key.kr || e->key.ou || e->key.od || e->key.ol || e->key.or ||
+		e->key.kp || e->key.km || e->key.cu || e->key.cd || e->key.cl ||
+		e->key.cr || e->key.cf || e->key.cb || e->key.ou || e->key.od ||
+		e->key.ol || e->key.or ||
 		e->key.invert || e->key.gamma_p || e->key.gamma_m ||
 		e->key.gray_scale)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
@@ -61,14 +62,16 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 47 ? e->cam = e->cam->prev : 0;
 	keycode == 46 ? kswitch(&e->key.mouse) : 0;
 	keycode == 50 ? kswitch(&e->key.stats) : 0;
-	keycode == 126 ? e->key.ku = 1 : 0;
-	keycode == 125 ? e->key.kd = 1 : 0;
-	keycode == 123 ? e->key.kl = 1 : 0;
-	keycode == 124 ? e->key.kr = 1 : 0;
-	keycode == 13 ? e->key.ou = 1 : 0;
-	keycode == 1 ? e->key.od = 1 : 0;
-	keycode == 0 ? e->key.ol = 1 : 0;
-	keycode == 2 ? e->key.or = 1 : 0;
+	keycode == 13 ? e->key.cf = 1 : 0;
+	keycode == 1 ? e->key.cb = 1 : 0;
+	keycode == 0 ? e->key.cl = 1 : 0;
+	keycode == 2 ? e->key.cr = 1 : 0;
+	keycode == 49 ? e->key.cu = 1 : 0;
+	keycode == 257 ? e->key.cd = 1 : 0;
+	keycode == 126 ? e->key.ou = 1 : 0;
+	keycode == 125 ? e->key.od = 1 : 0;
+	keycode == 123 ? e->key.ol = 1 : 0;
+	keycode == 124 ? e->key.or = 1 : 0;
 	keycode == 69 ? e->key.kp = 1 : 0;
 	keycode == 78 ? e->key.km = 1 : 0;
 	keycode == 34 ? e->key.i = 1 : 0;
@@ -81,14 +84,16 @@ int		key_pressed(int keycode, t_env *e)
 
 int		key_released(int keycode, t_env *e)
 {
-	keycode == 126 ? e->key.ku = 0 : 0;
-	keycode == 125 ? e->key.kd = 0 : 0;
-	keycode == 123 ? e->key.kl = 0 : 0;
-	keycode == 124 ? e->key.kr = 0 : 0;
-	keycode == 13 ? e->key.ou = 0 : 0;
-	keycode == 1 ? e->key.od = 0 : 0;
-	keycode == 0 ? e->key.ol = 0 : 0;
-	keycode == 2 ? e->key.or = 0 : 0;
+	keycode == 13 ? e->key.cf = 0 : 0;
+	keycode == 1 ? e->key.cb = 0 : 0;
+	keycode == 0 ? e->key.cl = 0 : 0;
+	keycode == 2 ? e->key.cr = 0 : 0;
+	keycode == 49 ? e->key.cu = 0 : 0;
+	keycode == 257 ? e->key.cd = 0 : 0;
+	keycode == 126 ? e->key.ou = 0 : 0;
+	keycode == 125 ? e->key.od = 0 : 0;
+	keycode == 123 ? e->key.ol = 0 : 0;
+	keycode == 124 ? e->key.or = 0 : 0;
 	keycode == 69 ? e->key.kp = 0 : 0;
 	keycode == 78 ? e->key.km = 0 : 0;
 	keycode == 34 ? e->key.i = 0 : 0;

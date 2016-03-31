@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 10:45:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:12:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 
 void	move_translate(t_env *e)
 {
-	t_vec3	dir;
-	t_vec3	pln;
+	double	v;
+	t_vec3	x;
+	t_vec3	y;
+	t_vec3	z;
 
-	dir = vec3(0, 0, 1);
-	pln = vec3(1, 0, 0);
-	vec3_rotate(&dir, e->cam->dir);
-	vec3_rotate(&pln, e->cam->dir);
-	if (e->key.ku)
-		e->cam->pos = vec3_add(e->cam->pos,
-		vec3_fmul(dir, e->scene.velocity * e->tick.frame));
-	if (e->key.kd)
-		e->cam->pos = vec3_sub(e->cam->pos,
-			vec3_fmul(dir, e->scene.velocity * e->tick.frame));
-	if (e->key.kl)
-		e->cam->pos = vec3_sub(e->cam->pos,
-			vec3_fmul(pln, e->scene.velocity * e->tick.frame));
-	if (e->key.kr)
-		e->cam->pos = vec3_add(e->cam->pos,
-			vec3_fmul(pln, e->scene.velocity * e->tick.frame));
+	v = e->scene.velocity * e->tick.frame;
+	z = vec3(0, 0, 1);
+	y = vec3(0, 1, 0);
+	x = vec3(1, 0, 0);
+	vec3_rotate(&z, e->cam->dir);
+	vec3_rotate(&y, e->cam->dir);
+	vec3_rotate(&x, e->cam->dir);
+	if (e->key.cf)
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(z, v));
+	if (e->key.cb)
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(z, v));
+	if (e->key.cu)
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(y, v));
+	if (e->key.cd)
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(y, v));
+	if (e->key.cl)
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(x, v));
+	if (e->key.cr)
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(x, v));
 }
 
 void	move_rotate(t_env *e)

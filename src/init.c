@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 10:27:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:05:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,16 @@ void	init_cam(t_env *e, t_cam *cam)
 
 void	init_key(t_env *e)
 {
-	e->key.ku = 0;
-	e->key.kd = 0;
-	e->key.kl = 0;
-	e->key.kr = 0;
+	e->key.cf = 0;
+	e->key.cb = 0;
+	e->key.cu = 0;
+	e->key.cd = 0;
+	e->key.cl = 0;
+	e->key.cr = 0;
 	e->key.ou = 0;
 	e->key.od = 0;
 	e->key.ol = 0;
-	e->key.or = 0;	
+	e->key.or = 0;
 	e->key.i = 0;
 	e->key.k = 0;
 	e->key.j = 0;

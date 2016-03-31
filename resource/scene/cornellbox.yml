@@ -15,7 +15,7 @@ cameras:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 75
-	  supersampling: 2
+	  supersampling: 1
 
 lights:
 	- light:
@@ -29,7 +29,7 @@ lights:
       cutoff: 75
       cutoffouter: 2
       shadow_intensity: 0.65
-      shadow: SOFT
+      shadow: HARD
 
     - light:
       type: POINT
@@ -40,7 +40,7 @@ lights:
 	  intensity: 0.75
 	  attenuation: 0.075
       shadow_intensity: 0.65
-      shadow: SOFT
+      shadow: HARD
 
     - light:
       type: POINT
@@ -51,7 +51,7 @@ lights:
 	  intensity: 0.75
 	  attenuation: 0.075
       shadow_intensity: 0.65
-      shadow: SOFT
+      shadow: HARD
 
 objects:
 	- object:

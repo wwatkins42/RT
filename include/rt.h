@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 10:26:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:06:08 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ typedef struct		s_arg
 
 typedef struct		s_key
 {
-	char			ku;
-	char			kd;
-	char			kl;
-	char			kr;
+	char			cf;
+	char			cb;
+	char			cu;
+	char			cd;
+	char			cl;
+	char			cr;
 	char			ou;
 	char			od;
 	char			ol;
