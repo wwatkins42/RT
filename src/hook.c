@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 12:27:19 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 14:16:20 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		loop_hook(t_env *e)
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
 	e->key.gamma_p ? e->cam->filter.gamma -= 0.05 : 0;
-	move_object(e);
+	object_select(e);
+	object_move(e, e->cam->selection);
 	e->mouse.kp = 0;
 	e->mouse.km = 0;
 	e->mouse.lmb = 0;

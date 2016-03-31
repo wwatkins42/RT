@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 13:37:52 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 14:57:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@ void	move_translate(t_env *e)
 	t_vec3	axis[3];
 
 	v = e->scene.velocity * 0.1;
-	axis[0] = vec3(1, 0, 0);
-	axis[1] = vec3(0, 1, 0);
-	axis[2] = vec3(0, 0, 1);
+	axis[0] = (t_vec3) {1, 0, 0};
+	axis[1] = (t_vec3) {0, 1, 0};
+	axis[2] = (t_vec3) {0, 0, 1};
 	vec3_rotate(&axis[0], e->cam->dir);
 	vec3_rotate(&axis[1], e->cam->dir);
 	vec3_rotate(&axis[2], e->cam->dir);
+	axis[2] = vec3_norm(vec3(axis[2].x, 0, axis[2].z));
+	axis[1] = vec3_norm(vec3(0, axis[1].y, 0));
 	if (e->key.cf)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(axis[2], vec3(v, 0, v)));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(axis[2], v));
 	if (e->key.cb)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(axis[2], vec3(v, 0, v)));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(axis[2], v));
 	if (e->key.cu)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(axis[1], vec3(0, v, 0)));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(axis[1], v));
 	if (e->key.cd)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(axis[1], vec3(0, v, 0)));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(axis[1], v));
 	if (e->key.cl)
 		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(axis[0], v));
 	if (e->key.cr)
@@ -63,43 +65,6 @@ void	move_zoom(t_env *e)
 		vec3_add(vec3_fmul(vec3(0, 0, 1), e->cam->dist),
 		vec3_fmul(vec3_up(), h / 2.0))),
 		vec3_fmul(vec3_right(), w / 2.0));
-}
-
-void	move_object(t_env *e)
-{
-	double			v;
-	double			tmin;
-	t_vec3			axis[3];
-	static t_obj	*obj = NULL;
-
-	if (e->mouse.lmb)
-	{
-		tmin = INFINITY;
-		raytracing_init(e, e->mouse.pos.x, e->mouse.pos.y);
-		obj = intersect_object(e, &e->cam->ray, &tmin);
-	}
-	if (obj != NULL)
-	{
-		v = 0.5;
-		axis[0] = vec3(1, 0, 0);
-		axis[1] = vec3(0, 1, 0);
-		axis[2] = vec3(0, 0, 1);
-		vec3_rotate(&axis[0], e->cam->dir);
-		vec3_rotate(&axis[1], e->cam->dir);
-		vec3_rotate(&axis[2], e->cam->dir);
-		if (e->key.of)
-			obj->pos = vec3_add(obj->pos, vec3_mul(axis[2], vec3(v, 0, v)));
-		if (e->key.ob)
-			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[2], vec3(v, 0, v)));
-		if (e->key.ou)
-			obj->pos = vec3_add(obj->pos, vec3_mul(axis[1], vec3(0, v, 0)));
-		if (e->key.od)
-			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[1], vec3(0, v, 0)));
-		if (e->key.ol)
-			obj->pos = vec3_sub(obj->pos, vec3_fmul(axis[0], v));
-		if (e->key.or)
-			obj->pos = vec3_add(obj->pos, vec3_fmul(axis[0], v));
-	}
 }
 
 void	mouse_orientation(t_env *e)

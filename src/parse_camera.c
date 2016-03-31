@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/28 10:04:25 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 14:19:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		default_cam(t_env *e, t_cam *cam)
 		cam->filter.gray_scale = 0;
 		cam->filter.gamma = 1.0;
 		cam->aa.supersampling = 1;
+		cam->selection = NULL;
 	}
 }
 

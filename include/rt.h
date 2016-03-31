@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:32:40 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 14:17:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,30 @@ typedef struct		s_aa
 	double			coef;
 }					t_aa;
 
+typedef struct		s_obj
+{
+	t_vec3			pos;
+	t_vec3			pos2;
+	t_vec3			pos3;
+	t_vec3			dir;
+	t_vec3			normal;
+	t_mat			mat;
+	short			type;
+	double			m;
+	double			pr;
+	double			gr;
+	double			scale;
+	double			scale2;
+	double			min;
+	double			max;
+	double			k;
+	double			t;
+	double			dist_attenuation;
+	int 			comp_hit;
+	struct s_obj	*comp;
+	struct s_obj	*next;
+}					t_obj;
+
 typedef struct		s_cam
 {
 	t_vec3			pos;
@@ -192,6 +216,7 @@ typedef struct		s_cam
 	t_ray			ray;
 	t_filter		filter;
 	t_aa			aa;
+	t_obj			*selection;
 	int				index;
 	double			xa;
 	double			ya;
@@ -221,30 +246,6 @@ typedef struct		s_bfi
 	double			vo;
 	t_vec3			c[4];
 }					t_bfi;
-
-typedef struct		s_obj
-{
-	t_vec3			pos;
-	t_vec3			pos2;
-	t_vec3			pos3;
-	t_vec3			dir;
-	t_vec3			normal;
-	t_mat			mat;
-	short			type;
-	double			m;
-	double			pr;
-	double			gr;
-	double			scale;
-	double			scale2;
-	double			min;
-	double			max;
-	double			k;
-	double			t;
-	double			dist_attenuation;
-	int 			comp_hit;
-	struct s_obj	*comp;
-	struct s_obj	*next;
-}					t_obj;
 
 typedef	struct		s_lgt
 {
@@ -393,8 +394,10 @@ int					mouse_hook(int button, int x, int y, t_env *e);
 void				move_translate(t_env *e);
 void				move_rotate(t_env *e);
 void				move_zoom(t_env *e);
-void				move_object(t_env *e);
 void				mouse_orientation(t_env *e);
+
+void				object_select(t_env *e);
+void				object_move(t_env *e, t_obj *obj);
 
 /*
 ** polynomial solver
