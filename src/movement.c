@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:12:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:20:56 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	move_translate(t_env *e)
 	vec3_rotate(&y, e->cam->dir);
 	vec3_rotate(&x, e->cam->dir);
 	if (e->key.cf)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(z, v));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(z, vec3(v, 0, v)));
 	if (e->key.cb)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(z, v));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(z, vec3(v, 0, v)));
 	if (e->key.cu)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(y, v));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(y, vec3(v, v, 0)));
 	if (e->key.cd)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(y, v));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(y, vec3(v, v, 0)));
 	if (e->key.cl)
 		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(x, v));
 	if (e->key.cr)
