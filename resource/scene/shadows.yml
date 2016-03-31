@@ -5,10 +5,10 @@ scene:
 	recursion_refract: 2
 	mouse_sensibility: 0.2
 	mouse_interpolation: false
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
 	load_percent: false
-    sampling: 2
+    sampling: 3
 
 cameras:
 	- camera:
@@ -88,7 +88,6 @@ objects:
 		  diffuse: 0.575
 		  specular: 2
 		  shininess: 1024
-          glossiness: 0.2
           reflect: 0.3
 		  refract: 0
 		  transparency: 1.0

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:52:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 13:37:52 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	move_translate(t_env *e)
 	double	v;
 	t_vec3	axis[3];
 
-	v = e->scene.velocity * e->tick.frame;
+	v = e->scene.velocity * 0.1;
 	axis[0] = vec3(1, 0, 0);
 	axis[1] = vec3(0, 1, 0);
 	axis[2] = vec3(0, 0, 1);
@@ -80,7 +80,7 @@ void	move_object(t_env *e)
 	}
 	if (obj != NULL)
 	{
-		v = 5 * e->tick.frame;
+		v = 0.5;
 		axis[0] = vec3(1, 0, 0);
 		axis[1] = vec3(0, 1, 0);
 		axis[2] = vec3(0, 0, 1);

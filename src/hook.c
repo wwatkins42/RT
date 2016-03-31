@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:39:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 12:27:19 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		loop_hook(t_env *e)
 {
+	e->tick.frame_start = clock();
 	move_translate(e);
 	move_rotate(e);
 	e->key.kp || e->key.km || e->mouse.kp || e->mouse.km ? move_zoom(e) : 0;
@@ -28,12 +29,12 @@ int		loop_hook(t_env *e)
 	e->mouse.lmb = 0;
 	e->mouse.rmb = 0;
 	expose_hook(e);
+	e->tick.frame = (clock() - e->tick.frame_start) / (float)CLOCKS_PER_SEC;
 	return (0);
 }
 
 int		expose_hook(t_env *e)
 {
-	e->tick.frame_start = clock();
 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
 		e->key.kp || e->key.km || e->key.cu || e->key.cd || e->key.cl ||
 		e->key.cr || e->key.cf || e->key.cb || e->key.ou || e->key.od ||
@@ -43,7 +44,6 @@ int		expose_hook(t_env *e)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
-	e->tick.frame = (clock() - e->tick.frame_start) / (float)CLOCKS_PER_SEC;
 	e->key.stats ? display_stats(e) : 0;
 	return (0);
 }

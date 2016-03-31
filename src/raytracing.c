@@ -6,21 +6,11 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/29 12:37:10 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 12:09:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-/*
-**	pthread
-**	In order to implement multi-threaded calculs by parallelizing
-**	ray tracing on differents CPU threads we must send copies of 't_env'
-**	struct and assign lines or blocks of rays to cast  (pixels) for each thread.
-**	At the end, get all mlx_images from the structs 't_env' sent to threads
-**	and send their data (only the pixels they worked on) to the main mlx_image.
-**	Put the final mlx_image to window.
-*/
 
 void	raytracing(t_env *e)
 {

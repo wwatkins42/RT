@@ -5,17 +5,17 @@ scene:
 	recursion_refract: 3
 	mouse_sensibility: 0.2
 	mouse_interpolation: false
-    progressive_loading: false
+    progressive_loading: true
 	load_resync: false
 	load_percent: true
-    sampling: 128
+    sampling: 32
 
 cameras:
 	- camera:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
 	  fov: 75
-	  supersampling: 1
+	  supersampling: 2
 
 lights:
 	- light:
@@ -29,7 +29,7 @@ lights:
       cutoff: 75
       cutoffouter: 2
       shadow_intensity: 0.65
-      shadow: HARD
+      shadow: SOFT
 
     - light:
       type: POINT
@@ -40,7 +40,7 @@ lights:
 	  intensity: 0.75
 	  attenuation: 0.075
       shadow_intensity: 0.65
-      shadow: HARD
+      shadow: SOFT
 
     - light:
       type: POINT
@@ -51,7 +51,7 @@ lights:
 	  intensity: 0.75
 	  attenuation: 0.075
       shadow_intensity: 0.65
-      shadow: HARD
+      shadow: SOFT
 
 objects:
 	- object:
