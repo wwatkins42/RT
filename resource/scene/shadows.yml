@@ -8,7 +8,7 @@ scene:
     progressive_loading: false
 	load_resync: false
 	load_percent: false
-    sampling: 5
+    sampling: 3
 
 cameras:
 	- camera:
@@ -29,7 +29,7 @@ lights:
       cutoff: 60
       cutoffouter: 2
       shadow_intensity: 0.65
-      shadow: HARD
+      shadow: SOFT
 
     - light:
       type: POINT
@@ -40,7 +40,7 @@ lights:
       intensity: 1.75
       attenuation: 0.25
       shadow_intensity: 0.35
-      shadow: HARD
+      shadow: SOFT
 
 objects:
 	- object:
