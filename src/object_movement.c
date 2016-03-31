@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 15:09:21 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 16:47:10 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	object_move(t_env *e, t_obj *obj)
 	double	v;
 	t_vec3	axis[3];
 
-	if (e->cam->selection != NULL)
+	if (obj != NULL)
 	{
 		v = 0.5;
 		axis[0] = vec3(1, 0, 0);
@@ -53,8 +53,19 @@ void	object_move(t_env *e, t_obj *obj)
 	}
 }
 
-// void	object_mouse_move(t_env *e, t_obj *obj)
-// {
-// 	obj->pos.x = obj->pos.x + e->mouse.pos.x;
-//
-// }
+void	object_mouse_rotate(t_env *e, t_obj *obj)
+{
+	t_vec3			angle;
+	t_vec3			axis;
+	t_vec3			dif;
+	static t_vec3	old;
+
+	dif = vec3_sub(old, e->mouse.pos);
+	old = e->mouse.pos;
+	if (e->key.cmd && obj != NULL)
+	{
+		angle = vec3_fmul(dif, 0.5);
+		axis = vec3(angle.y, 0, angle.x);
+		vec3_rotate(&obj->dir, axis);
+	}
+}

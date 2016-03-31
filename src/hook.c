@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 14:16:20 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 16:04:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		loop_hook(t_env *e)
 	e->key.gamma_p ? e->cam->filter.gamma -= 0.05 : 0;
 	object_select(e);
 	object_move(e, e->cam->selection);
+	object_mouse_rotate(e, e->cam->selection);
 	e->mouse.kp = 0;
 	e->mouse.km = 0;
 	e->mouse.lmb = 0;
@@ -36,12 +37,12 @@ int		loop_hook(t_env *e)
 
 int		expose_hook(t_env *e)
 {
-	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
-		e->key.kp || e->key.km || e->key.cu || e->key.cd || e->key.cl ||
-		e->key.cr || e->key.cf || e->key.cb || e->key.ou || e->key.od ||
-		e->key.ol || e->key.or || e->key.of || e->key.ob ||
-		e->key.invert || e->key.gamma_p || e->key.gamma_m ||
-		e->key.gray_scale)
+// 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
+// 		e->key.kp || e->key.km || e->key.cu || e->key.cd || e->key.cl ||
+// 		e->key.cr || e->key.cf || e->key.cb || e->key.ou || e->key.od ||
+// 		e->key.ol || e->key.or || e->key.of || e->key.ob ||
+// 		e->key.invert || e->key.gamma_p || e->key.gamma_m ||
+// 		e->key.gray_scale)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
@@ -81,6 +82,7 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 40 ? e->key.k = 1 : 0;
 	keycode == 38 ? e->key.j = 1 : 0;
 	keycode == 37 ? e->key.l = 1 : 0;
+	keycode == 259 ? e->key.cmd = 1 : 0;
 	keycode == 43 || keycode == 47 ? raytracing(e) : 0;
 	return (0);
 }
@@ -105,6 +107,7 @@ int		key_released(int keycode, t_env *e)
 	keycode == 40 ? e->key.k = 0 : 0;
 	keycode == 38 ? e->key.j = 0 : 0;
 	keycode == 37 ? e->key.l = 0 : 0;
+	keycode == 259 ? e->key.cmd = 0 : 0;
 	keycode == 18 ? e->key.invert = 0 : 0;
 	keycode == 19 ? e->key.gray_scale = 0 : 0;
 	keycode == 27 ? e->key.gamma_m = 0 : 0;

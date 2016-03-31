@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 14:17:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 16:01:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_key
 	char			l;
 	char			kp;
 	char			km;
+	char			cmd;
 	char			stats;
 	char			mouse;
 	char			debug;
@@ -398,6 +399,7 @@ void				mouse_orientation(t_env *e);
 
 void				object_select(t_env *e);
 void				object_move(t_env *e, t_obj *obj);
+void				object_mouse_rotate(t_env *e, t_obj *obj);
 
 /*
 ** polynomial solver

@@ -5,7 +5,7 @@ scene:
 	recursion_refract: 2
 	mouse_sensibility: 0.4
 	mouse_interpolation: true
-    progressive_loading: true
+    progressive_loading: false
 	load_resync: false
 	load_percent: false
 
