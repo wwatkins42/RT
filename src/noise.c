@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   noise.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:55:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/28 10:03:16 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:24:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 t_noise				init_noise_structure(int w, int h, int pas, int octave)
 {
 	int		i;
+	int		poctave;
 	t_noise	noise;
 
 	i = -1;
 	noise.octave = octave;
 	noise.pas = pas;
-	noise.w_max = (int)ceil(w * pow(2, noise.octave - 1) / noise.pas);
-	noise.h_max = (int)ceil(h * pow(2, noise.octave - 1) / noise.pas);
+	poctave = pow(2, noise.octave - 1);
+	noise.w_max = (int)ceil(w * poctave / noise.pas);
+	noise.h_max = (int)ceil(h * poctave / noise.pas);
 	noise.len = noise.w_max * noise.h_max;
 	if (!(noise.noise = (double*)malloc(sizeof(double) * noise.len)))
 		error(E_MALLOC, NULL, 1);
-	srand(time(NULL));
 	while (++i < noise.len)
 		noise.noise[i] = ((double)rand()) / RAND_MAX;
 	return (noise);
@@ -36,10 +37,9 @@ static double		interpolate(double a, double b, double x)
 	return (a * (1 - x) + b * x);
 }
 
-static double		get_value(t_noise *noise, int i, int j)
+static double		get_value(t_noise *n, int i, int j)
 {
-	return (noise->noise[(i % noise->w_max) +
-		(j % noise->h_max) * noise->w_max]);
+	return (n->noise[(i % n->w_max) + (j % n->h_max) * n->w_max]);
 }
 
 static double		noise_generator(t_noise *n, double x, double y)
@@ -48,14 +48,18 @@ static double		noise_generator(t_noise *n, double x, double y)
 	int		j;
 	double	y1;
 	double	y2;
+	double	xpas;
+	double	ypas;
 
-	i = (int)(x / n->pas);
-	j = (int)(y / n->pas);
+	xpas = x / n->pas;
+	ypas = y / n->pas;
+	i = (int)(xpas);
+	j = (int)(ypas);
 	y1 = interpolate(get_value(n, i, j), get_value(n, i + 1, j),
-					fmod(x / n->pas, 1));
+					fmod(xpas, 1));
 	y2 = interpolate(get_value(n, i, j + 1), get_value(n, i + 1, j + 1),
-					fmod(x / n->pas, 1));
-	return (interpolate(y1, y2, fmod(y / n->pas, 1)));
+					fmod(xpas, 1));
+	return (interpolate(y1, y2, fmod(ypas, 1)));
 }
 
 double				noise(t_noise *noise, double x, double y)
