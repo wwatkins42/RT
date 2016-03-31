@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:20:56 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:52:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 void	move_translate(t_env *e)
 {
 	double	v;
-	t_vec3	x;
-	t_vec3	y;
-	t_vec3	z;
+	t_vec3	axis[3];
 
 	v = e->scene.velocity * e->tick.frame;
-	z = vec3(0, 0, 1);
-	y = vec3(0, 1, 0);
-	x = vec3(1, 0, 0);
-	vec3_rotate(&z, e->cam->dir);
-	vec3_rotate(&y, e->cam->dir);
-	vec3_rotate(&x, e->cam->dir);
+	axis[0] = vec3(1, 0, 0);
+	axis[1] = vec3(0, 1, 0);
+	axis[2] = vec3(0, 0, 1);
+	vec3_rotate(&axis[0], e->cam->dir);
+	vec3_rotate(&axis[1], e->cam->dir);
+	vec3_rotate(&axis[2], e->cam->dir);
 	if (e->key.cf)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(z, vec3(v, 0, v)));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(axis[2], vec3(v, 0, v)));
 	if (e->key.cb)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(z, vec3(v, 0, v)));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(axis[2], vec3(v, 0, v)));
 	if (e->key.cu)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(y, vec3(v, v, 0)));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_mul(axis[1], vec3(0, v, 0)));
 	if (e->key.cd)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(y, vec3(v, v, 0)));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_mul(axis[1], vec3(0, v, 0)));
 	if (e->key.cl)
-		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(x, v));
+		e->cam->pos = vec3_sub(e->cam->pos, vec3_fmul(axis[0], v));
 	if (e->key.cr)
-		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(x, v));
+		e->cam->pos = vec3_add(e->cam->pos, vec3_fmul(axis[0], v));
 }
 
 void	move_rotate(t_env *e)
@@ -69,9 +67,9 @@ void	move_zoom(t_env *e)
 
 void	move_object(t_env *e)
 {
+	double			v;
 	double			tmin;
-	t_vec3			dir;
-	t_vec3			pln;
+	t_vec3			axis[3];
 	static t_obj	*obj = NULL;
 
 	if (e->mouse.lmb)
@@ -82,18 +80,25 @@ void	move_object(t_env *e)
 	}
 	if (obj != NULL)
 	{
-		dir = vec3(0, 0, 1);
-		pln = vec3(1, 0, 0);
-		vec3_rotate(&dir, e->cam->dir);
-		vec3_rotate(&pln, e->cam->dir);
+		v = 5 * e->tick.frame;
+		axis[0] = vec3(1, 0, 0);
+		axis[1] = vec3(0, 1, 0);
+		axis[2] = vec3(0, 0, 1);
+		vec3_rotate(&axis[0], e->cam->dir);
+		vec3_rotate(&axis[1], e->cam->dir);
+		vec3_rotate(&axis[2], e->cam->dir);
+		if (e->key.of)
+			obj->pos = vec3_add(obj->pos, vec3_mul(axis[2], vec3(v, 0, v)));
+		if (e->key.ob)
+			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[2], vec3(v, 0, v)));
 		if (e->key.ou)
-			obj->pos = vec3_add(obj->pos, vec3_fmul(dir, 5 * e->tick.frame));
+			obj->pos = vec3_add(obj->pos, vec3_mul(axis[1], vec3(0, v, 0)));
 		if (e->key.od)
-			obj->pos = vec3_sub(obj->pos, vec3_fmul(dir, 5 * e->tick.frame));
+			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[1], vec3(0, v, 0)));
 		if (e->key.ol)
-			obj->pos = vec3_sub(obj->pos, vec3_fmul(pln, 5 * e->tick.frame));
+			obj->pos = vec3_sub(obj->pos, vec3_fmul(axis[0], v));
 		if (e->key.or)
-			obj->pos = vec3_add(obj->pos, vec3_fmul(pln, 5 * e->tick.frame));
+			obj->pos = vec3_add(obj->pos, vec3_fmul(axis[0], v));
 	}
 }
 

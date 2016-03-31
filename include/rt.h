@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:06:08 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:32:40 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct		s_key
 	char			cd;
 	char			cl;
 	char			cr;
+	char			of;
+	char			ob;
 	char			ou;
 	char			od;
 	char			ol;

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 11:15:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 11:39:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		expose_hook(t_env *e)
 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
 		e->key.kp || e->key.km || e->key.cu || e->key.cd || e->key.cl ||
 		e->key.cr || e->key.cf || e->key.cb || e->key.ou || e->key.od ||
-		e->key.ol || e->key.or ||
+		e->key.ol || e->key.or || e->key.of || e->key.ob ||
 		e->key.invert || e->key.gamma_p || e->key.gamma_m ||
 		e->key.gray_scale)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
@@ -68,8 +68,10 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 2 ? e->key.cr = 1 : 0;
 	keycode == 49 ? e->key.cu = 1 : 0;
 	keycode == 257 ? e->key.cd = 1 : 0;
-	keycode == 126 ? e->key.ou = 1 : 0;
-	keycode == 125 ? e->key.od = 1 : 0;
+	keycode == 126 ? e->key.of = 1 : 0;
+	keycode == 125 ? e->key.ob = 1 : 0;
+	keycode == 116 ? e->key.ou = 1 : 0;
+	keycode == 121 ? e->key.od = 1 : 0;
 	keycode == 123 ? e->key.ol = 1 : 0;
 	keycode == 124 ? e->key.or = 1 : 0;
 	keycode == 69 ? e->key.kp = 1 : 0;
@@ -90,8 +92,10 @@ int		key_released(int keycode, t_env *e)
 	keycode == 2 ? e->key.cr = 0 : 0;
 	keycode == 49 ? e->key.cu = 0 : 0;
 	keycode == 257 ? e->key.cd = 0 : 0;
-	keycode == 126 ? e->key.ou = 0 : 0;
-	keycode == 125 ? e->key.od = 0 : 0;
+	keycode == 126 ? e->key.of = 0 : 0;
+	keycode == 125 ? e->key.ob = 0 : 0;
+	keycode == 116 ? e->key.ou = 0 : 0;
+	keycode == 121 ? e->key.od = 0 : 0;
 	keycode == 123 ? e->key.ol = 0 : 0;
 	keycode == 124 ? e->key.or = 0 : 0;
 	keycode == 69 ? e->key.kp = 0 : 0;
