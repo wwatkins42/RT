@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 16:32:03 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:26:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ typedef struct		s_key
 	char			kd;
 	char			kl;
 	char			kr;
+	char			ou;
+	char			od;
+	char			ol;
+	char			or;
 	char			i;
 	char			k;
 	char			j;
@@ -80,6 +84,8 @@ typedef struct		s_mouse
 	char			lerp;
 	char			km;
 	char			kp;
+	char			lmb;
+	char			rmb;
 }					t_mouse;
 
 typedef struct		s_texture
@@ -383,6 +389,7 @@ int					mouse_hook(int button, int x, int y, t_env *e);
 void				move_translate(t_env *e);
 void				move_rotate(t_env *e);
 void				move_zoom(t_env *e);
+void				move_object(t_env *e);
 void				mouse_orientation(t_env *e);
 
 /*

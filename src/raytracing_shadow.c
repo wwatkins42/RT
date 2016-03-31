@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 17:28:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:37:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 
 	tmin = INFINITY;
 	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
+	light.ray.pos = light.pos;
 	if (intersect_object(e, &light.ray, &tmin) != obj)
 		*color = vec3_fmul(*color, 1.0 - light.shadow_intensity);
 }

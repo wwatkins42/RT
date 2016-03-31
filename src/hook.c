@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 14:46:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:32:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int		loop_hook(t_env *e)
 	e->key.gray_scale ? kswitch(&e->cam->filter.gray_scale) : 0;
 	e->key.gamma_m ? e->cam->filter.gamma += 0.05 : 0;
 	e->key.gamma_p ? e->cam->filter.gamma -= 0.05 : 0;
+	move_object(e);
 	e->mouse.kp = 0;
 	e->mouse.km = 0;
+	e->mouse.lmb = 0;
+	e->mouse.rmb = 0;
 	expose_hook(e);
 	return (0);
 }
@@ -33,7 +36,8 @@ int		expose_hook(t_env *e)
 	e->tick.frame_start = clock();
 	if (e->key.mouse || e->key.i || e->key.k || e->key.j || e->key.l ||
 		e->key.kp || e->key.km || e->key.ku || e->key.kd || e->key.kl ||
-		e->key.kr || e->key.invert || e->key.gamma_p || e->key.gamma_m ||
+		e->key.kr || e->key.ou || e->key.od || e->key.ol || e->key.or ||
+		e->key.invert || e->key.gamma_p || e->key.gamma_m ||
 		e->key.gray_scale)
 		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
@@ -61,6 +65,10 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 125 ? e->key.kd = 1 : 0;
 	keycode == 123 ? e->key.kl = 1 : 0;
 	keycode == 124 ? e->key.kr = 1 : 0;
+	keycode == 13 ? e->key.ou = 1 : 0;
+	keycode == 1 ? e->key.od = 1 : 0;
+	keycode == 0 ? e->key.ol = 1 : 0;
+	keycode == 2 ? e->key.or = 1 : 0;
 	keycode == 69 ? e->key.kp = 1 : 0;
 	keycode == 78 ? e->key.km = 1 : 0;
 	keycode == 34 ? e->key.i = 1 : 0;
@@ -77,6 +85,10 @@ int		key_released(int keycode, t_env *e)
 	keycode == 125 ? e->key.kd = 0 : 0;
 	keycode == 123 ? e->key.kl = 0 : 0;
 	keycode == 124 ? e->key.kr = 0 : 0;
+	keycode == 13 ? e->key.ou = 0 : 0;
+	keycode == 1 ? e->key.od = 0 : 0;
+	keycode == 0 ? e->key.ol = 0 : 0;
+	keycode == 2 ? e->key.or = 0 : 0;
 	keycode == 69 ? e->key.kp = 0 : 0;
 	keycode == 78 ? e->key.km = 0 : 0;
 	keycode == 34 ? e->key.i = 0 : 0;

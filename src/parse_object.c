@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 17:32:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:48:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,12 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	new->scale2 = new->scale * new->scale;
 	new->k = tan(new->scale) * tan(new->scale);
 	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
-		new->dir = vec3_norm(vec3_mul(vec3_cross(new->pos2, new->pos3), new->dir));
+		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
 	else
 		new->comp = NULL;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
-	printf("%f\n", new->mat.transparency);
 	new->next = NULL;
 	return (new);
 }

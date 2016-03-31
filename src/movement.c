@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 10:56:58 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 13:11:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:45:58 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,36 @@ void	move_zoom(t_env *e)
 		vec3_add(vec3_fmul(vec3(0, 0, 1), e->cam->dist),
 		vec3_fmul(vec3_up(), h / 2.0))),
 		vec3_fmul(vec3_right(), w / 2.0));
+}
+
+void	move_object(t_env *e)
+{
+	double			tmin;
+	t_vec3			dir;
+	t_vec3			pln;
+	static t_obj	*obj = NULL;
+
+	if (e->mouse.lmb)
+	{
+		tmin = INFINITY;
+		raytracing_init(e, e->mouse.pos.x, e->mouse.pos.y);
+		obj = intersect_object(e, &e->cam->ray, &tmin);
+	}
+	if (obj != NULL)
+	{
+		dir = vec3(0, 0, 1);
+		pln = vec3(1, 0, 0);
+		vec3_rotate(&dir, e->cam->dir);
+		vec3_rotate(&pln, e->cam->dir);
+		if (e->key.ou)
+			obj->pos = vec3_add(obj->pos, vec3_fmul(dir, 5 * e->tick.frame));
+		if (e->key.od)
+			obj->pos = vec3_sub(obj->pos, vec3_fmul(dir, 5 * e->tick.frame));
+		if (e->key.ol)
+			obj->pos = vec3_sub(obj->pos, vec3_fmul(pln, 5 * e->tick.frame));
+		if (e->key.or)
+			obj->pos = vec3_add(obj->pos, vec3_fmul(pln, 5 * e->tick.frame));
+	}
 }
 
 void	mouse_orientation(t_env *e)

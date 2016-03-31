@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 17:04:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:36:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	t_vec3	u_axis;
 	t_vec3	v_axis;
 
-	offset = obj->mat.texture.scale * 0.5;
+	offset = 0;
 	u_axis = vec3(-obj->normal.z, obj->normal.y, -obj->normal.x);
 	if (obj->mat.texture.rotation == 90)
 		u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);

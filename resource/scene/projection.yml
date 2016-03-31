@@ -24,7 +24,7 @@ lights:
       pos: {x: 0, y: 0, z: 2}
       dir: {x: 0, y: 0, z: 1}
       color: #FFFFFF
-      intensity: 0.5
+      intensity: 1.5
       attenuation: 0.025
       shadow_intensity: 0.5
       shadow: PROJECTION
@@ -43,7 +43,7 @@ objects:
 		  shininess: 1024
 		  reflect: 0
 		  refract: 1
-		  transparency: 1
+		  transparency: 0
 		  absorbtion: 1
 
     - object:
@@ -63,7 +63,7 @@ objects:
 		  transparency: 1
 		  absorbtion: 1
           texture: ../texture/mickey.bmp
-          texture_scale: 1
+          texture_scale: 1.2
           texture_rotation: 0
 
 	- object:

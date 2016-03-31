@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/29 10:49:58 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/31 10:27:12 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ void	init_key(t_env *e)
 	e->key.kd = 0;
 	e->key.kl = 0;
 	e->key.kr = 0;
+	e->key.ou = 0;
+	e->key.od = 0;
+	e->key.ol = 0;
+	e->key.or = 0;	
 	e->key.i = 0;
 	e->key.k = 0;
 	e->key.j = 0;

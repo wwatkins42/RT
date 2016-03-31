@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 17:18:32 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/30 17:33:45 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
 		mat->refract = parse_value(line, 0, 10);
 	else if (ft_strstr(line, "texture_transparency:"))
 		mat->texture.transparency_mapping = parse_boolean(line);
-	else if (ft_strstr(line, "transparency:"))
-		mat->transparency = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "absorbtion:"))
 		mat->absorbtion = parse_value(line, 0, 1);
 	else if (ft_strstr(line, "texture:"))
@@ -75,6 +73,8 @@ static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
 		((int)parse_value(line, 0, 270) % 90);
 	else if (ft_strstr(line, "normal_perturbation:"))
 		mat->normal_perturbation = parse_boolean(line);
+	else if (ft_strstr(line, "transparency:"))
+		mat->transparency = parse_value(line, 0, 1);
 }
 
 void			parse_material(t_env *e, t_mat *mat, t_line *line)
