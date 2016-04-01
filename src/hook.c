@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 12:02:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 12:05:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 40 ? e->key.k = 1 : 0;
 	keycode == 38 ? e->key.j = 1 : 0;
 	keycode == 37 ? e->key.l = 1 : 0;
-	keycode == 117 ? e->key.del = 1 : 0;
+	keycode == 117 || keycode == 51 ? e->key.del = 1 : 0;
 	keycode == 259 ? e->key.cmd = 1 : 0;
 	keycode == 256 ? e->key.ctrl = 1 : 0;
 	keycode == 43 || keycode == 47 ? raytracing(e) : 0;
@@ -111,7 +111,7 @@ int		key_released(int keycode, t_env *e)
 	keycode == 40 ? e->key.k = 0 : 0;
 	keycode == 38 ? e->key.j = 0 : 0;
 	keycode == 37 ? e->key.l = 0 : 0;
-	keycode == 117 ? e->key.del = 0 : 0;
+	keycode == 117 || keycode == 51 ? e->key.del = 0 : 0;
 	keycode == 259 ? e->key.cmd = 0 : 0;
 	keycode == 256 ? e->key.ctrl = 0 : 0;
 	keycode == 18 ? e->key.invert = 0 : 0;
