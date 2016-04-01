@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:31:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 11:36:03 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct		s_key
 	char			l;
 	char			kp;
 	char			km;
+	char			del;
 	char			cmd;
 	char			ctrl;
 	char			stats;
@@ -399,6 +400,7 @@ void				move_zoom(t_env *e);
 void				mouse_orientation(t_env *e);
 
 void				object_select(t_env *e);
+void				object_delete(t_env *e, t_obj *obj);
 void				object_move(t_env *e, t_obj *obj);
 void				object_mouse_move(t_env *e, t_obj *obj);
 void				object_mouse_rotate(t_env *e, t_obj *obj);
