@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 12:09:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 13:17:28 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_vec3	raytracing_draw(t_env *e, t_ray ray)
 	double	tmin;
 
 	e->count.rps++;
-	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
 	obj = intersect_object(e, &ray, &tmin);
 	if (obj != NULL && tmin != INFINITY)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/31 14:17:39 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/04/01 11:44:05 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			parse_object.c parse_utils.c parse_material.c noise.c \
-			utils.c error.c init.c core.c draw.c hook.c viewer_export.c \
+			utils.c error.c init.c core.c draw.c hook.c \
 			raytracing_color.c raytracing_intersect.c raytracing.c \
 			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
 			filter.c antialiasing.c bmp_importer.c texture.c movement.c \

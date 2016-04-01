@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_shadow.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 17:37:17 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 13:17:17 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	while (++i < e->scene.sampling)
 	{
 		light.ray.dir = random_sphere_sampling(light.ray, light.scale, hit);
-		tmin = INFINITY;
 		if (intersect_object(e, &light.ray, &tmin) != obj)
 			shadow++;
 		light.ray.dir = dir;
@@ -55,7 +54,6 @@ static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
 	double	tmin;
 
-	tmin = INFINITY;
 	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	light.ray.pos = light.pos;
 	if (intersect_object(e, &light.ray, &tmin) != obj)
@@ -69,7 +67,6 @@ static t_vec3	get_shadow_color(t_env *e, t_lgt light, t_obj *this, t_obj *obj)
 	t_ray	ray;
 	double	tmin;
 
-	tmin = INFINITY;
 	ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	ray.pos = light.pos;
 	intersect_object(e, &ray, &tmin);
@@ -87,7 +84,6 @@ static void		set_projectionshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *o
 	double	t;
 	t_obj	*other;
 
-	tmin = INFINITY;
 	light.ray.dir = vec3_sub(light.pos, light.ray.pos);
 	t = vec3_magnitude(light.ray.dir);
 	vec3_normalize(&light.ray.dir);

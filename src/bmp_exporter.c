@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 08:15:45 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/01 11:41:30 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ static char	*create_img(t_img *img, t_infos *h_infos)
 
 	i = h_infos->image_size - 1;
 	j = 0;
-	copy = (char*)malloc(sizeof(char) * h_infos->image_size);
+	if (!(copy = (char*)malloc(sizeof(char) * h_infos->image_size)))
+		error(E_MALLOC, NULL, 1);
 	while (i >= 0)
 	{
 		i -= img->sl;

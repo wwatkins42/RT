@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 14:51:27 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 13:16:48 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin)
 
 	out = NULL;
 	obj = e->obj;
+	*tmin = INFINITY;
 	while (obj != NULL)
 	{
 		t = e->intersect[obj->type](ray, obj);

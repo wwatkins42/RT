@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 15:48:11 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 07:56:11 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/01 11:14:48 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int		ft_strdel(char **as)
 {
 	if (as != NULL)
-		ft_memdel((void**)as);
+	{
+		free(*as);
+		*as = NULL;
+	}
 	return (1);
 }

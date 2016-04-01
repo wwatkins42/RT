@@ -41,7 +41,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: ../texture/planet/pluto.bmp
+          texture: ../texture/pluto.bmp
           texture_normal: true
           texture_normal_strength: 1.9
           texture_filtering: true
@@ -61,7 +61,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: ../texture/planet/jupiter.bmp
+          texture: ../texture/jupiter.bmp
           texture_normal: true
           texture_normal_strength: 1.2
           texture_filtering: true
@@ -81,8 +81,8 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/stars.bmp
+		  texture: ../texture/narthex.bmp
 		  texture_filtering: false
-		  texture_normal: false
+		  texture_normal: true
 		  receive_shadow: false
 ...

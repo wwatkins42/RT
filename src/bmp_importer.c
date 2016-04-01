@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_importer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 09:55:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 12:12:31 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ static t_texture	read_header(char *file_path)
 	t_texture	texture;
 	FILE		*file;
 
-	if ((file = fopen(file_path, "r")) == NULL)
-		error(strerror(errno), file_path, 1);
+	!(file = fopen(file_path, "r")) ? error(strerror(errno), file_path, 1) : 0;
 	fseek(file, 18, SEEK_SET);
 	fread(&texture.w, 4, 1, file);
 	fread(&texture.h, 4, 1, file);
 	fseek(file, 2, SEEK_CUR);
 	fread(&texture.bpp, 2, 1, file);
-	if ((fclose(file)) != 0)
-		error(strerror(errno), NULL, 1);
+	fclose(file) != 0 ? error(strerror(errno), NULL, 1) : 0;
 	texture.opp = texture.bpp / 8;
 	texture.sl = texture.w * texture.opp;
 	texture.defined = 1;
@@ -46,7 +44,7 @@ static void			get_image(t_texture *texture, char *buf, int i)
 		i -= texture->sl;
 		j = 0;
 		x = 0;
-		if ((texture->img[y] = malloc(sizeof(t_vec3) * texture->w)) == NULL)
+		if (!(texture->img[y] = (t_vec3*)malloc(sizeof(t_vec3) * texture->w)))
 			error(E_MALLOC, NULL, 1);
 		while (j < texture->sl)
 		{
@@ -65,9 +63,10 @@ static void			read_image(t_texture *texture, int fd)
 	int			i;
 	char		*buf;
 
-	if ((buf = malloc(sizeof(char) * texture->sl * texture->h + 1)) == NULL)
+	if (!(buf = (char*)malloc(sizeof(char) * texture->sl * texture->h + 1)))
 		error(E_MALLOC, NULL, 1);
-	texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h);
+	if (!(texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h)))
+		error(E_MALLOC, NULL, 1);
 	lseek(fd, 54, SEEK_SET);
 	if ((i = read(fd, buf, texture->sl * texture->h)) == -1)
 		error(strerror(errno), NULL, 1);
@@ -87,6 +86,6 @@ t_texture			bmp_importer(char *file_path)
 	if ((fd = open(file_path, O_RDWR)) == -1)
 		error(strerror(errno), file_path, 1);
 	read_image(&texture, fd);
-	(close(fd)) == -1 ? error(strerror(errno), NULL, 1) : 0;
+	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
 	return (texture);
 }

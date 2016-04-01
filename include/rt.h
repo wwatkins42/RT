@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:31:48 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 11:44:15 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define PIOVER4 0.78539816
 # define MAX_COLOR 32
 # define IMG_PATH "./resource/images/"
-# define IMG_EXTENSION ".mlx"
 # define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
@@ -553,12 +552,6 @@ void				filter_invert(t_vec3 *color);
 void				filter_gray_scale(t_vec3 *color);
 void				filter_gamma(double gamma, t_vec3 *color);
 void				filter_img_update(t_env *e);
-
-/*
-**	VIEWER
-*/
-
-void				viewer_export(t_env *e, t_img *img);
 
 /*
 **	BMP IMPORTER / EXPORTER

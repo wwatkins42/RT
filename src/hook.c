@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:45:35 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 12:12:50 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 19 ? e->key.gray_scale = 1 : 0;
 	keycode == 27 ? e->key.gamma_m = 1 : 0;
 	keycode == 24 ? e->key.gamma_p = 1 : 0;
-	keycode == 42 ? viewer_export(e, &e->cam->img) : 0;
 	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next : 0;
