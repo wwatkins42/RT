@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/25 07:46:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/01 10:47:03 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_vec3		parse_vector(const char *line)
 			vec.z = parse_value(tab[i], -1000, 1000);
 		ft_strdel(&tab[i]);
 	}
-	ft_memdel((void**)tab);
+	free(tab);
+	tab = NULL;
 	return (vec);
 }
