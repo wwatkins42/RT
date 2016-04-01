@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 13:19:27 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/01 15:19:46 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, BMP, CHECKER };
 enum { HARD, SOFT, PROJECTION };
+enum { CF = 13, CB = 1, CL = 0, CR = 2, CU = 49, CD = 257, OF = 126,
+	OB = 125, OU = 116, OD = 121, OL = 123, OR = 124, KP = 69, KM = 78,
+ 	I = 34, K = 40, J = 38, L = 37, CMD = 259, CTRL = 256, DEL = 51,
+	FGP = 24, FGM = 27, FG = 19, FI = 18, STAT = 50, MOUSE = 46 };
 
 typedef struct		s_arg
 {
@@ -50,38 +54,6 @@ typedef struct		s_arg
 	int				w;
 	int				h;
 }					t_arg;
-
-typedef struct		s_key
-{
-	char			cf;
-	char			cb;
-	char			cu;
-	char			cd;
-	char			cl;
-	char			cr;
-	char			of;
-	char			ob;
-	char			ou;
-	char			od;
-	char			ol;
-	char			or;
-	char			i;
-	char			k;
-	char			j;
-	char			l;
-	char			kp;
-	char			km;
-	char			del;
-	char			cmd;
-	char			ctrl;
-	char			stats;
-	char			mouse;
-	char			debug;
-	char			invert;
-	char			gray_scale;
-	char			gamma_m;
-	char			gamma_p;
-}					t_key;
 
 typedef struct		s_mouse
 {
@@ -337,7 +309,8 @@ typedef struct		s_env
 	void			*mlx;
 	t_win			win;
 	t_arg			arg;
-	t_key			key;
+	// t_key			key;
+	char			key[280];
 	t_mouse			mouse;
 	t_scene			scene;
 	t_count			count;
@@ -538,7 +511,7 @@ int					vec3_hex(const t_vec3 vec);
 **	UTILS FUNCTIONS
 */
 
-int					str_digit(char *str);
+int					ispressed(char *key);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);

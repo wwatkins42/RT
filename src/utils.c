@@ -6,17 +6,20 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/28 10:17:09 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:19:41 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int		str_digit(char *str)
+int		ispressed(char *key)
 {
-	while (*str)
-		if (ft_isdigit(*str++))
-			return (1);
+	if (key[MOUSE] || key[I] || key[K] || key[J] || key[L] || key[KP] ||
+		key[KM] || key[CU] || key[CD] || key[CL] || key[CR] || key[CF] ||
+		key[CB] || key[OU] || key[OD] || key[OL] || key[OR] || key[OF] ||
+		key[OB] || key[FI] || key[FG] || key[FGM] || key[FGP] || key[DEL] ||
+		key[CMD] || key[CTRL])
+		return (1);
 	return (0);
 }
 

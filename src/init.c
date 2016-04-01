@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 11:37:41 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:07:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,32 +77,10 @@ void	init_cam(t_env *e, t_cam *cam)
 
 void	init_key(t_env *e)
 {
-	e->key.cf = 0;
-	e->key.cb = 0;
-	e->key.cu = 0;
-	e->key.cd = 0;
-	e->key.cl = 0;
-	e->key.cr = 0;
-	e->key.of = 0;
-	e->key.ob = 0;
-	e->key.ou = 0;
-	e->key.od = 0;
-	e->key.ol = 0;
-	e->key.or = 0;
-	e->key.i = 0;
-	e->key.k = 0;
-	e->key.j = 0;
-	e->key.l = 0;
-	e->key.kp = 0;
-	e->key.km = 0;
-	e->key.del = 0;
-	e->key.cmd = 0;
-	e->key.ctrl = 0;
-	e->key.stats = 0;
-	e->key.mouse = 0;
-	e->key.invert = 0;
-	e->key.gray_scale = 0;
-	e->key.gamma_m = 0;
-	e->key.gamma_p = 0;
+	ft_bzero((void*)e->key, 280);
+	e->mouse.km = 0;
+	e->mouse.kp = 0;
+	e->mouse.lmb = 0;
+	e->mouse.rmb = 0;
 	e->mouse.pos = (t_vec3) {e->win.dw, e->win.dh, 0};
 }

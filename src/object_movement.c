@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 11:59:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 15:08:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,17 @@ void	object_select(t_env *e)
 {
 	double	tmin;
 
-	if (e->mouse.lmb)
-	{
-		tmin = INFINITY;
-		raytracing_init(e, e->mouse.pos.x, e->mouse.pos.y);
-		e->cam->selection = intersect_object(e, &e->cam->ray, &tmin);
-	}
+	tmin = INFINITY;
+	raytracing_init(e, e->mouse.pos.x, e->mouse.pos.y);
+	e->cam->selection = intersect_object(e, &e->cam->ray, &tmin);
 }
 
 void	object_delete(t_env *e, t_obj *obj)
 {
 	t_obj	*current;
 
+	if (obj == NULL)
+		return ;
 	if (e->obj == obj)
 	{
 		e->obj = obj->next;
@@ -57,20 +56,20 @@ void	object_move(t_env *e, t_obj *obj)
 		axis[0] = (t_vec3) {1, 0, 0};
 		axis[1] = (t_vec3) {0, 1, 0};
 		axis[2] = (t_vec3) {0, 0, 1};
-		e->key.of || e->key.ob ? vec3_rotate(&axis[0], e->cam->dir) : 0;
-		e->key.ou || e->key.od ? vec3_rotate(&axis[1], e->cam->dir) : 0;
-		e->key.ol || e->key.or ? vec3_rotate(&axis[2], e->cam->dir) : 0;
-		if (e->key.of)
+		e->key[OL] || e->key[OR] ? vec3_rotate(&axis[0], e->cam->dir) : 0;
+		e->key[OU] || e->key[OD] ? vec3_rotate(&axis[1], e->cam->dir) : 0;
+		e->key[OF] || e->key[OB] ? vec3_rotate(&axis[2], e->cam->dir) : 0;
+		if (e->key[OF])
 			obj->pos = vec3_add(obj->pos, vec3_mul(axis[2], vec3(0.5, 0, 0.5)));
-		if (e->key.ob)
+		if (e->key[OB])
 			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[2], vec3(0.5, 0, 0.5)));
-		if (e->key.ou)
+		if (e->key[OU])
 			obj->pos = vec3_add(obj->pos, vec3_mul(axis[1], vec3(0, 0.5, 0)));
-		if (e->key.od)
+		if (e->key[OD])
 			obj->pos = vec3_sub(obj->pos, vec3_mul(axis[1], vec3(0, 0.5, 0)));
-		if (e->key.ol)
+		if (e->key[OL])
 			obj->pos = vec3_sub(obj->pos, vec3_fmul(axis[0], 0.5));
-		if (e->key.or)
+		if (e->key[OR])
 			obj->pos = vec3_add(obj->pos, vec3_fmul(axis[0], 0.5));
 	}
 }
@@ -85,7 +84,7 @@ void	object_mouse_move(t_env *e, t_obj *obj)
 
 	dif = vec3_sub(old, e->mouse.pos);
 	old = e->mouse.pos;
-	if (e->key.ctrl && obj != NULL)
+	if (e->key[CTRL] && obj != NULL)
 	{
 		d = vec3_magnitude(vec3_sub(obj->pos, e->cam->pos));
 		v = e->mouse.sensibility * d * 0.01;
@@ -108,10 +107,10 @@ void	object_mouse_rotate(t_env *e, t_obj *obj)
 
 	dif = vec3_sub(old, e->mouse.pos);
 	old = e->mouse.pos;
-	if (e->key.cmd && obj != NULL)
+	if (e->key[CMD] && obj != NULL)
 	{
 		angle = vec3_fmul(dif, 0.5);
-		axis = vec3(angle.y, 0, angle.x);
+		axis = vec3(angle.y - e->cam->dir.x, 0, angle.x - e->cam->dir.x);
 		vec3_rotate(&obj->dir, axis);
 	}
 }

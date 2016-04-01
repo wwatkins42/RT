@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/01 11:40:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/01 13:29:15 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static t_vec3	compute_gradient(double *grad, t_obj *obj)
 	color.z = sqrt(1 - ft_clampf(color.x * color.x + color.y * color.y, 0, 1));
 	vec3_normalize(&color);
 	color = vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5));
-	ft_memdel((void**)&grad);
 	return (color);
 }
 
@@ -74,6 +73,7 @@ void			create_normal_map(t_obj *obj)
 		{
 			grad = get_gradient(obj->mat.texture.img, y, x, obj->mat.texture);
 			obj->mat.texture.bump[y][x] = compute_gradient(grad, obj);
+			ft_memdel((void**)&grad);
 		}
 	}
 }
