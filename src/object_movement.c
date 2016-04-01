@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:43:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 11:59:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@ void	object_select(t_env *e)
 		tmin = INFINITY;
 		raytracing_init(e, e->mouse.pos.x, e->mouse.pos.y);
 		e->cam->selection = intersect_object(e, &e->cam->ray, &tmin);
+	}
+}
+
+void	object_delete(t_env *e, t_obj *obj)
+{
+	t_obj	*current;
+
+	if (e->obj == obj)
+	{
+		e->obj = obj->next;
+		ft_memdel((void**)&obj);
+		return ;
+	}
+	current = e->obj;
+	while (current != NULL)
+	{
+		if (current->next == obj)
+			break ;
+		current = current->next;
+	}
+	if (current->next == obj)
+	{
+		current->next = obj->next;
+		ft_memdel((void**)&obj);
 	}
 }
 
