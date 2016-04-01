@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:32:44 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 10:45:35 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		loop_hook(t_env *e)
 	object_select(e);
 	object_move(e, e->cam->selection);
 	object_mouse_move(e, e->cam->selection);
-	// object_mouse_rotate(e, e->cam->selection);
+	object_mouse_rotate(e, e->cam->selection);
 	e->mouse.kp = 0;
 	e->mouse.km = 0;
 	e->mouse.lmb = 0;

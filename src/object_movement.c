@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 10:38:33 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 10:43:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	object_move(t_env *e, t_obj *obj)
 		axis[0] = (t_vec3) {1, 0, 0};
 		axis[1] = (t_vec3) {0, 1, 0};
 		axis[2] = (t_vec3) {0, 0, 1};
-		vec3_rotate(&axis[0], e->cam->dir);
-		vec3_rotate(&axis[1], e->cam->dir);
-		vec3_rotate(&axis[2], e->cam->dir);
+		e->key.of || e->key.ob ? vec3_rotate(&axis[0], e->cam->dir) : 0;
+		e->key.ou || e->key.od ? vec3_rotate(&axis[1], e->cam->dir) : 0;
+		e->key.ol || e->key.or ? vec3_rotate(&axis[2], e->cam->dir) : 0;
 		if (e->key.of)
 			obj->pos = vec3_add(obj->pos, vec3_mul(axis[2], vec3(0.5, 0, 0.5)));
 		if (e->key.ob)
