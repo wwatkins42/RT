@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 17:01:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 10:38:33 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	object_move(t_env *e, t_obj *obj)
 
 	if (obj != NULL)
 	{
-		axis[0] = vec3(1, 0, 0);
-		axis[1] = vec3(0, 1, 0);
-		axis[2] = vec3(0, 0, 1);
+		axis[0] = (t_vec3) {1, 0, 0};
+		axis[1] = (t_vec3) {0, 1, 0};
+		axis[2] = (t_vec3) {0, 0, 1};
 		vec3_rotate(&axis[0], e->cam->dir);
 		vec3_rotate(&axis[1], e->cam->dir);
 		vec3_rotate(&axis[2], e->cam->dir);
@@ -48,6 +48,30 @@ void	object_move(t_env *e, t_obj *obj)
 			obj->pos = vec3_sub(obj->pos, vec3_fmul(axis[0], 0.5));
 		if (e->key.or)
 			obj->pos = vec3_add(obj->pos, vec3_fmul(axis[0], 0.5));
+	}
+}
+
+void	object_mouse_move(t_env *e, t_obj *obj)
+{
+	double			d;
+	double			v;
+	t_vec3			dif;
+	t_vec3			axis[2];
+	static t_vec3	old;
+
+	dif = vec3_sub(old, e->mouse.pos);
+	old = e->mouse.pos;
+	if (e->key.ctrl && obj != NULL)
+	{
+		d = vec3_magnitude(vec3_sub(obj->pos, e->cam->pos));
+		v = e->mouse.sensibility * d * 0.01;
+		axis[0] = (t_vec3) {1, 0, 0};
+		axis[1] = (t_vec3) {0, 1, 0};
+		vec3_rotate(&axis[0], e->cam->dir);
+		vec3_rotate(&axis[1], e->cam->dir);
+		dif = vec3_fmul(dif, v);
+		obj->pos = vec3_sub(obj->pos, vec3_mul(axis[0], vec3(dif.x, 0, dif.x)));
+		obj->pos = vec3_add(obj->pos, vec3_fmul(axis[1], dif.y));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/31 15:11:57 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/01 10:32:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	init_key(t_env *e)
 	e->key.kp = 0;
 	e->key.km = 0;
 	e->key.cmd = 0;
+	e->key.ctrl = 0;
 	e->key.stats = 0;
 	e->key.mouse = 0;
 	e->key.invert = 0;
