@@ -43,3 +43,4 @@ __Bonus:__
 - Glossy reflection/refractions
 - Soft shadows
 - Transparent objects texture projection
+- Stereoscopic camera for 3D view
