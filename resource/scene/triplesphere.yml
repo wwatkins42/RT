@@ -28,46 +28,6 @@ lights:
 objects:
 	- object:
 	  type: SPHERE
-	  scale: 1
-	  pos: {x: 4, y: 0, z: -5}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.065
-		  diffuse: 0.975
-		  specular: 0.2
-		  shininess: 256
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-          texture: ../texture/planet/pluto.bmp
-          texture_normal: true
-          texture_normal_strength: 1.9
-          texture_filtering: true
-
-    - object:
-	  type: SPHERE
-	  scale: 10
-	  pos: {x: 8, y: 0, z: 13}
-	  dir: {x: 0, y: 0, z: 1}
-	  material:
-		  color: 0x364A90
-		  ambient: 0.065
-		  diffuse: 0.975
-		  specular: 0.2
-		  shininess: 256
-		  reflect: 0
-		  refract: 1
-		  transparency: 0
-		  absorbtion: 1
-          texture: ../texture/planet/jupiter.bmp
-          texture_normal: true
-          texture_normal_strength: 1.2
-          texture_filtering: true
-
-	- object:
-	  type: SPHERE
 	  scale: 100
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
@@ -81,7 +41,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/narthex.bmp
+		  texture: ../texture/panoramic/spacestation.bmp
 		  texture_filtering: false
 		  texture_normal: true
 		  receive_shadow: false

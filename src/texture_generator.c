@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture_generator.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:25:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/29 09:42:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/18 10:51:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static t_vec3			noise_marble(t_noise *n, int x, int y)
+static t_vec3	noise_marble(t_noise *n, int x, int y)
 {
 	double f;
 	t_vec3 color;
@@ -24,7 +24,7 @@ static t_vec3			noise_marble(t_noise *n, int x, int y)
 	return (color);
 }
 
-static t_vec3			noise_wood(t_noise *n, int x, int y)
+static t_vec3	noise_wood(t_noise *n, int x, int y)
 {
 	double	f;
 	double	value;
@@ -44,7 +44,7 @@ static t_vec3			noise_wood(t_noise *n, int x, int y)
 	return (color);
 }
 
-static void				init_func(t_noise *noise)
+static void		init_func(t_noise *noise)
 {
 	noise->noise_func[0] = NULL;
 	noise->noise_func[1] = noise_marble;

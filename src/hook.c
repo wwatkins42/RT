@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 15:23:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/18 10:57:53 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int		loop_hook(t_env *e)
 int		expose_hook(t_env *e)
 {
 	if (ispressed(e->key))
-		e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
+		e->scene.progressive_loading ? raytracing_progressive(e) :
+		raytracing(e);
 	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
 	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	e->key[STAT] ? display_stats(e) : 0;

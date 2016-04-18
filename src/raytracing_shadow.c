@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_shadow.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 13:17:17 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/18 10:56:07 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
 
 static t_vec3	random_sphere_sampling(t_ray ray, double ks, t_vec3 hit)
 {
