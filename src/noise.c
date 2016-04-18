@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:55:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/18 10:55:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/18 11:19:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static double		noise_generator(t_noise *n, double x, double y)
 {
 	int		i;
 	int		j;
-	double	y[2];
+	double	ya[2];
 	double	xpas;
 	double	ypas;
 
@@ -54,11 +54,11 @@ static double		noise_generator(t_noise *n, double x, double y)
 	ypas = y / n->pas;
 	i = (int)(xpas);
 	j = (int)(ypas);
-	y[0] = interpolate(get_value(n, i, j), get_value(n, i + 1, j),
+	ya[0] = interpolate(get_value(n, i, j), get_value(n, i + 1, j),
 					fmod(xpas, 1));
-	y[1] = interpolate(get_value(n, i, j + 1), get_value(n, i + 1, j + 1),
+	ya[1] = interpolate(get_value(n, i, j + 1), get_value(n, i + 1, j + 1),
 					fmod(xpas, 1));
-	return (interpolate(y[0], y[1], fmod(ypas, 1)));
+	return (interpolate(ya[0], ya[1], fmod(ypas, 1)));
 }
 
 double				noise(t_noise *noise, double x, double y)
