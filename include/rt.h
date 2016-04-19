@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:32:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/19 23:17:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@
 # define T_RES_H 1440
 
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
-		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
+		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, QUADRIC , MOEBIUS,
+		DISC, CSG };
 enum { POINT, SPOT, DIRECTIONAL };
 enum { NONE, MARBLE, WOOD, EARTH, BMP };
 enum { HARD, SOFT };
+enum { UNION, DIFF, INTER };
 
 typedef struct		s_arg
 {
@@ -180,6 +182,7 @@ typedef struct		s_calc
 	double			a;
 	double			b;
 	double			c;
+	double			d;
 	double			disc;
 	double			eq;
 	t_vec3			len;
@@ -196,6 +199,20 @@ typedef struct		s_bfi
 	t_vec3			c[4];
 }					t_bfi;
 
+typedef struct		s_coeffs
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			e;
+	double			f;
+	double			g;
+	double			h;
+	double			i;
+	double			j;
+}					t_coeff;
+
 typedef struct		s_obj
 {
 	t_vec3			pos;
@@ -204,6 +221,7 @@ typedef struct		s_obj
 	t_vec3			dir;
 	t_vec3			normal;
 	t_mat			mat;
+	t_coeff			co;
 	short			type;
 	double			m;
 	double			pr;
@@ -214,7 +232,12 @@ typedef struct		s_obj
 	double			y_max;
 	double			k;
 	double			t;
+	double			in;
+	double			out;
 	int 			comp_hit;
+	int				op;
+	struct s_obj	*left;
+	struct s_obj	*right;
 	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
@@ -300,7 +323,8 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
-	double			(*intersect[12])(t_ray *, t_obj *);
+	double			dist;
+	double			(*intersect[15])(t_ray *, t_obj *);
 }					t_env;
 
 /*
@@ -416,6 +440,10 @@ double				intersect_torus(t_ray *ray, t_obj *obj);
 double				intersect_cube_troue(t_ray *ray, t_obj *obj);
 double				intersect_parallelogramme(t_ray *r, t_obj *t);
 double				intersect_cube(t_ray *ray, t_obj *cube);
+double				intersect_quadric(t_ray *ray, t_obj *cube);
+double				intersect_moebius(t_ray *ray, t_obj *obj);
+double				intersect_disc(t_ray *r, t_obj *t);
+double				intersect_csg(t_ray *r, t_obj *t);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*

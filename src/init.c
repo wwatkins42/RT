@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/23 09:38:04 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/19 22:20:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_env(t_env *e)
 {
-	e->arg.w = ft_clamp(e->arg.w, 300, 10000);
-	e->arg.h = ft_clamp(e->arg.h, 300, 10000);
+	e->arg.w = ft_clamp(e->arg.w, 300, 2550);
+	e->arg.h = ft_clamp(e->arg.h, 300, 1600);
 	e->win.w = e->arg.w;
 	e->win.h = e->arg.h;
 	e->win.dw = e->win.w / 2;
@@ -33,6 +33,11 @@ void	init_env(t_env *e)
 	e->intersect[PARABOLOID] = intersect_paraboloid;
 	e->intersect[TORUS] = intersect_torus;
 	e->intersect[CUBE] = intersect_cube;
+	e->intersect[QUADRIC] = intersect_quadric;
+	e->intersect[MOEBIUS] = intersect_moebius;
+	e->intersect[DISC] = intersect_disc;
+	e->intersect[CSG] = intersect_csg;
+	e->dist = 0;
 	e->count.cam = 0;
 	e->count.lgt = 0;
 	e->count.obj = 0;

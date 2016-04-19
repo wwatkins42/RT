@@ -81,20 +81,20 @@ objects:
 		  absorbtion: 0.7
 
 	- object:
-	  type: QUADRIC
-	  scale: 1
-	  y_min: -2
-	  y_max: 2
-	  pos: {x: 0, y: 0, z: 16}
-	  dir: {x: 0, y: 1, z: 0}
-	  material:
-		  color: 0xFF0000
-		  ambient: 0.125
-		  diffuse: 0.875
-		  specular: 10.0
-		  shininess: 256
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
+	  type: CSG
+      (
+        - object: OBJ1
+            type:
+            pos:
+            dir:
+            scale:
+            material:
+        - op: OPERATION
+        - object: OBJ2
+             type:
+             pos:
+             dir:
+             scale:
+             material:
+      )
 ...

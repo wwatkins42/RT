@@ -10,8 +10,8 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 10, y: 1, z: 0}
-	  dir: {x: 10, y: 45, z: -5}
+	  pos: {x: 0, y: 0, z: -5}
+	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
 
@@ -32,12 +32,10 @@ lights:
 
 objects:
 	- object:
-	  type: PARABOLOID
-	  scale: 1
-	  y_min: 0
-	  y_max: 5
-	  pos: {x: -1, y: -10, z: 40}
-	  dir: {x: 0, y: 1, z: 0}
+	  type: CYLINDER
+      pos: {x: 0, y: 0, z: 0}
+      dir: {x: 0, y: 1, z: 0}
+      scale: 1
 	  material:
 		  color: 0xFF0000
 		  ambient: 0.225

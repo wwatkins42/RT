@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 18:47:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:55:23 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 int	loop_hook(t_env *e)
 {
+	// if (e->key.ku)
+	// 	e->lgt->pos.z += 0.1;
+	// if (e->key.kd)
+	// 	e->lgt->pos.z -= 0.1;
+	// if (e->key.kl)
+	// 	e->lgt->pos.x -= 0.1;
+	// if (e->key.kr)
+	// 	e->lgt->pos.x += 0.1;
+	// if (e->key.kp)
+	// 	e->lgt->pos.y += 0.5;
+	// if (e->key.km)
+	// 	e->lgt->pos.y -= 0.5;
 	move_translate(e);
 	move_rotate(e);
 	e->key.kp || e->key.km || e->mouse.kp || e->mouse.km ? move_zoom(e) : 0;

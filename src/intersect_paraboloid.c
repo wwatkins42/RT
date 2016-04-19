@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 22:32:06 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 11:51:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/19 21:22:04 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,27 @@ double	intersect_paraboloid(t_ray *ray, t_obj *o)
 	m = vec3_dot(vec3_sub(hit, o->pos), o->dir);
 	// m = vec3_dot(ray->dir, o->dir) * c.eq +
 	// 		vec3_dot(vec3_sub(ray->pos, o->pos), o->dir);
-	if (m > o->y_max)
-	{
-		c.eq = (-c.b + c.disc) / c.a;
-		hit = vec3_add(vec3_fmul(ray->dir, c.eq), ray->pos);
-		m = vec3_dot(vec3_sub(hit, o->pos), o->dir);
-
-		// m = vec3_dot(ray->dir, o->dir) * c.eq +
-		// vec3_dot(vec3_sub(ray->pos, o->pos), o->dir);
-		if (m > o->y_max)
-			return (INFINITY);
-	}
-	else if (m < o->y_min)
-	{
-		c.eq = (-c.b + c.disc) / c.a;
-		hit = vec3_add(vec3_fmul(ray->dir, c.eq), ray->pos);
-		m = vec3_dot(vec3_sub(hit, o->pos), o->dir);
-// m = vec3_dot(ray->dir, o->dir) * c.eq + vec3_dot(vec3_sub(ray->pos,
-// 			o->pos), o->dir);
-		if (m < o->y_min)
-			return (INFINITY);
-	}
+// 	if (m > o->y_max)
+// 	{
+// 		c.eq = (-c.b + c.disc) / c.a;
+// 		hit = vec3_add(vec3_fmul(ray->dir, c.eq), ray->pos);
+// 		m = vec3_dot(vec3_sub(hit, o->pos), o->dir);
+//
+// 		// m = vec3_dot(ray->dir, o->dir) * c.eq +
+// 		// vec3_dot(vec3_sub(ray->pos, o->pos), o->dir);
+// 		if (m > o->y_max)
+// 			return (INFINITY);
+// 	}
+// 	else if (o->y_min > 0 && m < o->y_min)
+// 	{
+// 		c.eq = (-c.b + c.disc) / c.a;
+// 		hit = vec3_add(vec3_fmul(ray->dir, c.eq), ray->pos);
+// 		m = vec3_dot(vec3_sub(hit, o->pos), o->dir);
+// // m = vec3_dot(ray->dir, o->dir) * c.eq + vec3_dot(vec3_sub(ray->pos,
+// // 			o->pos), o->dir);
+// 		if (m < o->y_min)
+// 			return (INFINITY);
+// 	}
 	o->m = m;
 	return (c.eq);
 }

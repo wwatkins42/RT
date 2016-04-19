@@ -6,16 +6,17 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/23 11:35:06 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/19 23:09:51 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+static void parse_csg(t_obj *csg, t_line *line);
 
 static void		default_object(t_obj *object)
 {
 	object->type = SPHERE;
-	object->pos = vec3(0, 0, 5);
+	object->pos = vec3(0, 0, 0);
 	object->dir = vec3(0, 0, 1);
 	object->scale = 1;
 	object->mat.color = vec3(1, 1, 1);
@@ -31,6 +32,9 @@ static void		default_object(t_obj *object)
 	object->mat.texture.filtering = 0;
 	object->mat.texture.normal_map = 0;
 	object->mat.receive_shadow = 1;
+	object->op = UNION;
+	object->left = NULL;
+	object->right = NULL;
 }
 
 static int		get_object_type(char *line)
@@ -57,6 +61,14 @@ static int		get_object_type(char *line)
 		return (PARABOLOID);
 	else if (ft_strstr(line, "TORUS"))
 		return (TORUS);
+	else if (ft_strstr(line, "QUADRIC"))
+		return (QUADRIC);
+	else if (ft_strstr(line, "MOEBIUS"))
+		return (MOEBIUS);
+	else if (ft_strstr(line, "DISC"))
+		return (DISC);
+	else if (ft_strstr(line, "CSG"))
+		return (CSG);
 	else
 		error(E_OTYPE, line, 0);
 	return (SPHERE);
@@ -98,6 +110,20 @@ static void create_cube(t_obj *cube)
 	cube->comp[5].pos2 = (t_vec3){-k, 0, 0};
 	cube->comp[5].pos3 = (t_vec3){0, k, 0};
 	cube->comp[5].dir = vec3_norm(vec3_cross(cube->comp[5].pos2, cube->comp[5].pos3));
+}
+
+static void test(t_obj *quad)
+{
+	quad->co.a = 1;
+	quad->co.b = 1;
+	quad->co.c = 1;
+	quad->co.d = 0;
+	quad->co.e = 0;
+	quad->co.f = 0;
+	quad->co.g = 0;
+	quad->co.h = 0;
+	quad->co.i = 0;
+	quad->co.j = -5;
 }
 
 static t_obj	*create_object(t_env *e, t_line *object_line)
@@ -142,10 +168,56 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
+	if (new->type == QUADRIC)
+		test(new);
+	if (new->type == CSG)
+		parse_csg(new, line);
 	else
 		new->comp = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+static void parse_csg(t_obj *csg, t_line *line)
+{
+	int		count_parenthesis;
+
+	count_parenthesis = 1;
+	while (line && !ft_strchr(line->line, '('))
+		line = line->prev;
+	line = line->next;
+	while (line && count_parenthesis)
+	{
+		if (count_parenthesis == 1)
+		{
+			if (ft_strstr(line->line, "- object:"))
+			{
+				if (csg->left)
+				{
+					if (csg->right)
+						error(E_OTYPE, line, 0);
+					else
+						csg->right = create_object(e, line->next);
+				}
+				else
+					csg->left = create_object(e, line->next);
+			}
+			if (ft_strstr(line->line, "- op:"))
+			{
+				if (ft_strstr(line->line, "UNION"))
+					csg->op = UNION;
+				else if (ft_strstr(line->line, "DIFF"))
+					csg->op = DIFF;
+				else if (ft_strstr(line->line, "INTER"))
+					csg->op = INTER;
+			}
+		}
+		if (ft_strchr(line->line, '('))
+			count_parenthesis++;
+		else if (ft_strchr(line->line, ')'))
+			count_parenthesis--;
+		line = line->next;
+	}
 }
 
 t_obj			*parse_object(t_env *e, t_line *object_line)

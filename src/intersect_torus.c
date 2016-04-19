@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/22 02:24:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/03/24 12:50:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,76 +55,65 @@ double	choose_root(t_poly4 p, int r)
 	// if (ret <= p.root1 || ret <= p.root2 || ret <= p.root3 || ret <= p.root4)
 		// printf("minimum fails\n");
 	return (ret);
-}
-// double	intersect_torus(t_ray *ray, t_obj *obj)
-// {
-// 	t_poly4		p;
-// 	double		dd;
-// 	double		pp;
-// 	double		pd;
-// 	double		grgr;
-// 	double		prpr;
-// 	double		pppgrgrmprpr;
-// 	int			ret;
-// 	t_vec3		len;
-//
-// 	len = vec3_sub(ray->pos, obj->pos);
-// 	dd = vec3_dot(ray->dir, ray->dir);
-// 	pp = vec3_dot(len, len);
-// 	pd = vec3_dot(ray->dir, len);
-// 	grgr = obj->gr * obj->gr;
-// 	prpr = obj->pr * obj->pr;
-// 	pppgrgrmprpr = pp + grgr - prpr;
-// 	p.a4 = dd * dd;
-// 	p.a3 = 4 * dd * vec3_dot(ray->dir, len);
-// 	p.a2 = 2 * dd * pppgrgrmprpr + pd * pd -
-// 		4 * grgr * (dd - ray->dir.y * ray->dir.y);
-// 	p.a1 = 4 * pd * pppgrgrmprpr - 8 * grgr * (pd - ray->dir.y * len.y);
-// 	p.a0 = pppgrgrmprpr - 4 * grgr * (pp - len.y * len.y);
-// 	ret = solve_quartic(&p);
-// 	return (choose_root(p, ret));
-// }
+}/*
+double	intersect_torus(t_ray *ray, t_obj *obj)
+{
+	t_poly4		p;
+	double		dd;
+	double		pp;
+	double		pd;
+	double		grgr;
+	double		prpr;
+	double		pppgrgrmprpr;
+	int			ret;
+	// t_vec3		len;
 
+	// len = vec3_sub(ray->pos, obj->pos);
+	dd = vec3_dot(ray->dir, ray->dir);
+	pp = vec3_dot(ray->pos, ray->pos);
+	pd = vec3_dot(ray->dir, ray->pos);
+	grgr = obj->gr * obj->gr;
+	prpr = obj->pr * obj->pr;
+	pppgrgrmprpr = pp + grgr - prpr;
+	p.a4 = dd * dd;
+	p.a3 = 4 * dd * vec3_dot(ray->dir, ray->pos);
+	p.a2 = 2 * dd * pppgrgrmprpr + pd * pd -
+		4 * grgr * (ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z);
+	p.a1 = 4 * pd * pppgrgrmprpr - 8 * grgr * (ray->dir.x * ray->pos.x + ray->dir.z * ray->pos.z);
+	p.a0 = pppgrgrmprpr * pppgrgrmprpr - 4 * grgr * (ray->pos.x * ray->pos.x + ray->pos.z * ray->pos.z);
+	ret = solve_quartic(&p);
+	return (choose_root(p, ret));
+}
+*/
 double		intersect_torus(t_ray *ray, t_obj *obj)
 {
 	double		m;
 	double		n;
 	double		o;
-	t_poly6		pol;
+	t_poly4		pol;
 	double		p;
 	double		q;
 	t_vec3		x;
 	double		grgr;
 	double		prpr;
 	int			ret;
+	double		d;
 
 
 	grgr = obj->gr * obj->gr;
 	prpr = obj->pr * obj->pr;
 	x = vec3_sub(ray->pos, obj->pos);
-	m = 1;//vec3_dot(ray->dir, ray->dir);
+	m = vec3_dot(ray->dir, ray->dir);
 	n = vec3_dot(ray->dir, x);
 	o = vec3_dot(x, x);
 	p = vec3_dot(ray->dir, obj->dir);
 	q = vec3_dot(x, obj->dir);
-	pol.a[6] = 0;
-	pol.a[5] = 0;
-	pol.a[4] = m * m;
-	pol.a[3] = 4 * m * n;
-	pol.a[2] = 4 * m * m + 2 * m * o - 2 * (grgr + prpr) * m + 4 * grgr * p * p;
-	pol.a[1] = 4 * n * o - 4 * (grgr + prpr) * n + 8 * grgr * p * q;
-	pol.a[0] = o * o - 2 * (grgr + prpr) * o +
-		4 * grgr * q * q + (grgr - prpr) * (grgr - prpr);
-	// if (number_roots(pol))
-	// {
-		t_poly4	poly;
-
-		poly = (t_poly4){pol.a[0], pol.a[1], pol.a[2], pol.a[3], pol.a[4], 0, 0, 0, 0};
-		ret = solve_quartic(&poly);
-		if (ret > 500)
-			return (-1);
-		return (choose_root(poly, ret));
-	// }
-	// else
-	// 	return (INFINITY);
+	d = o + grgr - prpr;
+	pol.a4 = 1;
+	pol.a3 = 4 * n;
+	pol.a2 = 2 * d + pol.a3 * pol.a3 / 4 - 4 * grgr * (1 - vec3_dot(ray->dir, obj->dir));
+	pol.a1 = pol.a3 * d - 4 * grgr * 2 * (vec3_dot(x, ray->hit) - vec3_dot(obj->dir, x) * vec3_dot(ray->dir, obj->dir));
+	pol.a0 = d * d - 4 * grgr * o - q * q;
+	ret = solve_quartic(&pol);
+	return (choose_root(pol, ret));
 }

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   intersect_csg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 08:35:10 by tbeauman         ###   ########.fr       */
+/*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
+/*   Updated: 2016/04/19 23:35:47 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	core(t_env *e)
+double	do_op(int op, t_obj *obj1, t_obj *obj2)
 {
-	init_key(e);
-	raytracing(e);
-	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
-	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
-	mlx_hook(e->win.adr, 6, (1L << 6), mouse_pos, e);
-	mlx_mouse_hook(e->win.adr, mouse_hook, e);
-	mlx_expose_hook(e->win.adr, expose_hook, e);
-	mlx_loop_hook(e->mlx, loop_hook, e);
-	mlx_loop(e->mlx);
+	if (op == UNION)
+	{
+		if (obj1->in == INFINITY && obj2->in == INFINITY)
+			return (INFINITY);
+		if (obj1->in < obj2->in)
+			return (obj1->in);
+		else
+			return (obj2->in);
+	}
+	if (op == DIFF)
+		return (hit2 )
+}
+
+double	intersect_csg(t_ray *r, t_obj *t)
+{
+	if (!t->left)
+
 }

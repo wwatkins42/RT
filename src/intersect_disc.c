@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   intersect_disc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 08:35:10 by tbeauman         ###   ########.fr       */
+/*   Created: 2016/04/19 21:52:12 by tbeauman          #+#    #+#             */
+/*   Updated: 2016/04/19 22:12:28 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	core(t_env *e)
+double	intersect_disc(t_ray *r, t_obj *t)
 {
-	init_key(e);
-	raytracing(e);
-	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
-	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
-	mlx_hook(e->win.adr, 6, (1L << 6), mouse_pos, e);
-	mlx_mouse_hook(e->win.adr, mouse_hook, e);
-	mlx_expose_hook(e->win.adr, expose_hook, e);
-	mlx_loop_hook(e->mlx, loop_hook, e);
-	mlx_loop(e->mlx);
+	t_calc	c;
+
+	if ((c.eq = intersect_plane(r, t)) == INFINITY)
+	 	return (INFINITY);
+	r->hit = vec3_add(r->pos, vec3_fmul(r->dir, c.eq));
+	if (vec3_magnitude(vec3_sub(r->hit, t->pos)) > t->scale)
+		return (INFINITY);
+	return (c.eq);
 }

@@ -10,40 +10,30 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 0, z: 0}
-	  dir: {x: 0, y: 0, z: 0}
-	  fov: 80
-	  supersampling: 1
-
+	  pos: {x: 0, y: 10, z: -10}
+	  dir: {x: 45, y: 0, z: 0}
+	  fov: 70
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 6, y: 1, z: 3}
+	  pos: {x: 0, y: 5, z: 0}
 	  color: 0xFFFFFF
 	  intensity: 4.0
 	  shadow: HARD
-
-	- light:
-	  type: POINT
-	  pos: {x: 6, y: 6, z: -10}
-	  color: 0xF9E79E
-	  intensity: 0.7
-	  shadow: HARD
-
 objects:
 	- object:
-	  type: TRIANGLE
-	  pos: {x: 0, y: 0, z: 10}
-	  pos2: {x: 1, y: 0, z: 0}
-	  pos3: {x: 0, y: 1, z: 0}
- 	  material:
-		  color: 0x00FF00
-		  ambient: 0.225
-		  diffuse: 0.775
-		  specular: 2
-		  shininess: 700
-		  reflect: 0.1
+      type: DISC
+	  pos: {x: 0, y: 0, z: 0}
+      dir: {x: 0, y: 1, z: 0}
+      scale: 2
+      material:
+		  color: 0xFFFF00
+		  ambient: 0.325
+		  diffuse: 0.24
+		  specular: 0.1
+		  shininess: 2048
+		  reflect: 0
 		  refract: 0
-		  transparency: 0
-		  absorbtion: 1
+		  transparency: 1.0
+		  absorbtion: 0.7
 ...
