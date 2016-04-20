@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/19 21:33:53 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/20 13:20:13 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ double		intersect_moebius(t_ray *ray, t_obj *obj)
 	}*/
 	hit = vec3_add(vec3_fmul(ray->dir, result), ray->pos);
 	double	dist = vec3_magnitude(hit);
-	if (dist > 0 && dist < 5)
+	if (dist < 3)
 		return (result);
 	else
 		return (INFINITY);

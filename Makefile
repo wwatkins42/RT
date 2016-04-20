@@ -6,7 +6,7 @@
 #    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/19 22:00:20 by tbeauman         ###   ########.fr        #
+#    Updated: 2016/04/20 09:11:37 by tbeauman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			texture_generator.c normal_map.c mouse_hook.c intersect_cube.c \
 			intersect_hyperboloid.c intersect_paraboloid.c \
 			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
-			solve_quartic.c intersect_quadric.c intersect_moebius.c intersect_disc.c
+			solve_quartic.c intersect_quadric.c intersect_moebius.c intersect_disc.c \
+			intersect_csg.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

@@ -30,20 +30,6 @@ lights:
 	  shadow: HARD
 
 objects:
-    - object:
-	      type: PLANE
-    	  pos: {x: 0, y: -2, z: 0}
-    	  dir: {x: 0, y: 1, z: 0}
-    	  material:
-    		  color: 0xE9E0A4
-    		  ambient: 0.325
-    		  diffuse: 0.675
-    		  specular: 0.3
-    		  shininess: 256
-    		  reflect: 0
-    		  refract: 0
-    		  transparency: 1.0
-    		  absorbtion: 0.7
 	- object:
 	  type: CSG
       (

@@ -6,12 +6,12 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/19 23:09:51 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/20 18:37:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-static void parse_csg(t_obj *csg, t_line *line);
+static void parse_csg(t_env *e, t_obj *csg, t_line *line);
 
 static void		default_object(t_obj *object)
 {
@@ -134,7 +134,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	line = object_line;
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
 	default_object(new);
-	while (line != NULL && !ft_strstr(line->line, "- object:"))
+	while (line != NULL && !ft_strstr(line->line, "- object:") && !ft_strchr(line->line, '('))
 	{
 		if (ft_strstr(line->line, "type:"))
 			new->type = get_object_type(line->line);
@@ -168,17 +168,69 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
+	else
+		new->comp = NULL;
 	if (new->type == QUADRIC)
 		test(new);
 	if (new->type == CSG)
-		parse_csg(new, line);
-	else
-		new->comp = NULL;
+		parse_csg(e, new, line);
 	new->next = NULL;
 	return (new);
 }
 
-static void parse_csg(t_obj *csg, t_line *line)
+static t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
+{
+	t_obj		*new;
+	t_line		*line;
+
+	line = object_line;
+	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
+	default_object(new);
+	while (line != NULL && !ft_strstr(line->line, "- object:"))
+	{
+		if (ft_strstr(line->line, "type:"))
+			new->type = get_object_type(line->line);
+		else if (ft_strstr(line->line, "pos:"))
+			new->pos = parse_vector(line->line);
+		else if (ft_strstr(line->line, "pos2:"))
+			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
+		else if (ft_strstr(line->line, "pos3:"))
+			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
+		else if (ft_strstr(line->line, "dir:"))
+			new->dir = parse_vector(line->line);
+		else if (ft_strstr(line->line, "scale:"))
+			new->scale = parse_value(line->line, 0.1, 1000);
+		else if (ft_strstr(line->line, "y_min:"))
+			new->y_min = ft_atof(ft_strstr(line->line, ":") + 1);
+		else if (ft_strstr(line->line, "y_max:"))
+			new->y_max = ft_atof(ft_strstr(line->line, ":") + 1);
+		else if (ft_strstr(line->line, "pr:"))
+			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
+		else if (ft_strstr(line->line, "gr:"))
+			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
+		else if (ft_strstr(line->line, "material:"))
+			parse_material(e, &new->mat, line);
+		line = line->next;
+	}
+	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
+	new->scale2 = new->scale * new->scale;
+	new->k = tan(new->scale) * tan(new->scale);
+	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
+		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
+	if (new->type == CUBE)
+		create_cube(new);
+	else
+		new->comp = NULL;
+	if (new->type == QUADRIC)
+		test(new);
+	if (new->type == CSG)
+		parse_csg(e, new, line);
+	new->next = NULL;
+	return (new);
+}
+
+
+static void parse_csg(t_env *e, t_obj *csg, t_line *line)
 {
 	int		count_parenthesis;
 
@@ -195,12 +247,12 @@ static void parse_csg(t_obj *csg, t_line *line)
 				if (csg->left)
 				{
 					if (csg->right)
-						error(E_OTYPE, line, 0);
+						error(E_OTYPE, line->line, 0);
 					else
-						csg->right = create_object(e, line->next);
+						csg->right = create_object_for_csg(e, line->next);
 				}
 				else
-					csg->left = create_object(e, line->next);
+					csg->left = create_object_for_csg(e, line->next);
 			}
 			if (ft_strstr(line->line, "- op:"))
 			{
@@ -225,6 +277,7 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	t_line	*line;
 	t_obj	*object;
 	t_obj	*current;
+	int		count_parenthesis;
 
 	line = object_line->next->next;
 	current = NULL;
@@ -232,6 +285,18 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	object = current;
 	while (line != NULL)
 	{
+		if (ft_strchr(line->line, '('))
+		{
+			count_parenthesis = 1;
+			while (count_parenthesis)
+			{
+				line = line->next;
+				if (ft_strchr(line->line, ')'))
+					count_parenthesis--;
+				if (ft_strchr(line->line, '('))
+					count_parenthesis++;
+			}
+		}
 		if (ft_strstr(line->line, "- object:"))
 		{
 			current->next = create_object(e, line->next);

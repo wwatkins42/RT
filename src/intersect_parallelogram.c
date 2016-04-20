@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 04:56:21 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 11:20:00 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/20 18:26:48 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double	intersect_parallelogrammexy(t_ray *r, t_obj *t)
 	c.point[1] = r->pos.y + c.tmp * r->dir.y - t->pos.y;
 	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
 	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p > 1 || c.q > 1)
+	if (c.p < EPSILON || c.q < EPSILON || c.p > 1 || c.q > 1)
 		return (INFINITY);
 	return (c.tmp);
 }
@@ -60,7 +60,7 @@ double	intersect_parallelogrammexz(t_ray *r, t_obj *t)
 	c.point[1] = r->pos.z + c.tmp * r->dir.z - t->pos.z;
 	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
 	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p > 1 || c.q > 1)
+	if (c.p < EPSILON || c.q < EPSILON || c.p > 1 || c.q > 1)
 		return (INFINITY);
 	return (c.tmp);
 }
@@ -82,12 +82,12 @@ double	intersect_parallelogrammeyz(t_ray *r, t_obj *t)
 	c.point[1] = r->pos.z + c.tmp * r->dir.z - t->pos.z;
 	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
 	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p > 1 || c.q > 1)
+	if (c.p < EPSILON || c.q < EPSILON || c.p > 1 || c.q > 1)
 		return (INFINITY);
 	return (c.tmp);
 }
 
-double	intersect_parallelogramme(t_ray *r, t_obj *t)
+double	intersect_parallelogram(t_ray *r, t_obj *t)
 {
 	if ((t->pos2.x != 0 || t->pos2.y != 0) &&
 		(t->pos3.x != 0 || t->pos3.y != 0))

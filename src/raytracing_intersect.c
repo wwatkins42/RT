@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/19 23:34:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/20 18:27:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ double	intersect_plane(t_ray *ray, t_obj *obj)
 		return (INFINITY);
 	}
 	calc.eq = -calc.b / calc.a;
-	if (calc.eq > 0)
+	if (calc.eq > EPSILON)
 	{
 		obj->in = calc.eq;
 		return (calc.eq);
@@ -58,16 +58,14 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 {
 	t_calc	calc;
 
+	obj->in = INFINITY;
+	obj->out = INFINITY;
 	calc.len = vec3_sub(ray->pos, obj->pos);
 	calc.b = vec3_dot(calc.len, ray->dir);
 	calc.c = vec3_dot(calc.len, calc.len) - obj->scale2;
 	calc.disc = calc.b * calc.b - calc.c;
 	if (calc.disc < EPSILON)
-	{
-		obj->in = INFINITY;
-		obj->out = INFINITY;
 		return (INFINITY);
-	}
 	calc.disc = sqrt(calc.disc);
 	calc.eq = -calc.b - calc.disc;
 	obj->in = calc.eq;
@@ -259,8 +257,4 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		// 	ray->hit.z;
 	}
 	vec3_normalize(&obj->normal);
-	if (obj->type == CSG)
-	{
-		;
-	}
 }

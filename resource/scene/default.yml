@@ -81,7 +81,7 @@ objects:
 		  absorbtion: 0.7
 
 	- object:
-	  type: QUADRIC
+	  type: CYLINDER
 	  scale: 1
 	  y_min: -2
 	  y_max: 2
