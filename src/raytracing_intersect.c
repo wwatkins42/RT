@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/20 18:27:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/21 11:24:54 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,29 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	obj->out = tmp + 2 * sqrt(calc.disc);
 	if (tmp < 0)
 	{
+		obj->in = INFINITY;
 		tmp = obj->out;
-		if (tmp < 0)
+		if (tmp < 0){
+			obj->out = INFINITY;
 			return (INFINITY);
+		}
 	}
 	m = vec3_dot(ray->dir, obj->dir) * tmp +
 			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	// if (m > obj->y_max)
-	// {
-	// 	tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-	// 	m = vec3_dot(ray->dir, obj->dir) * tmp +
-	// 	vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	// 	if (m > obj->y_max)
-	// 		return (INFINITY);
-	// }
-	// else if (m < obj->y_min)
-	// {
-	// 	tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-	// 	m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
-	// 		obj->pos), obj->dir);
-	// 	if (m < obj->y_min)
-	// 		return (INFINITY);
-	// }
+	if (m > obj->y_max)
+	{
+		m = vec3_dot(ray->dir, obj->dir) * obj->out +
+		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m > obj->y_max)
+			return (INFINITY);
+	}
+	else if (m < obj->y_min)
+	{
+		m = vec3_dot(ray->dir, obj->dir) * obj->out + vec3_dot(vec3_sub(ray->pos,
+			obj->pos), obj->dir);
+		if (m < obj->y_min)
+			return (INFINITY);
+	}
 	obj->m = m;
 	return (tmp);
 }

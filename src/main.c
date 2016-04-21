@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/24 08:34:46 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/21 19:57:51 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,33 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	parse_yml(&e);
+	printf("pr: %d\ngr: %d\n", e.obj->pr, e.obj->gr);
 	core(&e);
 	return (0);
 }
+
+// int		main(int ac, char **av)
+// {
+// 	double	a[5];
+// 	double	root[8];
+//
+// 	if (ac == 6)
+// 	{
+// 		a[4] = ft_atof(av[1]);
+// 		a[3] = ft_atof(av[2]);
+// 		a[2] = ft_atof(av[3]);
+// 		a[1] = ft_atof(av[4]);
+// 		a[0] = ft_atof(av[5]);
+//
+// 		gsl_poly_complex_workspace *w =  gsl_poly_complex_workspace_alloc (5);
+// 		gsl_poly_complex_solve(a, 5, w, root);
+// 		gsl_poly_complex_workspace_free(w);
+//
+// 		printf("polynom: %fx^4 + %fx^3 + %fx^2 + %fx + %f\n", a[4], a[3], a[2], a[1], a[0]);
+// 		printf("\033[33m%f + %fi	|	%f + %fi	|	%f + %fi | %f + %fi\n\033[0m",
+// 		root[0],root[1],
+// 		root[2],root[3],
+// 		root[4],root[5],
+// 		root[6],root[7]);
+// 	}
+// }

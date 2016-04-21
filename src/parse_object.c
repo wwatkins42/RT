@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/20 18:37:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/21 11:21:49 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void parse_csg(t_env *e, t_obj *csg, t_line *line);
 static void		default_object(t_obj *object)
 {
 	object->type = SPHERE;
+	object->y_min = -INFINITY;
+	object->y_max = INFINITY;
 	object->pos = vec3(0, 0, 0);
 	object->dir = vec3(0, 0, 1);
 	object->scale = 1;

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/20 18:11:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/21 10:47:34 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ double    do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
             return (INFINITY);
         if (left->in < right->in)
 		{
-			if (left->out > right->out)
+			if (left->out > right->out) // Li < Ri < Ro < Lo
             	return (save_lin_lout(r, left, right, dad));
-			else
+			else // Li < Ri < Lo < Ro || Li < Lo < Ri < Ro
 				return (save_lin_rout(r, left, right, dad));
 		}
 		else if (left->in < right->out && right->out < left->out)
@@ -135,17 +135,19 @@ double    do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
             return (save_lin_lout(r, left, right, dad));
         else if (left->in > right->in)
         {
-            if (left->in > right->out)
+            if (left->in > right->out) // Ri < Ro < Li < Lo
                 return (save_lin_lout(r, left, right, dad));
-            else if (left->out < right->out)
+            else if (left->out < right->out) // Ri < Li < Lo < Ro
 				return (INFINITY);
-			else
+			else // Ri < Li < Ro < Lo
 			    return (save_rout_lout(r, left, right, dad));
         }
-        else if (left->out < right->in)
+        else if (left->out < right->in) // Li < Lo < Ri < Ro
             return (save_lin_lout(r, left, right, dad));
-		else
+		else if (left->out < right->out) // Li < Ri < Lo < Ro
 			return (save_lin_rin(r, left, right, dad));
+		else // Li < Ri < Ro < Lo
+			return (save_lin_lout(r, left, right, dad)); // should save lin rin rout lout
     }
 }
 
