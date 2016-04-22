@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/20 18:10:55 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/21 19:58:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <time.h>
 # include <bmp_exporter.h>
 # include <stdio.h> // TEMPORARY
+#include <gsl_math.h>
+#include <gsl_poly.h>
 
 # define ABS(x) (x < 0 ? -x : x)
 # define MIN_POS -1000.0
@@ -409,6 +411,8 @@ typedef struct		s_poly4
 int					solve_quadratic(t_poly4 *p);
 int					solve_cubic(t_poly4 *p);
 int					solve_quartic(t_poly4 *p);
+int
+gsl_poly_solve_quartic (double a, double b, double c, double d, double *x0, double *x1, double *x2, double *x3);
 
 /*
 **	RAYTRACING FUNCTIONS

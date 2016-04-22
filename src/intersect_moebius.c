@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/20 13:20:13 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/22 15:27:11 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ double solve_three_solutions(double a, double b, double g, double h)
 	x1 = 2 * j * cos(k / 3) - (b / (3 * a));
 	x2 = l * (m + n) + p;
 	x3 = l * (m - n) + p;
+	x1 = (x1 < EPSILON ? INFINITY : x1);
+	x2 = (x2 < EPSILON ? INFINITY : x2);
+	x3 = (x3 < EPSILON ? INFINITY : x3);
 
 	return (min(x1, x2, x3));
 	/*if ((x2 < x1 && x2 > 0) || x1 <= 0)
@@ -160,8 +163,8 @@ double calculate_cubic_equation(double a, double b, double c, double d)
 	h = (g * g / 4) + (f * f * f / 27);
 	if (h > 0)
 	    return (solve_one_solution(a, b, c, d));
-	if (f == 0 && g == 0 && h == 0)
-	    return (solve_same_solution(a, b, c, d));
+	if (f == 0 && g == 0 && h == 0){
+	    return (solve_same_solution(a, b, c, d));}
 	else if (h <= 0)
 	    return (solve_three_solutions(a, b, g, h));
 	return (-1);
@@ -185,13 +188,13 @@ double		intersect_moebius(t_ray *ray, t_obj *obj)
 //t^2 (-2* a* c *g+2 *b *c *e-4 *b *c *g+c^2 *d-2 *c^2 *f+3 *d *e^2-4 *d *e *g-2 *e^2 *f + d *g^2+2* e *f *g)
 //t*(a^2 * (-e) - 2 *a* b *g-2* a *c *f+b^2 *e-2 *b^2 *g+2 *b *c* d-4 *b *c *f+3 *d^2* e-2 *d^2 *g + 2 *d *f*g-4*e*d*f+e*f^2)
 //-a^2 *d -2 *a *b* f +b^2 *d -2 *b^2 *f +d^3 -2 *d^2* f  + d* f^2
-	(void)obj;
+	t_vec3 x = vec3_sub(ray->pos, obj->pos);
 	a = 1;
-	b = ray->pos.x;
+	b = x.x;
 	c = ray->dir.x;
-	d = ray->pos.y;
+	d = x.y;
 	e = ray->dir.y;
-	f = ray->pos.z;
+	f = x.z;
 	g = ray->dir.z;
 	calc.a = (-2 * c * c * g + e * c * c + e * g * g - 2 * e * e * g + e * e * e);
 	calc.b = (-2 * a * c * g + 2 * b * c * e -4 * b * c * g + c * c * d -2 * c * c * f + 3 * d * e * e -4 * d * e * g-2 * e * e * f + d * g * g + 2 * e * f * g);
@@ -205,8 +208,8 @@ double		intersect_moebius(t_ray *ray, t_obj *obj)
 	}*/
 	hit = vec3_add(vec3_fmul(ray->dir, result), ray->pos);
 	double	dist = vec3_magnitude(hit);
-	if (dist < 3)
-		return (result);
+	if (dist > 1 && dist < 3)
+		return (result < 0 ? INFINITY : result);
 	else
 		return (INFINITY);
 	//a y ^ 3 + (c - (b^2 / 3a)) * y + (d + (2b^3 / 27 * a^2) - (bc / 3a)) = 0

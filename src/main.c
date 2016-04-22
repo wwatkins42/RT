@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/21 19:57:51 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/22 09:39:19 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	parse_yml(&e);
-	printf("pr: %d\ngr: %d\n", e.obj->pr, e.obj->gr);
+	printf("pr: %f\ngr: %f\n", e.obj->pr, e.obj->gr);
 	core(&e);
 	return (0);
 }
