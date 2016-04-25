@@ -3,19 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   core.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/25 16:15:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 09:57:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+void	start_raytracing(t_env *e)
+{
+	if (e->cam->type == STEREOSCOPIC)
+	{
+		e->cam->twin->pos = vec3_add(e->cam->pos, vec3(0.32, 0, 0));
+		e->cam->twin->dir = e->cam->dir;
+		raytracing(e, e->cam);
+		raytracing(e, e->cam->twin);
+		generate_stereoscopy(e);
+	}
+	else
+	{
+		if (e->scene.progressive_loading)
+			raytracing_progressive(e, e->cam);
+		else
+			raytracing(e, e->cam);
+	}
+}
+
 void	core(t_env *e)
 {
 	init_key(e);
-	e->scene.progressive_loading ? raytracing_progressive(e) : raytracing(e);
+	start_raytracing(e);
 	mlx_hook(e->win.adr, 2, (1L << 0), key_pressed, e);
 	mlx_hook(e->win.adr, 3, (1L << 1), key_released, e);
 	mlx_hook(e->win.adr, 6, (1L << 6), mouse_pos, e);

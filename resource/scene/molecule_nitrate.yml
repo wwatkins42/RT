@@ -7,11 +7,12 @@ scene:
 	mouse_interpolation: false
     progressive_loading: false
 	load_resync: false
-	load_percent: false
+	load_percent: true
     sampling: 64
 
 cameras:
 	- camera:
+      type: STEREOSCOPIC
 	  pos: {x: 0, y: 0, z: -18}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80

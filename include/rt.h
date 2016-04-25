@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 15:46:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 09:39:20 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,35 @@
 # define T_RES_W 2560
 # define T_RES_H 1440
 
+
+/*
+**	CAM TYPES
+*/
+enum {DEFAULT, STEREOSCOPIC};
+
+/*
+**	OBJECT TYPES
+*/
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
+/*
+**	LIGHT TYPES
+*/
 enum { POINT, SPOT, DIRECTIONAL };
+
+/*
+**	TEXTURE TYPES
+*/
 enum { NONE, MARBLE, WOOD, BMP, CHECKER };
+
+/*
+**	SHADOW TYPES
+*/
 enum { HARD, SOFT, PROJECTION };
+
+/*
+**	KEYMAP
+*/
 enum { CF = 13, CB = 1, CL = 0, CR = 2, CU = 49, CD = 257, OF = 126,
 	OB = 125, OU = 116, OD = 121, OL = 123, OR = 124, KP = 69, KM = 78,
  	I = 34, K = 40, J = 38, L = 37, CMD = 259, CTRL = 256, DEL = 51,
@@ -182,10 +206,12 @@ typedef struct		s_obj
 
 typedef struct		s_cam
 {
+	char			type;
 	t_vec3			pos;
 	t_vec3			dir;
 	t_vec3			origin;
 	t_img			img;
+	t_img			stereo;
 	t_ray			ray;
 	t_filter		filter;
 	t_aa			aa;
@@ -197,6 +223,7 @@ typedef struct		s_cam
 	double			dist;
 	struct s_cam	*prev;
 	struct s_cam	*next;
+	struct s_cam	*twin;
 }					t_cam;
 
 typedef struct		s_calc
@@ -423,10 +450,11 @@ int					solve_quartic(t_poly4 *p);
 **			Main functions
 */
 
-void				raytracing(t_env *e);
-void				raytracing_progressive(t_env *e);
-void				raytracing_init(t_env *e, float x, float y);
-t_vec3				raytracing_draw(t_env *e, t_ray ray);
+void				start_raytracing(t_env *e);
+void				raytracing(t_env *e, t_cam *cam);
+void				raytracing_progressive(t_env *e, t_cam *cam);
+void				raytracing_init(t_env *e, t_cam *cam, float x, float y);
+t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 
 /*
 **			Primitives intersections
@@ -452,22 +480,23 @@ void				set_normal(t_ray *ray, t_obj *obj);
 **			Reflection / Refraction
 */
 
-t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_obj *obj);
-t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj);
-t_vec3				raytracing_refract(t_env *e, t_ray ray, t_obj *obj);
+
+t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
+t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
+t_vec3				raytracing_refract(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
 
 
 /*
 **			Color and light
 */
 
-t_vec3				raytracing_color(t_env *e, t_ray *ray, t_obj *obj);
+t_vec3 				raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
-t_vec3				set_specular(t_env *e, t_obj *obj, t_lgt *lgt);
+t_vec3 				set_specular(t_obj *obj, t_cam *cam, t_lgt *light);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
-void				supersampling(t_env *e, int x, int y);
+void				supersampling(t_env *e, t_cam *cam, int x, int y);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 
 /*
@@ -531,7 +560,7 @@ void				filter_img_update(t_env *e);
 **	BMP IMPORTER / EXPORTER
 */
 
-void				bmp_exporter(t_img image, char *name);
+void				bmp_exporter(t_cam *cam, char *name);
 t_texture			bmp_importer(char *file_path);
 
 /*
@@ -542,5 +571,7 @@ void				yml_exporter(t_env *e, char *name);
 void				export_object(const int fd, t_env *e);
 void				export_light(const int fd, t_env *e);
 void				export_camera(const int fd, t_env *e);
+
+void				generate_stereoscopy(t_env *e);
 
 #endif

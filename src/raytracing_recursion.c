@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 11:10:34 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 08:39:37 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
+t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 {
 	t_vec3	color;
 
@@ -25,10 +25,10 @@ t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_obj *obj)
 			ray.dir = vec3_reflect(ray.dir, obj->mat.texture.normal);
 		else
 			ray.dir = vec3_reflect(ray.dir, obj->normal);
-		color = vec3_add(color, raytracing_draw(e, ray));
+		color = vec3_add(color, raytracing_draw(e, cam, ray));
 		color = vec3_fmul(color, obj->mat.reflect);
 		if (obj->mat.fresnel.defined)
-			color = vec3_fmul(color, get_fresnel(vec3_fmul(e->cam->ray.dir, -1),
+			color = vec3_fmul(color, get_fresnel(vec3_fmul(cam->ray.dir, -1),
 			obj->normal, obj->mat.fresnel.reflect));
 	}
 	return (color);
@@ -48,7 +48,7 @@ static t_vec3	glossy_reflection_direction(t_ray ray, t_obj *obj)
 	return (vec3_norm(vec3_sub(cone, ray.pos)));
 }
 
-t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj)
+t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 {
 	t_vec3	color;
 	t_vec3	dir;
@@ -68,7 +68,7 @@ t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_obj *obj)
 		while (++i < e->scene.sampling)
 		{
 			ray.dir = glossy_reflection_direction(ray, obj);
-			color = vec3_add(color, raytracing_draw(e, ray));
+			color = vec3_add(color, raytracing_draw(e, cam, ray));
 			ray.dir = dir;
 		}
 		color = vec3_fmul(color, 1.0 / (double)e->scene.sampling);
@@ -111,7 +111,7 @@ static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 	vec3_normalize(&ray->dir);
 }
 
-t_vec3			raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
+t_vec3			raytracing_refract(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 {
 	t_vec3	color;
 	t_vec3	tex_color;
@@ -126,12 +126,12 @@ t_vec3			raytracing_refract(t_env *e, t_ray ray, t_obj *obj)
 	{
 		e->refract.depth++;
 		refract_dir(e, &ray, obj);
-		color = vec3_add(color, vec3_fmul(raytracing_draw(e, ray),
+		color = vec3_add(color, vec3_fmul(raytracing_draw(e, cam, ray),
 			obj->mat.transparency));
 		if (obj->mat.absorbtion < 1.0)
 			color = vec3_fmul(color, powf(obj->mat.absorbtion, obj->scale));
 		if (obj->mat.fresnel.defined)
-			color = vec3_fmul(color, get_fresnel(vec3_fmul(e->cam->ray.dir, -1),
+			color = vec3_fmul(color, get_fresnel(vec3_fmul(cam->ray.dir, -1),
 			obj->normal, obj->mat.fresnel.refract));
 		// obj->scale * 2.0 is not correct, t is distance traced in object
 	}

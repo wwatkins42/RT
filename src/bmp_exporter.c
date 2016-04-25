@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/01 11:41:30 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 09:38:48 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,15 @@ static char	*create_img(t_img *img, t_infos *h_infos)
 	return (copy);
 }
 
-void		bmp_exporter(t_img img, char *name)
+void		bmp_exporter(t_cam *cam, char *name)
 {
-	int			i;
 	int			fd;
 	char		*pixel_data;
+	t_img		img;
 	t_header	header;
 	t_infos		h_infos;
 
-	i = 0;
+	img = cam->type == STEREOSCOPIC ? cam->stereo : cam->img;
 	name = get_full_name(name);
 	if ((fd = open(name, O_WRONLY | O_CREAT, OPEN_FLAG)) == -1)
 	{

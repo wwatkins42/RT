@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/18 10:57:53 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 09:39:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int		loop_hook(t_env *e)
 int		expose_hook(t_env *e)
 {
 	if (ispressed(e->key))
-		e->scene.progressive_loading ? raytracing_progressive(e) :
-		raytracing(e);
-	// display_texture(e, e->obj->mat.texture.bump, e->obj->mat.texture);
-	mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
+		e->scene.progressive_loading ? raytracing_progressive(e, e->cam) :
+		start_raytracing(e);
+	if (e->cam->type == STEREOSCOPIC)
+		mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->stereo.adr, 0, 0);
+	else
+		mlx_put_image_to_window(e->mlx, e->win.adr, e->cam->img.adr, 0, 0);
 	e->key[STAT] ? display_stats(e) : 0;
 	return (0);
 }
@@ -53,13 +55,13 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 53 ? exit(0) : 0;
 	if (keycode != MOUSE && keycode != STAT)
 		e->key[keycode] = 1;
-	keycode == 30 ? bmp_exporter(e->cam->img, e->arg.file) : 0;
+	keycode == 30 ? bmp_exporter(e->cam, e->arg.file) : 0;
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next : 0;
 	keycode == 47 ? e->cam = e->cam->prev : 0;
 	keycode == MOUSE ? kswitch(&e->key[MOUSE]) : 0;
 	keycode == STAT ? kswitch(&e->key[STAT]) : 0;
-	keycode == 43 || keycode == 47 ? raytracing(e) : 0;
+	keycode == 43 || keycode == 47 ? start_raytracing(e) : 0;
 	return (0);
 }
 

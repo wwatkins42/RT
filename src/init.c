@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 15:07:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 09:57:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	init_cam(t_env *e, t_cam *cam)
 	double	h;
 	double	coeff;
 
-	e->cam->aa.inc = 1.0 / e->cam->aa.supersampling;
-	e->cam->aa.coef = 1.0 / powf(e->cam->aa.supersampling, 2);
+	cam->aa.inc = 1.0 / cam->aa.supersampling;
+	cam->aa.coef = 1.0 / powf(cam->aa.supersampling, 2);
 	coeff = (e->win.w < e->win.h ? e->win.w : e->win.h);
 	w = e->win.w / coeff;
 	h = e->win.h / coeff;
