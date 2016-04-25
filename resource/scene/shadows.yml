@@ -8,7 +8,7 @@ scene:
     progressive_loading: false
 	load_resync: false
 	load_percent: false
-    sampling: 2
+    sampling: 6
 
 cameras:
 	- camera:

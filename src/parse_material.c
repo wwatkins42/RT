@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 17:33:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 16:07:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 		return ;
 	else if (mat->texture.type == BMP)
 	{
-		mat->texture = bmp_importer(ft_strstr(line, ":") + 2);
+		bmp_importer(ft_strstr(line, ":") + 2, &mat->texture);
 		sprintf(info, "->import:(%dx%d)%s\n", mat->texture.w,
 			mat->texture.h, ft_strstr(line, ":") + 2);
 	}
@@ -69,8 +69,7 @@ static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
 	else if (ft_strstr(line, "texture_scale:"))
 		mat->texture.scale = 1.0 / parse_value(line, 0, 100);
 	else if (ft_strstr(line, "texture_rotation:"))
-		mat->texture.rotation = (int)parse_value(line, 0, 270) -
-		((int)parse_value(line, 0, 270) % 90);
+		mat->texture.rotation = parse_value(line, 0, 360);
 	else if (ft_strstr(line, "normal_perturbation:"))
 		mat->normal_perturbation = parse_boolean(line);
 	else if (ft_strstr(line, "transparency:"))

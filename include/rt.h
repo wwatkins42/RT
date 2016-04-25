@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 09:39:20 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 16:09:55 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define FILE_NAME_LENGTH 255
 # define T_RES_W 2560
 # define T_RES_H 1440
-
 
 /*
 **	CAM TYPES
@@ -106,7 +105,7 @@ typedef struct		s_texture
 	short			normal_map;
 	double			normal_strength;
 	double			scale;
-	int				rotation;
+	double			rotation;
 }					t_texture;
 
 typedef struct		s_noise
@@ -561,7 +560,7 @@ void				filter_img_update(t_env *e);
 */
 
 void				bmp_exporter(t_cam *cam, char *name);
-t_texture			bmp_importer(char *file_path);
+void				bmp_importer(char *file_path, t_texture *texture);
 
 /*
 **	YML EXPORTER
