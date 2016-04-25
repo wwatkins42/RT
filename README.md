@@ -44,3 +44,4 @@ __Bonus:__
 - Soft shadows
 - Transparent objects texture projection
 - Stereoscopic camera for 3D view
+- Texture rotation
