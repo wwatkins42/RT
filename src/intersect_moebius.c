@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/22 15:27:11 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/25 22:00:29 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ double		intersect_moebius(t_ray *ray, t_obj *obj)
 	double		b;
 	double		c;
 	double		d;
-	t_vec3		hit;
 	double		e;
 	double		f;
 	double		g;
@@ -206,10 +205,10 @@ double		intersect_moebius(t_ray *ray, t_obj *obj)
 		printf("ray direction x = %f, y = %f, z = %f\n", ray->dir.x, ray->dir.y, ray->dir.z);
 		printf("a = %f, b = %f, c = %f, d = %f, result = %f\n", calc.a, calc.b, calc.c, calc.d, result);
 	}*/
-	hit = vec3_add(vec3_fmul(ray->dir, result), ray->pos);
+	t_vec3 hit = vec3_add(vec3_fmul(ray->dir, result), ray->pos);
 	double	dist = vec3_magnitude(hit);
 	if (dist > 1 && dist < 3)
-		return (result < 0 ? INFINITY : result);
+		return (result < EPSILON ? INFINITY : result);
 	else
 		return (INFINITY);
 	//a y ^ 3 + (c - (b^2 / 3a)) * y + (d + (2b^3 / 27 * a^2) - (bc / 3a)) = 0

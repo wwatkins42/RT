@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/21 11:24:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/25 23:55:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,19 +243,17 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		obj->normal = obj->comp[obj->comp_hit].dir;
 	if (obj->type == TORUS)
 	{
-		double	k = vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir);
-		t_vec3	a = vec3_sub(ray->hit, vec3_fmul(obj->dir, k));
-		double	m = sqrt(obj->pr * obj->pr - k * k);
-		obj->normal = vec3_sub(vec3_sub(ray->hit, a),
-			vec3_fmul(vec3_sub(obj->pos, a), m / (obj->gr + m)));
-		// obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) +
-		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 8 * obj->gr * obj->gr *
-		// 	ray->hit.x;
-		// obj->normal.y = 4 * ray->hit.y * (vec3_dot(ray->hit, ray->hit) +
-		// 	obj->gr * obj->gr - obj->pr * obj->pr);
-		// obj->normal.z = 4 * ray->hit.z * (vec3_dot(ray->hit, ray->hit) +
-		// 	obj->gr * obj->gr - obj->pr * obj->pr) - 8 * obj->gr * obj->gr *
-		// 	ray->hit.z;
+		// double	k = vec3_dot(vec3_sub(ray->hit, obj->pos), obj->dir);
+		// t_vec3	a = vec3_sub(ray->hit, vec3_fmul(obj->dir, k));
+		// double	m = sqrt(obj->pr * obj->pr - k * k);
+		// obj->normal = vec3_sub(vec3_sub(ray->hit, a),
+		// 	vec3_fmul(vec3_sub(obj->pos, a), m / (obj->gr + m)));
+		obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr * obj->gr + obj->pr * obj->pr));
+		obj->normal.y = 4 * ray->hit.y * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr * obj->gr + obj->pr * obj->pr) + 2 * obj->gr * obj->gr);
+		obj->normal.z = 4 * ray->hit.z * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr * obj->gr + obj->pr * obj->pr));
 	}
 	vec3_normalize(&obj->normal);
 }

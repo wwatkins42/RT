@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/20 07:01:52 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/25 17:13:01 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ double		intersect_cube_troue(t_ray *ray, t_obj *obj)
 	p.a1 = 4 * (ft_pow(x.x, 3) * ray->dir.x + ft_pow(x.y, 3) * ray->dir.y * 2) -
 		10 * (ray->dir.x * x.x + 2 * ray->dir.y * x.y);
 	p.a0 = ft_pow(x.x, 4) + ft_pow(x.y, 4) + ft_pow(x.z, 4) - 5 * (vec3_dot(x, x));
-	ret = solve_quartic(&p);
+	gsl_poly_complex_workspace *w =  gsl_poly_complex_workspace_alloc(5);
+	gsl_poly_complex_solve(a, 5, w, roots);
+	gsl_poly_complex_workspace_free(w);
 	return (choose_root(p, ret));
 }
