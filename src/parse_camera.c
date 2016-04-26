@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/25 09:21:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:04:03 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		default_cam(t_env *e, t_cam *cam)
 {
 	if (cam != NULL)
 	{
+		cam->type = DEFAULT;
 		cam->pos = vec3_zero();
 		cam->dir = vec3(0, 0, 1);
 		cam->index = 0;
@@ -59,11 +60,8 @@ static t_cam	*create_cam(t_env *e, t_line *cam_line, t_cam *prev)
 	default_cam(e, new);
 	while (line != NULL && !ft_strstr(line->line, "- camera:"))
 	{
-		if (ft_strstr(line->line, "type:"))
-		{
-			if (ft_strstr(line->line, "STEREOSCOPIC"))
-				new->type = STEREOSCOPIC;
-		}
+		if (ft_strstr(line->line, "type:") && ft_strstr(line->line, "STEREO"))
+			new->type = STEREOSCOPIC;
 		else if (ft_strstr(line->line, "pos:"))
 			new->pos = parse_vector(line->line);
 		else if (ft_strstr(line->line, "dir:"))
@@ -74,8 +72,8 @@ static t_cam	*create_cam(t_env *e, t_line *cam_line, t_cam *prev)
 			new->aa.supersampling = parse_value(line->line, 1, 16);
 		line = line->next;
 	}
-	new->type == STEREOSCOPIC ? create_stereoscopic_twin(e, new) : 0;
 	e->count.cam++;
+	new->type == STEREOSCOPIC ? create_stereoscopic_twin(e, new) : 0;
 	new->prev = prev;
 	new->next = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/26 11:08:08 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:06:10 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_mat	default_material(void)
 	mat.receive_shadow = 1;
 	mat.fresnel.defined = 0;
 	mat.normal_perturbation = 0;
+	return (mat);
 }
 
 static void		default_object(t_obj *object)
