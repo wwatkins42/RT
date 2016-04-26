@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/01 13:29:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/26 14:51:19 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	double	actual;
 	double	*grad;
 
+	grad = NULL;
 	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
 		error(E_MALLOC, NULL, 1);
 	actual = get_intensity(img[y][x]);
@@ -60,6 +61,7 @@ void			create_normal_map(t_obj *obj)
 	double	*grad;
 
 	y = -1;
+	grad = NULL;
 	obj->mat.texture.bump =
 	(t_vec3**)malloc(sizeof(t_vec3*) * obj->mat.texture.h);
 	obj->mat.texture.bump == NULL ? error(E_MALLOC, NULL, 1) : 0;
