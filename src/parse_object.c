@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/25 16:12:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/26 11:08:08 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static t_mat	default_material(void)
+{
+	t_mat	mat;
+	mat.color = vec3(1, 1, 1);
+	mat.ambient = 0.225;
+	mat.diffuse = 0.875;
+	mat.specular = 1.0;
+	mat.shininess = 256;
+	mat.glossiness = 0;
+	mat.reflect = 0;
+	mat.refract = 0;
+	mat.transparency = 0;
+	mat.absorbtion = 0;
+	mat.texture.defined = 0;
+	mat.texture.transparency_mapping = 0;
+	mat.texture.filtering = 0;
+	mat.texture.normal_map = 0;
+	mat.texture.normal_strength = 2;
+	mat.texture.scale = 1;
+	mat.texture.rotation = 0;
+	mat.receive_shadow = 1;
+	mat.fresnel.defined = 0;
+	mat.normal_perturbation = 0;
+}
 
 static void		default_object(t_obj *object)
 {
@@ -25,26 +50,7 @@ static void		default_object(t_obj *object)
 	object->min = -10;
 	object->max = 10;
 	object->scale = 1;
-	object->mat.color = vec3(1, 1, 1);
-	object->mat.ambient = 0.225;
-	object->mat.diffuse = 0.875;
-	object->mat.specular = 1.0;
-	object->mat.shininess = 256;
-	object->mat.glossiness = 0;
-	object->mat.reflect = 0;
-	object->mat.refract = 0;
-	object->mat.transparency = 0;
-	object->mat.absorbtion = 0;
-	object->mat.texture.defined = 0;
-	object->mat.texture.transparency_mapping = 0;
-	object->mat.texture.filtering = 0;
-	object->mat.texture.normal_map = 0;
-	object->mat.texture.normal_strength = 2;
-	object->mat.texture.scale = 1;
-	object->mat.texture.rotation = 0;
-	object->mat.receive_shadow = 1;
-	object->mat.fresnel.defined = 0;
-	object->mat.normal_perturbation = 0;
+	object->mat = default_material();
 }
 
 static int		get_object_type(char *line)
