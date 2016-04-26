@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/21 10:47:34 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/26 21:32:37 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ double    save_rout_lout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 {
     r->hit = vec3_add(r->pos, vec3_fmul(r->dir, right->out));
     set_normal(r, right);
-    dad->normal = right->normal;
+    dad->normal = vec3_fmul(right->normal, -1);
     dad->mat = right->mat;
 	dad->in = right->out;
 	dad->out = left->out;
@@ -86,69 +86,89 @@ double    save_lin_rin(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
     return (left->in);
 }
 
-double    do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double    save_nothan(t_obj *dad)
 {
-    if (dad->op == UNION)
-    {
-        if (left->in == INFINITY && right->in == INFINITY)
-            return (INFINITY);
-        if (left->in < right->in)
-		{
-			if (left->out > right->out) // Li < Ri < Ro < Lo
-            	return (save_lin_lout(r, left, right, dad));
-			else // Li < Ri < Lo < Ro || Li < Lo < Ri < Ro
-				return (save_lin_rout(r, left, right, dad));
-		}
-		else if (left->in < right->out && right->out < left->out)
+	dad->in = INFINITY;
+	dad->out = INFINITY;
+    return (INFINITY);
+}
+
+double		do_union(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+{
+	if ((left->in == INFINITY || left->in < EPSILON) &&
+		(right->in == INFINITY || right->in < EPSILON))
+		return (save_nothan(dad));
+	if (left->in < right->in)
+	{
+		if (left->out > right->out) // Li < Ri < Ro < Lo
+			return (save_lin_lout(r, left, right, dad));
+		else // Li < Ri < Lo < Ro || Li < Lo < Ri < Ro
+			return (save_lin_rout(r, left, right, dad));
+	}
+	else if (left->in < right->out && right->out < left->out)
+		return (save_rin_lout(r, left, right, dad));
+	else
+		return (save_rin_rout(r, left, right, dad));
+}
+
+double		do_inter(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+{
+	if (left->in == INFINITY || left->in < EPSILON ||
+		right->in == INFINITY || right->in < EPSILON)
+		return (INFINITY);
+	if (left->in < right->in)
+	{
+		if (left->out < right->in)
+			return (save_nothan(dad));
+		if (left->out < right->out)
 			return (save_rin_lout(r, left, right, dad));
 		else
 			return (save_rin_rout(r, left, right, dad));
 	}
-    else if (dad->op == INTER)
-    {
-        if (left->in == INFINITY || right->in == INFINITY)
-            return (INFINITY);
-        if (left->in < right->in)
-		{
-			if (left->out < right->in)
-				return (INFINITY);
-			if (left->out < right->out)
-            	return (save_rin_lout(r, left, right, dad));
-			else
-				return (save_rin_rout(r, left, right, dad));
-		}
+	else
+	{
+		if (right->out < left->in)
+			return (save_nothan(dad));
+		if (right->out < left->out)
+			return (save_lin_rout(r, left, right, dad));
 		else
-		{
-			if (right->out < left->in)
-				return (INFINITY);
-			if (right->out < left->out)
-		    	return (save_lin_rout(r, left, right, dad));
-			else
-				return (save_lin_lout(r, left, right, dad));
-		}
+			return (save_lin_lout(r, left, right, dad));
 	}
+
+}
+
+double		do_diff(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+{
+	if (left->in == INFINITY || left->in < EPSILON)
+		return (save_nothan(dad));
+	if (right->in == INFINITY || right->in < EPSILON)
+		return (save_lin_lout(r, left, right, dad));
+	else if (left->in > right->in)
+	{
+		if (left->in > right->out) // Ri < Ro < Li < Lo
+			return (save_lin_lout(r, left, right, dad));
+		else if (left->out < right->out) // Ri < Li < Lo < Ro
+			return (save_nothan(dad));
+		else // Ri < Li < Ro < Lo
+			return (save_rout_lout(r, left, right, dad));
+	}
+	else if (left->out < right->in) // Li < Lo < Ri < Ro
+		return (save_lin_lout(r, left, right, dad));
+	else if (left->out < right->out) // Li < Ri < Lo < Ro
+		return (save_lin_rin(r, left, right, dad));
+	else // Li < Ri < Ro < Lo
+		return (save_lin_lout(r, left, right, dad)); // should save lin rin rout lout
+
+}
+
+double    do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+{
+    if (dad->op == UNION)
+		return (do_union(r, left, right, dad));
+    else if (dad->op == INTER)
+		return (do_inter(r, left, right, dad));
     else // (dad->op == DIFF)
-    {
-        if (left->in == INFINITY)
-            return (INFINITY);
-        if (right->in == INFINITY)
-            return (save_lin_lout(r, left, right, dad));
-        else if (left->in > right->in)
-        {
-            if (left->in > right->out) // Ri < Ro < Li < Lo
-                return (save_lin_lout(r, left, right, dad));
-            else if (left->out < right->out) // Ri < Li < Lo < Ro
-				return (INFINITY);
-			else // Ri < Li < Ro < Lo
-			    return (save_rout_lout(r, left, right, dad));
-        }
-        else if (left->out < right->in) // Li < Lo < Ri < Ro
-            return (save_lin_lout(r, left, right, dad));
-		else if (left->out < right->out) // Li < Ri < Lo < Ro
-			return (save_lin_rin(r, left, right, dad));
-		else // Li < Ri < Ro < Lo
-			return (save_lin_lout(r, left, right, dad)); // should save lin rin rout lout
-    }
+		return (do_diff(r, left, right, dad));
 }
 
 double    intersect_csg(t_ray *r, t_obj *dad)

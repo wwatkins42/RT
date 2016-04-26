@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 23:55:33 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/26 20:41:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,8 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	obj->out = tmp + 2 * sqrt(calc.disc);
 	if (tmp < 0)
 	{
-		obj->in = INFINITY;
 		tmp = obj->out;
 		if (tmp < 0){
-			obj->out = INFINITY;
 			return (INFINITY);
 		}
 	}
@@ -112,17 +110,31 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
 	if (m > obj->y_max)
 	{
+		obj->in = INFINITY;
+		obj->in = obj->out;
+		tmp = obj->out;
 		m = vec3_dot(ray->dir, obj->dir) * obj->out +
 		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		obj->out = INFINITY;
 		if (m > obj->y_max)
+		{
+			obj->in = INFINITY;
 			return (INFINITY);
+		}
 	}
 	else if (m < obj->y_min)
 	{
+		obj->in = INFINITY;
+		obj->in = obj->out;
+		tmp = obj->out;
 		m = vec3_dot(ray->dir, obj->dir) * obj->out + vec3_dot(vec3_sub(ray->pos,
 			obj->pos), obj->dir);
+		obj->out = INFINITY;
 		if (m < obj->y_min)
+		{
+			obj->in = INFINITY;
 			return (INFINITY);
+		}
 	}
 	obj->m = m;
 	return (tmp);

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/25 23:40:05 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/26 18:13:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,24 @@ double	choose_root(gsl_complex_packed_ptr roots)
 	return (ret < 0 ? INFINITY : ret);
 }
 
+double	min4(double r1, double r2, double r3, double r4)
+{
+	double	ret;
+
+	r1 = r1 < 0 ? INFINITY : r1;
+	r2 = r2 < 0 ? INFINITY : r2;
+	r3 = r3 < 0 ? INFINITY : r3;
+	r4 = r4 < 0 ? INFINITY : r4;
+	ret = r1;
+	if (ret < r2)
+		ret = r2;
+	if (ret < r3)
+		ret = r3;
+	if (ret < r4)
+		ret = r4;
+	return (ret);
+}
+
 double		intersect_torus(t_ray *ray, t_obj *obj)
 {
 	/*
@@ -122,10 +140,27 @@ double		intersect_torus(t_ray *ray, t_obj *obj)
 	a[2] = 2 * dd * e + 4 * f * f + four_aa * d2 * d2;
 	a[3] = 4 * dd * f;
 	a[4] = dd * dd;
+	// t_poly4	p = (t_poly4){a[0], a[1], a[2], a[3], a[4], -1,-1,-1,-1};
+	// p.a0 = a[0];
+	// p.a1 = a[1];
+	// p.a2 = a[2];
+	// p.a3 = a[3];
+	// p.a4 = a[4];
 	int num_real_roots = gsl_poly_solve_quartic(a[3] / a[4], a[2] / a[4], a[1] / a[4], a[0] / a[4], &roots[0], &roots[1], &roots[2], &roots[3]);
+	// int num_real_roots = solve_quartic(&p);
 	if (num_real_roots == 0)
 		return (-1);
-	return (roots[0]);
+	if (*roots > 0)
+		return (*roots);
+	else if (roots[1] > 0)
+		return (roots[1]);
+	else if (roots[2] > 0)
+		return (roots[2]);
+	else if (roots[3] > 0)
+		return (roots[3]);
+	else
+		return (INFINITY);
+	// return (min4(p.root1, p.root2, p.root3, p.root4));
 
 /*
 ** COMPUTE ROOT
