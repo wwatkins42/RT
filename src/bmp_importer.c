@@ -6,30 +6,28 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 12:12:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/26 13:56:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static t_texture	read_header(char *file_path)
+static void			read_header(char *file_path, t_texture *texture)
 {
-	t_texture	texture;
 	FILE		*file;
 
 	!(file = fopen(file_path, "r")) ? error(strerror(errno), file_path, 1) : 0;
 	fseek(file, 18, SEEK_SET);
-	fread(&texture.w, 4, 1, file);
-	fread(&texture.h, 4, 1, file);
+	fread(&texture->w, 4, 1, file);
+	fread(&texture->h, 4, 1, file);
 	fseek(file, 2, SEEK_CUR);
-	fread(&texture.bpp, 2, 1, file);
+	fread(&texture->bpp, 2, 1, file);
 	fclose(file) != 0 ? error(strerror(errno), NULL, 1) : 0;
-	texture.opp = texture.bpp / 8;
-	texture.sl = texture.w * texture.opp;
-	texture.defined = 1;
-	texture.w < 0 ? texture.w = -texture.w : 0;
-	texture.h < 0 ? texture.h = -texture.h : 0;
-	return (texture);
+	texture->opp = texture->bpp / 8;
+	texture->sl = texture->w * texture->opp;
+	texture->defined = 1;
+	texture->w < 0 ? texture->w = -texture->w : 0;
+	texture->h < 0 ? texture->h = -texture->h : 0;
 }
 
 static void			get_image(t_texture *texture, char *buf, int i)
@@ -74,18 +72,16 @@ static void			read_image(t_texture *texture, int fd)
 	ft_strdel(&buf);
 }
 
-t_texture			bmp_importer(char *file_path)
+void				bmp_importer(char *file_path, t_texture *texture)
 {
-	t_texture	texture;
 	int			fd;
 
-	texture = read_header(file_path);
-	texture.normal_map = 0;
-	if (texture.bpp != 24)
+	read_header(file_path, texture);
+	texture->normal_map = 0;
+	if (texture->bpp != 24)
 		error("bmp bpp (bytePerPixel) not handled.", NULL, 1);
 	if ((fd = open(file_path, O_RDWR)) == -1)
 		error(strerror(errno), file_path, 1);
-	read_image(&texture, fd);
+	read_image(texture, fd);
 	close(fd) == -1 ? error(strerror(errno), NULL, 1) : 0;
-	return (texture);
 }

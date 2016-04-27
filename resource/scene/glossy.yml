@@ -7,8 +7,8 @@ scene:
 	mouse_interpolation: true
     progressive_loading: false
 	load_resync: false
-	load_percent: true
-    sampling: 64
+	load_percent: false
+    sampling: 1
 
 cameras:
 	- camera:
@@ -111,12 +111,14 @@ objects:
 		  specular: 3.8
 		  shininess: 2048
 		  reflect: 0.25
-		  refract: 1.85
+		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
           texture: ../texture/seamless/paint.bmp
+          texture_rotation: 25
           texture_scale: 4
-          texture_filtering: true
+          texture_filtering: false
+          texture_normal: false
 
 	- object:
 	  type: SPHERE

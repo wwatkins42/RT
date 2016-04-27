@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/26 16:58:32 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/27 13:51:57 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct		s_texture
 	short			normal_map;
 	double			normal_strength;
 	double			scale;
-	int				rotation;
+	double			rotation;
 }					t_texture;
 
 typedef struct		s_triangle
@@ -576,7 +576,7 @@ void				filter_img_update(t_env *e);
 */
 
 void				bmp_exporter(t_cam *cam, char *name);
-t_texture			bmp_importer(char *file_path);
+void				bmp_importer(char *file_path, t_texture *texture);
 
 /*
 **	YML EXPORTER

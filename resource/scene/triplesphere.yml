@@ -41,8 +41,29 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/spacestation.bmp
+		  texture: ../texture/panoramic/bridge.bmp
 		  texture_filtering: false
-		  texture_normal: true
+		  texture_normal: false
 		  receive_shadow: false
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: 0x364A90
+		  ambient: 0.825
+		  diffuse: 0.175
+		  specular: 0.5
+		  shininess: 512
+		  reflect: 0.8
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+		  texture: ../texture/planet/earth.bmp
+		  texture_filtering: true
+		  texture_normal: true
+          texture_normal_strength: 2.5
+		  receive_shadow: true
 ...

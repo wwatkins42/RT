@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 15:01:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/30 17:36:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 16:23:13 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,15 @@ static t_vec3	texture_mapping_plane(t_obj *obj, t_vec3 **img, t_vec3 hit)
 {
 	float	u;
 	float	v;
-	float	offset;
 	t_vec3	u_axis;
 	t_vec3	v_axis;
 
-	offset = 0;
-	u_axis = vec3(-obj->normal.z, obj->normal.y, -obj->normal.x);
-	if (obj->mat.texture.rotation == 90)
-		u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
-	else if (obj->mat.texture.rotation == 180)
-		u_axis = vec3(obj->normal.z, obj->normal.y, -obj->normal.x);
-	else if (obj->mat.texture.rotation == 270)
-		u_axis = vec3(obj->normal.y, -obj->normal.z, -obj->normal.x);
+	u_axis = vec3(obj->normal.y, obj->normal.z, -obj->normal.x);
+	if (obj->mat.texture.rotation != 0)
+		vec3_rotate(&u_axis, vec3_fmul(obj->dir, obj->mat.texture.rotation));
 	v_axis = vec3_cross(u_axis, obj->normal);
-	u = offset + vec3_dot(hit, u_axis) * obj->mat.texture.scale;
-	v = offset + vec3_dot(hit, v_axis) * obj->mat.texture.scale;
+	u = vec3_dot(hit, u_axis) * obj->mat.texture.scale;
+	v = vec3_dot(hit, v_axis) * obj->mat.texture.scale;
 	u = u - floor(u);
 	v = v - floor(v);
 	if (obj->mat.texture.filtering)
@@ -71,6 +65,8 @@ static t_vec3	texture_mapping_sphere(t_obj *obj, t_vec3 **img, t_vec3 hit)
 	int		j;
 
 	d = vec3_norm(vec3_sub(hit, obj->pos));
+	if (obj->mat.texture.rotation != 0)
+		vec3_rotate(&d, vec3_fmul(obj->dir, obj->mat.texture.rotation));
 	u = 0.5 + atan2(d.z, d.x) / M_PI * 0.5;
 	v = 0.5 - asin(d.y) / M_PI;
 	if (obj->mat.texture.filtering)
