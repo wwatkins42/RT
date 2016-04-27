@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/27 12:25:07 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/27 18:50:14 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,6 +436,7 @@ typedef struct		s_quartic
 	double	u[3];
 	double	v[3];
 	double	zarr[4];
+	double	args[3];
 	double	aa;
 	double	pp;
 	double	qq;
@@ -455,16 +456,38 @@ typedef struct		s_quartic
 	double	theta;
 	double	disc;
 	double	h;
+	double	qcub;
+	double	rcub;
+	double	bq;
+	double	br;
+	double	bq3;
+	double	br2;
+	double	cr2;
+	double	cq3;
+	double	sqrtbq;
+	double	sqrtbq3;
+	double	sgnbr;
+	double	modbr;
+	double	norm;
+	double	sqrt_disc;
+	double	ba;
+	double	bb;
+	double	mod_diffbabb;
 	int		k1;
 	int		k2;
 }					t_quartic;
 
 int					solve_quadratic(double *a, double *r);
 int					solve_cubic(double *a, double *r);
-int					solve_quartic(t_poly4 *p);
-void				swapd(double *a, double *b);
-// int
-// gsl_poly_solve_quartic (double a, double b, double c, double d, double *x0, double *x1, double *x2, double *x3);
+int					solve_quartic(double *a, double *r);
+int					swapd(double *a, double *b);
+double				max(double a, double b);
+int					deal_with_degenerate(double *a, double *r);
+void				find_solution_to_resolvent_cubic(t_quartic *q);
+void				set_d3(double *u, double u0, double u1, double u2);
+void				fonction_relativement_assez_nulle(double *r, double *zarr);
+int
+gsl_poly_solve_quartic (double a, double b, double c, double d, double *x0, double *x1, double *x2, double *x3);
 
 /*
 **	RAYTRACING FUNCTIONS

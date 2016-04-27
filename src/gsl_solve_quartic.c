@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/18 23:36:24 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/27 12:26:15 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/27 18:25:28 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ gsl_poly_solve_quartic (double a, double b, double c, double d,
     {
       *x0=0.0;
       *x1=0.0;
-      if (gsl_poly_solve_quadratic(1.0,a,b,x2,x3)==0) {
-	mt=3;
-      } else {
-	mt=1;
+      if (gsl_poly_solve_quadratic(1.0,a,b,x2,x3)==0)
+	  {
+		  mt=3;
+      }
+	  else
+	  {
+		  mt=1;
       }
     }
   else
@@ -113,7 +116,6 @@ gsl_poly_solve_quartic (double a, double b, double c, double d,
        * u[1] and u[2], respectively. Additionally, this
        * calculates the discriminant of the cubic and puts it into the
        * variable disc. */
-      {
 	double qcub = (rc * rc - 3 * sc);
 	double rcub = (2 * rc * rc * rc - 9 * rc * sc + 27 * tc);
 
@@ -155,7 +157,8 @@ gsl_poly_solve_quartic (double a, double b, double c, double d,
 	    double sqrtQ = sqrt (Q);
 	    double sqrtQ3 = sqrtQ * sqrtQ * sqrtQ;
 	    double theta = acos (R / sqrtQ3);
-	    if (R / sqrtQ3 >= 1.0) theta = 0.0;
+	    if (R / sqrtQ3 >= 1.0)
+			theta = 0.0;
 	    {
 	      double norm = -2 * sqrtQ;
 
@@ -177,7 +180,6 @@ gsl_poly_solve_quartic (double a, double b, double c, double d,
 	    u[1] = -0.5 * (A + B) - rc / 3;
 	    u[2] = -(sqrt (3.0) / 2.0) * mod_diffAB;
 	  }
-      }
       /* End of solution to resolvent cubic */
 
       /* Combine the square roots of the roots of the cubic
@@ -309,6 +311,8 @@ gsl_poly_solve_quartic (double a, double b, double c, double d,
 	  *x1 = zarr[1];
         }
     }
+
+/* deal_with_it should end here */
 
   /* Sort the roots as usual */
   if (1 == mt)
