@@ -1,0 +1,125 @@
+---
+scene:
+	velocity: 11.5
+	recursion_reflect: 3
+	recursion_refract: 3
+	mouse_sensibility: 0.3
+	mouse_interpolation: false
+    progressive_loading: false
+	load_resync: false
+	load_percent: false
+    sampling: 64
+
+cameras:
+	- camera:
+      type: STEREO
+	  pos: {x: 0, y: 0, z: -7}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 110
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 1, y: 0.5, z: -15}
+	  color: 0xF9DAC9
+	  intensity: 4.25
+      attenuation: 0.00001
+	  shadow: HARD
+
+objects:
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: -0.5, y: -0.5, z: 2}
+	  dir: {x: 1, y: -1, z: 0}
+      min: 0
+      max: 10
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/planet/earth.bmp
+          texture_normal: true
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 0.5, y: 0, z: 7}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 4
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/planet/jupiter.bmp
+          texture_normal: true
+
+
+	- object:
+	  type: SPHERE
+	  scale: 4
+	  pos: {x: 3, y: 2, z: 15}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/planet/saturn.bmp
+          texture_normal: true
+
+	- object:
+	  type: SPHERE
+	  scale: 8
+	  pos: {x: 8, y: 6, z: 32}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.125
+		  diffuse: 1
+		  specular: 3
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/planet/mars.bmp
+          texture_normal: true
+
+	- object:
+	  type: SPHERE
+	  scale: 200
+	  pos: {x: 0, y: 0, z: -15}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.925
+		  diffuse: 0.075
+		  specular: 0
+		  shininess: 512
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/panoramic/stars.bmp
+		  texture_filtering: false
+		  texture_normal: false
+		  receive_shadow: false
+...
