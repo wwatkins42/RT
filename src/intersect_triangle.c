@@ -3,124 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_triangle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 10:30:19 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/27 13:46:58 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-typedef struct	s_cal
+double	intersect_triangle(t_ray *ray, t_obj *t)
 {
-	double		tmp;
-	double		dirinv[2][2];
-	double		point[2];
-	double		det;
-	double		p;
-	double		q;
-}				t_cal;
+	t_vec3		e1;
+	t_vec3		e2;
+	t_triangle	tri;
+	double		intersection;
 
-double	intersect_trianglexy(t_ray *r, t_obj *t)
-{
-	t_cal		c;
-
-	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
+	e1 = vec3_sub(t->pos2, t->pos);
+	e2 = vec3_sub(t->pos3, t->pos);
+	tri.p = vec3_cross(ray->dir, e2);
+	tri.det = vec3_dot(e1, tri.p);
+	if (tri.det > -EPSILON && tri.det < EPSILON)
 		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.y - t->pos2.y * t->pos3.x) == 0)
+	tri.vertex_camera_direction = vec3_sub(ray->pos, t->pos);
+	tri.u = vec3_dot(tri.vertex_camera_direction, tri.p) * (1 / tri.det);
+	if (tri.u < 0 || tri.u > 1)
 		return (INFINITY);
-	c.dirinv[0][0] = t->pos3.y / c.det;
-	c.dirinv[1][0] = -t->pos2.y / c.det;
-	c.dirinv[0][1] = -t->pos3.x / c.det;
-	c.dirinv[1][1] = t->pos2.x / c.det;
-	c.point[0] = r->pos.x + c.tmp * r->dir.x - t->pos.x;
-	c.point[1] = r->pos.y + c.tmp * r->dir.y - t->pos.y;
-	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
-	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p + c.q > 1)
+	tri.q = vec3_cross(tri.vertex_camera_direction, e1);
+	tri.v = vec3_dot(ray->dir, tri.q) * (1 / tri.det);
+	if (tri.v < 0 || (tri.u + tri.v) > 1)
 		return (INFINITY);
-	return (c.tmp);
-}
-
-double	intersect_trianglexz(t_ray *r, t_obj *t)
-{
-	t_cal		c;
-
-	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
-		return (INFINITY);
-	if ((c.det = t->pos2.x * t->pos3.z - t->pos2.z * t->pos3.x) == 0)
-		return (INFINITY);
-	c.dirinv[0][0] = t->pos3.z / c.det;
-	c.dirinv[1][0] = -t->pos2.z / c.det;
-	c.dirinv[0][1] = -t->pos3.x / c.det;
-	c.dirinv[1][1] = t->pos2.x / c.det;
-	c.point[0] = r->pos.x + c.tmp * r->dir.x - t->pos.x;
-	c.point[1] = r->pos.z + c.tmp * r->dir.z - t->pos.z;
-	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
-	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p + c.q > 1)
-		return (INFINITY);
-	return (c.tmp);
-}
-
-double	intersect_triangleyz(t_ray *r, t_obj *t)
-{
-	t_cal		c;
-
-	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
-		return (INFINITY);
-	if ((c.det = t->pos2.y * t->pos3.z - t->pos2.z * t->pos3.y) == 0)
-		return (INFINITY);
-	c.dirinv[0][0] = t->pos3.z / c.det;
-	c.dirinv[1][0] = -t->pos2.z / c.det;
-	c.dirinv[0][1] = -t->pos3.y / c.det;
-	c.dirinv[1][1] = t->pos2.y / c.det;
-	c.point[0] = r->pos.y + c.tmp * r->dir.y - t->pos.y;
-	c.point[1] = r->pos.z + c.tmp * r->dir.z - t->pos.z;
-	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
-	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-	if (c.p < 0 || c.q < 0 || c.p + c.q > 1)
-		return (INFINITY);
-	return (c.tmp);
-}
-
-double	intersect_triangle(t_ray *r, t_obj *t)
-{
-	if ((t->pos2.x != 0 || t->pos2.y != 0) &&
-		(t->pos3.x != 0 || t->pos3.y != 0))
-		return (intersect_trianglexy(r, t));
-	if ((t->pos2.x != 0 || t->pos2.z != 0) &&
-		(t->pos3.x != 0 || t->pos3.z != 0))
-		return (intersect_trianglexz(r, t));
-	if ((t->pos2.y != 0 || t->pos2.z != 0) &&
-		(t->pos3.y != 0 || t->pos3.z != 0))
-		return (intersect_triangleyz(r, t));
+	intersection = vec3_dot(e2, tri.q) * (1 / tri.det);
+	if (intersection > EPSILON)
+		return (intersection);
 	return (INFINITY);
 }
 
-// double	intersect_triangle(t_ray *r, t_obj *t)
-// {
-// 	t_cal		c;
-// 	int			lol;
-//
-// 	lol = 0;
-// 	if ((c.tmp = intersect_plane(r, t)) == INFINITY)
-// 		return (INFINITY);
-// 	if ((t->pos2.x == 0 && t->pos2.y == 0) || (t->pos3.x == 0 && t->pos3.y == 0))
-// 		lol = 1;
-// 	if ((c.det = t->pos2.x * (lol ? t->pos3.z : t->pos3.y) -
-// 		(lol ? t->pos2.z : t->pos2.y) * t->pos3.x) == 0)
-// 		return (INFINITY);
-// 	c.dirinv[0][0] = (lol ? t->pos3.z : t->pos3.y) / c.det;
-// 	c.dirinv[1][0] = (lol ? -t->pos2.z : -t->pos2.y) / c.det;
-// 	c.dirinv[0][1] = -t->pos3.x / c.det;
-// 	c.dirinv[1][1] = t->pos2.x / c.det;
-// 	c.point[0] = r->pos.x + c.tmp * r->dir.x - t->pos.x;
-// 	c.point[1] = (lol ? r->pos.z : r->pos.y) + c.tmp * (lol ? r->dir.z : r->dir.y) - (lol ? t->pos.z : t->pos.y);
-// 	c.p = c.dirinv[0][0] * c.point[0] + c.dirinv[0][1] * c.point[1];
-// 	c.q = c.dirinv[1][0] * c.point[0] + c.dirinv[1][1] * c.point[1];
-// 	if (c.p < 0 || c.q < 0 || c.p + c.q > 1)
-// 		return (INFINITY);
-// 	return (c.tmp);
-// }
+t_vec3	point_at_pos(t_vec3 *vect, int pos, int max, char sign)
+{
+	if (sign == '-')
+		pos = max - pos;
+	if (pos <= max && pos >= 0)
+		return (vect[pos]);
+	else
+		return ((t_vec3){0, 0, 0});
+}
+
+int		next_number(char *line, int i)
+{
+	while (ft_isdigit(line[i]) || line[i] == '/' || line[i] == '-')
+		i++;
+	while (!ft_isdigit(line[i]) && line[i])
+		i++;
+	return (i);
+}
+
+t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list, int max)
+{
+	t_vec3	p1;
+	t_vec3	p2;
+	t_vec3	p3;
+	int		i;
+
+	i = 0;
+	i = next_number(line, i);
+	p1 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
+	i = next_number(line, i);
+	p2 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
+	i = next_number(line, i);
+	p3 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
+	obj_list = new_triangle_node(p1, p2, p3, obj_list);
+	while (line[i])
+	{
+		i = next_number(line, i);
+		if (line[i])
+			obj_list = new_triangle_node(p1, obj_list->pos3,
+										vect[ft_atoi(line + i)], obj_list);
+	}
+	return (obj_list);
+}
+
+t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *obj_list)
+{
+	t_obj	*result;
+
+	result = (t_obj*)malloc(sizeof(*result));
+	if (!result)
+		return (NULL);
+	default_object(result);
+	result->type = TRIANGLE;
+	result->pos = p1;
+	result->pos2 = p2;
+	result->pos3 = p3;
+	result->dir = vec3_norm(vec3_cross(vec3_sub(result->pos2, result->pos),
+										vec3_sub(result->pos3, result->pos)));
+	result->normal = result->dir;
+	result->next = obj_list;
+	return (result);
+}

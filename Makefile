@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/25 08:52:24 by scollon          ###   ########.fr        #
+#    Updated: 2016/04/26 12:07:23 by aacuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			intersect_hyperboloid.c intersect_paraboloid.c \
 			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
 			solve_quartic.c fresnel.c raytracing_shadow.c object_movement.c \
-			stereoscopy.c
+			stereoscopy.c parse_obj.c intersect_bbox.c bbox_aux.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

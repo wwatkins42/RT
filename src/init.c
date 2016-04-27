@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 09:57:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 14:46:12 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_intersect(t_env *e)
 	e->intersect[PARABOLOID] = intersect_paraboloid;
 	e->intersect[TORUS] = intersect_torus;
 	e->intersect[CUBE] = intersect_cube;
+	e->intersect[BBOX] = intersects_bbox;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

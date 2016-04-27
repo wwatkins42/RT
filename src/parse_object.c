@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/31 10:48:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/25 14:16:39 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void		default_object(t_obj *object)
+void		default_object(t_obj *object) //was static
 {
 	object->type = SPHERE;
 	object->pos = vec3(0, 0, 5);
