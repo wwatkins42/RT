@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:49:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/22 10:23:25 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/27 11:26:31 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define E_MALLOC 		"malloc() failed"
 # define E_IFILE		"invalid file format"
 # define E_SEMPTY		"scene must have cameras, objects and lights"
+
+# define ERR_FILE_FLAGS O_WRONLY | O_CREAT | O_APPEND
+# define ERR_FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 
 /*
 **	FUNCTION ERROR

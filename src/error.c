@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:01:25 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/14 12:16:59 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/27 13:57:23 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@ static int	open_error_log(void)
 	char	*date;
 	char	*hour;
 
-	fd = open("errors.log", O_WRONLY | O_CREAT | O_APPEND, FILE_RIGHTS);
-	if (fd == -1)
+	if ((fd = open("errors.log", ERR_FILE_FLAGS , ERR_FILE_RIGHTS)) == -1)
 		return (-1);
 	else
 	{
 		time(&epoch);
-		tmp = ft_strdup("%d/%m/%Y");
-		date = ft_strnew(128);
+		if (!(tmp = ft_strdup("%d/%m/%Y")) || !(date = ft_strnew(128)))
+			return (-1);
 		strftime(date, 128, tmp, localtime(&epoch));
 		ft_strdel(&tmp);
-		tmp = ft_strdup("%H:%M:%S");
-		hour = ft_strnew(128);
+		if (!(tmp = ft_strdup("%H:%M:%S")) || !(hour = ft_strnew(128)))
+			return (-1);
 		strftime(hour, 128, tmp, localtime(&epoch));
 		ft_strdel(&tmp);
 		ft_printf_fd(fd, "Error: %s [%s] - ", date, hour);
@@ -75,5 +74,5 @@ void		error(char *type, char *esrc, short ext)
 	}
 	ft_printf_fd(2, "\n");
 	if (ext == 1)
-		exit(0);
+		exit(EXIT_FAILURE);
 }
