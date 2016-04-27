@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/21 19:58:06 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/27 12:25:07 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,11 +408,63 @@ typedef struct		s_poly4
 	double			root4;
 }					t_poly4;
 
-int					solve_quadratic(t_poly4 *p);
-int					solve_cubic(t_poly4 *p);
+typedef struct		s_cubic
+{
+	double	q;
+	double	r;
+	double	bq;
+	double	br;
+	double	bq3;
+	double	br2;
+	double	cr2;
+	double	cq3;
+	double	sqrtbq;
+	double	sgnbr;
+	double	ratio;
+	double	theta;
+	double	norm;
+	double	r0;
+	double	r1;
+	double	r2;
+	double	ba;
+	double	bb;
+	int		i;
+}					t_cubic;
+
+typedef struct		s_quartic
+{
+	double	u[3];
+	double	v[3];
+	double	zarr[4];
+	double	aa;
+	double	pp;
+	double	qq;
+	double	rr;
+	double	rc;
+	double	sc;
+	double	tc;
+	double	mt;
+	double	w1r;
+	double	w1i;
+	double	w2r;
+	double	w2i;
+	double	w3r;
+	double	v1;
+	double	v2;
+	double	arg;
+	double	theta;
+	double	disc;
+	double	h;
+	int		k1;
+	int		k2;
+}					t_quartic;
+
+int					solve_quadratic(double *a, double *r);
+int					solve_cubic(double *a, double *r);
 int					solve_quartic(t_poly4 *p);
-int
-gsl_poly_solve_quartic (double a, double b, double c, double d, double *x0, double *x1, double *x2, double *x3);
+void				swapd(double *a, double *b);
+// int
+// gsl_poly_solve_quartic (double a, double b, double c, double d, double *x0, double *x1, double *x2, double *x3);
 
 /*
 **	RAYTRACING FUNCTIONS
@@ -448,6 +500,16 @@ double				intersect_quadric(t_ray *ray, t_obj *cube);
 double				intersect_moebius(t_ray *ray, t_obj *obj);
 double				intersect_disc(t_ray *r, t_obj *t);
 double				intersect_csg(t_ray *r, t_obj *t);
+
+double   			save_lin_lout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_lin_rout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_rin_lout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_rin_rout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_rout_lout(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_lin_rin(t_ray *r, t_obj *left, t_obj *right, t_obj *dad);
+double   			save_nothan(t_obj *dad);
+
+
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*

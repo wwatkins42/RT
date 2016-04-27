@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/26 18:13:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/27 11:16:02 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,40 +86,6 @@ double	min4(double r1, double r2, double r3, double r4)
 
 double		intersect_torus(t_ray *ray, t_obj *obj)
 {
-	/*
-	** HUGI WAY
-	*/
-	// double		a[5];
-	// double		roots[8];
-	// t_vec3		x;
-	// double		m;
-	// double		n;
-	// double		o;
-	// double		p;
-	// double		q;
-	// double		grgr;
-	// double		prpr;
-	// double 		mm;
-	//
-	// x = ray->pos;
-	// grgr = obj->gr * obj->gr;
-	// prpr = obj->pr * obj->pr;
-	// m = vec3_dot(ray->dir, ray->dir);
-	// mm = m * m;
-	// n = vec3_dot(ray->dir, x);
-	// o = vec3_dot(x, x);
-	// p = vec3_dot(ray->dir, obj->dir);
-	// q = vec3_dot(x, obj->dir);
-
-	// a[4] = mm;
-	// a[3] = (4 * m * n);
-	// a[2] = (4 * mm + 2 * m * o - 2 * (grgr + prpr) * m + 4 * grgr * p * p);
-	// a[1] = (4 * n * o - 4 * (grgr + prpr) * n + 8 * grgr * p * q);
-	// a[0] = (o * o - 2 * (grgr + prpr) * o + 4 * grgr * q * q + (grgr - prpr) * (grgr - prpr));
-/*
-** SEB WAY
-*/
-
 	double	x1 = ray->pos.x;
 	double	y1 = ray->pos.y;
 	double	z1 = ray->pos.z;
@@ -140,27 +106,20 @@ double		intersect_torus(t_ray *ray, t_obj *obj)
 	a[2] = 2 * dd * e + 4 * f * f + four_aa * d2 * d2;
 	a[3] = 4 * dd * f;
 	a[4] = dd * dd;
-	// t_poly4	p = (t_poly4){a[0], a[1], a[2], a[3], a[4], -1,-1,-1,-1};
-	// p.a0 = a[0];
-	// p.a1 = a[1];
-	// p.a2 = a[2];
-	// p.a3 = a[3];
-	// p.a4 = a[4];
-	int num_real_roots = gsl_poly_solve_quartic(a[3] / a[4], a[2] / a[4], a[1] / a[4], a[0] / a[4], &roots[0], &roots[1], &roots[2], &roots[3]);
-	// int num_real_roots = solve_quartic(&p);
-	if (num_real_roots == 0)
-		return (-1);
-	if (*roots > 0)
-		return (*roots);
-	else if (roots[1] > 0)
-		return (roots[1]);
-	else if (roots[2] > 0)
-		return (roots[2]);
-	else if (roots[3] > 0)
-		return (roots[3]);
-	else
-		return (INFINITY);
-	// return (min4(p.root1, p.root2, p.root3, p.root4));
+	return (0);
+	// int num_real_roots = gsl_poly_solve_quartic(a[3] / a[4], a[2] / a[4], a[1] / a[4], a[0] / a[4], &roots[0], &roots[1], &roots[2], &roots[3]);
+	// if (num_real_roots == 0)
+	// 	return (INFINITY);
+	// if (*roots > 0)
+	// 	return (*roots);
+	// else if (roots[1] > 0)
+	// 	return (roots[1]);
+	// else if (roots[2] > 0)
+	// 	return (roots[2]);
+	// else if (roots[3] > 0)
+	// 	return (roots[3]);
+	// else
+	// 	return (INFINITY);
 
 /*
 ** COMPUTE ROOT
