@@ -41,14 +41,14 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/bridge.bmp
+		  texture: ../texture/panoramic/hongkong.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false
 
 	- object:
 	  type: SPHERE
-	  scale: 1
+	  scale: 2
 	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 0, z: 1}
 	  material:
@@ -57,13 +57,13 @@ objects:
 		  diffuse: 0.175
 		  specular: 0.5
 		  shininess: 512
-		  reflect: 0.8
+		  reflect: 0
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
 		  texture: ../texture/planet/earth.bmp
 		  texture_filtering: true
 		  texture_normal: true
-          texture_normal_strength: 2.5
+          texture_normal_strength: 5
 		  receive_shadow: true
 ...

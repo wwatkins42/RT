@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 16:09:55 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:25:39 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FILE_NAME_LENGTH 255
 # define T_RES_W 2560
 # define T_RES_H 1440
+# define ASCII "@8#Oo{?*|\\!;:,. "
 
 /*
 **	CAM TYPES
@@ -75,6 +76,7 @@ typedef struct		s_arg
 	int				fd;
 	int				w;
 	int				h;
+	int				shell;
 }					t_arg;
 
 typedef struct		s_mouse
@@ -199,6 +201,7 @@ typedef struct		s_obj
 	double			t;
 	double			dist_attenuation;
 	int 			comp_hit;
+	unsigned short	id;
 	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
@@ -216,6 +219,8 @@ typedef struct		s_cam
 	t_aa			aa;
 	t_obj			*selection;
 	int				index;
+	int				x;
+	int				y;
 	double			xa;
 	double			ya;
 	double			fov;
@@ -334,7 +339,6 @@ typedef struct		s_env
 	void			*mlx;
 	t_win			win;
 	t_arg			arg;
-	// t_key			key;
 	char			key[280];
 	t_mouse			mouse;
 	t_scene			scene;
@@ -452,6 +456,7 @@ int					solve_quartic(t_poly4 *p);
 void				start_raytracing(t_env *e);
 void				raytracing(t_env *e, t_cam *cam);
 void				raytracing_progressive(t_env *e, t_cam *cam);
+void				raytracing_shell(t_env *e, t_cam *cam);
 void				raytracing_init(t_env *e, t_cam *cam, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 
@@ -495,7 +500,7 @@ t_vec3 				set_specular(t_obj *obj, t_cam *cam, t_lgt *light);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
-void				supersampling(t_env *e, t_cam *cam, int x, int y);
+void				supersampling(t_env *e, t_cam *cam);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 
 /*

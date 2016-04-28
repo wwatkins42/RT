@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   antialiasing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 11:59:26 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 09:56:18 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/26 14:45:09 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	fill_pixelated(t_env *e, t_cam *cam, int x, int y, t_vec3 color)
+static void	fill_pixelated(t_env *e, t_cam *cam, t_vec3 color)
 {
 	int	i;
 	int	j;
@@ -22,22 +22,22 @@ static void	fill_pixelated(t_env *e, t_cam *cam, int x, int y, t_vec3 color)
 	{
 		j = -1;
 		while (++j < e->scene.inc)
-			img_pixel_put(&cam->img, x + i, y + j, color);
+			img_pixel_put(&cam->img, cam->x + i, cam->y + j, color);
 	}
 }
 
-void		supersampling(t_env *e, t_cam *cam, int x, int y)
+void		supersampling(t_env *e, t_cam *cam)
 {
 	float	sx;
 	float	sy;
 	t_vec3	color;
 
 	color = (t_vec3) {0, 0, 0};
-	sx = (float)x;
-	while (sx < x + 1.0)
+	sx = (float)cam->x;
+	while (sx < cam->x + 1.0)
 	{
-		sy = (float)y;
-		while (sy < y + 1.0)
+		sy = (float)cam->y;
+		while (sy < cam->y + 1.0)
 		{
 			raytracing_init(e, cam, sx, sy);
 			color = vec3_add(color, vec3_fmul(raytracing_draw(e, cam, cam->ray),
@@ -50,6 +50,6 @@ void		supersampling(t_env *e, t_cam *cam, int x, int y)
 	cam->filter.gray_scale ? filter_gray_scale(&color) : 0;
 	filter_gamma(cam->filter.gamma, &color);
 	vec3_clamp(&color, 0, 1);
-	img_pixel_put(&cam->img, x, y, color);
-	e->scene.progressive_loading ? fill_pixelated(e, cam, x, y, color) : 0;
+	img_pixel_put(&cam->img, cam->x, cam->y, color);
+	e->scene.progressive_loading ? fill_pixelated(e, cam, color) : 0;
 }

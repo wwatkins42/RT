@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/25 16:12:14 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/26 16:14:29 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		line = line->next;
 	}
 	e->count.obj++;
+	new->id = e->count.obj;
 	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;
 	new->k = tan(new->scale) * tan(new->scale);

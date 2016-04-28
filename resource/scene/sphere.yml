@@ -1,8 +1,8 @@
 ---
 scene:
 	velocity: 8
-	recursion_reflect: 1
-	recursion_refract: 1
+	recursion_reflect: 0
+	recursion_refract: 0
 	mouse_sensibility: 0.4
 	mouse_interpolation: false
 	load_resync: false
