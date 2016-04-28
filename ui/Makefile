@@ -5,36 +5,28 @@
 #                                                     +:+ +:+         +:+      #
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/28 08:35:21 by scollon          ###   ########.fr        #
+#    Created: 2016/04/27 11:30:14 by scollon           #+#    #+#              #
+#    Updated: 2016/04/28 08:46:49 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
-LIB_PATH = ./lib/
+LIB_PATH = ../lib/
 INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 			$(LIB_PATH)libftprintf/include/
 
-NAME = rt
+NAME = Raytracer
 CC = gcc
-CFLGS = -Werror -Wextra -Wall
+CFLGS = -Werror -Wextra -Wall \
+		`~/.brew/Cellar/pkg-config/0.29.1/bin/pkg-config --cflags gtk+-3.0`
+CLIBS = `~/.brew/Cellar/pkg-config/0.29.1/bin/pkg-config --libs gtk+-3.0`
 MLXFLGS = -framework OpenGL -framework AppKit
 
-SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
-			parse_object.c parse_utils.c parse_material.c noise.c \
-			utils.c error.c init.c core.c image.c hook.c \
-			raytracing_color.c raytracing_intersect.c raytracing.c \
-			raytracing_recursion.c bmp_exporter.c yml_exporter.c yml_write.c \
-			filter.c antialiasing.c bmp_importer.c texture.c movement.c \
-			texture_generator.c normal_map.c mouse_hook.c intersect_cube.c \
-			intersect_hyperboloid.c intersect_paraboloid.c \
-			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
-			solve_quartic.c fresnel.c raytracing_shadow.c object_movement.c \
-			stereoscopy.c parse_obj.c intersect_bbox.c bbox_aux.c
+SRC_NAME = 	main.c error_ui.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-LIB_NAME = libft libftprintf libvec mlx
+LIB_NAME = libft libftprintf
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
@@ -47,17 +39,15 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(LIB_PATH)libft -j
-	make -C $(LIB_PATH)mlx -j
 	make -C $(LIB_PATH)libftprintf -j
-	make -C $(LIB_PATH)libvec -j
-	$(CC) $(CFLGS) $(LIB) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	$(CC) $(CFLGS) $(CLIBS) $(LIB) -lft -lftprintf $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLGS) $(INC) -o $@ -c $<
 
 nolib: $(OBJ)
-	$(CC) $(CFLGS) -lft -lftprintf -lvec -lmlx $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
+	$(CC) $(CFLGS) -lft -lftprintf $(INC) $(OBJ) $(MLXFLGS) -o $(NAME)
 
 clean:
 	rm -fv $(OBJ)
@@ -66,8 +56,6 @@ clean:
 fclean: clean
 	make -C $(LIB_PATH)libft fclean
 	make -C $(LIB_PATH)libftprintf fclean
-	make -C $(LIB_PATH)libvec fclean
-	make -C $(LIB_PATH)mlx clean
 	rm -fv $(NAME)
 
 re: fclean all
