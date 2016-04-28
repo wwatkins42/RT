@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 12:55:24 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:57:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,12 +211,8 @@ typedef struct		s_obj
 	double			k;
 	double			t;
 	double			dist_attenuation;
-<<<<<<< HEAD
 	int 			comp_hit;
 	unsigned short	id;
-=======
-	int				comp_hit;
->>>>>>> cdc81febc727813932daf1bb003911d44c2b4cc5
 	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
