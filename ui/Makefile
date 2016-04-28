@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/27 11:30:14 by scollon           #+#    #+#              #
-#    Updated: 2016/04/28 08:35:10 by scollon          ###   ########.fr        #
+#    Updated: 2016/04/28 08:46:49 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ fclean: clean
 	make -C $(LIB_PATH)libft fclean
 	make -C $(LIB_PATH)libftprintf fclean
 	rm -fv $(NAME)
-	rm -fv ../$(NAME)
 
 re: fclean all
 

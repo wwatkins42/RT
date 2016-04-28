@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 09:39:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/28 08:39:32 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		expose_hook(t_env *e)
 int		key_pressed(int keycode, t_env *e)
 {
 	keycode == 53 ? exit(0) : 0;
+	keycode == 24 ? e->stereo_nb += 0.05 : 0;
+	keycode == 27 ? e->stereo_nb -= 0.05 : 0;
 	if (keycode != MOUSE && keycode != STAT)
 		e->key[keycode] = 1;
 	keycode == 30 ? bmp_exporter(e->cam, e->arg.file) : 0;
