@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 08:58:27 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 14:52:33 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	object_select(t_env *e)
 
 	tmin = INFINITY;
 	raytracing_init(e, e->cam, e->mouse.pos.x, e->mouse.pos.y);
-	e->cam->selection = intersect_object(e, &e->cam->ray, &tmin);
+	e->cam->selection = intersect_object(e, &e->cam->ray, &tmin, e->obj);
 }
 
 void	object_delete(t_env *e, t_obj *obj)

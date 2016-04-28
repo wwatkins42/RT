@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 11:40:37 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:55:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_vec3	raytracing_draw(t_env *e, t_cam *cam, t_ray ray)
 	e->count.rps++;
 	tmin = INFINITY;
 	color = (t_vec3) {0, 0, 0};
-	obj = intersect_object(e, &ray, &tmin);
+	obj = intersect_object(e, &ray, &tmin, e->obj);
 	if (obj != NULL && tmin != INFINITY)
 	{
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));

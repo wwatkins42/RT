@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 11:25:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:55:24 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ enum {DEFAULT, STEREOSCOPIC};
 **	OBJECT TYPES
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
-		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS };
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX };
+
 /*
 **	LIGHT TYPES
 */
@@ -67,7 +68,7 @@ enum { HARD, SOFT, PROJECTION };
 */
 enum { CF = 13, CB = 1, CL = 0, CR = 2, CU = 49, CD = 257, OF = 126,
 	OB = 125, OU = 116, OD = 121, OL = 123, OR = 124, KP = 69, KM = 78,
- 	I = 34, K = 40, J = 38, L = 37, CMD = 259, CTRL = 256, DEL = 51,
+	I = 34, K = 40, J = 38, L = 37, CMD = 259, CTRL = 256, DEL = 51,
 	FGP = 24, FGM = 27, FG = 19, FI = 18, STAT = 50, MOUSE = 46 };
 
 typedef struct		s_arg
@@ -109,6 +110,16 @@ typedef struct		s_texture
 	double			scale;
 	double			rotation;
 }					t_texture;
+
+typedef struct		s_triangle
+{
+	t_vec3			p;
+	double			det;
+	t_vec3			vertex_camera_direction;
+	t_vec3			q;
+	double			u;
+	double			v;
+}					t_triangle;
 
 typedef struct		s_noise
 {
@@ -200,8 +211,12 @@ typedef struct		s_obj
 	double			k;
 	double			t;
 	double			dist_attenuation;
+<<<<<<< HEAD
 	int 			comp_hit;
 	unsigned short	id;
+=======
+	int				comp_hit;
+>>>>>>> cdc81febc727813932daf1bb003911d44c2b4cc5
 	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
@@ -351,6 +366,7 @@ typedef struct		s_env
 	t_vec3			color;
 	t_reflect		reflect;
 	t_refract		refract;
+	double			stereo_nb;
 	double			(*intersect[12])(t_ray *, t_obj *);
 }					t_env;
 
@@ -368,7 +384,11 @@ short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
+t_obj				*parse_obj(char *file, t_env *e);
+t_obj				*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list,
+									int max);
 int					is_comment(const char *line);
+void				default_object(t_obj *object);
 
 /*
 **	ENVIRONNEMENT INIT FUNCTIONS
@@ -464,7 +484,8 @@ t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 **			Primitives intersections
 */
 
-t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin);
+t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin,
+										t_obj *obj);
 double				intersect_plane(t_ray *ray, t_obj *obj);
 double				intersect_sphere(t_ray *ray, t_obj *obj);
 double				intersect_cone(t_ray *ray, t_obj *obj);
@@ -478,25 +499,28 @@ double				intersect_torus(t_ray *ray, t_obj *obj);
 double				intersect_cube_troue(t_ray *ray, t_obj *obj);
 double				intersect_parallelogram(t_ray *r, t_obj *t);
 double				intersect_cube(t_ray *ray, t_obj *cube);
+double				intersects_bbox(t_ray *ray, t_obj *b);
 void				set_normal(t_ray *ray, t_obj *obj);
 
 /*
 **			Reflection / Refraction
 */
 
-
-t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
-t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
-t_vec3				raytracing_refract(t_env *e, t_ray ray, t_cam *cam, t_obj *obj);
-
+t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_cam *cam,
+										t_obj *obj);
+t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam,
+												t_obj *obj);
+t_vec3				raytracing_refract(t_env *e, t_ray ray, t_cam *cam,
+										t_obj *obj);
 
 /*
 **			Color and light
 */
 
-t_vec3 				raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj);
+t_vec3				raytracing_color(t_env *e, t_ray *ray, t_cam *cam,
+										t_obj *obj);
 t_vec3				set_diffuse(t_obj *obj, t_lgt *light);
-t_vec3 				set_specular(t_obj *obj, t_cam *cam, t_lgt *light);
+t_vec3				set_specular(t_obj *obj, t_cam *cam, t_lgt *light);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
@@ -528,7 +552,6 @@ t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
 void				create_normal_map(t_obj *obj);
 t_vec3				bump_normal(t_obj *obj, t_ray *ray);
 
-
 /*
 **	IMAGES HANDLES FUNCTIONS
 */
@@ -554,7 +577,6 @@ void				display_stats(t_env *e);
 **	FILTER FUNCTIONS
 */
 
-// void				filter(t_img *img, const t_filter filter);
 void				filter_invert(t_vec3 *color);
 void				filter_gray_scale(t_vec3 *color);
 void				filter_gamma(double gamma, t_vec3 *color);
@@ -577,5 +599,20 @@ void				export_light(const int fd, t_env *e);
 void				export_camera(const int fd, t_env *e);
 
 void				generate_stereoscopy(t_env *e);
+
+t_obj				*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3,
+										t_obj *obj_list);
+
+/*
+**	BBOX FUNCTIONS
+*/
+
+t_obj				*create_bbox(t_obj *objs);
+t_obj				*divide_bbox(t_obj *original_box);
+int					count_objs(t_obj *obj);
+double				min4(double nb1, double nb2, double nb3, double nb4);
+double				max4(double nb1, double nb2, double nb3, double nb4);
+double				min(double nb1, double nb2);
+double				max(double nb1, double nb2);
 
 #endif

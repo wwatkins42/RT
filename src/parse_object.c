@@ -6,13 +6,39 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/26 16:14:29 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:53:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void		default_object(t_obj *object)
+static t_mat	default_material(void)
+{
+	t_mat	mat;
+	mat.color = vec3(1, 1, 1);
+	mat.ambient = 0.225;
+	mat.diffuse = 0.875;
+	mat.specular = 1.0;
+	mat.shininess = 256;
+	mat.glossiness = 0;
+	mat.reflect = 0;
+	mat.refract = 0;
+	mat.transparency = 0;
+	mat.absorbtion = 0;
+	mat.texture.defined = 0;
+	mat.texture.transparency_mapping = 0;
+	mat.texture.filtering = 0;
+	mat.texture.normal_map = 0;
+	mat.texture.normal_strength = 2;
+	mat.texture.scale = 1;
+	mat.texture.rotation = 0;
+	mat.receive_shadow = 1;
+	mat.fresnel.defined = 0;
+	mat.normal_perturbation = 0;
+	return (mat);
+}
+
+void		default_object(t_obj *object)
 {
 	object->type = SPHERE;
 	object->pos = vec3(0, 0, 5);
@@ -25,26 +51,7 @@ static void		default_object(t_obj *object)
 	object->min = -10;
 	object->max = 10;
 	object->scale = 1;
-	object->mat.color = vec3(1, 1, 1);
-	object->mat.ambient = 0.225;
-	object->mat.diffuse = 0.875;
-	object->mat.specular = 1.0;
-	object->mat.shininess = 256;
-	object->mat.glossiness = 0;
-	object->mat.reflect = 0;
-	object->mat.refract = 0;
-	object->mat.transparency = 0;
-	object->mat.absorbtion = 0;
-	object->mat.texture.defined = 0;
-	object->mat.texture.transparency_mapping = 0;
-	object->mat.texture.filtering = 0;
-	object->mat.texture.normal_map = 0;
-	object->mat.texture.normal_strength = 2;
-	object->mat.texture.scale = 1;
-	object->mat.texture.rotation = 0;
-	object->mat.receive_shadow = 1;
-	object->mat.fresnel.defined = 0;
-	object->mat.normal_perturbation = 0;
+	object->mat = default_material();
 }
 
 static int		get_object_type(char *line)
@@ -146,6 +153,11 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
+		else if (ft_strstr(line->line, "obj:"))
+		{
+			free(new);
+			new = parse_obj(ft_strstr(line->line, ":") + 1, e);
+		}
 		line = line->next;
 	}
 	e->count.obj++;
@@ -157,7 +169,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
-	else
+	else if (new->type != BBOX)
 		new->comp = NULL;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
 	new->next = NULL;

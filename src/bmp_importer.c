@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_importer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 15:56:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/26 13:56:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void		read_header(char *file_path, t_texture *texture)
+static void			read_header(char *file_path, t_texture *texture)
 {
 	FILE		*file;
 
@@ -72,7 +72,7 @@ static void			read_image(t_texture *texture, int fd)
 	ft_strdel(&buf);
 }
 
-void			bmp_importer(char *file_path, t_texture *texture)
+void				bmp_importer(char *file_path, t_texture *texture)
 {
 	int			fd;
 

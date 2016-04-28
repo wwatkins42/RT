@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_shadow.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/18 10:56:07 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 11:02:06 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	t_vec3	dir;
 	t_vec3	hit;
 
+	tmin = INFINITY;
 	i = -1;
 	shadow = 1;
 	hit = light.ray.pos;
@@ -41,7 +42,7 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	while (++i < e->scene.sampling)
 	{
 		light.ray.dir = random_sphere_sampling(light.ray, light.scale, hit);
-		if (intersect_object(e, &light.ray, &tmin) != obj)
+		if (intersect_object(e, &light.ray, &tmin, e->obj) != obj)
 			shadow++;
 		light.ray.dir = dir;
 	}
@@ -53,9 +54,10 @@ static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
 	double	tmin;
 
+	tmin = INFINITY;
 	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	light.ray.pos = light.pos;
-	if (intersect_object(e, &light.ray, &tmin) != obj)
+	if (intersect_object(e, &light.ray, &tmin, e->obj) != obj)
 		*color = vec3_fmul(*color, 1.0 - light.shadow_intensity);
 }
 
@@ -66,9 +68,10 @@ static t_vec3	get_shadow_color(t_env *e, t_lgt light, t_obj *this, t_obj *obj)
 	t_ray	ray;
 	double	tmin;
 
+	tmin = INFINITY;
 	ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	ray.pos = light.pos;
-	intersect_object(e, &ray, &tmin);
+	intersect_object(e, &ray, &tmin, e->obj);
 	hit = vec3_mul(vec3_fmul(light.ray.dir, tmin), obj->pos);
 	color = texture_mapping(obj, obj->mat.texture.img, hit);
 	color = vec3_mul(color, vec3_fmul(light.color, light.intensity));
@@ -83,10 +86,11 @@ static void		set_projectionshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *o
 	double	t;
 	t_obj	*other;
 
+	tmin = INFINITY;
 	light.ray.dir = vec3_sub(light.pos, light.ray.pos);
 	t = vec3_magnitude(light.ray.dir);
 	vec3_normalize(&light.ray.dir);
-	if ((other = intersect_object(e, &light.ray, &tmin)) == NULL)
+	if ((other = intersect_object(e, &light.ray, &tmin, e->obj)) == NULL)
 		return ;
 	if (obj->mat.transparency > 0 && other != obj && tmin < t)
 		*color = vec3_mul(*color, get_shadow_color(e, light, obj, other));

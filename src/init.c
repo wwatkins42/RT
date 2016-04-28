@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/26 13:57:46 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:56:14 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	init_env(t_env *e)
 	e->count.fps = 0;
 	e->count.rps = 0;
 	e->tick.frame = 1.0;
+	e->stereo_nb = -0.057;
 }
 
 void	init_intersect(t_env *e)
@@ -53,6 +54,7 @@ void	init_intersect(t_env *e)
 	e->intersect[PARABOLOID] = intersect_paraboloid;
 	e->intersect[TORUS] = intersect_torus;
 	e->intersect[CUBE] = intersect_cube;
+	e->intersect[BBOX] = intersects_bbox;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

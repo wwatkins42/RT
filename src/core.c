@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:00:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 13:53:00 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/28 10:28:39 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	start_raytracing(t_env *e)
 {
 	if (e->cam->type == STEREOSCOPIC)
 	{
-		e->cam->twin->pos = vec3_add(e->cam->pos, vec3(-0.32, 0, 0));
+		e->cam->twin->pos = vec3_add(e->cam->pos, vec3(e->stereo_nb, 0, 0));
 		e->cam->twin->dir = e->cam->dir;
 		raytracing(e, e->cam);
 		raytracing(e, e->cam->twin);

@@ -12,11 +12,18 @@ scene:
 
 cameras:
 	- camera:
-      type: STEREOSCOPIC
+      type: STEREO
 	  pos: {x: 0, y: 0, z: -18}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 80
 	  supersampling: 1
+
+    - camera:
+        type: STEREO
+        pos: {x: 2, y: 1, z: -18}
+        dir: {x: 0, y: 0, z: 45}
+        fov: 80
+        supersampling: 1
 
 lights:
 	- light:

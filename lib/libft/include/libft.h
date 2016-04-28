@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:33:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/03/22 07:56:19 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 15:06:32 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int					ft_wordcount(const char *s, char c);
 int					ft_isblank(char c);
 int					ft_atoi_base(char *str, int base);
 double				ft_atof(const char *str);
+double				ft_pow(double nb, int expo);
 char				*ft_itoa_base(int value, int base);
 int					get_next_line(int const fd, char **line);
 

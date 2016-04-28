@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/26 15:04:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:56:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	double	actual;
 	double	*grad;
 
+	grad = NULL;
 	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
 		error(E_MALLOC, NULL, 1);
 	actual = get_intensity(img[y][x]);

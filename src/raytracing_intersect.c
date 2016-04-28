@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 08:34:52 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/25 16:00:43 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin)
+t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 {
-	t_obj	*obj;
 	t_obj	*out;
 	double	t;
+	t_obj	*r_value;
 
 	out = NULL;
-	obj = e->obj;
-	*tmin = INFINITY;
 	while (obj != NULL)
 	{
 		t = e->intersect[obj->type](ray, obj);
 		if (t > EPSILON && t < *tmin)
 		{
-			out = obj;
-			*tmin = t;
-			out->t = t;
+			if (obj->type == BBOX)
+			{
+				if ((r_value = intersect_object(e, ray, tmin, obj->comp)))
+					out = r_value;
+			}
+			else
+			{
+				out = obj;
+				*tmin = t;
+				out->t = t;
+			}
 		}
 		obj = obj->next;
 	}
