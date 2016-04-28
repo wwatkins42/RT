@@ -6,8 +6,9 @@ pl="$dest_path/planet"
 se="$dest_path/seamless"
 
 clear
-
-printf "\033[47;30;1m -- Install Raytracer resource program -- \n\n\033[0m"
+printf "\033[36m"
+cat install_header
+printf "\033[0m"
 
 #check if dest_path exist
 if [ ! -d $dest_path ];
