@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 13:56:11 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:09:50 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	line = object_line;
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
 	default_object(new);
-	while (line != NULL && !ft_strstr(line->line, "- object:"))
+	while (line != NULL && !ft_strstr(line->line, "- object:") && !ft_strchr(line->line, '('))
 	{
 		if (ft_strstr(line->line, "type:"))
 			new->type = get_object_type(line->line);
@@ -306,6 +306,7 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	t_obj	*tmp;
 	t_obj	*object;
 	t_obj	*current;
+	int		count_parenthesis;
 
 	line = object_line;
 	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
@@ -314,6 +315,20 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	object = current;
 	while (line != NULL)
 	{
+		if (ft_strchr(line->line, '('))
+		{
+			count_parenthesis = 1;
+			while (count_parenthesis)
+			{
+				line = line->next;
+				if (!line)
+					; //ERROR(WRONG USAGE)
+				if (ft_strchr(line->line, ')'))
+					count_parenthesis--;
+				if (ft_strchr(line->line, '('))
+					count_parenthesis++;
+			}
+		}
 		if (ft_strstr(line->line, "- object:"))
 		{
 			current->next = create_object(e, line->next);

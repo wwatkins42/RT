@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 15:48:32 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/28 22:26:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,35 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		obj->normal.z = 4 * pow(ray->hit.z - obj->pos.z, 3);
 	}
 	if (obj->type == CYLINDER || obj->type == HYPERBOLOID_ONE ||
-		obj->type == HYPERBOLOID_TWO || obj->type == PARABOLOID)
+		obj->type == HYPERBOLOID_TWO)
 	{
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
+	}
+	if (obj->type == HYPERBOLOID_ONE ||
+		obj->type == HYPERBOLOID_TWO)
+	{
+		obj->normal = (t_vec3){ray->hit.x - obj->pos.x,
+			-ray->hit.y + obj->pos.y, ray->hit.z - obj->pos.z};
+	}
+	if (obj->type == PARABOLOID)
+	{
+		// DO NOT... ERASE
+		// obj->normal = vec3_sub(ray->hit, obj->pos);
+		// obj->normal = vec3_sub(obj->normal,
+		// 	vec3_fmul(obj->dir, obj->m + obj->scale));
+		/*
+		** SELLE DE CHEVAL Z=XY
+		*/
+		// obj->normal.x = ray->hit.z;
+		// obj->normal.y = -1;
+		// obj->normal.z = ray->hit.x;
+		/*
+		** SELLE DE CHEVAL Z=Y2-X2
+		*/
+		obj->normal.x = 2 * ray->hit.x;
+		obj->normal.z = -2 * ray->hit.z;
+		obj->normal.y = 1;
 	}
 	if (obj->type == QUADRIC)
 		obj->normal = get_quadric_normal(ray, obj);

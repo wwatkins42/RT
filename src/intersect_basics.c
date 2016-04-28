@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 11:43:17 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 14:02:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:46:37 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,62 @@ double	compute_m(t_ray *ray, t_obj *obj, double tmp)
 {
 	double		m;
 
+	obj->m = 0;
 	m = vec3_dot(ray->dir, obj->dir) * tmp +
 		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
 	if (m > obj->max)
 	{
-		tmp = obj->out;
 		obj->in = INFINITY;
+		tmp = obj->out;
 		m = vec3_dot(ray->dir, obj->dir) * tmp +
 			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m > obj->max && (obj->out = INFINITY))
+		if (m < obj->max && m > obj->min && ((obj->m = m) || 1))
+			return (obj->out);
+		else if ((obj->out = INFINITY))
 			return (INFINITY);
 	}
 	else if (m < obj->min)
 	{
-		tmp = obj->out;
 		obj->in = INFINITY;
-		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
-			obj->pos), obj->dir);
-		if (m < obj->min && (obj->out = INFINITY))
+		tmp = obj->out;
+		m = vec3_dot(ray->dir, obj->dir) * obj->out +
+			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
+		if (m < obj->max && m > obj->min && ((obj->m = m) || 1))
+			return (obj->out);
+		else if ((obj->out = INFINITY))
 			return (INFINITY);
 	}
 	obj->m = m;
 	return (tmp);
 }
 
+double	intersect_cylinder(t_ray *ray, t_obj *obj)
+{
+	t_calc		calc;
+	double		ro;
+	double		lo;
+	double		tmp;
+
+	obj->in = INFINITY;
+	obj->out = INFINITY;
+	vec3_normalize(&obj->dir);
+	calc.len = vec3_sub(ray->pos, obj->pos);
+	ro = vec3_dot(ray->dir, obj->dir);
+	lo = vec3_dot(calc.len, obj->dir);
+	calc.a = 1.0 - ro * ro;
+	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
+	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale * obj->scale;
+	calc.disc = calc.b * calc.b - calc.a * calc.c;
+	if (calc.disc < EPSILON)
+		return (INFINITY);
+	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
+	obj->in = tmp;
+	obj->out = (-calc.b + sqrt(calc.disc)) / calc.a;
+	if (tmp < 0 && ((tmp = obj->out) || 1))
+		if (tmp < 0)
+			return (INFINITY);
+	return (compute_m(ray, obj, tmp));
+}
 
 double	intersect_plane(t_ray *ray, t_obj *obj)
 {
@@ -79,34 +111,6 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 	return (calc.eq);
 }
 
-double	intersect_cylinder(t_ray *ray, t_obj *obj)
-{
-	t_calc		calc;
-	double		ro;
-	double		lo;
-	double		tmp;
-
-	obj->in = INFINITY;
-	obj->out = INFINITY;
-	vec3_normalize(&obj->dir);
-	calc.len = vec3_sub(ray->pos, obj->pos);
-	ro = vec3_dot(ray->dir, obj->dir);
-	lo = vec3_dot(calc.len, obj->dir);
-	calc.a = 1.0 - ro * ro;
-	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
-	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale * obj->scale;
-	calc.disc = calc.b * calc.b - calc.a * calc.c;
-	if (calc.disc < EPSILON)
-		return (INFINITY);
-	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
-	obj->in = tmp;
-	obj->out = tmp + 2 * calc.disc;
-	if (tmp < 0 && ((tmp = obj->out) || 1))
-		if (tmp < 0)
-			return (INFINITY);
-	return (compute_m(ray, obj, tmp));
-}
-
 double	intersect_cone(t_ray *ray, t_obj *obj)
 {
 	t_calc		calc;
@@ -127,7 +131,7 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 		return (INFINITY);
 	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
 	obj->in = tmp;
-	obj->out = tmp + 2 * calc.disc;
+	obj->out = (-calc.b + sqrt(calc.disc)) / calc.a;
 	if (tmp < 0 && ((tmp = obj->out) || 1))
 		if (tmp < 0)
 			return (INFINITY);
