@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 08:38:15 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/28 11:26:14 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ enum {DEFAULT, STEREOSCOPIC};
 **	OBJECT TYPES
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
-	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX };
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX};
 
 /*
 **	LIGHT TYPES
