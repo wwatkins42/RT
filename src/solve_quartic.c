@@ -5,148 +5,138 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/18 23:36:24 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/22 02:22:54 by tbeauman         ###   ########.fr       */
+/*   Created: 2016/04/27 12:21:13 by tbeauman          #+#    #+#             */
+/*   Updated: 2016/04/27 18:50:35 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int		solve_quadratic(t_poly4 *p)
-{
-	double	delta;
+/*
+** Finds the real roots of x^4 + a[3] x^3 + a[2] x^2 + a[1] x + a[0] = 0
+** arranging them ordered in r and returning the number of the roots (0, 2 or 4)
+*/
 
-	if (p->a2 == 0)
+static void	init_stru(t_quartic *q, double *a)
+{
+	q->aa = a[3] * a[3];
+	q->pp = a[2] - (3.0 / 8.0) * q->aa;
+	q->qq = a[1] - (1.0 / 2.0) * a[3] * (a[2] - (1.0 / 4.0) * q->aa);
+	q->rr = a[0] - (1.0 / 4.0) * (a[3] * a[1] - (1.0 / 4.0) * q->aa *
+		(a[2] - (3.0 / 16.0) * q->aa));
+	q->rc = (1.0 / 2.0) * q->pp;
+	q->sc = (1.0 / 4.0) * ((1.0 / 4.0) * q->pp * q->pp - q->rr);
+	q->tc = -((1.0 / 8.0) * q->qq * (1.0 / 8.0) * q->qq);
+	q->qcub = (q->rc * q->rc - 3 * q->sc);
+	q->rcub = (2 * q->rc * q->rc * q->rc - 9 * q->rc * q->sc + 27 * q->tc);
+	q->bq = q->qcub / 9;
+	q->br = q->rcub / 54;
+	q->bq3 = q->bq * q->bq * q->bq;
+	q->br2 = q->br * q->br;
+	q->cr2 = 729 * q->rcub * q->rcub;
+	q->cq3 = 2916 * q->qcub * q->qcub * q->qcub;
+	q->disc = (q->cr2 - q->cq3) / 2125764.0;
+	q->w1r = 0.0;
+	q->w1i = 0.0;
+	q->w2r = 0.0;
+	q->w2i = 0.0;
+}
+
+static void	deal_with_pos_disc(t_quartic *q)
+{
+	q->mt = 2;
+	set_d3(q->v, fabs(q->u[0]), fabs(q->u[1]), fabs(q->u[2]));
+	q->v1 = fmax(fmax(q->v[0], q->v[1]), q->v[2]);
+	if (q->v1 == q->v[0] && ((q->k1 = 0) || 1))
+		q->v2 = fmax(q->v[1], q->v[2]);
+	else if (q->v1 == q->v[1] && (q->k1 = 1))
+		q->v2 = fmax(q->v[0], q->v[2]);
+	else if ((q->k1 = 2))
+		q->v2 = fmax(q->v[0], q->v[1]);
+	if (q->v2 == q->v[0])
+		q->k2 = 0;
+	else if (q->v2 == q->v[1])
+		q->k2 = 1;
+	else
+		q->k2 = 2;
+	if (0.0 <= q->u[q->k1] && ((q->w1i = 0.0) || 1))
+		q->w1r = sqrt(q->u[q->k1]);
+	else if ((q->w1r = 0.0) || 1)
+		q->w1i = sqrt(-q->u[q->k1]);
+	if (0.0 <= q->u[q->k2] && ((q->w2i = 0.0) || 1))
+		q->w2r = sqrt(q->u[q->k2]);
+	else if ((q->w2r = 0.0) || 1)
+		q->w2i = sqrt(-q->u[q->k2]);
+}
+
+static void	deal_with_neg_disc(t_quartic *q)
+{
+	q->mt = 3;
+	if (0.0 == q->u[1] && 0.0 == q->u[2])
+		q->arg = 0.0;
+	else
+		q->arg = sqrt(sqrt(q->u[1] * q->u[1] + q->u[2] * q->u[2]));
+	q->theta = atan2(q->u[2], q->u[1]);
+	q->w1r = q->arg * cos(q->theta / 2.0);
+	q->w1i = q->arg * sin(q->theta / 2.0);
+	q->w2r = q->w1r;
+	q->w2i = -q->w1i;
+}
+
+static int	deal_with_it(t_quartic *q, double *a, double *r)
+{
+	init_stru(q, a);
+	find_solution_to_resolvent_cubic(q);
+	if (0.0 == q->disc)
+		q->u[2] = q->u[1];
+	if (0 >= q->disc)
+		deal_with_pos_disc(q);
+	else
+		deal_with_neg_disc(q);
+	q->w3r = q->qq / 8.0 * (q->w1i * q->w2i - q->w1r * q->w2r) /
+	(q->w1i * q->w1i + q->w1r * q->w1r) / (q->w2i * q->w2i + q->w2r * q->w2r);
+	q->h = a[3] / 4.0;
+	q->zarr[0] = q->w1r + q->w2r + q->w3r - q->h;
+	q->zarr[1] = -q->w1r - q->w2r + q->w3r - q->h;
+	q->zarr[2] = -q->w1r + q->w2r - q->w3r - q->h;
+	q->zarr[3] = q->w1r - q->w2r - q->w3r - q->h;
+	if (2 == q->mt)
 	{
-		if (p->a1 == 0)
+		if (q->u[q->k1] >= 0 && q->u[q->k2] >= 0 && (q->mt = 1))
+			fonction_relativement_assez_nulle(r, q->zarr);
+		else
 			return (0);
-		else
-		{
-			p->root1 = -p->a0 / p->a1;
-			return (1);
-		}
-	}
-	delta = p->a1 * p->a1 - 4 * p->a2 * p->a0;
-	if (delta < 0)
-		return (0);
-	else
-	{
-		p->root1 = (-p->a1 - sqrt(delta)) / 2 * p->a2;
-		p->root2 = (-p->a1 + sqrt(delta)) / 2 * p->a2;
-		return (1);
-	}
-}
-
-int	solve_cubic(t_poly4 *p)
-{
-	double	q;
-	double	qqq;
-	double	r;
-	double	rr;
-	double	b;
-	double	c;
-	double	d;
-
-	if (fabsl(p->a3) < EPSILON)
-		return (solve_quadratic(p));
-	d = p->a0 / p->a3;
-	c = p->a1 / p->a3;
-	b = p->a2 / p->a3;
-	q = (b * b - c * 3) / 9;
-	qqq = q * q * q;
-	r = (2 * b * b * b - 9 * b * c + 27 * d) / 54;
-	rr = r * r;
-	if (rr < qqq)
-	{
-		double	theta = acos(r / sqrt(qqq));
-		p->root1 = -2 * sqrt(q);
-		p->root2 = -2 * sqrt(q);
-		p->root3 = -2 * sqrt(q);
-		p->root1 *= cos(theta / 3);
-		p->root2 *= cos((theta + 2 * M_PI) / 3);
-		p->root3 *= cos((theta - 2 * M_PI) / 3);
-		p->root1 -= b / 3;
-		p->root2 -= b / 3;
-		p->root3 -= b / 3;
-		return (3);
 	}
 	else
-	{
-		double	a2 = -cbrt(fabsl(r) + sqrt(rr - qqq));
-		if (a2 != 0)
-		{
-			if (r < 0)
-				a2 = -a2;
-			p->root1 = a2 + q / a2;
-		}
-		p->root1 -= b / 3;
-		return (1);
-	}
-	return (0);
+		set_d3(r, q->zarr[0], q->zarr[1], -1);
+	return (1);
 }
 
-int	solve_quartic(t_poly4 *p4)
+int			solve_quartic(double *a, double *r)
 {
-	double	b;
-	double	c;
-	double	d;
-	double	e;
-	double	bb;
-	double	i;
-	double	j;
-	double	k;
-	t_poly4	p3;
-	t_poly4	p2;
-	double	z;
-	int		fr = 0;
-	int		far = 0;
+	t_quartic	q;
 
-	b = p4->a3 / p4->a4;
-	c = p4->a2 / p4->a4;
-	d = p4->a1 / p4->a4;
-	e = p4->a0 / p4->a4;
-	bb = b * b;
-	i = -3 * bb * 0.125 + c; // P
-	j = bb * b * 0.125 - b * c * 0.5 + d; // Q
-//	 if (i > 0 || j > 0)
-//		return (0);
-	k = -3 * bb * bb / 256 + c * bb / 16 - b * d * 0.25 + e;
-	p3.a3 = 1;
-	p3.a2 = 2 * i;
-	p3.a1 = i * i - 4 * k;
-	p3.a0 = -j * j;
-	solve_cubic(&p3);
-	z = p3.root1;
-	double	p = sqrt(z);
-	double	r = -p;
-	double	q = (i + z - j / p) / 2;
-	double	s = (i + z + j / p) / 2;
-
-	p2.a2 = 1;
-	p2.a1 = p;
-	p2.a0 = q;
-	if ((fr = solve_quadratic(&p2)))
+	if (a[2] == 0. && a[1] == 0. && (a[0] == 0. || a[3] == 0.))
+		return (deal_with_degenerate(a, r));
+	if (0.0 == a[1] && 0.0 == a[0] && ((r[0] = 0.0) || 1))
 	{
-		p4->root1 = p2.root1 - b / 4;
-		p4->root2 = p2.root2 - b / 4;
+		r[1] = 0.0;
+		set_d3(q.args, a[2], a[3], 1);
+		q.mt = ((solve_quadratic(q.args, &r[2]) == 0) ? 3 : 1);
 	}
-	p2.a2 = 1;
-	p2.a1 = r;
-	p2.a0 = s;
-	if ((far = solve_quadratic(&p2)))
-	{
-		if (fr == 0)
-		{
-			p4->root1 = p2.root1 - b / 4;
-			p4->root2 = p2.root2 - b / 4;
-		}
-		else
-		{
-			p4->root3 = p2.root1 - b / 4;
-			p4->root4 = p2.root2 - b / 4;
-		}
-	}
-	if (isnan(p4->root1))
+	else if (!deal_with_it(&q, a, r))
 		return (0);
-	return ((fr + far) * 2);
+	if (1 == q.mt)
+	{
+		(r[0] > r[1]) ? swapd(&r[0], &r[1]) : 0;
+		(r[0] > r[2]) ? swapd(&r[0], &r[2]) : 0;
+		(r[0] > r[3]) ? swapd(&r[0], &r[3]) : 0;
+		(r[1] > r[2]) ? swapd(&r[1], &r[2]) : 0;
+		if (r[2] > r[3] && swapd(&r[2], &r[3]))
+			(r[1] > r[2]) ? swapd(&r[1], &r[2]) : 0;
+		return (4);
+	}
+	else if (r[0] > r[1])
+		swapd(&r[0], &r[1]);
+	return (2);
 }

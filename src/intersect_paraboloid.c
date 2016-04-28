@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_paraboloid.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 22:32:06 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 10:35:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:02:58 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ double	intersect_paraboloid(t_ray *ray, t_obj *o)
 		if (c.eq < 0)
 			return (INFINITY);
 	}
-	return (c.eq);
+	return (compute_m(ray, o, c.eq));
 }

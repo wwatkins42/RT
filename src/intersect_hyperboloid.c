@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 19:30:12 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/17 22:05:57 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:03:09 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ double	intersect_hyperboloid1(t_ray *ray, t_obj *obj)
 		if (calc.eq < -EPSILON)
 			return (INFINITY);
 	}
-	return (calc.eq);
+	return (compute_m(ray, obj, calc.eq));
 }
 
 double	intersect_hyperboloid2(t_ray *ray, t_obj *obj)
@@ -85,5 +85,5 @@ double	intersect_hyperboloid2(t_ray *ray, t_obj *obj)
 		if (calc.eq < -EPSILON)
 			return (INFINITY);
 	}
-	return (calc.eq);
+	return (compute_m(ray, obj, calc.eq));
 }
