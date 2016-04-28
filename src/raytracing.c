@@ -3,37 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 14:53:34 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/28 12:55:06 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+void	raytracing_shell(t_env *e, t_cam *cam)
+{
+	char	*buffer;
+	int		cursor;
+	int		pos;
+	int		moy;
+
+	cam->y = -1;
+	cursor = 0;
+	buffer = (char*)malloc(sizeof(char) * (e->win.w * 2 * e->win.h + e->win.h));
+	while (++cam->y < e->win.h)
+	{
+		cam->x = -1;
+		while (++cam->x < e->win.w)
+		{
+			pos = (cam->x * cam->img.opp) + (cam->y * cam->img.sl);
+			moy = ((cam->img.img[pos] & 0xFF) + (cam->img.img[pos + 1] & 0xFF) +
+				(cam->img.img[pos + 2] & 0xFF)) / 3.0;
+			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 15 / 255), 0, 15)];
+			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 15 / 255), 0, 15)];
+		}
+		buffer[cursor++] = '\n';
+	}
+	buffer[cursor++] = '\0';
+	system("clear");
+	ft_printf("\033[37;40m%s\033[0m", buffer);
+	ft_strdel(&buffer);
+}
+
 void	raytracing(t_env *e, t_cam *cam)
 {
-	int		x;
-	int		y;
 	t_vec3	color;
 
 	init_cam(e, cam);
 	color = (t_vec3) {0, 0, 0};
-	y = -1;
-	while (++y < e->win.h)
+	cam->y = -1;
+	while (++cam->y < e->win.h)
 	{
-		x = -1;
-		while (++x < e->win.w)
-			supersampling(e, cam, x, y);
-		y % 10 ? display_loading(e, x, y) : 0;
+		cam->x = -1;
+		while (++cam->x < e->win.w)
+			supersampling(e, cam);
+		cam->y % 10 ? display_loading(e, cam->x, cam->y) : 0;
 	}
+	e->arg.shell ? raytracing_shell(e, cam) : 0;
 }
 
 void	raytracing_progressive(t_env *e, t_cam *cam)
 {
-	int		x;
-	int		y;
 	int		p;
 	t_vec3	color;
 
@@ -43,23 +69,24 @@ void	raytracing_progressive(t_env *e, t_cam *cam)
 	color = (t_vec3) {0, 0, 0};
 	while (e->scene.inc > 0)
 	{
-		y = 0;
-		while (y < e->win.h)
+		cam->y = 0;
+		while (cam->y < e->win.h)
 		{
-			x = 0;
-			while (x < e->win.w)
+			cam->x = 0;
+			while (cam->x < e->win.w)
 			{
-				if (!(p != 64 && x % p == 0 && y % p == 0))
-					supersampling(e, cam, x, y);
-				x += e->scene.inc;
+				if (!(p != 64 && cam->x % p == 0 && cam->y % p == 0))
+					supersampling(e, cam);
+				cam->x += e->scene.inc;
 			}
-			y % 10 ? display_loading(e, x, y) : 0;
-			y += e->scene.inc;
+			cam->y % 10 ? display_loading(e, cam->x, cam->y) : 0;
+			cam->y += e->scene.inc;
 		}
 		mlx_put_image_to_window(e->mlx, e->win.adr, cam->img.adr, 0, 0);
 		mlx_do_sync(e->mlx);
 		p = e->scene.inc;
 		e->scene.inc /= 2;
+		e->arg.shell ? raytracing_shell(e, cam) : 0;
 	}
 }
 

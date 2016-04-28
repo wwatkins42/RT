@@ -61,7 +61,7 @@ objects:
 		  shininess: 512
 		  reflect: 0
 		  refract: 0
-		  transparency: 1.0
+		  transparency: 0
 		  absorbtion: 0.7
 
 	- object:
