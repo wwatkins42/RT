@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/27 13:51:29 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/27 16:34:54 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
+		else if (ft_strstr(line->line, "obj:"))
+		{
+			free(new);
+			new = parse_obj(ft_strstr(line->line, ":") + 1, e);
+		}
 		line = line->next;
 	}
 	e->count.obj++;
@@ -163,7 +168,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
-	else
+	else if (new->type != BBOX)
 		new->comp = NULL;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
 	new->next = NULL;

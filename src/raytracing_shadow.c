@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 14:54:04 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/28 10:46:40 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	t_vec3	dir;
 	t_vec3	hit;
 
+	tmin = INFINITY;
 	i = -1;
 	shadow = 1;
 	hit = light.ray.pos;
@@ -53,6 +54,7 @@ static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 {
 	double	tmin;
 
+	tmin = INFINITY;
 	light.ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	light.ray.pos = light.pos;
 	if (intersect_object(e, &light.ray, &tmin, e->obj) != obj)
@@ -66,6 +68,7 @@ static t_vec3	get_shadow_color(t_env *e, t_lgt light, t_obj *this, t_obj *obj)
 	t_ray	ray;
 	double	tmin;
 
+	tmin = INFINITY;
 	ray.dir = vec3_norm(vec3_sub(light.ray.pos, light.pos));
 	ray.pos = light.pos;
 	intersect_object(e, &ray, &tmin, e->obj);
@@ -83,6 +86,7 @@ static void		set_projectionshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *o
 	double	t;
 	t_obj	*other;
 
+	tmin = INFINITY;
 	light.ray.dir = vec3_sub(light.pos, light.ray.pos);
 	t = vec3_magnitude(light.ray.dir);
 	vec3_normalize(&light.ray.dir);
