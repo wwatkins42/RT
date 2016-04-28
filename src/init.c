@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 08:38:30 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/28 10:20:32 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_env(t_env *e)
 	e->count.fps = 0;
 	e->count.rps = 0;
 	e->tick.frame = 1.0;
-	e->stereo_nb = -0.15;
+	e->stereo_nb = -0.057;
 }
 
 void	init_intersect(t_env *e)
