@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 16:22:21 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:24:05 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct		s_texture
 	double			normal_strength;
 	double			scale;
 	double			rotation;
+	char			*name;
 }					t_texture;
 
 typedef struct		s_triangle
