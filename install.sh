@@ -7,7 +7,12 @@ se="$dest_path/seamless"
 
 clear
 printf "\033[36m"
-cat install_header
+# cat install_header
+printf ",---.          |                             \n"
+printf "|---',---.,   .|--- ,---.,---.,---.,---.,---.\n"
+printf "|  \ ,---||   ||    |    ,---||    |---'|    \n"
+printf "\`   \`\`---^\`---|\`---'\`    \`---^\`---'\`---'\`    \n"
+printf "          \`---'                              \n"
 printf "\033[0m"
 
 #check if dest_path exist
