@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 13:22:42 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 13:58:20 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,6 @@ typedef struct		s_obj
 	double			dist_attenuation;
 	double			in;
 	double			out;
-	int				comp_hit;
 	int				op;
 	struct s_obj	*left;
 	struct s_obj	*right;
@@ -404,6 +403,7 @@ void				parse(t_env *e, t_parse *core);
 t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
+t_obj				*create_object(t_env *e, t_line *object_line);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);

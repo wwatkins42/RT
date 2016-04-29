@@ -6,301 +6,25 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 13:24:55 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 13:54:18 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void test(t_obj *quad)
-{
-	quad->co.a = 1;
-	quad->co.b = 1;
-	quad->co.c = 1;
-	quad->co.d = 0;
-	quad->co.e = 0;
-	quad->co.f = 0;
-	quad->co.g = 0;
-	quad->co.h = 0;
-	quad->co.i = 0;
-	quad->co.j = -5;
-}
-
-static t_mat	default_material(void)
-{
-	t_mat	mat;
-	mat.color = vec3(1, 1, 1);
-	mat.ambient = 0.225;
-	mat.diffuse = 0.875;
-	mat.specular = 1.0;
-	mat.shininess = 256;
-	mat.glossiness = 0;
-	mat.reflect = 0;
-	mat.refract = 0;
-	mat.transparency = 0;
-	mat.absorbtion = 0;
-	mat.texture.defined = 0;
-	mat.texture.transparency_mapping = 0;
-	mat.texture.filtering = 0;
-	mat.texture.normal_map = 0;
-	mat.texture.normal_strength = 2;
-	mat.texture.scale = 1;
-	mat.texture.rotation = 0;
-	mat.receive_shadow = 1;
-	mat.fresnel.defined = 0;
-	mat.normal_perturbation = 0;
-	return (mat);
-}
-
-void		default_object(t_obj *object)
-{
-	object->type = SPHERE;
-	object->pos = vec3(0, 0, 5);
-	object->pos2 = vec3(0, 1, 0);
-	object->pos3 = vec3(1, 0, 0);
-	object->dir = vec3(0, 0, 1);
-	object->m = 1;
-	object->pr = 1;
-	object->gr = 2;
-	object->min = -10;
-	object->max = 10;
-	object->scale = 1;
-	object->mat = default_material();
-	object->comp = NULL;
-	object->next = NULL;
-}
-
-static int		get_object_type(char *line)
-{
-	if (ft_strstr(line, "SPHERE"))
-		return (SPHERE);
-	else if (ft_strstr(line, "CONE"))
-		return (CONE);
-	else if (ft_strstr(line, "PLANE"))
-		return (PLANE);
-	else if (ft_strstr(line, "CYLINDER"))
-		return (CYLINDER);
-	else if (ft_strstr(line, "TRIANGLE"))
-		return (TRIANGLE);
-	else if (ft_strstr(line, "CHEWINGGUM"))
-		return (CHEWINGGUM);
-	else if (ft_strstr(line, "CUBE"))
-		return (CUBE);
-	else if (ft_strstr(line, "PARALLELOGRAM"))
-		return (PARALLELOGRAM);
-	else if (ft_strstr(line, "HYPERBOLOID_ONE"))
-		return (HYPERBOLOID_ONE);
-	else if (ft_strstr(line, "HYPERBOLOID_TWO"))
-		return (HYPERBOLOID_TWO);
-	else if (ft_strstr(line, "PARABOLOID"))
-		return (PARABOLOID);
-	else if (ft_strstr(line, "TORUS"))
-		return (TORUS);
-	else if (ft_strstr(line, "QUADRIC"))
-		return (QUADRIC);
-	else if (ft_strstr(line, "MOEBIUS"))
-		return (MOEBIUS);
-	else if (ft_strstr(line, "DISC"))
-		return (DISC);
-	else if (ft_strstr(line, "CSG"))
-		return (CSG);
-	else if (ft_strstr(line, "OBJ"))
-		return (BBOX);
-	else
-		error(E_OTYPE, line, 0);
-	return (SPHERE);
-}
-
-static void create_cube(t_obj *cube)
-{
-	double	k;
-
-	!(cube->comp = malloc(6 * sizeof(t_obj))) ? error(E_MALLOC, NULL, 0) : 0;
-	k = cube->scale;
-	cube->comp[0].type = PARALLELOGRAM;
-	cube->comp[0].pos = cube->pos;
-	cube->comp[0].pos2 = (t_vec3) {k, 0, 0};
-	cube->comp[0].pos3 = (t_vec3) {0, k, 0};
-	cube->comp[0].dir = vec3_norm(vec3_cross(cube->comp[0].pos2, cube->comp[0].pos3));
-	cube->comp[1].type = PARALLELOGRAM;
-	cube->comp[1].pos = vec3_add(cube->pos, (t_vec3) {k, 0, 0});
-	cube->comp[1].pos2 = (t_vec3) {0, 0, k};
-	cube->comp[1].pos3 = (t_vec3) {0, k, 0};
-	cube->comp[1].dir = vec3_norm(vec3_cross(cube->comp[1].pos2, cube->comp[1].pos3));
-	cube->comp[2].type = PARALLELOGRAM;
-	cube->comp[2].pos = vec3_add(cube->pos, (t_vec3) {0, 0, k});
-	cube->comp[2].pos2 = (t_vec3) {0, 0, -k};
-	cube->comp[2].pos3 = (t_vec3) {0, k, 0};
-	cube->comp[2].dir = vec3_norm(vec3_cross(cube->comp[2].pos2, cube->comp[2].pos3));
-	cube->comp[3].type = PARALLELOGRAM;
-	cube->comp[3].pos = vec3_add(cube->pos, (t_vec3) {0, k, 0});
-	cube->comp[3].pos2 = (t_vec3) {k, 0, 0};
-	cube->comp[3].pos3 = (t_vec3) {0, 0, k};
-	cube->comp[3].dir = vec3_norm(vec3_cross(cube->comp[3].pos2, cube->comp[3].pos3));
-	cube->comp[4].type = PARALLELOGRAM;
-	cube->comp[4].pos = cube->pos;
-	cube->comp[4].pos2 = (t_vec3) {k, 0, 0};
-	cube->comp[4].pos3 = (t_vec3) {0, 0, k};
-	cube->comp[4].dir = vec3_norm(vec3_cross(cube->comp[4].pos2, cube->comp[4].pos3));
-	cube->comp[5].type = PARALLELOGRAM;
-	cube->comp[5].pos = vec3_add(cube->pos, (t_vec3) {k, 0, k});
-	cube->comp[5].pos2 = (t_vec3) {-k, 0, 0};
-	cube->comp[5].pos3 = (t_vec3) {0, k, 0};
-	cube->comp[5].dir = vec3_norm(vec3_cross(cube->comp[5].pos2, cube->comp[5].pos3));
-}
-
-static t_obj	*create_object(t_env *e, t_line *object_line)
-{
-	t_obj		*new;
-	t_line		*line;
-
-	line = object_line;
-	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
-	default_object(new);
-	new->next = NULL;
-	while (line != NULL && !ft_strstr(line->line, "- object:") && !ft_strchr(line->line, '('))
-	{
-		if (ft_strstr(line->line, "type:"))
-			new->type = get_object_type(line->line);
-		else if (ft_strstr(line->line, "pos:"))
-			new->pos = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos2:"))
-			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "pos3:"))
-			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "dir:"))
-			new->dir = parse_vector(line->line);
-		else if (ft_strstr(line->line, "scale:"))
-			new->scale = parse_value(line->line, 0.1, 1000);
-		else if (ft_strstr(line->line, "min:"))
-			new->min = parse_value(line->line, -INFINITY, INFINITY);
-		else if (ft_strstr(line->line, "max:"))
-			new->max = parse_value(line->line, -INFINITY, INFINITY);
-		else if (ft_strstr(line->line, "pr:"))
-			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "gr:"))
-			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "material:"))
-			parse_material(e, &new->mat, line);
-		else if (ft_strstr(line->line, "obj:"))
-			new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
-		line = line->next;
-	}
-	e->count.obj++;
-	new->id = e->count.obj;
-	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
-	new->scale2 = new->scale * new->scale;
-	new->pr *= new->pr;
-	new->gr *= new->gr;
-	new->k = tan(new->scale) * tan(new->scale);
-	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
-		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
-	if (new->type == CUBE)
-		create_cube(new);
-	else if (new->type != BBOX)
-		new->comp = NULL;
-	if (new->type == QUADRIC)
-		test(new);
-	if (new->type == CSG)
-		parse_csg(e, new, line);
-	new->mat.fresnel.defined ? set_fresnel(new) : 0;
-	return (new);
-}
-
-t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
-{
-	t_obj		*new;
-	t_line		*line;
-
-	line = object_line;
-	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
-	default_object(new);
-	while (line != NULL && !ft_strstr(line->line, "- object:"))
-	{
-		if (ft_strstr(line->line, "type:"))
-			new->type = get_object_type(line->line);
-		else if (ft_strstr(line->line, "pos:"))
-			new->pos = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos2:"))
-			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "pos3:"))
-			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "dir:"))
-			new->dir = parse_vector(line->line);
-		else if (ft_strstr(line->line, "scale:"))
-			new->scale = parse_value(line->line, 0.1, 1000);
-		else if (ft_strstr(line->line, "min:"))
-			new->min = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "max:"))
-			new->max = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "pr:"))
-			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "gr:"))
-			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "material:"))
-			parse_material(e, &new->mat, line);
-		line = line->next;
-	}
-	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
-	new->pr *= new->pr;
-	new->gr *= new->gr;
-	new->scale2 = new->scale * new->scale;
-	new->k = tan(new->scale) * tan(new->scale);
-	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
-		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
-	if (new->type == CUBE)
-		create_cube(new);
-	else
-		new->comp = NULL;
-	if (new->type == QUADRIC)
-		test(new);
-	if (new->type == CSG)
-		parse_csg(e, new, line);
-	new->next = NULL;
-	return (new);
-}
-
-void parse_csg(t_env *e, t_obj *csg, t_line *line)
-{
-	int		count_parenthesis;
-
-	count_parenthesis = 1;
-	while (line && !ft_strchr(line->line, '('))
-		line = line->prev;
-	line = line->next;
-	while (line && count_parenthesis)
-	{
-		if (count_parenthesis == 1)
-		{
-			if (ft_strstr(line->line, "- object:"))
-			{
-				if (csg->left)
-				{
-					if (csg->right)
-						error(E_OTYPE, line->line, 0);
-					else
-						csg->right = create_object_for_csg(e, line->next);
-				}
-				else
-					csg->left = create_object_for_csg(e, line->next);
-			}
-			if (ft_strstr(line->line, "- op:"))
-			{
-				if (ft_strstr(line->line, "UNION"))
-					csg->op = UNION;
-				else if (ft_strstr(line->line, "DIFF"))
-					csg->op = DIFF;
-				else if (ft_strstr(line->line, "INTER"))
-					csg->op = INTER;
-			}
-		}
-		if (ft_strchr(line->line, '('))
-			count_parenthesis++;
-		else if (ft_strchr(line->line, ')'))
-			count_parenthesis--;
-		line = line->next;
-	}
-}
+// static void test(t_obj *quad)
+// {
+// 	quad->co.a = 1;
+// 	quad->co.b = 1;
+// 	quad->co.c = 1;
+// 	quad->co.d = 0;
+// 	quad->co.e = 0;
+// 	quad->co.f = 0;
+// 	quad->co.g = 0;
+// 	quad->co.h = 0;
+// 	quad->co.i = 0;
+// 	quad->co.j = -5;
+// }
 
 t_obj			*parse_object(t_env *e, t_line *object_line)
 {
@@ -308,29 +32,13 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	t_obj	*tmp;
 	t_obj	*object;
 	t_obj	*current;
-	int		count_parenthesis;
 
 	line = object_line;
 	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
 		error(E_MALLOC, NULL, 1);
-	//current->next = NULL;
 	object = current;
 	while (line != NULL)
 	{
-		if (ft_strchr(line->line, '('))
-		{
-			count_parenthesis = 1;
-			while (count_parenthesis)
-			{
-				line = line->next;
-				if (!line)
-					; //ERROR(WRONG USAGE)
-				if (ft_strchr(line->line, ')'))
-					count_parenthesis--;
-				if (ft_strchr(line->line, '('))
-					count_parenthesis++;
-			}
-		}
 		if (ft_strstr(line->line, "- object:"))
 		{
 			current->next = create_object(e, line->next);

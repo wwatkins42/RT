@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/25 16:07:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:01:32 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ static short	get_texture_type(const char *line)
 
 static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
-	char		info[256];
+	char		*info;
 
+	(void)e;
 	mat->texture.type = get_texture_type(line);
+	info = (char *)malloc(sizeof(char) * 256);
 	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
 	else if (mat->texture.type == BMP)

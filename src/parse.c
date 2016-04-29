@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/18 10:52:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:01:48 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ static void	parse_scene(t_env *e, t_line *scene)
 
 void		parse(t_env *e, t_parse *core)
 {
-	char	info[256];
+	char	*info;
 
+	info = (char *)malloc(sizeof(char) * 256);
 	sprintf(info, "FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
 	display_info(e, info);
 	parse_scene(e, core->scene);
