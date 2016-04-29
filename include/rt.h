@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 15:06:00 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:22:21 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ typedef struct		s_obj
 	t_vec3			pos3;
 	t_vec3			dir;
 	t_vec3			normal;
+	t_vec3			cut;
 	t_mat			mat;
 	t_coeff			co;
 	short			type;
@@ -422,8 +423,31 @@ void				parse_csg(t_env *e, t_obj *csg, t_line *line);
 
 
 /*
-** QUARTIC SOLVER
+** POLYNOM SOLVER
 */
+
+typedef struct          s_cubic
+{
+        double			q;
+        double			r;
+        double			bq;
+        double			br;
+        double			bq3;
+        double			br2;
+        double			cr2;
+        double			cq3;
+        double			sqrtbq;
+        double			sgnbr;
+        double			ratio;
+        double			theta;
+        double			norm;
+        double			r0;
+        double			r1;
+        double			r2;
+        double			ba;
+        double			bb;
+        int             i;
+}						t_cubic;
 
 typedef struct		s_quartic
 {
@@ -480,6 +504,7 @@ int					deal_with_degenerate(double *a, double *r);
 void				find_solution_to_resolvent_cubic(t_quartic *q);
 void				set_d3(double *u, double u0, double u1, double u2);
 void				fonction_relativement_assez_nulle(double *r, double *zarr);
+double				choose_root3(double *roots, int ret);
 double				choose_root4(double *roots, int ret);
 
 /*
@@ -537,6 +562,26 @@ t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 /*
 **			Primitives intersections
 */
+
+typedef struct	s_moebius
+{
+	double		b;
+	double		c;
+	double		d;
+	double		e;
+	double		f;
+	double		g;
+}				t_moebius;
+
+typedef struct	s_cal
+{
+	double		tmp;
+	double		dirinv[2][2];
+	double		point[2];
+	double		det;
+	double		p;
+	double		q;
+}				t_cal;
 
 t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin,
 										t_obj *obj);
