@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/29 13:58:02 by scollon          ###   ########.fr        #
+#    Updated: 2016/04/29 14:40:07 by tbeauman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 
 NAME = rt
 CC = gcc
-CFLGS = -Werror -Wextra -Wall
+CFLGS = -Werror -Wextra -Wall -g
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
@@ -35,7 +35,8 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			intersect_basics.c intersect_chewing_gum.c intersect_disc.c \
 			intersect_moebius.c intersect_quadric.c \
 			root_compute_utils.c intersect_csg.c solve_quadratic.c \
-			csg_helpers.c csg_helpers2.c create_object.c 
+			csg_helpers.c csg_helpers2.c create_object.c intersect_cube_troue.c \
+			parse_csg.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

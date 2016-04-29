@@ -12,19 +12,19 @@ cameras:
 	- camera:
 	  pos: {x: 0, y: 0, z: -5}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 20
+	  fov: 90
 
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 3, y: 0, z: -5}
+	  pos: {x: 5, y: 5, z: -5}
 	  color: 0xFFFFFF
-	  intensity: 90
+	  intensity: 1
 	  shadow: HARD
 
 objects:
         - object:
-                type: PARABOLOID
+                type: CUBE_TROUE
                 pos: {x: 0, y: 0, z: 0}
                 scale: 1
                 material:

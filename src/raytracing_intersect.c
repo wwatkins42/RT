@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 22:26:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:07:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,12 @@ void	set_normal(t_ray *ray, t_obj *obj)
 			(obj->gr + obj->pr) + 2 * obj->gr);
 		obj->normal.z = 4 * ray->hit.z * (vec3_dot(ray->hit, ray->hit) -
 			(obj->gr + obj->pr));
+	}
+	if (obj->type == CUBE_TROUE)
+	{
+		obj->normal.x = 4 * ft_pow(ray->hit.x, 3) - 10 * ray->hit.x;
+		obj->normal.y = 4 * ft_pow(ray->hit.y, 3) - 10 * ray->hit.y;
+		obj->normal.z = 4 * ft_pow(ray->hit.z, 3) - 10 * ray->hit.z;
 	}
 	if (obj->mat.normal_perturbation)
 		obj->normal = vec3(obj->normal.x + sin(ray->hit.x),

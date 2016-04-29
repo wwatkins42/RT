@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:35:38 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:53:29 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void				default_object(t_obj *object)
 	object->mat = default_material();
 	object->comp = NULL;
 	object->next = NULL;
+	object->left = NULL;
+	object->right = NULL;
 }
 
-static int			get_object_type(char *line)
+int			get_object_type(char *line)
 {
 	if (ft_strstr(line, "SPHERE"))
 		return (SPHERE);
@@ -128,7 +130,7 @@ static void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 		new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
 }
 
-static void create_cube(t_obj *cube)
+void create_cube(t_obj *cube)
 {
         double  k;
 
@@ -175,8 +177,8 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 	line = object_line;
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
 	default_object(new);
-	new->next = NULL;
-	while (line != NULL && !ft_strstr(line->line, "- object:"))
+	while (line != NULL && !ft_strstr(line->line, "- object:") &&
+		!ft_strchr(line->line, '('))
 	{
 		fill_object_attr(e, line, new);
 		line = line->next;
@@ -193,6 +195,8 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
+	if (new->type == CSG)
+		parse_csg(e, new, line);
 	(new->type != BBOX && new->type != CUBE) ? new->comp = NULL : 0;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
 	return (new);

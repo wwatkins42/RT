@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_csg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:40:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 13:46:42 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 14:54:40 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,11 @@ static t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
-	else
-		new->comp = NULL;
+	(new->type != BBOX && new->type != CUBE) ? new->comp = NULL : 0;
 	// if (new->type == QUADRIC)
 	// 	test(new);
-	// if (new->type == CSG)
-	// 	parse_csg(e, new, line);
-	new->next = NULL;
+	if (new->type == CSG)
+		parse_csg(e, new, line);
 	return (new);
 }
 

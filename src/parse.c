@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:01:48 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 14:27:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void		parse(t_env *e, t_parse *core)
 	e->count.cam, e->count.lgt, e->count.obj);
 	!e->count.cam ? error("must have cam", NULL, 1) : 0;
 	display_info(e, info);
+	free(info);
 }

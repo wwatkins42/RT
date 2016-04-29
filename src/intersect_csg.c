@@ -6,17 +6,17 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 15:08:26 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:11:32 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double (*intersect[16])(t_ray *, t_obj *) =
+double (*intersect[20])(t_ray *, t_obj *) =
 { intersect_sphere, intersect_cone, intersect_plane, intersect_cylinder,
 intersect_triangle, intersect_cube, intersect_parallelogram, intersect_hyperboloid1,
 intersect_hyperboloid2, intersect_paraboloid, intersect_torus, intersect_chewing_gum, intersect_quadric,
-intersect_moebius, intersect_disc, intersect_csg };
+intersect_moebius, intersect_disc, intersect_csg, intersects_bbox };
 
 double		do_union(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 {
