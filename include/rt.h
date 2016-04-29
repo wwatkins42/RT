@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 13:58:20 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 14:14:40 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ enum {DEFAULT, STEREOSCOPIC};
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM, DISC,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, CHEWINGGUM, TORUS,
-		QUADRIC, MOEBIUS, CSG, BBOX };
+		QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE };
 
 /*
 ** CSG OPERATORS
@@ -556,6 +556,7 @@ double				intersect_quadric(t_ray *ray, t_obj *cube);
 double				intersect_moebius(t_ray *ray, t_obj *obj);
 double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
+double				intersect_cube_troue(t_ray *ray, t_obj *b);
 void				set_normal(t_ray *ray, t_obj *obj);
 double				compute_m(t_ray *ray, t_obj *obj, double tmp);
 /*
