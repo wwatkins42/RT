@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 16:32:18 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 18:45:52 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -566,6 +566,7 @@ t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 
 typedef struct	s_moebius
 {
+	double		a;
 	double		b;
 	double		c;
 	double		d;

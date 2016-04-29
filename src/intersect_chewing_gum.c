@@ -6,25 +6,11 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 18:17:01 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 19:16:42 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-double			choose_root4(double *roots, int ret)
-{
-	int		i;
-
-	i = 0;
-	while (i < ret)
-	{
-		if (roots[i] > EPSILON)
-			return (roots[i]);
-		i++;
-	}
-	return (INFINITY);
-}
 
 double			intersect_chewing_gum(t_ray *ray, t_obj *obj)
 {

@@ -6,31 +6,42 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 15:55:32 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 19:17:02 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double			choose_root3(double *roots, int ret)
+int				dblsgn(double x)
 {
-	if (ret == 1)
-		return (roots[0] < 0 ? INFINITY : roots[0]);
-	ret = 0;
-	while (ret < 3)
-	{
-		if (roots[ret] > 0)
-			return (roots[ret]);
-		ret++;
-	}
-	return (INFINITY);
+	if (x < -EPSILON)
+		return (-1);
+	return (x > EPSILON);
+}
+
+int				inside(t_obj *m, t_vec3 h)
+{
+	double t;
+	double s;
+
+	t = atan2(h.y, h.x);
+	if (dblsgn(sin(t / 2)) != 0)
+		s = h.z / sin(t / 2);
+	else
+		s = dblsgn(cos(t)) ? (h.x / cos(t) - m->scale) / cos(t / 2) :
+			(h.y / sin(t) - m->scale) / cos(t / 2);
+	h.x -= (m->scale + s * cos(t / 2)) * cos(t);
+	h.y -= (m->scale + s * cos(t / 2)) * sin(t);
+	h.z -= s * sin(t / 2);
+	if (dblsgn(h.x * h.x + h.y * h.y + h.z * h.z))
+		return (0);
+	return (s >= -m->max && s <= m->max);
 }
 
 static double	choose_mobi_root(double *roots, int ret, t_ray *ray, t_obj *obj)
 {
 	int			i;
 	t_vec3		hit;
-	double		norme;
 
 	i = 0;
 	while (i < ret)
@@ -38,8 +49,7 @@ static double	choose_mobi_root(double *roots, int ret, t_ray *ray, t_obj *obj)
 		if (roots[i] > EPSILON)
 		{
 			hit = vec3_add(vec3_fmul(ray->dir, roots[i]), ray->pos);
-			norme = vec3_magnitude(hit);
-			if (norme > obj->min && norme < obj->max)
+			if (inside(obj, hit))
 				return (roots[i]);
 		}
 		i++;
@@ -47,22 +57,24 @@ static double	choose_mobi_root(double *roots, int ret, t_ray *ray, t_obj *obj)
 	return (INFINITY);
 }
 
-static void		init_coeffs(t_moebius m, double *a)
+static void		init_coeffs(t_moebius m, double *coeff)
 {
-	a[3] = (-2 * m.c * m.c * m.g + m.e * m.c * m.c + m.e * m.g * m.g - 2 * m.e *
-		m.e * m.g + m.e * m.e * m.e);
-	a[2] = (-2 * m.c * m.g + 2 * m.b * m.c * m.e - 4 * m.b * m.c * m.g + m.c *
-		m.c * m.d - 2 * m.c *
-		m.c * m.f + 3 * m.d * m.e * m.e - 4 * m.d * m.e * m.g - 2 * m.e * m.e *
-		m.f + m.d * m.g * m.g + 2 *
-		m.e * m.f * m.g) / a[3];
-	a[1] = (-m.e - 2 * m.b * m.g - 2 * m.c * m.f + m.b * m.b * m.e - 2 * m.b *
-		m.b * m.g + 2 * m.b * m.c * m.d - 4 * m.b * m.c * m.f + 3 * m.d * m.d *
-		m.e - 2 * m.d * m.d * m.g + 2
-		* m.d * m.g * m.f - 4 * m.e * m.d * m.f + m.e * m.f * m.f) / a[3];
-	a[0] = (-m.d - 2 * m.b * m.f + m.b * m.b * m.d - 2 * m.b * m.b * m.f + m.d *
-		m.d * m.d - 2 * m.d * m.d
-		* m.f + m.d * m.f * m.f) / a[3];
+	coeff[3] = m.c * m.c * m.e + m.e * m.e * m.e - 2 * m.c * m.c * m.g - 2 * m.e
+		* m.e * m.g + m.e * m.g * m.g;
+	coeff[0] = (m.b * m.b * m.d + m.d * m.d * m.d - 2 * m.b * m.b * m.f - 2 *
+		m.d * m.d * m.f
+		+ m.d * m.f * m.f - 2 * m.b * m.f * m.a - m.d * m.a * m.a) / coeff[3];
+	coeff[1] = (m.e * m.b * m.b - 2 * m.g * m.b * m.b + 2 * m.c * m.b * m.d + 3
+		* m.e * m.d
+		* m.d - 2 * m.g * m.d * m.d - 4 * m.c * m.b * m.f - 4 * m.e * m.d * m.f
+		+ 2 * m.g * m.d
+		* m.f + m.e * m.f * m.f - 2 * m.g * m.b * m.a - 2 * m.c * m.f * m.a -
+		m.e * m.a * m.a) / coeff[3];
+	coeff[2] = (2 * m.c * m.e * m.b - 4 * m.c * m.g * m.b + m.c * m.c * m.d + 3
+		* m.e * m.e
+		* m.d - 4 * m.e * m.g * m.d + m.g * m.g * m.d - 2 * m.c * m.c * m.f -
+		2 * m.e * m.e * m.f
+		+ 2 * m.e * m.g * m.f - 2 * m.c * m.g * m.a) / coeff[3];
 }
 
 double			intersect_moebius(t_ray *ray, t_obj *obj)
@@ -74,6 +86,7 @@ double			intersect_moebius(t_ray *ray, t_obj *obj)
 	int			ret;
 
 	x = vec3_sub(ray->pos, obj->pos);
+	m.a = obj->scale;
 	m.b = x.x;
 	m.c = ray->dir.x;
 	m.d = x.y;
