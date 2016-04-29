@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
+#    By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/29 15:21:51 by tbeauman         ###   ########.fr        #
+#    Updated: 2016/04/29 16:26:53 by aacuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
 
 NAME = rt
 CC = gcc
-CFLGS = -Werror -Wextra -Wall -g
+CFLGS = -Werror -Wextra -Wall
 MLXFLGS = -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
