@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/27 13:46:58 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/28 15:15:48 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		next_number(char *line, int i)
 	return (i);
 }
 
-t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list, int max)
+t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *parent, int max)
 {
 	t_vec3	p1;
 	t_vec3	p2;
@@ -72,18 +72,18 @@ t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list, int max)
 	p2 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
 	i = next_number(line, i);
 	p3 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
-	obj_list = new_triangle_node(p1, p2, p3, obj_list);
+	parent->comp = new_triangle_node(p1, p2, p3, parent);
 	while (line[i])
 	{
 		i = next_number(line, i);
 		if (line[i])
-			obj_list = new_triangle_node(p1, obj_list->pos3,
-										vect[ft_atoi(line + i)], obj_list);
+			parent->comp = new_triangle_node(p1, parent->comp->pos3,
+										vect[ft_atoi(line + i)], parent);
 	}
-	return (obj_list);
+	return (parent->comp);
 }
 
-t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *obj_list)
+t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *parent)
 {
 	t_obj	*result;
 
@@ -95,9 +95,10 @@ t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *obj_list)
 	result->pos = p1;
 	result->pos2 = p2;
 	result->pos3 = p3;
+	result->mat = parent->mat;
 	result->dir = vec3_norm(vec3_cross(vec3_sub(result->pos2, result->pos),
 										vec3_sub(result->pos3, result->pos)));
 	result->normal = result->dir;
-	result->next = obj_list;
+	result->next = parent->comp;
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:27:53 by aacuna            #+#    #+#             */
-/*   Updated: 2016/04/27 13:46:09 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:26:38 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_vec3	get_point(char *line)
 	return (result);
 }
 
-t_obj	*parse_line(char *line, t_vec3 *tmp_array, t_obj *obj, int *i)
+t_obj	*parse_line(char *line, t_vec3 *tmp_array, t_obj *parent, int *i)
 {
 	t_vec3	res;
 
@@ -48,8 +48,8 @@ t_obj	*parse_line(char *line, t_vec3 *tmp_array, t_obj *obj, int *i)
 		(*i)++;
 	}
 	else if (line[0] == 'f' && line[1] == ' ')
-		obj = add_triangle(line, tmp_array, obj, *i);
-	return (obj);
+		parent->comp = add_triangle(line, tmp_array, parent, *i);
+	return (parent->comp);
 }
 
 t_vec3	*increase_size(t_vec3 *original, int *size)
@@ -65,29 +65,31 @@ t_vec3	*increase_size(t_vec3 *original, int *size)
 	return (new);
 }
 
-t_obj	*parse_obj(char *file, t_env *e)
+t_obj	*parse_obj(char *file, t_env *e, t_obj *parent)
 {
 	int		fd;
-	t_obj	*obj;
 	t_vec3	*points;
 	int		i;
 	int		size;
+	t_obj	*new_box_size;
 
-	obj = NULL;
-	if ((fd = open(file, O_RDONLY)) == -1)
-		error(strerror(errno), file, 1);
+	parent->type = BBOX;
+	(fd = open(file, O_RDONLY)) == -1 ? error(strerror(errno), file, 1) : 0;
 	i = 1;
 	size = 1000;
 	points = (t_vec3*)malloc(sizeof(*points) * 1000);
 	while (get_next_line(fd, &file))
 	{
-		if (i >= size - 1)
-			points = increase_size(points, &size);
-		obj = parse_line(file, points, obj, &i);
+		i >= size - 1 ? points = increase_size(points, &size) : 0;
+		parent->comp = parse_line(file, points, parent, &i);
+		ft_strdel(&file);
 	}
-	obj = create_bbox(obj);
-	obj = divide_bbox(obj);
-	e->count.obj = count_objs(obj);
+	new_box_size = create_bbox(parent->comp);
+	parent->pos = new_box_size->pos;
+	parent->pos2 = new_box_size->pos2;
+	free(new_box_size);
+	parent = divide_bbox(parent);
+	e->count.obj = e->count.obj + count_objs(parent) - 1;
 	close(fd);
-	return (obj);
+	return (parent);
 }

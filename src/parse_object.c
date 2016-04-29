@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 13:02:42 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 12:10:10 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void		default_object(t_obj *object)
 	object->max = 10;
 	object->scale = 1;
 	object->mat = default_material();
+	object->comp = NULL;
+	object->next = NULL;
 }
 
 static int		get_object_type(char *line)
@@ -131,6 +133,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	line = object_line;
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
 	default_object(new);
+	new->next = NULL;
 	while (line != NULL && !ft_strstr(line->line, "- object:"))
 	{
 		if (ft_strstr(line->line, "type:"))
@@ -156,10 +159,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
 		else if (ft_strstr(line->line, "obj:"))
-		{
-			free(new);
-			new = parse_obj(ft_strstr(line->line, ":") + 1, e);
-		}
+			new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
 		line = line->next;
 	}
 	e->count.obj++;
@@ -171,10 +171,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
 		create_cube(new);
-	else if (new->type != BBOX)
-		new->comp = NULL;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
-	new->next = NULL;
 	return (new);
 }
 
@@ -188,7 +185,7 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	line = object_line;
 	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
 		error(E_MALLOC, NULL, 1);
-	current->next = NULL;
+	//current->next = NULL;
 	object = current;
 	while (line != NULL)
 	{

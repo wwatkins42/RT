@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 10:21:18 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 12:28:10 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,7 +380,7 @@ short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
-t_obj				*parse_obj(char *file, t_env *e);
+t_obj				*parse_obj(char *file, t_env *e, t_obj *parent);
 t_obj				*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list,
 									int max);
 int					is_comment(const char *line);
