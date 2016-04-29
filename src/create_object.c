@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 16:10:26 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:18:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void				default_object(t_obj *object)
 	object->pos2 = vec3(0, 1, 0);
 	object->pos3 = vec3(1, 0, 0);
 	object->dir = vec3(0, 0, 1);
+	object->cut = vec3(0, 0, 0);
 	object->m = 1;
 	object->pr = 1;
 	object->gr = 2;
@@ -114,6 +115,8 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 		new->pos3 = parse_vector(ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "dir:"))
 		new->dir = parse_vector(line->line);
+	else if (ft_strstr(line->line, "cut:"))
+		new->cur = parse_vector(line->line);
 	else if (ft_strstr(line->line, "scale:"))
 		new->scale = parse_value(line->line, 0.1, 1000);
 	else if (ft_strstr(line->line, "min:"))
@@ -121,9 +124,9 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	else if (ft_strstr(line->line, "max:"))
 		new->max = parse_value(line->line, -INFINITY, INFINITY);
 	else if (ft_strstr(line->line, "pr:"))
-		new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
+		new->pr = parse_value(line->line, 0, INFINITY);
 	else if (ft_strstr(line->line, "gr:"))
-		new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
+		new->gr = parse_value(line->line, 0, INFINITY);
 	else if (ft_strstr(line->line, "material:"))
 		parse_material(e, &new->mat, line);
 	else if (ft_strstr(line->line, "obj:"))
