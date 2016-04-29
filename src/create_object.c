@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 13:57:21 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 14:35:38 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static int			get_object_type(char *line)
 		return (TRIANGLE);
 	else if (ft_strstr(line, "CHEWINGGUM"))
 		return (CHEWINGGUM);
+	else if (ft_strstr(line, "CUBE_TROUE"))
+		return (CUBE_TROUE);
 	else if (ft_strstr(line, "CUBE"))
 		return (CUBE);
 	else if (ft_strstr(line, "PARALLELOGRAM"))
@@ -126,6 +128,45 @@ static void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 		new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
 }
 
+static void create_cube(t_obj *cube)
+{
+        double  k;
+
+        !(cube->comp = malloc(6 * sizeof(t_obj))) ? error(E_MALLOC, NULL, 0) : 0;
+        k = cube->scale;
+        cube->comp[0].type = PARALLELOGRAM;
+        cube->comp[0].pos = cube->pos;
+        cube->comp[0].pos2 = (t_vec3) {k, 0, 0};
+        cube->comp[0].pos3 = (t_vec3) {0, k, 0};
+        cube->comp[0].dir = vec3_norm(vec3_cross(cube->comp[0].pos2, cube->comp[0].pos3));
+        cube->comp[1].type = PARALLELOGRAM;
+        cube->comp[1].pos = vec3_add(cube->pos, (t_vec3) {k, 0, 0});
+        cube->comp[1].pos2 = (t_vec3) {0, 0, k};
+        cube->comp[1].pos3 = (t_vec3) {0, k, 0};
+        cube->comp[1].dir = vec3_norm(vec3_cross(cube->comp[1].pos2, cube->comp[1].pos3));
+        cube->comp[2].type = PARALLELOGRAM;
+        cube->comp[2].pos = vec3_add(cube->pos, (t_vec3) {0, 0, k});
+        cube->comp[2].pos2 = (t_vec3) {0, 0, -k};
+        cube->comp[2].pos3 = (t_vec3) {0, k, 0};
+        cube->comp[2].dir = vec3_norm(vec3_cross(cube->comp[2].pos2, cube->comp[2].pos3));
+        cube->comp[3].type = PARALLELOGRAM;
+        cube->comp[3].pos = vec3_add(cube->pos, (t_vec3) {0, k, 0});
+        cube->comp[3].pos2 = (t_vec3) {k, 0, 0};
+        cube->comp[3].pos3 = (t_vec3) {0, 0, k};
+        cube->comp[3].dir = vec3_norm(vec3_cross(cube->comp[3].pos2, cube->comp[3].pos3));
+        cube->comp[4].type = PARALLELOGRAM;
+        cube->comp[4].pos = cube->pos;
+        cube->comp[4].pos2 = (t_vec3) {k, 0, 0};
+        cube->comp[4].pos3 = (t_vec3) {0, 0, k};
+        cube->comp[4].dir = vec3_norm(vec3_cross(cube->comp[4].pos2, cube->comp[4].pos3));
+        cube->comp[5].type = PARALLELOGRAM;
+        cube->comp[5].pos = vec3_add(cube->pos, (t_vec3) {k, 0, k});
+        cube->comp[5].pos2 = (t_vec3) {-k, 0, 0};
+        cube->comp[5].pos3 = (t_vec3) {0, k, 0};
+        cube->comp[5].dir = vec3_norm(vec3_cross(cube->comp[5].pos2, cube->comp[5].pos3));
+}
+
+
 t_obj				*create_object(t_env *e, t_line *object_line)
 {
 	t_obj		*new;
@@ -150,7 +191,9 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 	new->k = tan(new->scale) * tan(new->scale);
 	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
-	(new->type != BBOX) ? new->comp = NULL : 0;
+	if (new->type == CUBE)
+		create_cube(new);
+	(new->type != BBOX && new->type != CUBE) ? new->comp = NULL : 0;
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
 	return (new);
 }
