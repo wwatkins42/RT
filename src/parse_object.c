@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 21:09:50 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:24:55 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		default_object(t_obj *object)
 	object->max = 10;
 	object->scale = 1;
 	object->mat = default_material();
+	object->comp = NULL;
+	object->next = NULL;
 }
 
 static int		get_object_type(char *line)
@@ -102,6 +104,8 @@ static int		get_object_type(char *line)
 		return (DISC);
 	else if (ft_strstr(line, "CSG"))
 		return (CSG);
+	else if (ft_strstr(line, "OBJ"))
+		return (BBOX);
 	else
 		error(E_OTYPE, line, 0);
 	return (SPHERE);
@@ -153,6 +157,7 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	line = object_line;
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
 	default_object(new);
+	new->next = NULL;
 	while (line != NULL && !ft_strstr(line->line, "- object:") && !ft_strchr(line->line, '('))
 	{
 		if (ft_strstr(line->line, "type:"))
@@ -178,13 +183,11 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 		else if (ft_strstr(line->line, "material:"))
 			parse_material(e, &new->mat, line);
 		else if (ft_strstr(line->line, "obj:"))
-		{
-			free(new);
-			new = parse_obj(ft_strstr(line->line, ":") + 1, e);
-		}
+			new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
 		line = line->next;
 	}
 	e->count.obj++;
+	new->id = e->count.obj;
 	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
 	new->scale2 = new->scale * new->scale;
 	new->pr *= new->pr;
@@ -201,7 +204,6 @@ static t_obj	*create_object(t_env *e, t_line *object_line)
 	if (new->type == CSG)
 		parse_csg(e, new, line);
 	new->mat.fresnel.defined ? set_fresnel(new) : 0;
-	new->next = NULL;
 	return (new);
 }
 
@@ -311,7 +313,7 @@ t_obj			*parse_object(t_env *e, t_line *object_line)
 	line = object_line;
 	if (!(current = (t_obj*)malloc(sizeof(t_obj))))
 		error(E_MALLOC, NULL, 1);
-	current->next = NULL;
+	//current->next = NULL;
 	object = current;
 	while (line != NULL)
 	{

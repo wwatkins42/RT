@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 11:54:44 by aacuna            #+#    #+#             */
-/*   Updated: 2016/04/26 12:06:06 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/29 12:00:31 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_obj	*create_bbox(t_obj *objs)
 		i = i->next;
 	}
 	nb->comp = objs;
-	nb->next = NULL;
 	return (nb);
 }
 

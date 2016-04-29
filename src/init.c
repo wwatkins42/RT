@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 13:15:39 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:23:03 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_env(t_env *e)
 {
-	e->arg.w = ft_clamp(e->arg.w, 300, 10000);
-	e->arg.h = ft_clamp(e->arg.h, 300, 10000);
+	e->arg.w = ft_clamp(e->arg.w, 100, 10000);
+	e->arg.h = ft_clamp(e->arg.h, 50, 10000);
 	e->win.w = e->arg.w;
 	e->win.h = e->arg.h;
 	e->win.dw = e->win.w / 2;

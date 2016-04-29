@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 14:05:25 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:22:42 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FILE_NAME_LENGTH 255
 # define T_RES_W 2560
 # define T_RES_H 1440
+# define ASCII "@8N#Oo{?*|\\!;:,. "
 
 /*
 **	CAM TYPES
@@ -52,6 +53,7 @@ enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM, DISC,
 ** CSG OPERATORS
 */
 enum { UNION, INTER, DIFF };
+
 
 /*
 **	LIGHT TYPES
@@ -82,6 +84,7 @@ typedef struct		s_arg
 	int				fd;
 	int				w;
 	int				h;
+	int				shell;
 }					t_arg;
 
 typedef struct		s_mouse
@@ -236,6 +239,8 @@ typedef struct		s_obj
 	int				op;
 	struct s_obj	*left;
 	struct s_obj	*right;
+	int 			comp_hit;
+	unsigned short	id;
 	struct s_obj	*comp;
 	struct s_obj	*next;
 }					t_obj;
@@ -253,6 +258,8 @@ typedef struct		s_cam
 	t_aa			aa;
 	t_obj			*selection;
 	int				index;
+	int				x;
+	int				y;
 	double			xa;
 	double			ya;
 	double			fov;
@@ -402,7 +409,7 @@ short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
 t_vec3				parse_vector(const char *line);
 t_vec3				parse_color(char *line);
-t_obj				*parse_obj(char *file, t_env *e);
+t_obj				*parse_obj(char *file, t_env *e, t_obj *parent);
 t_obj				*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list,
 									int max);
 int					is_comment(const char *line);
@@ -521,6 +528,7 @@ void				object_mouse_rotate(t_env *e, t_obj *obj);
 void				start_raytracing(t_env *e);
 void				raytracing(t_env *e, t_cam *cam);
 void				raytracing_progressive(t_env *e, t_cam *cam);
+void				raytracing_shell(t_env *e, t_cam *cam);
 void				raytracing_init(t_env *e, t_cam *cam, float x, float y);
 t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 
@@ -585,7 +593,7 @@ t_vec3				set_specular(t_obj *obj, t_cam *cam, t_lgt *light);
 void				set_light(t_vec3 hit, t_obj *obj, t_lgt *light);
 void				set_fresnel(t_obj *obj);
 double				get_fresnel(t_vec3 v, t_vec3 n, double ir);
-void				supersampling(t_env *e, t_cam *cam, int x, int y);
+void				supersampling(t_env *e, t_cam *cam);
 void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 
 /*

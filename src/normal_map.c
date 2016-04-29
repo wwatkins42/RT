@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/26 14:51:19 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/28 12:56:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
 		error(E_MALLOC, NULL, 1);
 	actual = get_intensity(img[y][x]);
-	grad[0] = y - 1 > 0 ? get_intensity(img[y - 1][x]) : actual;
-	grad[1] = x - 1 > 0 ? get_intensity(img[y][x - 1]) : actual;
-	grad[2] = x + 1 < text.w ? get_intensity(img[y][x + 1]) : actual;
-	grad[3] = y + 1 < text.h ? get_intensity(img[y + 1][x]) : actual;
+	grad[0] = (y - 1 > 0 ? get_intensity(img[y - 1][x]) : actual);
+	grad[1] = (x - 1 > 0 ? get_intensity(img[y][x - 1]) : actual);
+	grad[2] = (x + 1 < text.w ? get_intensity(img[y][x + 1]) : actual);
+	grad[3] = (y + 1 < text.h ? get_intensity(img[y + 1][x]) : actual);
 	return (grad);
 }
 

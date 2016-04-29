@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 12:00:39 by aacuna            #+#    #+#             */
-/*   Updated: 2016/04/26 12:07:52 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/29 10:33:52 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,18 @@ double	max(double nb1, double nb2)
 
 int		count_objs(t_obj *obj)
 {
-	t_obj	*obj_list;
 	int		i;
 
-	obj_list = obj;
 	i = 0;
-	if (obj_list == NULL)
+	if (obj == NULL)
 		return (0);
-	while (obj_list)
+	while (obj)
 	{
-		if (obj_list->type == BBOX)
-			i = i + count_objs(obj_list->comp);
+		if (obj->type == BBOX)
+			i = i + count_objs(obj->comp);
 		else
 			i++;
-		obj_list = obj_list->next;
+		obj = obj->next;
 	}
 	return (i);
 }

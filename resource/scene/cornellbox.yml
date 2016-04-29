@@ -25,7 +25,7 @@ lights:
       dir: {x: 0, y: -1, z: -0.2}
 	  color: 0xFFF2EE
 	  intensity: 3.25
-	  attenuation: 0.075
+	  attenuation: 0.00075
       cutoff: 75
       cutoffouter: 2
       shadow_intensity: 0.65
@@ -37,8 +37,8 @@ lights:
 	  pos: {x: -1, y: 1.95, z: 4.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: #FC405D
-	  intensity: 0.75
-	  attenuation: 0.075
+	  intensity: 1.75
+	  attenuation: 0.0075
       shadow_intensity: 0.65
       shadow: SOFT
 
@@ -48,8 +48,8 @@ lights:
 	  pos: {x: 1, y: 0.15, z: 5.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: #FCDE40
-	  intensity: 0.75
-	  attenuation: 0.075
+	  intensity: 1.75
+	  attenuation: 0.0075
       shadow_intensity: 0.65
       shadow: SOFT
 
