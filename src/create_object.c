@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 16:18:57 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 16:24:47 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	else if (ft_strstr(line->line, "dir:"))
 		new->dir = parse_vector(line->line);
 	else if (ft_strstr(line->line, "cut:"))
-		new->cur = parse_vector(line->line);
+		new->cut = parse_vector(line->line);
 	else if (ft_strstr(line->line, "scale:"))
 		new->scale = parse_value(line->line, 0.1, 1000);
 	else if (ft_strstr(line->line, "min:"))
