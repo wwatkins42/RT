@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 15:04:59 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:10:26 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void				default_object(t_obj *object)
 	object->m = 1;
 	object->pr = 1;
 	object->gr = 2;
-	object->min = -10;
-	object->max = 10;
+	object->min = -INFINITY;
+	object->max = INFINITY;
 	object->scale = 1;
 	object->mat = default_material();
 	object->comp = NULL;
