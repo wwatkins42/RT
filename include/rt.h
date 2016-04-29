@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 12:57:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 10:19:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define FILE_NAME_LENGTH 255
 # define T_RES_W 2560
 # define T_RES_H 1440
-# define ASCII "@8#Oo{?*|\\!;:,. "
+# define ASCII "@8N#Oo{?*|\\!;:,. "
 
 /*
 **	CAM TYPES
