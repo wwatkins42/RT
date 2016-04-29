@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:40:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 15:18:57 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 15:35:34 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ static t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
 	return (new);
 }
 
-static void		parse_fistons(t_env *e, t_obj *csg, char *line)
+static void		parse_fistons(t_env *e, t_obj *csg, t_line *line)
 {
-	if (ft_strstr(line, "- object:"))
+	if (ft_strstr(line->line, "- object:"))
 	{
 		if (csg->left)
 		{
 			if (csg->right)
-				error(E_OTYPE, line, 0);
+				error(E_OTYPE, line->line, 0);
 			else
-				csg->right = create_object_for_csg(e, next);
+				csg->right = create_object_for_csg(e, line->next);
 		}
 		else
-			csg->left = create_object_for_csg(e, next);
+			csg->left = create_object_for_csg(e, line->next);
 	}
 }
 
@@ -84,7 +84,7 @@ void			parse_csg(t_env *e, t_obj *csg, t_line *line)
 	{
 		if (count_parenthesis == 1)
 		{
-			parse_fistons(e, csg, line->line);
+			parse_fistons(e, csg, line);
 			parse_op(csg, line->line);
 		}
 		if (ft_strchr(line->line, '('))
