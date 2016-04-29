@@ -1,0 +1,40 @@
+---
+scene:
+	velocity: 3
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 0, z: -5}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 20
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 3, y: 0, z: -5}
+	  color: 0xFFFFFF
+	  intensity: 90
+	  shadow: HARD
+
+objects:
+        - object:
+                type: PARABOLOID
+                pos: {x: 0, y: 0, z: 0}
+                scale: 1
+                material:
+         		  color: 0x00FF00
+         		  ambient: 0.225
+         		  diffuse: 0.775
+         		  specular: 0
+         		  shininess: 512
+         		  reflect: 0
+         		  refract: 0
+         		  transparency: 0
+         		  absorbtion: 0.7
+...
