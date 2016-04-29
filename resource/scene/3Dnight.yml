@@ -23,7 +23,7 @@ lights:
 	  type: POINT
 	  pos: {x: 1, y: 0.5, z: -15}
 	  color: 0xF9DAC9
-	  intensity: 4.25
+	  intensity: 2.25
       attenuation: 0.00001
 	  shadow: HARD
 
@@ -46,7 +46,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: resource/texture/planet/earth.bmp
+          texture: ../texture/planet/earth.bmp
           texture_normal: true
 
 	- object:
@@ -64,7 +64,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: resource/texture/planet/jupiter.bmp
+          texture: ../texture/planet/jupiter.bmp
           texture_normal: true
 
 
@@ -83,7 +83,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: resource/texture/planet/saturn.bmp
+          texture: ../texture/planet/saturn.bmp
           texture_normal: true
 
 	- object:
@@ -101,7 +101,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: resource/texture/planet/mars.bmp
+          texture: ../texture/planet/mars.bmp
           texture_normal: true
 
 	- object:
@@ -118,7 +118,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: resource/texture/panoramic/stars.bmp
+          texture: ../texture/panoramic/stars.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false

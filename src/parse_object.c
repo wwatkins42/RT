@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_object.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:52:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 12:53:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 13:02:42 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static int		get_object_type(char *line)
 		return (PARABOLOID);
 	else if (ft_strstr(line, "TORUS"))
 		return (TORUS);
+	else if (ft_strstr(line, "OBJ"))
+		return (BBOX);
 	else
 		error(E_OTYPE, line, 0);
 	return (SPHERE);

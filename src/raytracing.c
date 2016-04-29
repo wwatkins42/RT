@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 12:55:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:41:01 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	raytracing_shell(t_env *e, t_cam *cam)
 			pos = (cam->x * cam->img.opp) + (cam->y * cam->img.sl);
 			moy = ((cam->img.img[pos] & 0xFF) + (cam->img.img[pos + 1] & 0xFF) +
 				(cam->img.img[pos + 2] & 0xFF)) / 3.0;
-			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 15 / 255), 0, 15)];
-			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 15 / 255), 0, 15)];
+			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 16 / 255), 0, 16)];
+			buffer[cursor++] = ASCII[ft_clamp(((255 - moy) * 16 / 255), 0, 16)];
 		}
 		buffer[cursor++] = '\n';
 	}

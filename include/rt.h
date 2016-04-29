@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 10:19:00 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 10:21:18 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ enum {DEFAULT, STEREOSCOPIC};
 **	OBJECT TYPES
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
-	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX };
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX};
 
 /*
 **	LIGHT TYPES

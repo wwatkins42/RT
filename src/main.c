@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 11:02:50 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/28 14:25:48 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	args_disp(void)
 	ft_putendl("-s <file_path> set specified program scene.");
 	ft_putendl("-w <width>     set specified program window width.");
 	ft_putendl("-h <height>    set specified program window height.");
+	ft_putendl("--scene        display raytracing in shell (ascii).\n");
 	ft_putendl("--help         show help.\n");
 	exit(0);
 }
