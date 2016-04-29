@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 15:15:48 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/29 16:11:40 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *parent)
 
 	result = (t_obj*)malloc(sizeof(*result));
 	if (!result)
-		return (NULL);
+		error(E_MALLOC, NULL, 1);
 	default_object(result);
 	result->type = TRIANGLE;
 	result->pos = p1;
