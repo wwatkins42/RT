@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 13:58:01 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 18:17:01 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,14 @@
 
 double			choose_root4(double *roots, int ret)
 {
-	if (ret == 0)
-		return (INFINITY);
-	if (ret == 2)
+	int		i;
+
+	i = 0;
+	while (i < ret)
 	{
-		if (roots[0] < EPSILON)
-			return (roots[1] < EPSILON ? INFINITY : roots[1]);
-		else
-			return (roots[0]);
-	}
-	ret = 0;
-	while (ret < 4)
-	{
-		if (roots[ret] > EPSILON)
-			return (roots[ret]);
-		ret++;
+		if (roots[i] > EPSILON)
+			return (roots[i]);
+		i++;
 	}
 	return (INFINITY);
 }

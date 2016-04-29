@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 16:24:47 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:47:21 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	else if (ft_strstr(line->line, "pos2:"))
 		new->pos2 = parse_vector(ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "pos3:"))
-		new->pos3 = parse_vector(ft_strchr(line->line, ':'));
+		new->pos3 = vec3_norm(parse_vector(ft_strchr(line->line, ':')));
 	else if (ft_strstr(line->line, "dir:"))
-		new->dir = parse_vector(line->line);
+		new->dir = vec3_norm(parse_vector(line->line));
 	else if (ft_strstr(line->line, "cut:"))
 		new->cut = parse_vector(line->line);
 	else if (ft_strstr(line->line, "scale:"))

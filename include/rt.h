@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 16:24:05 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:32:18 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -606,7 +606,7 @@ double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
 double				intersect_cube_troue(t_ray *ray, t_obj *b);
 void				set_normal(t_ray *ray, t_obj *obj);
-double				compute_m(t_ray *ray, t_obj *obj, double tmp);
+double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir, double tmp);
 /*
 ** CSG INTERSECTION
 */

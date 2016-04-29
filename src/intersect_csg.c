@@ -6,17 +6,18 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 14:11:32 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 18:00:20 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double (*intersect[20])(t_ray *, t_obj *) =
+double		(*g_intersect[20])(t_ray *, t_obj *) =
 { intersect_sphere, intersect_cone, intersect_plane, intersect_cylinder,
-intersect_triangle, intersect_cube, intersect_parallelogram, intersect_hyperboloid1,
-intersect_hyperboloid2, intersect_paraboloid, intersect_torus, intersect_chewing_gum, intersect_quadric,
-intersect_moebius, intersect_disc, intersect_csg, intersects_bbox };
+	intersect_triangle, intersect_cube, intersect_parallelogram,
+	intersect_hyperboloid1, intersect_hyperboloid2, intersect_paraboloid,
+	intersect_torus, intersect_chewing_gum, intersect_quadric,
+	intersect_moebius, intersect_disc, intersect_csg, intersects_bbox };
 
 double		do_union(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 {
@@ -59,7 +60,6 @@ double		do_inter(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 		else
 			return (save_lin_lout(r, left, right, dad));
 	}
-
 }
 
 double		do_diff(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
@@ -83,29 +83,28 @@ double		do_diff(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 		return (save_lin_rin(r, left, right, dad));
 	else
 		return (save_lin_lout(r, left, right, dad));
-
 }
 
-double    do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double		do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 {
-    if (dad->op == UNION)
+	if (dad->op == UNION)
 		return (do_union(r, left, right, dad));
-    else if (dad->op == INTER)
+	else if (dad->op == INTER)
 		return (do_inter(r, left, right, dad));
-    else
+	else
 		return (do_diff(r, left, right, dad));
 }
 
-double    intersect_csg(t_ray *r, t_obj *dad)
+double		intersect_csg(t_ray *r, t_obj *dad)
 {
-    if (dad->left && dad->right)
-    {
-        intersect[dad->left->type](r, dad->left);
-        intersect[dad->right->type](r, dad->right);
+	if (dad->left && dad->right)
+	{
+		g_intersect[dad->left->type](r, dad->left);
+		g_intersect[dad->right->type](r, dad->right);
 		dad->in = INFINITY;
 		dad->out = INFINITY;
-        dad->t = do_op(r, dad->left, dad->right, dad);
-	    return (dad->t);
-    }
+		dad->t = do_op(r, dad->left, dad->right, dad);
+		return (dad->t);
+	}
 	return (INFINITY);
 }

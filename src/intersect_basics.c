@@ -6,42 +6,38 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 11:43:17 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 21:46:37 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 17:33:52 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double	compute_m(t_ray *ray, t_obj *obj, double tmp)
+double	compute_m(t_ray *r, t_obj *o, t_vec3 d, double tmp)
 {
 	double		m;
 
-	obj->m = 0;
-	m = vec3_dot(ray->dir, obj->dir) * tmp +
-		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	if (m > obj->max)
+	o->m = 0;
+	m = vec3_dot(r->dir, d) * tmp + vec3_dot(vec3_sub(r->pos, o->pos), d);
+	if (m > o->max)
 	{
-		obj->in = INFINITY;
-		tmp = obj->out;
-		m = vec3_dot(ray->dir, obj->dir) * tmp +
-			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m < obj->max && m > obj->min && ((obj->m = m) || 1))
-			return (obj->out);
-		else if ((obj->out = INFINITY))
+		o->in = INFINITY;
+		tmp = o->out;
+		m = vec3_dot(r->dir, d) * tmp + vec3_dot(vec3_sub(r->pos, o->pos), d);
+		if (m < o->max && m > o->min && ((o->m = m) || 1))
+			return (o->out);
+		else if ((o->out = INFINITY))
 			return (INFINITY);
 	}
-	else if (m < obj->min)
+	else if (m < o->min && (o->in = INFINITY))
 	{
-		obj->in = INFINITY;
-		tmp = obj->out;
-		m = vec3_dot(ray->dir, obj->dir) * obj->out +
-			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m < obj->max && m > obj->min && ((obj->m = m) || 1))
-			return (obj->out);
-		else if ((obj->out = INFINITY))
+		tmp = o->out;
+		m = vec3_dot(r->dir, d) * tmp + vec3_dot(vec3_sub(r->pos, o->pos), d);
+		if (m < o->max && m > o->min && ((o->m = m) || 1))
+			return (o->out);
+		else if ((o->out = INFINITY))
 			return (INFINITY);
 	}
-	obj->m = m;
+	o->m = m;
 	return (tmp);
 }
 
@@ -70,7 +66,8 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	if (tmp < 0 && ((tmp = obj->out) || 1))
 		if (tmp < 0)
 			return (INFINITY);
-	return (compute_m(ray, obj, tmp));
+	return (compute_m(ray, obj, is_vec3_nul(obj->cut) ? obj->dir : obj->cut,
+		tmp));
 }
 
 double	intersect_plane(t_ray *ray, t_obj *obj)
@@ -135,5 +132,6 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	if (tmp < 0 && ((tmp = obj->out) || 1))
 		if (tmp < 0)
 			return (INFINITY);
-	return (compute_m(ray, obj, tmp));
+	return (compute_m(ray, obj, is_vec3_nul(obj->cut) ? obj->dir : obj->cut,
+		tmp));
 }
