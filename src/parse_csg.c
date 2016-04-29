@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:40:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:54:40 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 15:18:57 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,11 @@ static t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
 	default_object(new);
 	while (line != NULL && !ft_strstr(line->line, "- object:"))
 	{
-		if (ft_strstr(line->line, "type:"))
-			new->type = get_object_type(line->line);
-		else if (ft_strstr(line->line, "pos:"))
-			new->pos = parse_vector(line->line);
-		else if (ft_strstr(line->line, "pos2:"))
-			new->pos2 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "pos3:"))
-			new->pos3 = parse_vector(ft_strchr(line->line, ':'));
-		else if (ft_strstr(line->line, "dir:"))
-			new->dir = parse_vector(line->line);
-		else if (ft_strstr(line->line, "scale:"))
-			new->scale = parse_value(line->line, 0.1, 1000);
-		else if (ft_strstr(line->line, "min:"))
-			new->min = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "max:"))
-			new->max = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "pr:"))
-			new->pr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "gr:"))
-			new->gr = ft_atof(ft_strstr(line->line, ":") + 1);
-		else if (ft_strstr(line->line, "material:"))
-			parse_material(e, &new->mat, line);
+		fill_object_attr(e, line, new);
 		line = line->next;
 	}
-	new->mat.texture.normal_map && new->mat.texture.defined ? create_normal_map(new) : 0;
+	if (new->mat.texture.normal_map && new->mat.texture.defined)
+		create_normal_map(new);
 	new->pr *= new->pr;
 	new->gr *= new->gr;
 	new->scale2 = new->scale * new->scale;
@@ -56,16 +36,45 @@ static t_obj	*create_object_for_csg(t_env *e, t_line *object_line)
 	if (new->type == CUBE)
 		create_cube(new);
 	(new->type != BBOX && new->type != CUBE) ? new->comp = NULL : 0;
-	// if (new->type == QUADRIC)
-	// 	test(new);
 	if (new->type == CSG)
 		parse_csg(e, new, line);
 	return (new);
 }
 
-void parse_csg(t_env *e, t_obj *csg, t_line *line)
+static void		parse_fistons(t_env *e, t_obj *csg, char *line)
 {
-	int		count_parenthesis;
+	if (ft_strstr(line, "- object:"))
+	{
+		if (csg->left)
+		{
+			if (csg->right)
+				error(E_OTYPE, line, 0);
+			else
+				csg->right = create_object_for_csg(e, next);
+		}
+		else
+			csg->left = create_object_for_csg(e, next);
+	}
+}
+
+static void		parse_op(t_obj *csg, char *line)
+{
+	if (ft_strstr(line, "- op:"))
+	{
+		if (ft_strstr(line, "UNION"))
+			csg->op = UNION;
+		else if (ft_strstr(line, "DIFF"))
+			csg->op = DIFF;
+		else if (ft_strstr(line, "INTER"))
+			csg->op = INTER;
+		else
+			error(E_OPARAM, line, 0);
+	}
+}
+
+void			parse_csg(t_env *e, t_obj *csg, t_line *line)
+{
+	int			count_parenthesis;
 
 	count_parenthesis = 1;
 	while (line && !ft_strchr(line->line, '('))
@@ -75,27 +84,8 @@ void parse_csg(t_env *e, t_obj *csg, t_line *line)
 	{
 		if (count_parenthesis == 1)
 		{
-			if (ft_strstr(line->line, "- object:"))
-			{
-				if (csg->left)
-				{
-					if (csg->right)
-						error(E_OTYPE, line->line, 0);
-					else
-						csg->right = create_object_for_csg(e, line->next);
-				}
-				else
-					csg->left = create_object_for_csg(e, line->next);
-			}
-			if (ft_strstr(line->line, "- op:"))
-			{
-				if (ft_strstr(line->line, "UNION"))
-					csg->op = UNION;
-				else if (ft_strstr(line->line, "DIFF"))
-					csg->op = DIFF;
-				else if (ft_strstr(line->line, "INTER"))
-					csg->op = INTER;
-			}
+			parse_fistons(e, csg, line->line);
+			parse_op(csg, line->line);
 		}
 		if (ft_strchr(line->line, '('))
 			count_parenthesis++;

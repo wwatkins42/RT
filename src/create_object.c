@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:53:29 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 15:04:59 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int			get_object_type(char *line)
 	return (SPHERE);
 }
 
-static void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
+void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 {
 	if (ft_strstr(line->line, "type:"))
 		new->type = get_object_type(line->line);

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 14:41:27 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 15:06:00 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,8 +404,9 @@ t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
 t_obj				*create_object(t_env *e, t_line *object_line);
-int			get_object_type(char *line);
-void create_cube(t_obj *cube);
+void				fill_object_attr(t_env *e, t_line *line, t_obj *new);
+int					get_object_type(char *line);
+void				create_cube(t_obj *cube);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
