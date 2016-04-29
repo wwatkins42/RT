@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/01 15:19:41 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 14:08:55 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	display_info(t_env *e, char *str)
 	}
 	mlx_string_put(e->mlx, e->win.adr, 0, y, 0x81E259, str);
 	mlx_do_sync(e->mlx);
+	free(str);
 }
 
 void	display_loading(t_env *e, int u, int v)

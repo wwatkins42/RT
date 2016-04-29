@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 11:30:30 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/27 14:59:02 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/29 14:12:56 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	compute_cyan(t_img *stereo, t_img *img)
+static void		compute_cyan(t_img *stereo, t_img *img)
 {
 	int		x;
 	int		y;
@@ -31,7 +31,7 @@ static void	compute_cyan(t_img *stereo, t_img *img)
 	}
 }
 
-static void	compute_red(t_img *stereo, t_img *img)
+static void		compute_red(t_img *stereo, t_img *img)
 {
 	int		x;
 	int		y;
@@ -49,7 +49,7 @@ static void	compute_red(t_img *stereo, t_img *img)
 	}
 }
 
-void	generate_stereoscopy(t_env *e)
+void			generate_stereoscopy(t_env *e)
 {
 	e->cam->stereo = img_init(e);
 	compute_cyan(&e->cam->stereo, &e->cam->img);
