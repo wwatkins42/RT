@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 14:48:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:37:36 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj)
 
 	color = (t_vec3) {0, 0, 0};
 	light = e->lgt;
-	if (!light)
-		printf("lol connard\n");
 	while (light != NULL)
 	{
 		set_light(ray->hit, obj, light);

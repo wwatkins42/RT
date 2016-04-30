@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:27:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 09:58:21 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ static void	parse_scene(t_env *e, t_line *scene)
 
 void		parse(t_env *e, t_parse *core)
 {
-	char	*info;
+	char	info[256];
 
-	info = (char *)malloc(sizeof(char) * 256);
 	sprintf(info, "FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
 	display_info(e, info);
 	parse_scene(e, core->scene);
@@ -81,5 +80,4 @@ void		parse(t_env *e, t_parse *core)
 	e->count.cam, e->count.lgt, e->count.obj);
 	!e->count.cam ? error("must have cam", NULL, 1) : 0;
 	display_info(e, info);
-	free(info);
 }

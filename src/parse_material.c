@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:01:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/30 10:02:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ static short	get_texture_type(const char *line)
 
 static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
-	char		*info;
+	char		info[256];
 
-	(void)e;
-	mat->texture.type = get_texture_type(line);
-	info = (char *)malloc(sizeof(char) * 256);
+	mat->texture.name = NULL;
+	if (!(mat->texture.name = ft_strdup(ft_strchr(line, ':') + 1)))
+		error(E_MALLOC, NULL, 1);
+	mat->texture.type = get_texture_type(mat->texture.name);
 	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
 	else if (mat->texture.type == BMP)
