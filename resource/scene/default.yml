@@ -31,6 +31,45 @@ lights:
 	  shadow: HARD
 
 objects:
+
+    	- object:
+    	  type: PARABOLOID
+    	  scale: 0.5
+    	  pos: {x: 0, y: 6, z: 10}
+          dir: {x: 0, y: 1, z: 0}
+    	  min: 0
+    	  max: 2
+    	  material:
+    		  color: #DF3156
+    		  ambient: 0.125
+    		  diffuse: 0.875
+    		  specular: 2.0
+    		  shininess: 512
+    		  reflect: 0
+    		  refract: 0
+    		  transparency: 0
+    		  absorbtion: 0.7
+              texture: ../texture/wood1.bmp
+
+	- object:
+	  type: CONE
+	  scale: 0.5
+	  pos: {x: 3, y: 2, z: 6}
+	  dir: {x: 0.5, y: 1, z: 0}
+      min: -2
+      max: 2
+	  material:
+		  color: 0x93DD4A
+		  ambient: 0.125
+		  diffuse: 0.775
+		  specular: 8.0
+		  shininess: 512
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.7
+
+
 	- object:
 	  type: SPHERE
 	  scale: 2
@@ -63,40 +102,5 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.7
-
-	- object:
-	  type: CONE
-	  scale: 0.5
-	  pos: {x: 3, y: 2, z: 6}
-	  dir: {x: 0.5, y: 1, z: 0}
-	  material:
-		  color: 0x93DD4A
-		  ambient: 0.125
-		  diffuse: 0.775
-		  specular: 8.0
-		  shininess: 512
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 0.7
-
-	- object:
-	  type: CYLINDER
-	  scale: 2
-	  pos: {x: -4, y: 0, z: 15}
-	  dir: {x: -1, y: 1, z: 0}
-	  min: -4
-	  max: 16
-	  material:
-		  color: #DF3156
-		  ambient: 0.125
-		  diffuse: 0.875
-		  specular: 2.0
-		  shininess: 512
-		  reflect: 0
-		  refract: 0
-		  transparency: 0
-		  absorbtion: 0.7
-          texture: ../texture/wood1.bmp
 
 ...

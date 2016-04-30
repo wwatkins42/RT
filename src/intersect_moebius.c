@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 19:17:02 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:42:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ double			intersect_moebius(t_ray *ray, t_obj *obj)
 	t_vec3		x;
 	int			ret;
 
-	x = vec3_sub(ray->pos, obj->pos);
+	x = ray->pos;
+	// vec3_rotate(&x, vec3_fmul(obj->rot, -1));
 	m.a = obj->scale;
 	m.b = x.x;
 	m.c = ray->dir.x;

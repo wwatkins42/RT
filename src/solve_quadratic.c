@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/27 10:17:46 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 14:06:38 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 10:54:29 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,58 @@ static int	solve_linear(double a, double b, double *r)
 	}
 }
 
-static void	fill_roots(double *a, double d, double *r)
-{
-	double sgnb;
-	double temp;
-	double r1;
-	double r2;
-
-	sgnb = (a[1] > 0 ? 1 : -1);
-	temp = -0.5 * (a[1] + sgnb * sqrt(d));
-	r1 = temp / a[2];
-	r2 = a[0] / temp;
-	if (r1 < r2)
-	{
-		r[0] = r1;
-		r[1] = r2;
-	}
-	else
-	{
-		r[0] = r2;
-		r[1] = r1;
-	}
-}
+// static void	fill_roots(double *a, double d, double *r)
+// {
+// 	double sgnb;
+// 	double temp;
+// 	double r1;
+// 	double r2;
+//
+// 	sgnb = (a[1] > 0 ? 1 : -1);
+// 	temp = -0.5 * (a[1] + sgnb * sqrt(d));
+// 	r1 = temp / a[2];
+// 	r2 = a[0] / temp;
+// 	if (r1 < r2)
+// 	{
+// 		r[0] = r1;
+// 		r[1] = r2;
+// 	}
+// 	else
+// 	{
+// 		r[0] = r2;
+// 		r[1] = r1;
+// 	}
+// }
 
 int			solve_quadratic(double *a, double *r)
 {
 	double	d;
-	double	s;
+	// double	s;
 
-	d = a[1] * a[1] - 4 * a[2] * a[0];
 	if (a[2] == 0.)
 		return (solve_linear(a[1], a[0], &r[0]));
+	d = a[1] * a[1] - 4 * a[2] * a[0];
 	if (d > 0)
 	{
-		if (a[1] == 0.)
+		d = sqrt(d);
+		if (a[2] > 0)
 		{
-			s = fabs(0.5 * sqrt(d) / a[0]);
-			*r = -s;
-			r[1] = s;
+			r[0] = 0.5 * (-a[1] - d) / a[2];
+			r[1] = 0.5 * (-a[1] + d) / a[2];
 		}
 		else
-			fill_roots(a, d, r);
+		{
+			r[0] = 0.5 * (-a[1] + d) / a[2];
+			r[1] = 0.5 * (-a[1] - d) / a[2];
+		}
+		// if (a[1] == 0.)
+		// {
+		// 	s = fabs(0.5 * sqrt(d) / a[0]);
+		// 	*r = -s;
+		// 	r[1] = s;
+		// }
+		// else
+		// 	fill_roots(a, d, r);
 		return (2);
 	}
 	else if (d == 0.)

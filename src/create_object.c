@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 16:47:21 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 14:10:09 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void				default_object(t_obj *object)
 	object->pos = vec3(0, 0, 5);
 	object->pos2 = vec3(0, 1, 0);
 	object->pos3 = vec3(1, 0, 0);
-	object->dir = vec3(0, 0, 1);
+	object->dir = vec3(0, 1, 0);
 	object->cut = vec3(0, 0, 0);
+	object->rot = vec3(0, 0, 0);
 	object->m = 1;
 	object->pr = 1;
 	object->gr = 2;
@@ -115,6 +116,8 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 		new->pos3 = vec3_norm(parse_vector(ft_strchr(line->line, ':')));
 	else if (ft_strstr(line->line, "dir:"))
 		new->dir = vec3_norm(parse_vector(line->line));
+	else if (ft_strstr(line->line, "rot:"))
+		new->rot = parse_vector(line->line);
 	else if (ft_strstr(line->line, "cut:"))
 		new->cut = parse_vector(line->line);
 	else if (ft_strstr(line->line, "scale:"))

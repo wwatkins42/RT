@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 16:26:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 16:27:18 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 19:11:55 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_vec3			vec3_fmul(t_vec3 v, double m);
 double			vec3_dot(t_vec3 va, t_vec3 vb);
 void			vec3_rot(t_vec3 *v, int axis, double theta);
 void			vec3_clamp(t_vec3 *v, double min, double max);
-void			vec3_rotate(t_vec3 *v, t_vec3 r);
+int				vec3_inverse_rotate(t_vec3 *v, t_vec3 r);
+int				vec3_rotate(t_vec3 *v, t_vec3 r);
 t_vec3			vec3_cross(t_vec3 va, t_vec3 vb);
 t_vec3			vec3_norm(t_vec3 v);
 t_vec3			vec3_reflect(t_vec3 v, t_vec3 n);

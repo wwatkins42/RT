@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 14:24:11 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:48:48 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,17 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 33 ? yml_exporter(e, e->arg.file) : 0;
 	keycode == 43 ? e->cam = e->cam->next : 0;
 	keycode == 47 ? e->cam = e->cam->prev : 0;
+	keycode == 83 ? e->obj->rot.x += 30 : 0;
+	keycode == 84 ? e->obj->rot.x -= 30 : 0;
+	keycode == 86 ? e->obj->rot.y += 30 : 0;
+	keycode == 87 ? e->obj->rot.y -= 30 : 0;
+	keycode == 89 ? e->obj->rot.z += 30 : 0;
+	keycode == 91 ? e->obj->rot.z -= 30 : 0;
 	keycode == MOUSE ? kswitch(&e->key[MOUSE]) : 0;
 	keycode == STAT ? kswitch(&e->key[STAT]) : 0;
-	keycode == 43 || keycode == 47 ? start_raytracing(e) : 0;
+	keycode == 43 || keycode == 47 || keycode == 83 || keycode == 84 ||
+	keycode == 86 || keycode == 87 || keycode == 89 || keycode == 91 ?
+	start_raytracing(e) : 0;
 	return (0);
 }
 

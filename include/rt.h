@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 18:45:52 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 13:48:32 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ typedef struct		s_obj
 	t_vec3			dir;
 	t_vec3			normal;
 	t_vec3			cut;
+	t_vec3			rot;
 	t_mat			mat;
 	t_coeff			co;
 	short			type;
@@ -505,6 +506,7 @@ int					deal_with_degenerate(double *a, double *r);
 void				find_solution_to_resolvent_cubic(t_quartic *q);
 void				set_d3(double *u, double u0, double u1, double u2);
 void				fonction_relativement_assez_nulle(double *r, double *zarr);
+double				choose_root2(double *roots, int ret);
 double				choose_root3(double *roots, int ret);
 double				choose_root4(double *roots, int ret);
 
@@ -607,7 +609,7 @@ double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
 double				intersect_cube_troue(t_ray *ray, t_obj *b);
 void				set_normal(t_ray *ray, t_obj *obj);
-double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir, double tmp);
+double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir);
 /*
 ** CSG INTERSECTION
 */

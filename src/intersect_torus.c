@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 14:26:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:51:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	compute_coeffs(t_ray *ray, t_obj *obj, double *a)
 	double	f;
 	double	four_aa;
 
-	x = vec3_sub(ray->pos, obj->pos);
+	x = ray->pos;
 	dd = vec3_dot(ray->dir, ray->dir);
 	e = vec3_dot(x, x) - obj->gr - obj->pr;
 	f = vec3_dot(x, ray->dir);

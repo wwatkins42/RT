@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 13:23:30 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/30 14:06:16 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			main(int ac, char **av)
 	init_env(&e);
 	init_intersect(&e);
 	parse_yml(&e);
+	printf("%f %f %f : \n", e.obj->rot.x, e.obj->rot.y, e.obj->rot.z);
 	core(&e);
 	return (0);
 }

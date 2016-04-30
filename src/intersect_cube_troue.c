@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 18:22:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 17:42:12 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ double		intersect_cube_troue(t_ray *r, t_obj *obj)
 	t_vec3		x;
 	int			ret;
 
-	x = vec3_sub(r->pos, obj->pos);
+	x = r->pos;
+	// x = vec3_sub(r->pos, obj->pos);
+	// vec3_rotate(&x, vec3_fmul(obj->rot, -1));
 	a[4] = ft_pow(r->dir.x, 4) + ft_pow(r->dir.y, 4) + ft_pow(r->dir.z, 4);
 	a[3] = (4 * (ft_pow(r->dir.x, 3) * x.x + ft_pow(r->dir.y, 3) * x.y +
 		ft_pow(r->dir.z, 3) * x.z)) / a[4];
