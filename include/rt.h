@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 10:31:09 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/30 14:58:39 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -690,7 +690,7 @@ int					ispressed(char *key);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);
-void				display_texture(t_env *e, t_vec3 **img, t_texture texture);
+void				display_texture(t_env *e, t_rgb **img, t_texture texture);
 void				display_stats(t_env *e);
 
 /*

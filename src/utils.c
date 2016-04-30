@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 14:27:24 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 14:58:16 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	display_loading(t_env *e, int u, int v)
 	}
 }
 
-void	display_texture(t_env *e, t_vec3 **img, t_texture texture)
+void	display_texture(t_env *e, t_rgb **img, t_texture texture)
 {
 	int		x;
 	int		y;
@@ -84,6 +84,6 @@ void	display_texture(t_env *e, t_vec3 **img, t_texture texture)
 	{
 		x = -1;
 		while (++x < texture.w)
-			img_pixel_put(&e->cam->img, x, y, img[y][x]);
+			img_pixel_put(&e->cam->img, x, y, rgb_to_vec3(img[y][x]));
 	}
 }

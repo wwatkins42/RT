@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 10:40:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/30 15:04:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 static double	get_intensity(t_rgb color)
 {
 	double		m;
+	t_vec3		tmp;
 
-	m = (color.x + color.y + color.z) / 3.0;
+	tmp = rgb_to_vec3(color);
+	m = (tmp.x + tmp.y + tmp.z) / 3.0;
 	return (m);
 }
 
