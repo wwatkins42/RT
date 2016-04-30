@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 12:56:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/30 10:40:40 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static double	get_intensity(t_vec3 color)
+static double	get_intensity(t_rgb color)
 {
 	double		m;
 
@@ -20,7 +20,7 @@ static double	get_intensity(t_vec3 color)
 	return (m);
 }
 
-static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
+static double	*get_gradient(t_rgb **img, int y, int x, t_texture text)
 {
 	double	actual;
 	double	*grad;
@@ -36,7 +36,7 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	return (grad);
 }
 
-static t_vec3	compute_gradient(double *grad, t_obj *obj)
+static t_rgb	compute_gradient(double *grad, t_obj *obj)
 {
 	t_vec3		color;
 	double		diffx;
@@ -50,8 +50,7 @@ static t_vec3	compute_gradient(double *grad, t_obj *obj)
 	color.y = vec3_norm(vec3(1, diffy * scale, 0)).y;
 	color.z = sqrt(1 - ft_clampf(color.x * color.x + color.y * color.y, 0, 1));
 	vec3_normalize(&color);
-	color = vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5));
-	return (color);
+	return (vec3_to_rgb(vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5))));
 }
 
 void			create_normal_map(t_obj *obj)
@@ -63,13 +62,13 @@ void			create_normal_map(t_obj *obj)
 	y = -1;
 	grad = NULL;
 	obj->mat.texture.bump =
-	(t_vec3**)malloc(sizeof(t_vec3*) * obj->mat.texture.h);
+	(t_rgb**)malloc(sizeof(t_rgb*) * obj->mat.texture.h);
 	obj->mat.texture.bump == NULL ? error(E_MALLOC, NULL, 1) : 0;
 	while (++y < obj->mat.texture.h)
 	{
 		x = -1;
 		obj->mat.texture.bump[y] =
-		(t_vec3*)malloc(sizeof(t_vec3) * obj->mat.texture.w);
+		(t_rgb*)malloc(sizeof(t_rgb) * obj->mat.texture.w);
 		obj->mat.texture.bump[y] == NULL ? error(E_MALLOC, NULL, 1) : 0;
 		while (++x < obj->mat.texture.w)
 		{

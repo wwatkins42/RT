@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 09:53:47 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/26 13:56:35 by scollon          ###   ########.fr       */
+/*   Updated: 2016/04/30 10:27:09 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ static void			get_image(t_texture *texture, char *buf, int i)
 		i -= texture->sl;
 		j = 0;
 		x = 0;
-		if (!(texture->img[y] = (t_vec3*)malloc(sizeof(t_vec3) * texture->w)))
+		if (!(texture->img[y] = (t_rgb*)malloc(sizeof(t_rgb) * texture->w)))
 			error(E_MALLOC, NULL, 1);
 		while (j < texture->sl)
 		{
-			texture->img[y][x].x = (double)(buf[i + j + 2] & 0xFF) / 255.0;
-			texture->img[y][x].y = (double)(buf[i + j + 1] & 0xFF) / 255.0;
-			texture->img[y][x].z = (double)(buf[i + j] & 0xFF) / 255.0;
+			texture->img[y][x].x = (unsigned char)(buf[i + j + 2] & 0xFF);
+			texture->img[y][x].y = (unsigned char)(buf[i + j + 1] & 0xFF);
+			texture->img[y][x].z = (unsigned char)(buf[i + j] & 0xFF);
 			x++;
 			j += 3;
 		}
@@ -63,7 +63,7 @@ static void			read_image(t_texture *texture, int fd)
 
 	if (!(buf = (char*)malloc(sizeof(char) * texture->sl * texture->h + 1)))
 		error(E_MALLOC, NULL, 1);
-	if (!(texture->img = (t_vec3**)malloc(sizeof(t_vec3*) * texture->h)))
+	if (!(texture->img = (t_rgb**)malloc(sizeof(t_rgb*) * texture->h)))
 		error(E_MALLOC, NULL, 1);
 	lseek(fd, 54, SEEK_SET);
 	if ((i = read(fd, buf, texture->sl * texture->h)) == -1)

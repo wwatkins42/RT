@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 18:45:52 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/04/30 10:31:09 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ typedef struct		s_mouse
 
 typedef struct		s_texture
 {
-	t_vec3			**img;
-	t_vec3			**bump;
+	t_rgb			**img;
+	t_rgb			**bump;
 	t_vec3			normal;
 	int				w;
 	int				h;
@@ -137,7 +137,7 @@ typedef struct		s_noise
 	int				len;
 	int				pas;
 	int				octave;
-	t_vec3			(*noise_func[3])(struct s_noise*, int, int);
+	t_rgb			(*noise_func[3])(struct s_noise*, int, int);
 }					t_noise;
 
 typedef struct		s_img
@@ -291,6 +291,7 @@ typedef struct		s_bfi
 	double			vo;
 	t_vec3			c[4];
 }					t_bfi;
+
 
 typedef	struct		s_lgt
 {
@@ -662,7 +663,7 @@ t_noise				init_noise_structure(int w, int h, int pas, int octave);
 **			Texture mapping
 */
 
-t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
+t_vec3				texture_mapping(t_obj *obj, t_rgb **img, t_vec3 hit);
 
 /*
 **			Normal mapping
