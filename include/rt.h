@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/01 11:22:37 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 12:00:08 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <time.h>
 # include <bmp_exporter.h>
+# include <g_object_type.h>
 # include <stdio.h> // TEMPORARY
 
 # define ABS(x) (x < 0 ? -x : x)
@@ -411,7 +412,7 @@ t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
 t_obj				*create_object(t_env *e, t_line *object_line);
 void				fill_object_attr(t_env *e, t_line *line, t_obj *new);
-int					get_object_type(char *line);
+int					get_object_type(t_env *e, char *line);
 void				create_cube(t_env *e, t_obj *cube);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);

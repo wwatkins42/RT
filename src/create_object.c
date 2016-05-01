@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:16:34 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 12:02:39 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,51 +60,31 @@ void				default_object(t_obj *object)
 	object->right = NULL;
 }
 
-int			get_object_type(char *line)
+int				get_object_type(t_env *e, char *line)
 {
-	if (ft_strstr(line, "SPHERE"))
-		return (SPHERE);
-	else if (ft_strstr(line, "CONE"))
-		return (CONE);
-	else if (ft_strstr(line, "PLANE"))
-		return (PLANE);
-	else if (ft_strstr(line, "CYLINDER"))
-		return (CYLINDER);
-	else if (ft_strstr(line, "TRIANGLE"))
-		return (TRIANGLE);
-	else if (ft_strstr(line, "CHEWINGGUM"))
-		return (CHEWINGGUM);
-	else if (ft_strstr(line, "CUBE_TROUE"))
-		return (CUBE_TROUE);
-	else if (ft_strstr(line, "CUBE"))
-		return (CUBE);
-	else if (ft_strstr(line, "PARALLELOGRAM"))
-		return (PARALLELOGRAM);
-	else if (ft_strstr(line, "HYPERBOLOID_ONE"))
-		return (HYPERBOLOID_ONE);
-	else if (ft_strstr(line, "HYPERBOLOID_TWO"))
-		return (HYPERBOLOID_TWO);
-	else if (ft_strstr(line, "PARABOLOID"))
-		return (PARABOLOID);
-	else if (ft_strstr(line, "TORUS"))
-		return (TORUS);
-	else if (ft_strstr(line, "QUADRIC"))
-		return (QUADRIC);
-	else if (ft_strstr(line, "MOEBIUS"))
-		return (MOEBIUS);
-	else if (ft_strstr(line, "DISC"))
-		return (DISC);
-	else if (ft_strstr(line, "CSG"))
-		return (CSG);
-	else if (ft_strstr(line, "OBJ"))
-		return (BBOX);
+	int		i;
+	char	*type;
+
+	i = -1;
+	if (!(type = ft_strtrim(ft_strchr(line, ':') + 1)))
+		error(e, E_MALLOC, NULL, 1);
+	while (G_OBJECT_TYPE[++i].reference != NULL)
+	{
+		if (ft_strcmp(type, G_OBJECT_TYPE[i].reference) == 0)
+		{
+			ft_strdel(&type);
+			return (G_OBJECT_TYPE[i].index);
+		}
+	}
+	error(e, E_OTYPE, type, 0);
+	ft_strdel(&type);
 	return (SPHERE);
 }
 
 void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 {
 	if (ft_strstr(line->line, "type:"))
-		new->type = get_object_type(line->line);
+		new->type = get_object_type(e, line->line);
 	else if (ft_strstr(line->line, "pos:"))
 		new->pos = parse_vector(e, line->line);
 	else if (ft_strstr(line->line, "pos2:"))
