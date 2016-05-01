@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:25:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 10:30:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 10:56:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void		init_func(t_noise *noise)
 	noise->noise_func[2] = noise_wood;
 }
 
-t_texture		texture_generator(int type, int width, int height)
+t_texture		texture_generator(t_env *e, int type, int width, int height)
 {
 	int			x;
 	int			y;
@@ -62,16 +62,16 @@ t_texture		texture_generator(int type, int width, int height)
 	text.h = height;
 	text.defined = 1;
 	text.normal_map = 0;
-	noise = init_noise_structure(width, height, 100, 7);
+	noise = init_noise_structure(e, width, height);
 	init_func(&noise);
 	if (!(text.img = (t_rgb**)malloc(sizeof(t_rgb*) * height)))
-		error(E_MALLOC, NULL, 1);
+		error(e, E_MALLOC, NULL, 1);
 	y = -1;
 	while (++y < height)
 	{
 		x = -1;
 		if (!(text.img[y] = (t_rgb*)malloc(sizeof(t_rgb) * width)))
-			error(E_MALLOC, NULL, 1);
+			error(e, E_MALLOC, NULL, 1);
 		while (++x < width)
 			if (type < 3 && type > 0)
 				text.img[y][x] = noise.noise_func[type](&noise, x, y);

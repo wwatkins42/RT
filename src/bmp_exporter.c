@@ -6,35 +6,36 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:50:15 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/25 09:38:48 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 11:17:45 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static char	*get_full_name(char *name)
+static char	*get_full_name(t_env *e, char *name)
 {
 	time_t	epoch;
 	char	*del;
-	char	*buffer;
+	char	*buf;
 	char	*f_name;
 
 	time(&epoch);
-	!(buffer = ft_strdup(name)) ? error(E_MALLOC, NULL, 1) : 0;
-	del = buffer;
-	buffer = ft_strrchr(buffer, '/');
-	buffer[ft_strrchr(buffer, '.') - buffer] = '\0';
-	if (!(buffer = ft_strjoin(buffer, "_%d_%m_%Y_%H-%M-%S")))
-		error(E_MALLOC, NULL, 1);
+	!(buf = ft_strdup(name)) ? error(e, E_MALLOC, NULL, 1) : 0;
+	del = buf;
+	buf = ft_strrchr(buf, '/');
+	buf[ft_strrchr(buf, '.') - buf] = '\0';
+	if (!(buf = ft_strjoin(buf, "_%d_%m_%Y_%H-%M-%S")))
+		error(e, E_MALLOC, NULL, 1);
 	ft_strdel(&del);
-	!(f_name = ft_strnew(128)) ? error(E_MALLOC, NULL, 1) : 0;
-	strftime(f_name, 128, buffer, localtime(&epoch));
-	ft_strdel(&buffer);
+	!(f_name = ft_strnew(128)) ? error(e, E_MALLOC, NULL, 1) : 0;
+	strftime(f_name, 128, buf, localtime(&epoch));
+	ft_strdel(&buf);
 	del = f_name;
-	!(f_name = ft_strjoin(BMP_LOCATION, f_name)) ? error(E_MALLOC, NULL, 1) : 0;
+	if (!(f_name = ft_strjoin(BMP_LOCATION, f_name)))
+		error(e, E_MALLOC, NULL, 1);
 	ft_strdel(&del);
 	del = f_name;
-	!(f_name = ft_strjoin(f_name, ".bmp")) ? error(E_MALLOC, NULL, 1) : 0;
+	!(f_name = ft_strjoin(f_name, ".bmp")) ? error(e, E_MALLOC, NULL, 1) : 0;
 	ft_strdel(&del);
 	return (f_name);
 }
@@ -78,7 +79,7 @@ static void	write_header(const int fd, t_header header, t_infos h_infos)
 	write(fd, &h_infos.important_color, 4);
 }
 
-static char	*create_img(t_img *img, t_infos *h_infos)
+static char	*create_img(t_env *e, t_img *img, t_infos *h_infos)
 {
 	int		i;
 	int		j;
@@ -88,7 +89,7 @@ static char	*create_img(t_img *img, t_infos *h_infos)
 	i = h_infos->image_size - 1;
 	j = 0;
 	if (!(copy = (char*)malloc(sizeof(char) * h_infos->image_size)))
-		error(E_MALLOC, NULL, 1);
+		error(e, E_MALLOC, NULL, 1);
 	while (i >= 0)
 	{
 		i -= img->sl;
@@ -105,7 +106,7 @@ static char	*create_img(t_img *img, t_infos *h_infos)
 	return (copy);
 }
 
-void		bmp_exporter(t_cam *cam, char *name)
+void		bmp_exporter(t_env *e, t_cam *cam, char *name)
 {
 	int			fd;
 	char		*pixel_data;
@@ -114,17 +115,17 @@ void		bmp_exporter(t_cam *cam, char *name)
 	t_infos		h_infos;
 
 	img = cam->type == STEREOSCOPIC ? cam->stereo : cam->img;
-	name = get_full_name(name);
+	name = get_full_name(e, name);
 	if ((fd = open(name, O_WRONLY | O_CREAT, OPEN_FLAG)) == -1)
 	{
-		error(strerror(errno), name, 0);
+		error(e, strerror(errno), name, 0);
 		return ;
 	}
 	ft_strdel(&name);
 	create_header(&header, &h_infos, img);
 	write_header(fd, header, h_infos);
-	pixel_data = create_img(&img, &h_infos);
+	pixel_data = create_img(e, &img, &h_infos);
 	write(fd, pixel_data, h_infos.image_size);
 	ft_strdel(&pixel_data);
-	close(fd) == -1 ? error(strerror(errno), "close", 0) : 0;
+	close(fd) == -1 ? error(e, strerror(errno), "close", 0) : 0;
 }

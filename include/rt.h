@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 14:58:39 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 11:22:37 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,6 +397,9 @@ typedef struct		s_env
 	double			(*intersect[20])(t_ray *, t_obj *);
 }					t_env;
 
+void				error(t_env *e, char *type, char *esrc, short ext);
+void				quit(t_env *e, const int status);
+
 /*
 **	PARSING FUNCTIONS
 */
@@ -409,11 +412,11 @@ t_obj				*parse_object(t_env *e, t_line *object_line);
 t_obj				*create_object(t_env *e, t_line *object_line);
 void				fill_object_attr(t_env *e, t_line *line, t_obj *new);
 int					get_object_type(char *line);
-void				create_cube(t_obj *cube);
+void				create_cube(t_env *e, t_obj *cube);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
-t_vec3				parse_vector(const char *line);
+t_vec3				parse_vector(t_env *e, const char *line);
 t_vec3				parse_color(char *line);
 t_obj				*parse_obj(char *file, t_env *e, t_obj *parent);
 t_obj				*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list,
@@ -655,9 +658,9 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 **			Texture generator && perlin noise
 */
 
-t_texture			texture_generator(int type, int width, int height);
+t_texture			texture_generator(t_env *e, int type, int width, int height);
 double				noise(t_noise *noise, double x, double y);
-t_noise				init_noise_structure(int w, int h, int pas, int octave);
+t_noise				init_noise_structure(t_env *e, int w, int h);
 
 /*
 **			Texture mapping
@@ -669,7 +672,7 @@ t_vec3				texture_mapping(t_obj *obj, t_rgb **img, t_vec3 hit);
 **			Normal mapping
 */
 
-void				create_normal_map(t_obj *obj);
+void				create_normal_map(t_env *e, t_obj *obj);
 t_vec3				bump_normal(t_obj *obj, t_ray *ray);
 
 /*
@@ -706,8 +709,8 @@ void				filter_img_update(t_env *e);
 **	BMP IMPORTER / EXPORTER
 */
 
-void				bmp_exporter(t_cam *cam, char *name);
-void				bmp_importer(char *file_path, t_texture *texture);
+void				bmp_exporter(t_env *e, t_cam *cam, char *name);
+void				bmp_importer(t_env *e, char *file_path, t_texture *texture);
 
 /*
 **	YML EXPORTER

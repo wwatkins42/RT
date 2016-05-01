@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/30 17:19:30 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/01 11:16:45 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static int		get_light_type(char *line)
 		return (DIRECTIONAL);
 	else if (ft_strstr(line, "SPOT"))
 		return (SPOT);
-	else
-		error(E_LTYPE, line, 0);
 	return (POINT);
 }
 
@@ -48,8 +46,6 @@ static int		get_shadow_type(char *line)
 		return (HARD);
 	else if (ft_strstr(line, "PROJECTION"))
 		return (PROJECTION);
-	else
-		error(E_LTYPE, line, 0);
 	return (HARD);
 }
 
@@ -77,16 +73,16 @@ static t_lgt	*create_light(t_env *e, t_line *light_line)
 	t_line		*line;
 
 	line = light_line;
-	!(new = (t_lgt*)malloc(sizeof(t_lgt))) ? error(E_LINIT, NULL, 1) : 0;
+	!(new = (t_lgt*)malloc(sizeof(t_lgt))) ? error(e, E_LINIT, NULL, 1) : 0;
 	default_light(new);
 	while (line != NULL && !ft_strstr(line->line, "- light:"))
 	{
 		if (ft_strstr(line->line, "type:"))
 			new->type = get_light_type(line->line);
 		else if (ft_strstr(line->line, "pos:"))
-			new->pos = parse_vector(line->line);
+			new->pos = parse_vector(e, line->line);
 		else if (ft_strstr(line->line, "dir:"))
-			new->dir = parse_vector(line->line);
+			new->dir = parse_vector(e, line->line);
 		else if (ft_strstr(line->line, "color:"))
 			new->color = parse_color(line->line);
 		arg_light(line, new);
@@ -108,7 +104,7 @@ t_lgt			*parse_light(t_env *e, t_line *light_line)
 
 	line = light_line;
 	if (!(current = (t_lgt*)malloc(sizeof(t_lgt))))
-		error(E_MALLOC, NULL, 1);
+		error(e, E_MALLOC, NULL, 1);
 	current->next = NULL;
 	light = current;
 	while (line != NULL)

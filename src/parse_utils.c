@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:49:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 09:53:44 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/01 11:15:29 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ double		parse_value(const char *line, double min, double max)
 	return (value);
 }
 
-t_vec3		parse_vector(const char *line)
+t_vec3		parse_vector(t_env *e, const char *line)
 {
 	int		i;
 	char	**tab;
@@ -64,7 +64,7 @@ t_vec3		parse_vector(const char *line)
 
 	i = -1;
 	vec = (t_vec3) {0, 0, 0};
-	!(tab = ft_strsplit(line, ',')) ? error(E_MALLOC, NULL, 1) : 0;
+	!(tab = ft_strsplit(line, ',')) ? error(e, E_MALLOC, NULL, 1) : 0;
 	while (tab[++i] != NULL)
 	{
 		if (ft_strstr(tab[i], "x:"))

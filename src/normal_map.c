@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 15:04:49 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 10:59:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static double	*get_gradient(t_rgb **img, int y, int x, t_texture text)
 
 	grad = NULL;
 	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
-		error(E_MALLOC, NULL, 1);
+		return (NULL);
 	actual = get_intensity(img[y][x]);
 	grad[0] = (y - 1 > 0 ? get_intensity(img[y - 1][x]) : actual);
 	grad[1] = (x - 1 > 0 ? get_intensity(img[y][x - 1]) : actual);
@@ -55,7 +55,7 @@ static t_rgb	compute_gradient(double *grad, t_obj *obj)
 	return (vec3_to_rgb(vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5))));
 }
 
-void			create_normal_map(t_obj *obj)
+void			create_normal_map(t_env *e, t_obj *obj)
 {
 	int		x;
 	int		y;
@@ -65,16 +65,17 @@ void			create_normal_map(t_obj *obj)
 	grad = NULL;
 	obj->mat.texture.bump =
 	(t_rgb**)malloc(sizeof(t_rgb*) * obj->mat.texture.h);
-	obj->mat.texture.bump == NULL ? error(E_MALLOC, NULL, 1) : 0;
+	obj->mat.texture.bump == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 	while (++y < obj->mat.texture.h)
 	{
 		x = -1;
 		obj->mat.texture.bump[y] =
 		(t_rgb*)malloc(sizeof(t_rgb) * obj->mat.texture.w);
-		obj->mat.texture.bump[y] == NULL ? error(E_MALLOC, NULL, 1) : 0;
+		obj->mat.texture.bump[y] == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 		while (++x < obj->mat.texture.w)
 		{
 			grad = get_gradient(obj->mat.texture.img, y, x, obj->mat.texture);
+			grad == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 			obj->mat.texture.bump[y][x] = compute_gradient(grad, obj);
 			ft_memdel((void**)&grad);
 		}

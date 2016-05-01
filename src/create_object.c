@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 16:47:21 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 11:16:34 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ int			get_object_type(char *line)
 		return (CSG);
 	else if (ft_strstr(line, "OBJ"))
 		return (BBOX);
-	else
-		error(E_OTYPE, line, 0);
 	return (SPHERE);
 }
 
@@ -108,15 +106,15 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	if (ft_strstr(line->line, "type:"))
 		new->type = get_object_type(line->line);
 	else if (ft_strstr(line->line, "pos:"))
-		new->pos = parse_vector(line->line);
+		new->pos = parse_vector(e, line->line);
 	else if (ft_strstr(line->line, "pos2:"))
-		new->pos2 = parse_vector(ft_strchr(line->line, ':'));
+		new->pos2 = parse_vector(e, ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "pos3:"))
-		new->pos3 = vec3_norm(parse_vector(ft_strchr(line->line, ':')));
+		new->pos3 = vec3_norm(parse_vector(e, ft_strchr(line->line, ':')));
 	else if (ft_strstr(line->line, "dir:"))
-		new->dir = vec3_norm(parse_vector(line->line));
+		new->dir = vec3_norm(parse_vector(e, line->line));
 	else if (ft_strstr(line->line, "cut:"))
-		new->cut = parse_vector(line->line);
+		new->cut = parse_vector(e, line->line);
 	else if (ft_strstr(line->line, "scale:"))
 		new->scale = parse_value(line->line, 0.1, 1000);
 	else if (ft_strstr(line->line, "min:"))
@@ -133,11 +131,11 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 		new = parse_obj(ft_strstr(line->line, ":") + 1, e, new);
 }
 
-void create_cube(t_obj *cube)
+void create_cube(t_env *e, t_obj *cube)
 {
         double  k;
 
-        !(cube->comp = malloc(6 * sizeof(t_obj))) ? error(E_MALLOC, NULL, 0) : 0;
+        !(cube->comp = malloc(6 * sizeof(t_obj))) ? error(e, E_MALLOC, NULL, 0) : 0;
         k = cube->scale;
         cube->comp[0].type = PARALLELOGRAM;
         cube->comp[0].pos = cube->pos;
@@ -178,7 +176,7 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 	t_line		*line;
 
 	line = object_line;
-	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(E_OINIT, NULL, 1) : 0;
+	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(e, E_OINIT, NULL, 1) : 0;
 	default_object(new);
 	while (line != NULL && !ft_strstr(line->line, "- object:") &&
 		!ft_strchr(line->line, '('))
@@ -189,7 +187,7 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 	e->count.obj++;
 	new->id = e->count.obj;
 	if (new->mat.texture.normal_map && new->mat.texture.defined)
-		create_normal_map(new);
+		create_normal_map(e, new);
 	new->scale2 = new->scale * new->scale;
 	new->pr *= new->pr;
 	new->gr *= new->gr;
@@ -197,7 +195,7 @@ t_obj				*create_object(t_env *e, t_line *object_line)
 	if (new->type == TRIANGLE || new->type == PARALLELOGRAM)
 		new->dir = vec3_norm(vec3_cross(new->pos2, new->pos3));
 	if (new->type == CUBE)
-		create_cube(new);
+		create_cube(e, new);
 	if (new->type == CSG)
 		parse_csg(e, new, line);
 	(new->type != BBOX && new->type != CUBE) ? new->comp = NULL : 0;

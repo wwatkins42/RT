@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:01:25 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/29 14:10:43 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 10:19:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	write_error_log(char *type, char *esrc)
 	close(fd);
 }
 
-void		error(char *type, char *esrc, short ext)
+void		error(t_env *e, char *type, char *esrc, short ext)
 {
 	char	*err;
 
@@ -75,5 +75,5 @@ void		error(char *type, char *esrc, short ext)
 	}
 	ft_printf_fd(2, "\n");
 	if (ext == 1)
-		exit(EXIT_FAILURE);
+		quit(e, EXIT_FAILURE);
 }
