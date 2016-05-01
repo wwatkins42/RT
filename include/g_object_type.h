@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 11:44:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:58:56 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 12:06:35 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 		char			*reference;
 	}					t_gobj_type;
 
-	extern	t_gobj_type	G_OBJECT_TYPE[20];
+	extern	const t_gobj_type	G_OBJECT_TYPE[20];
 
 #endif

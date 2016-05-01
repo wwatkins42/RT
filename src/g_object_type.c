@@ -6,13 +6,13 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 11:41:44 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 12:01:06 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 12:06:04 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_gobj_type		G_OBJECT_TYPE[20] =
+const t_gobj_type		G_OBJECT_TYPE[20] =
 {
 	{ SPHERE, "SPHERE" },
 	{ CONE, "CONE" },
