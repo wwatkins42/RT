@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 19:44:20 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 20:19:06 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 	while (obj != NULL)
 	{
 		tray = *ray;
-		tray.pos = vec3_sub(ray->pos, obj->pos);
-		// if (is_non_directed_object(obj))
-		// {
+		if (obj->type != CUBE || obj->type == CSG)
+		{
+			tray.pos = vec3_sub(ray->pos, obj->pos);
 			vec3_inverse_rotate(&tray.pos, obj->rot);
 			vec3_inverse_rotate(&tray.dir, obj->rot);
-		// }
+		}
 		t = e->intersect[obj->type](&tray, obj);
 		if (t > EPSILON && t < *tmin)
 		{
@@ -82,7 +82,7 @@ static t_vec3 get_moebius_normal(t_vec3 real, t_obj *obj)
 
 	// real = vec3_sub(ray->hit, obj->pos);
 	ret.x = -2 * obj->scale * real.z + 2 * real.x * real.y - 2 * real.x * real.z;
-	ret.y = -obj->scale2 + real.x * real.x + 3 * real.y * real.y - 4 * real.y *
+	ret.y = -obj->scale * obj->scale + real.x * real.x + 3 * real.y * real.y - 4 * real.y *
 		real.z + real.z * real.z;
 	ret.z = -2 * obj->scale * real.x - 2 * real.x * real.x - 2 * real.y * real.y
 		+ 2 * real.y * real.z;
@@ -95,15 +95,14 @@ void	set_normal(t_ray *ray, t_obj *obj)
 	t_vec3	tr;
 
 	tr = vec3_sub(ray->hit, obj->pos);
-	// if (is_non_directed_object(obj))
-		vec3_inverse_rotate(&tr, obj->rot);
+	vec3_inverse_rotate(&tr, obj->rot);
 	if (obj->type == PLANE || obj->type == TRIANGLE
 		|| obj->type == PARALLELOGRAM || obj->type == DISC)
 		obj->normal = obj->dir;
 	if (obj->type == MOEBIUS)
 		obj->normal = get_moebius_normal(tr, obj);
 	if (obj->type == SPHERE)
-		obj->normal = tr;
+		obj->normal = vec3_sub(ray->hit, obj->pos);
 	if (obj->type == CHEWINGGUM)
 	{
 		obj->normal.x = 4 * pow(tr.x, 3);
@@ -131,6 +130,7 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		/*
 		**CA DOIT ETRE LA
 		*/
+		// vec3_rotate(&obj->dir, vec3_fmul(obj->rot, -1));
 		obj->normal = vec3_sub(obj->normal,
 			vec3_fmul(obj->dir, obj->m + obj->scale));
 		/*
@@ -178,7 +178,7 @@ void	set_normal(t_ray *ray, t_obj *obj)
 		obj->normal = vec3(obj->normal.x + sin(ray->hit.x),
 		obj->normal.y, obj->normal.z);
 	// if (is_non_directed_object(obj))
-		vec3_rotate(&obj->normal, obj->rot);
+	vec3_rotate(&obj->normal, obj->rot);
 	// ray->pos = vec3_sub(ray->pos, obj->pos);
 	// vec3_rotate(&ray->pos, obj->rot);
 	// obj->normal = vec3_sub(obj->normal, ray->pos);

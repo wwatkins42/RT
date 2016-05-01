@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 02:52:56 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 13:55:56 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 19:23:44 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ double		intersect_cube(t_ray *ray, t_obj *cube)
 	int		i;
 	int		lol;
 	double	ts[4];
+	t_ray	tray;
 
 	i = 0;
 	lol = 0;
@@ -27,7 +28,11 @@ double		intersect_cube(t_ray *ray, t_obj *cube)
 	cube->out = INFINITY;
 	while (i < 6)
 	{
-		ts[3] = intersect_parallelogram(ray, &cube->comp[i]);
+		tray = *ray;
+		tray.pos = vec3_sub(ray->pos, cube->comp[i].pos);
+		vec3_inverse_rotate(&tray.pos, cube->rot);
+		vec3_inverse_rotate(&tray.dir, cube->rot);
+		ts[3] = intersect_parallelogram(&tray, &cube->comp[i]);
 		if (ts[3] > EPSILON && ts[3] != INFINITY && ((ts[lol] = ts[3]) || 1))
 		{
 			lol = 1;

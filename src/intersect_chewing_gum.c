@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 19:16:42 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 17:07:15 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double			intersect_chewing_gum(t_ray *ray, t_obj *obj)
 	double		a[5];
 	double		roots[4];
 
-	x = vec3_sub(ray->pos, obj->pos);
+	x = ray->pos;
 	a[4] = ft_pow(ray->dir.x, 4) + ft_pow(ray->dir.y, 4) +
 		ft_pow(ray->dir.z, 4);
 	a[3] = (4 * (ft_pow(ray->dir.x, 3) * x.x + ft_pow(ray->dir.y, 3) * x.y +

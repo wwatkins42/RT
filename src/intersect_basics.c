@@ -6,23 +6,23 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 11:43:17 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/30 19:40:51 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 16:36:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double	compute_m(t_ray *r, t_obj *o, t_vec3 d)
+double	compute_m(t_ray *r, t_obj *o, t_vec3 cut)
 {
 	double		m;
 
 	o->m = 0;
-	m = vec3_dot(r->dir, d) * o->in + vec3_dot(r->pos, d);
+	m = vec3_dot(r->dir, cut) * o->in + vec3_dot(r->pos, cut);
 	if (m > o->max || m < o->min)
 	{
 		o->in = o->out;
 		o->out = INFINITY;
-		m = vec3_dot(r->dir, d) * o->in + vec3_dot(r->pos, d);
+		m = vec3_dot(r->dir, cut) * o->in + vec3_dot(r->pos, cut);
 		if (m < o->max && m > o->min && ((o->m = m) || 1))
 			return (o->in);
 		else if ((o->in = INFINITY))
@@ -94,7 +94,7 @@ double	intersect_plane(t_ray *ray, t_obj *obj)
 	obj->in = INFINITY;
 	obj->out = INFINITY;
 	calc.a = vec3_dot(obj->dir, ray->dir);
-	calc.b = vec3_dot(obj->dir, vec3_sub(ray->pos, obj->pos));
+	calc.b = vec3_dot(obj->dir, ray->pos);
 	if (calc.a == 0)
 		return (INFINITY);
 	calc.eq = -calc.b / calc.a;
@@ -110,7 +110,7 @@ double	intersect_sphere(t_ray *ray, t_obj *obj)
 
 	obj->in = INFINITY;
 	obj->out = INFINITY;
-	calc.len = vec3_sub(ray->pos, obj->pos);
+	calc.len = ray->pos;
 	calc.b = vec3_dot(calc.len, ray->dir);
 	calc.c = vec3_dot(calc.len, calc.len) - obj->scale2;
 	calc.disc = calc.b * calc.b - calc.c;

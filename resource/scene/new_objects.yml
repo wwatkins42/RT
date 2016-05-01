@@ -1,6 +1,6 @@
 ---
 scene:
-	velocity: 10
+	velocity: 5
 	recursion_reflect: 1
 	recursion_refract: 1
 	mouse_sensibility: 0.4
@@ -17,19 +17,20 @@ cameras:
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 5, y: 5, z: 0}
+	  pos: {x: -4, y: 3, z: -4}
 	  color: 0xFFFFFF
-	  intensity: 0.5
+	  intensity: 2
 	  shadow: HARD
 
 objects:
+
         - object:
-                type: HYPERBOLOID_TWO
-                pos: {x: 0, y: 0, z: 6}
-                cut: {x: 0, y: 1, z: 0}
+                type: MOEBIUS
+                pos: {x: 0, y: 0, z: 0}
+                pos2: {x: 0, y: 1, z: 0}
+                pos3: {x: 1, y: 0, z: 0}
                 scale: 1
-                min: -3
-                max: 3
+                max: 0.4
                 material:
          		  color: 0x00FF00
          		  ambient: 0.2
@@ -40,4 +41,12 @@ objects:
          		  refract: 0
          		  transparency: 0
          		  absorbtion: 0.7
+        - object:
+            type: SPHERE
+            pos: {x: 0.5, y: 1.5, z: 0.5}
+            scale: 0.01
+        - object:
+            type: SPHERE
+            pos: {x: 1.5, y: 0.5, z: 0.5}
+            scale: 0.01
 ...

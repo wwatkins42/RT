@@ -10,13 +10,7 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: -2, y: 5, z: -5}
-	  dir: {x: 10, y: -30, z: 0}
-	  fov: 70
-	  supersampling: 1
-
-	- camera:
-	  pos: {x: 1.5, y: 1.5, z: -10}
+	  pos: {x: 0, y: 0, z: -10}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 100
 	  supersampling: 1
@@ -24,21 +18,21 @@ cameras:
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 5, y: 5, z: 1}
+	  pos: {x: 5, y: 5, z: -10}
 	  color: 0xFFFFFF
 	  intensity: 1.8
 	  shadow: HARD
 
 objects:
-	- object:
-	  type: CSG
-      (
-        - object:
+    - object:
+        type: CSG
+    (
+	   - object:
             type: CSG
             (
             - object:
                 type: CUBE
-                pos: {x: 0, y: 0, z: 0}
+                pos: {x: -3, y: -3, z: -3}
                 scale: 3
                 material:
         		  color: 0xFF0000
@@ -53,7 +47,7 @@ objects:
             - op: INTER
             - object:
                 type: SPHERE
-                pos: {x: 1.5, y: 1.5, z: 1.5}
+                pos: {x: 0, y: 0, z: 0}
                 scale: 2
                 material:
          		  color: 0x0000FF
@@ -66,21 +60,76 @@ objects:
          		  transparency: 0
          		  absorbtion: 0.7
             )
-         - op: DIFF
-         - object:
-                    type: SPHERE
-                    pos: {x: 1.5, y: 1.5, z: 1.5}
-                    dir: {x: 0, y: 0, z: 1}
-                    scale: 1.8
-                        material:
-             		     color: 0x00FF00
-             		     ambient: 0.225
-             		     diffuse: 0.775
-                	     specular: 0
-                     	 shininess: 512
-                     	 reflect: 0
-                     	 refract: 0
-                     	 transparency: 0
-             	         absorbtion: 0.7
-      )
+            op: DIFF
+            - object:
+                type: SPHERE
+                pos: {x: 0, y: 0, z: 0}
+                scale: 1.7
+                material:
+         		  color: 0x00FF00
+         		  ambient: 0.225
+         		  diffuse: 0.775
+         		  specular: 0
+         		  shininess: 512
+         		  reflect: 0
+         		  refract: 0
+         		  transparency: 0
+         		  absorbtion: 0.7
+        )
+        - object:
+        type: SPHERE
+        pos: {x: -5, y: 5, z: 0}
+        scale: 1
+        material:
+          color: 0xFF00FF
+          ambient: 0.225
+          diffuse: 0.775
+          specular: 0
+          shininess: 512
+          reflect: 0
+          refract: 0
+          transparency: 0
+          absorbtion: 0.7
+          - object:
+    type: SPHERE
+    pos: {x: 5, y: 5, z: 0}
+    scale: 1
+    material:
+      color: 0xFF00FF
+      ambient: 0.225
+      diffuse: 0.775
+      specular: 0
+      shininess: 512
+      reflect: 0
+      refract: 0
+      transparency: 0
+      absorbtion: 0.7
+    - object:
+    type: SPHERE
+    pos: {x: -5, y: -5, z: 0}
+    scale: 1
+    material:
+      color: 0xFF00FF
+      ambient: 0.225
+      diffuse: 0.775
+      specular: 0
+      shininess: 512
+      reflect: 0
+      refract: 0
+      transparency: 0
+      absorbtion: 0.7
+    - object:
+    type: SPHERE
+    pos: {x: 5, y: -5, z: 0}
+    scale: 1
+    material:
+      color: 0xFF00FF
+      ambient: 0.225
+      diffuse: 0.775
+      specular: 0
+      shininess: 512
+      reflect: 0
+      refract: 0
+      transparency: 0
+      absorbtion: 0.7
 ...

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 18:00:20 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/01 18:49:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,25 @@ double		do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
 
 double		intersect_csg(t_ray *r, t_obj *dad)
 {
+	t_ray	tray;
+
 	if (dad->left && dad->right)
 	{
+		tray = *r;
+		if (dad->left->type != CSG && dad->left->type != CUBE)
+		{
+			tray.pos = vec3_sub(r->pos, dad->left->pos);
+			vec3_inverse_rotate(&tray.pos, dad->rot);
+			vec3_inverse_rotate(&tray.dir, dad->rot);
+		}
 		g_intersect[dad->left->type](r, dad->left);
+		tray = *r;
+		if (dad->left->type != CSG && dad->left->type != CUBE)
+		{
+			tray.pos = vec3_sub(r->pos, dad->right->pos);
+			vec3_inverse_rotate(&tray.pos, dad->rot);
+			vec3_inverse_rotate(&tray.dir, dad->rot);
+		}
 		g_intersect[dad->right->type](r, dad->right);
 		dad->in = INFINITY;
 		dad->out = INFINITY;
