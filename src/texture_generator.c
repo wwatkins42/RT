@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_generator.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 11:25:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 10:56:49 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 10:29:00 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static t_rgb	noise_marble(t_noise *n, int x, int y)
 {
-	double f;
-	t_rgb color;
+	double	f;
+	t_rgb	color;
 
 	f = 1 - sqrt(fabs(sin(2 * PI * noise(n, x, y))));
 	color.x = (1.0 * (1 - f) + 0.7 * f) * 255;

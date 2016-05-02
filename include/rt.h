@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/01 12:00:08 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:19:36 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define FILE_ARG O_WRONLY | O_CREAT
 # define FILE_RIGHTS S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FILE_NAME_LENGTH 255
-# define T_RES_W 2560
-# define T_RES_H 1440
+# define T_RESW 2560
+# define T_RESH 1440
 # define ASCII "@8N#Oo{?*|\\!;:,. "
 
 /*
@@ -69,7 +69,7 @@ enum { NONE, MARBLE, WOOD, BMP, CHECKER };
 /*
 **	SHADOW TYPES
 */
-enum { HARD, SOFT, PROJECTION };
+enum { HARD, SOFT };
 
 /*
 **	KEYMAP
@@ -632,7 +632,7 @@ double   			save_nothan(t_obj *dad);
 
 t_vec3				raytracing_reflect(t_env *e, t_ray ray, t_cam *cam,
 										t_obj *obj);
-t_vec3				raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam,
+t_vec3				raytracing_reflect_gloss(t_env *e, t_ray ray, t_cam *cam,
 												t_obj *obj);
 t_vec3				raytracing_refract(t_env *e, t_ray ray, t_cam *cam,
 										t_obj *obj);

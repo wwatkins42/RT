@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:17:11 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:19:28 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 	}
 	else
 	{
-		mat->texture = texture_generator(e, mat->texture.type, T_RES_W, T_RES_H);
+		mat->texture = texture_generator(e, mat->texture.type, T_RESW, T_RESH);
 		sprintf(info, "->perlin:(%dx%d)[%s]\n", mat->texture.w,
 			mat->texture.h, ft_strstr(line, ":") + 2);
 	}

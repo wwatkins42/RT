@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/01 11:08:38 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:06:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	raytracing_shell(t_env *e, t_cam *cam)
 	cam->y = -1;
 	cursor = 0;
 	buffer = (char*)malloc(sizeof(char) * (e->win.w * 2 * e->win.h + e->win.h));
-	if (!buffer)
-		error(e, E_MALLOC, NULL, 1);
-	while (++cam->y < e->win.h)
+	!buffer ? error(e, E_MALLOC, NULL, 1) : 0;
+	while (++cam->y < e->win.h && (cam->x = -1))
 	{
-		cam->x = -1;
 		while (++cam->x < e->win.w)
 		{
 			pos = (cam->x * cam->img.opp) + (cam->y * cam->img.sl);
@@ -62,11 +60,8 @@ void	raytracing(t_env *e, t_cam *cam)
 
 void	raytracing_progressive(t_env *e, t_cam *cam)
 {
-	int		p;
 	t_vec3	color;
 
-	e->scene.inc = 32;
-	p = e->scene.inc * 2;
 	init_cam(e, cam);
 	color = (t_vec3) {0, 0, 0};
 	while (e->scene.inc > 0)
@@ -77,7 +72,8 @@ void	raytracing_progressive(t_env *e, t_cam *cam)
 			cam->x = 0;
 			while (cam->x < e->win.w)
 			{
-				if (!(p != 64 && cam->x % p == 0 && cam->y % p == 0))
+				if (!(e->scene.inc * 2 != 64 && cam->x % (e->scene.inc * 2) == 0
+				&& cam->y % (e->scene.inc * 2) == 0))
 					supersampling(e, cam);
 				cam->x += e->scene.inc;
 			}
@@ -86,7 +82,6 @@ void	raytracing_progressive(t_env *e, t_cam *cam)
 		}
 		mlx_put_image_to_window(e->mlx, e->win.adr, cam->img.adr, 0, 0);
 		mlx_do_sync(e->mlx);
-		p = e->scene.inc;
 		e->scene.inc /= 2;
 		e->arg.shell ? raytracing_shell(e, cam) : 0;
 	}
@@ -124,7 +119,7 @@ t_vec3	raytracing_draw(t_env *e, t_cam *cam, t_ray ray)
 		if (obj->mat.reflect > 0 && obj->mat.glossiness == 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, cam, obj));
 		if (obj->mat.reflect > 0 && obj->mat.glossiness > 0)
-			color = vec3_add(color, raytracing_reflect_glossy(e, ray, cam, obj));
+			color = vec3_add(color, raytracing_reflect_gloss(e, ray, cam, obj));
 		if (obj->mat.transparency > 0)
 			color = vec3_add(color, raytracing_refract(e, ray, cam, obj));
 	}

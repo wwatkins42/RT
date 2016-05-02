@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:28:29 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 16:37:36 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:15:16 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	set_color(t_obj *obj, t_ray *ray)
 	}
 }
 
-t_vec3	raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj)
+t_vec3		raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj)
 {
 	t_lgt	*light;
 	t_vec3	color;
@@ -56,7 +56,7 @@ t_vec3	raytracing_color(t_env *e, t_ray *ray, t_cam *cam, t_obj *obj)
 	return (color);
 }
 
-t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
+t_vec3		set_diffuse(t_obj *obj, t_lgt *light)
 {
 	double	theta;
 	double	res;
@@ -67,7 +67,7 @@ t_vec3	set_diffuse(t_obj *obj, t_lgt *light)
 	return (vec3_fmul(light->color, res));
 }
 
-t_vec3	set_specular(t_obj *obj, t_cam *cam, t_lgt *light)
+t_vec3		set_specular(t_obj *obj, t_cam *cam, t_lgt *light)
 {
 	t_vec3	halfdir;
 	float	theta;
@@ -81,7 +81,7 @@ t_vec3	set_specular(t_obj *obj, t_cam *cam, t_lgt *light)
 	return (vec3_fmul(light->color, res));
 }
 
-void	set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
+void		set_light(t_vec3 hit, t_obj *obj, t_lgt *light)
 {
 	double	theta;
 	double	epsilon;

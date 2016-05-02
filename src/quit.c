@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 09:38:30 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:27:32 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:18:30 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		destroy_camera_list(t_env *e, t_cam **list, int nb)
 {
-	t_cam		*ca;
+	t_cam	*ca;
 
 	ca = *list;
 	while (--nb > 0)
@@ -59,7 +59,8 @@ void		destroy_object_list(t_obj **list)
 	past = NULL;
 	while (obj != NULL)
 	{
-		obj->mat.texture.defined ? destroy_object_texture(&obj->mat.texture) : 0;
+		if (obj->mat.texture.defined)
+			destroy_object_texture(&obj->mat.texture);
 		past = obj;
 		obj = obj->next;
 		ft_memdel((void**)&past);
@@ -69,7 +70,7 @@ void		destroy_object_list(t_obj **list)
 
 void		destroy_light_list(t_lgt **list)
 {
-	t_lgt 	*lgt;
+	t_lgt	*lgt;
 	t_lgt	*past;
 
 	lgt = *list;

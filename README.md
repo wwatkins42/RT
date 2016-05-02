@@ -42,7 +42,6 @@ __Bonus:__
 - Progressive loading
 - Glossy reflection/refractions
 - Soft shadows
-- Transparent objects texture projection
 - Stereoscopic camera for 3D view
 - Texture rotation
 - Ascii shell display (--shell option)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_recursion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:55:04 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 08:39:37 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 11:42:22 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vec3		raytracing_reflect(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
+t_vec3			raytracing_reflect(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 {
 	t_vec3	color;
 
@@ -48,7 +48,8 @@ static t_vec3	glossy_reflection_direction(t_ray ray, t_obj *obj)
 	return (vec3_norm(vec3_sub(cone, ray.pos)));
 }
 
-t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
+t_vec3			raytracing_reflect_gloss(t_env *e, t_ray ray, t_cam *cam,
+	t_obj *obj)
 {
 	t_vec3	color;
 	t_vec3	dir;
@@ -77,37 +78,32 @@ t_vec3		raytracing_reflect_glossy(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 	return (color);
 }
 
-static void	refract_dir(t_env *e, t_ray *ray, t_obj *obj)
+static void		refract_dir(t_env *e, t_ray *ray, t_obj *obj)
 {
 	double	n;
-	double	cosI;
-	double	cosT;
-	double	sinT2;
-	t_vec3	normal;
+	double	calc[3];
+	t_vec3	norm;
 
 	ray->pos = ray->hit;
-	if (obj->mat.texture.normal_map)
-		normal = obj->mat.texture.normal;
-	else
-		normal = obj->normal;
-	cosI = vec3_dot(normal, ray->dir);
-	if (cosI > 0.0)
+	norm = obj->mat.texture.normal_map ? obj->mat.texture.normal : obj->normal;
+	calc[0] = vec3_dot(norm, ray->dir);
+	if (calc[0] > 0.0)
 	{
 		e->refract.n1 = obj->mat.refract;
 		e->refract.n2 = 1.0;
-		normal = vec3_fmul(normal, -1.0);
+		norm = vec3_fmul(norm, -1.0);
 	}
 	else
 	{
 		e->refract.n1 = 1.0;
 		e->refract.n2 = obj->mat.refract;
-		cosI = -cosI;
+		calc[0] = -calc[0];
 	}
 	n = e->refract.n1 / e->refract.n2;
-	sinT2 = n * n * (1.0 - cosI * cosI);
-	cosT = sqrt(1.0 - sinT2);
+	calc[2] = n * n * (1.0 - calc[0] * calc[0]);
+	calc[1] = sqrt(1.0 - calc[2]);
 	ray->dir = vec3_add(vec3_fmul(ray->dir, n),
-	vec3_fmul(normal, (n * cosI - cosT)));
+	vec3_fmul(norm, (n * calc[0] - calc[1])));
 	vec3_normalize(&ray->dir);
 }
 
@@ -133,7 +129,6 @@ t_vec3			raytracing_refract(t_env *e, t_ray ray, t_cam *cam, t_obj *obj)
 		if (obj->mat.fresnel.defined)
 			color = vec3_fmul(color, get_fresnel(vec3_fmul(cam->ray.dir, -1),
 			obj->normal, obj->mat.fresnel.refract));
-		// obj->scale * 2.0 is not correct, t is distance traced in object
 	}
 	return (color);
 }
