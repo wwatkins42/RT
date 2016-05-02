@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 12:02:39 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 10:15:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int				get_object_type(t_env *e, char *line)
 	i = -1;
 	if (!(type = ft_strtrim(ft_strchr(line, ':') + 1)))
 		error(e, E_MALLOC, NULL, 1);
-	while (G_OBJECT_TYPE[++i].reference != NULL)
+	while (g_object_type[++i].reference != NULL)
 	{
-		if (ft_strcmp(type, G_OBJECT_TYPE[i].reference) == 0)
+		if (ft_strcmp(type, g_object_type[i].reference) == 0)
 		{
 			ft_strdel(&type);
-			return (G_OBJECT_TYPE[i].index);
+			return (g_object_type[i].index);
 		}
 	}
 	error(e, E_OTYPE, type, 0);

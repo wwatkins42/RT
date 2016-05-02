@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-const t_gobj_type		G_OBJECT_TYPE[20] =
+const t_gobj_type		g_object_type[20] =
 {
 	{ SPHERE, "SPHERE" },
 	{ CONE, "CONE" },

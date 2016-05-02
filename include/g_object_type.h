@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef G_OBJECT_TYPE_H
-# define G_OBJECT_TYPE_H
+#ifndef g_object_type_H
+# define g_object_type_H
 
 	typedef struct		s_gobj_type
 	{
@@ -19,6 +19,6 @@
 		char			*reference;
 	}					t_gobj_type;
 
-	extern	const t_gobj_type	G_OBJECT_TYPE[20];
+	extern	const t_gobj_type	g_object_type[20];
 
 #endif

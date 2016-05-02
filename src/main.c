@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/01 11:13:26 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 10:22:54 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,21 @@ static int	is_yml(const char *str)
 	return (1);
 }
 
+static void	args_init(t_env *e)
+{
+	e->arg.w = 1280;
+	e->arg.h = 720;
+	e->arg.file = NULL;
+	e->arg.shell = 0;
+}
+
 static void	args_get(t_env *e, int ac, char **av)
 {
 	int		i;
 	int		fd;
 
 	i = 0;
-	e->arg.w = 1280;
-	e->arg.h = 720;
-	e->arg.file = NULL;
-	e->arg.shell = 0;
+	args_init(e);
 	while (++i < ac)
 	{
 		!ft_strcmp(av[i], "--help") ? args_disp() : 0;
