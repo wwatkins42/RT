@@ -1,0 +1,142 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 0
+	recursion_refract: 3
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+      pos: {x: 0, y: 0, z: -10}
+      dir: {x: 0, y: 0, z: 1}
+	  fov: 90
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 5, z: -8}
+	  color: #F4F2EC
+	  intensity: 1.2
+	  attenuation: 0.001
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: SPHERE
+	  scale: 1000
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #F43F6A
+		  ambient: 1
+		  diffuse: 0
+		  specular: 0
+		  shininess: 0
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0
+          texture: ../texture/panoramic/sunny.bmp
+          texture_filtering: false
+          receive_shadow: false
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: -4, y: 2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 1.05
+		  transparency: 0.85
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 0, y: 2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 1.2
+		  transparency: 0.85
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 4, y: 2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 1.4
+		  transparency: 0.85
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: -4, y: -2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 1.6
+		  transparency: 0.85
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 0, y: -2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 1.8
+		  transparency: 0.85
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 2
+	  pos: {x: 4, y: -2, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0
+		  refract: 2.0
+		  transparency: 0.85
+		  absorbtion: 1
+...

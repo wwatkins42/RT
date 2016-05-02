@@ -1,0 +1,62 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 0, z: -10}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 90
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 5, z: -8}
+	  color: #F4F2EC
+	  intensity: 1.2
+	  attenuation: 0.001
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: SPHERE
+	  scale: 1000
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #F43F6A
+		  ambient: 1
+		  diffuse: 0
+		  specular: 0
+		  shininess: 0
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0
+          texture: ../texture/panoramic/hongkong.bmp
+          texture_filtering: true
+          receive_shadow: false
+
+	- object:
+	  type: SPHERE
+	  scale: 5
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #000000
+		  ambient: 0.025
+		  diffuse: 0.175
+		  specular: 1
+		  shininess: 2048
+		  reflect: 0.85
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0
+...

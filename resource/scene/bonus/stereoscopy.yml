@@ -1,0 +1,124 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+      type: STEREO
+      pos: {x: 0, y: 1, z: -5}
+      dir: {x: 0, y: 0, z: 0}
+	  fov: 60
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 3, z: -1}
+	  color: #F4F2EC
+	  intensity: 1.3
+	  attenuation: 0.0001
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -0.1, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #383838
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -0.1, z: 50}
+	  dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #383838
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1.75
+	  pos: {x: -2.8, y: 1.5, z: 6}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1
+	  pos: {x: 0.8, y: 1, z: 1}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CONE
+	  scale: 0.5
+	  pos: {x: 4, y: 3, z: 5}
+	  dir: {x: 0.2, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 1
+	  pos: {x: 1, y: 0, z: 8}
+	  dir: {x: -0.4, y: 1, z: 0}
+	  material:
+		  color: #FFFFFF
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+...
