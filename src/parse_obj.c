@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:27:53 by aacuna            #+#    #+#             */
-/*   Updated: 2016/05/01 11:21:43 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 17:35:31 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,6 @@ t_vec3	get_point(char *line)
 	return (result);
 }
 
-t_obj	*parse_line(char *line, t_vec3 *tmp_array, t_obj *parent, int *i)
-{
-	t_vec3	res;
-
-	if (line[0] == 'v' && line[1] == ' ')
-	{
-		res = get_point(line);
-		tmp_array[*i] = res;
-		(*i)++;
-	}
-	else if (line[0] == 'f' && line[1] == ' ')
-		if (!(parent->comp = add_triangle(line, tmp_array, parent, *i)))
-			return (NULL);
-	return (parent->comp);
-}
-
 t_vec3	*increase_size(t_env *e, t_vec3 *original, int *size)
 {
 	t_vec3	*new;
@@ -77,11 +61,18 @@ t_obj	*parse_points(t_env *e, int fd, t_obj *parent)
 	size = 1000;
 	if (!(points = (t_vec3*)malloc(sizeof(*points) * 1000)))
 		error(e, E_MALLOC, NULL, 1);
+	i = 1;
 	while (get_next_line(fd, &line) > 0)
 	{
 		i >= size - 1 ? points = increase_size(e, points, &size) : 0;
-		if (!(parent->comp = parse_line(line, points, parent, &i)))
-			error(e, E_MALLOC, NULL, 1);
+		if (line[0] == 'v' && line[1] == ' ')
+		{
+			points[i] = get_point(line);
+			i++;
+		}
+		else if (line[0] == 'f' && line[1] == ' ')
+			if (!(parent->comp = add_triangle(line, points, parent, i - 1)))
+				error(e, E_MALLOC, NULL, 1);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
@@ -97,12 +88,15 @@ t_obj	*parse_obj(char *file, t_env *e, t_obj *parent)
 	parent->type = BBOX;
 	(fd = open(file, O_RDONLY)) == -1 ? error(e, strerror(errno), file, 1) : 0;
 	parse_points(e, fd, parent);
-	new_box_size = create_bbox(parent->comp);
-	parent->pos = new_box_size->pos;
-	parent->pos2 = new_box_size->pos2;
-	free(new_box_size);
-	parent = divide_bbox(parent);
-	e->count.obj = e->count.obj + count_objs(parent) - 1;
-	close(fd);
+	if (parent->comp)
+	{
+		new_box_size = create_bbox(parent->comp, e);
+		parent->pos = new_box_size->pos;
+		parent->pos2 = new_box_size->pos2;
+		free(new_box_size);
+		parent = divide_bbox(parent, e);
+		e->count.obj = e->count.obj + count_objs(parent) - 1;
+		close(fd);
+	}
 	return (parent);
 }

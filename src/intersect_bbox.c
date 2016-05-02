@@ -6,18 +6,19 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 11:54:44 by aacuna            #+#    #+#             */
-/*   Updated: 2016/04/29 12:00:31 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/02 15:53:31 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_obj	*create_bbox(t_obj *objs)
+t_obj	*create_bbox(t_obj *objs, t_env *e)
 {
 	t_obj	*i;
 	t_obj	*nb;
 
-	nb = (t_obj*)malloc(sizeof(*nb));
+	if (!(nb = (t_obj*)malloc(sizeof(*nb))))
+		error(e, E_MALLOC, NULL, 1);
 	default_object(nb);
 	nb->type = BBOX;
 	i = objs;
@@ -40,7 +41,7 @@ t_obj	*create_bbox(t_obj *objs)
 	return (nb);
 }
 
-t_obj	*divide_bbox(t_obj *original_box)
+t_obj	*divide_bbox(t_obj *original_box, t_env *e)
 {
 	int		nb_objs;
 	int		i;
@@ -59,12 +60,12 @@ t_obj	*divide_bbox(t_obj *original_box)
 	}
 	if (objs)
 	{
-		new_box = create_bbox(objs->next);
+		new_box = create_bbox(objs->next, e);
 		objs->next = NULL;
-		original_box->comp = create_bbox(original_box->comp);
+		original_box->comp = create_bbox(original_box->comp, e);
 		original_box->comp->next = new_box;
-		original_box->comp->next = divide_bbox(original_box->comp->next);
-		original_box->comp = divide_bbox(original_box->comp);
+		original_box->comp->next = divide_bbox(original_box->comp->next, e);
+		original_box->comp = divide_bbox(original_box->comp, e);
 	}
 	return (original_box);
 }

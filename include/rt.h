@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 11:19:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 15:51:18 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -731,8 +731,8 @@ t_obj				*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3,
 **	BBOX FUNCTIONS
 */
 
-t_obj				*create_bbox(t_obj *objs);
-t_obj				*divide_bbox(t_obj *original_box);
+t_obj				*create_bbox(t_obj *objs, t_env *e);
+t_obj				*divide_bbox(t_obj *original_box, t_env *e);
 int					count_objs(t_obj *obj);
 double				min4(double nb1, double nb2, double nb3, double nb4);
 double				max4(double nb1, double nb2, double nb3, double nb4);
