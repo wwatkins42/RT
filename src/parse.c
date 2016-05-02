@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/18 10:52:59 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/01 11:15:09 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void		parse(t_env *e, t_parse *core)
 	destroy_parse(core);
 	sprintf(info, "SCENE:[cam:%d, lgt:%d, obj:%d]\n",
 	e->count.cam, e->count.lgt, e->count.obj);
-	!e->count.cam ? error("must have cam", NULL, 1) : 0;
+	!e->count.cam ? error(e, "must have cam", NULL, 1) : 0;
 	display_info(e, info);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_triangle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 15:15:48 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/01 11:20:40 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *parent, int max)
 	p2 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
 	i = next_number(line, i);
 	p3 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
-	parent->comp = new_triangle_node(p1, p2, p3, parent);
+	if (!(parent->comp = new_triangle_node(p1, p2, p3, parent)))
+		return (NULL);
 	while (line[i])
 	{
 		i = next_number(line, i);
 		if (line[i])
-			parent->comp = new_triangle_node(p1, parent->comp->pos3,
-										vect[ft_atoi(line + i)], parent);
+			if (!(parent->comp = new_triangle_node(p1, parent->comp->pos3,
+										vect[ft_atoi(line + i)], parent)))
+				return (NULL);
 	}
 	return (parent->comp);
 }
@@ -87,8 +89,7 @@ t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *parent)
 {
 	t_obj	*result;
 
-	result = (t_obj*)malloc(sizeof(*result));
-	if (!result)
+	if (!(result = (t_obj*)malloc(sizeof(*result))))
 		return (NULL);
 	default_object(result);
 	result->type = TRIANGLE;

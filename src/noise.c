@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   noise.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 10:55:16 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/18 11:19:06 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/01 10:57:03 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_noise				init_noise_structure(int w, int h, int pas, int octave)
+t_noise				init_noise_structure(t_env *e, int w, int h)
 {
 	int		i;
 	int		poctave;
 	t_noise	noise;
 
 	i = -1;
-	noise.octave = octave;
-	noise.pas = pas;
+	noise.octave = 7;
+	noise.pas = 100;
 	poctave = pow(2, noise.octave - 1);
 	noise.w_max = (int)ceil(w * poctave / noise.pas);
 	noise.h_max = (int)ceil(h * poctave / noise.pas);
 	noise.len = noise.w_max * noise.h_max;
 	if (!(noise.noise = (double*)malloc(sizeof(double) * noise.len)))
-		error(E_MALLOC, NULL, 1);
+		error(e, E_MALLOC, NULL, 1);
 	while (++i < noise.len)
 		noise.noise[i] = ((double)rand()) / RAND_MAX;
 	return (noise);

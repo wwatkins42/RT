@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/29 12:28:10 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/01 12:00:08 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <time.h>
 # include <bmp_exporter.h>
+# include <g_object_type.h>
 # include <stdio.h> // TEMPORARY
 
 # define ABS(x) (x < 0 ? -x : x)
@@ -45,8 +46,15 @@ enum {DEFAULT, STEREOSCOPIC};
 /*
 **	OBJECT TYPES
 */
-enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM,
-	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, TORUS, BBOX};
+enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM, DISC,
+		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, CHEWINGGUM, TORUS,
+		QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE };
+
+/*
+** CSG OPERATORS
+*/
+enum { UNION, INTER, DIFF };
+
 
 /*
 **	LIGHT TYPES
@@ -93,8 +101,8 @@ typedef struct		s_mouse
 
 typedef struct		s_texture
 {
-	t_vec3			**img;
-	t_vec3			**bump;
+	t_rgb			**img;
+	t_rgb			**bump;
 	t_vec3			normal;
 	int				w;
 	int				h;
@@ -109,6 +117,7 @@ typedef struct		s_texture
 	double			normal_strength;
 	double			scale;
 	double			rotation;
+	char			*name;
 }					t_texture;
 
 typedef struct		s_triangle
@@ -129,7 +138,7 @@ typedef struct		s_noise
 	int				len;
 	int				pas;
 	int				octave;
-	t_vec3			(*noise_func[3])(struct s_noise*, int, int);
+	t_rgb			(*noise_func[3])(struct s_noise*, int, int);
 }					t_noise;
 
 typedef struct		s_img
@@ -192,6 +201,20 @@ typedef struct		s_aa
 	double			coef;
 }					t_aa;
 
+typedef struct		s_coeffs
+{
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			e;
+	double			f;
+	double			g;
+	double			h;
+	double			i;
+	double			j;
+}					t_coeff;
+
 typedef struct		s_obj
 {
 	t_vec3			pos;
@@ -199,7 +222,9 @@ typedef struct		s_obj
 	t_vec3			pos3;
 	t_vec3			dir;
 	t_vec3			normal;
+	t_vec3			cut;
 	t_mat			mat;
+	t_coeff			co;
 	short			type;
 	double			m;
 	double			pr;
@@ -211,6 +236,11 @@ typedef struct		s_obj
 	double			k;
 	double			t;
 	double			dist_attenuation;
+	double			in;
+	double			out;
+	int				op;
+	struct s_obj	*left;
+	struct s_obj	*right;
 	int 			comp_hit;
 	unsigned short	id;
 	struct s_obj	*comp;
@@ -246,6 +276,7 @@ typedef struct		s_calc
 	double			a;
 	double			b;
 	double			c;
+	double			d;
 	double			disc;
 	double			eq;
 	t_vec3			len;
@@ -261,6 +292,7 @@ typedef struct		s_bfi
 	double			vo;
 	t_vec3			c[4];
 }					t_bfi;
+
 
 typedef	struct		s_lgt
 {
@@ -363,8 +395,11 @@ typedef struct		s_env
 	t_reflect		reflect;
 	t_refract		refract;
 	double			stereo_nb;
-	double			(*intersect[12])(t_ray *, t_obj *);
+	double			(*intersect[20])(t_ray *, t_obj *);
 }					t_env;
+
+void				error(t_env *e, char *type, char *esrc, short ext);
+void				quit(t_env *e, const int status);
 
 /*
 **	PARSING FUNCTIONS
@@ -375,16 +410,108 @@ void				parse(t_env *e, t_parse *core);
 t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
+t_obj				*create_object(t_env *e, t_line *object_line);
+void				fill_object_attr(t_env *e, t_line *line, t_obj *new);
+int					get_object_type(t_env *e, char *line);
+void				create_cube(t_env *e, t_obj *cube);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
 short				parse_boolean(const char *line);
 double				parse_value(const char *line, double min, double max);
-t_vec3				parse_vector(const char *line);
+t_vec3				parse_vector(t_env *e, const char *line);
 t_vec3				parse_color(char *line);
 t_obj				*parse_obj(char *file, t_env *e, t_obj *parent);
 t_obj				*add_triangle(char *line, t_vec3 *vect, t_obj *obj_list,
 									int max);
 int					is_comment(const char *line);
 void				default_object(t_obj *object);
+void				parse_csg(t_env *e, t_obj *csg, t_line *line);
+
+
+
+/*
+** POLYNOM SOLVER
+*/
+
+typedef struct          s_cubic
+{
+        double			q;
+        double			r;
+        double			bq;
+        double			br;
+        double			bq3;
+        double			br2;
+        double			cr2;
+        double			cq3;
+        double			sqrtbq;
+        double			sgnbr;
+        double			ratio;
+        double			theta;
+        double			norm;
+        double			r0;
+        double			r1;
+        double			r2;
+        double			ba;
+        double			bb;
+        int             i;
+}						t_cubic;
+
+typedef struct		s_quartic
+{
+	double			u[3];
+	double			v[3];
+	double			zarr[4];
+	double			args[3];
+	double			aa;
+	double			pp;
+	double			qq;
+	double			rr;
+	double			rc;
+	double			sc;
+	double			tc;
+	double			mt;
+	double			w1r;
+	double			w1i;
+	double			w2r;
+	double			w2i;
+	double			w3r;
+	double			v1;
+	double			v2;
+	double			arg;
+	double			theta;
+	double			disc;
+	double			h;
+	double			qcub;
+	double			rcub;
+	double			bq;
+	double			br;
+	double			bq3;
+	double			br2;
+	double			cr2;
+	double			cq3;
+	double			sqrtbq;
+	double			sqrtbq3;
+	double			sgnbr;
+	double			modbr;
+	double			norm;
+	double			sqrt_disc;
+	double			ba;
+	double			bb;
+	double			mod_diffbabb;
+	int				k1;
+	int				k2;
+}					t_quartic;
+
+int					solve_quadratic(double *a, double *r);
+int					solve_cubic(double *a, double *r);
+int					solve_quartic(double *a, double *r);
+int					swapd(double *a, double *b);
+double				max(double a, double b);
+int					deal_with_degenerate(double *a, double *r);
+void				find_solution_to_resolvent_cubic(t_quartic *q);
+void				set_d3(double *u, double u0, double u1, double u2);
+void				fonction_relativement_assez_nulle(double *r, double *zarr);
+double				choose_root3(double *roots, int ret);
+double				choose_root4(double *roots, int ret);
 
 /*
 **	ENVIRONNEMENT INIT FUNCTIONS
@@ -422,44 +549,6 @@ void				object_move(t_env *e, t_obj *obj);
 void				object_mouse_move(t_env *e, t_obj *obj);
 void				object_mouse_rotate(t_env *e, t_obj *obj);
 
-/*
-** polynomial solver
-*/
-
-typedef struct		s_poly6
-{
-	double			a[7];
-	double			root[6];
-}					t_poly6;
-
-typedef struct		s_euclid
-{
-	t_poly6			q;
-	t_poly6			r;
-}					t_euclid;
-
-typedef struct		s_sturm
-{
-	t_poly6			*s;
-	int				len;
-}					t_sturm;
-
-typedef struct		s_poly4
-{
-	double			a0;
-	double			a1;
-	double			a2;
-	double			a3;
-	double			a4;
-	double			root1;
-	double			root2;
-	double			root3;
-	double			root4;
-}					t_poly4;
-
-int					solve_quadratic(t_poly4 *p);
-int					solve_cubic(t_poly4 *p);
-int					solve_quartic(t_poly4 *p);
 
 /*
 **	RAYTRACING FUNCTIONS
@@ -480,6 +569,27 @@ t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 **			Primitives intersections
 */
 
+typedef struct	s_moebius
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		e;
+	double		f;
+	double		g;
+}				t_moebius;
+
+typedef struct	s_cal
+{
+	double		tmp;
+	double		dirinv[2][2];
+	double		point[2];
+	double		det;
+	double		p;
+	double		q;
+}				t_cal;
+
 t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin,
 										t_obj *obj);
 double				intersect_plane(t_ray *ray, t_obj *obj);
@@ -492,11 +602,29 @@ double				intersect_hyperboloid1(t_ray *r, t_obj *o);
 double				intersect_hyperboloid2(t_ray *r, t_obj *o);
 double				intersect_paraboloid(t_ray *ray, t_obj *o);
 double				intersect_torus(t_ray *ray, t_obj *obj);
+double				intersect_chewing_gum(t_ray *ray, t_obj *obj);
 double				intersect_cube_troue(t_ray *ray, t_obj *obj);
 double				intersect_parallelogram(t_ray *r, t_obj *t);
 double				intersect_cube(t_ray *ray, t_obj *cube);
+double				intersect_quadric(t_ray *ray, t_obj *cube);
+double				intersect_moebius(t_ray *ray, t_obj *obj);
+double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
+double				intersect_cube_troue(t_ray *ray, t_obj *b);
 void				set_normal(t_ray *ray, t_obj *obj);
+double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir, double tmp);
+/*
+** CSG INTERSECTION
+*/
+double				intersect_csg(t_ray *r, t_obj *t);
+double   			save_lin_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_lin_rout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_rin_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_rin_rout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_rout_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_lin_rin(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double   			save_nothan(t_obj *dad);
+
 
 /*
 **			Reflection / Refraction
@@ -531,21 +659,21 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 **			Texture generator && perlin noise
 */
 
-t_texture			texture_generator(int type, int width, int height);
+t_texture			texture_generator(t_env *e, int type, int width, int height);
 double				noise(t_noise *noise, double x, double y);
-t_noise				init_noise_structure(int w, int h, int pas, int octave);
+t_noise				init_noise_structure(t_env *e, int w, int h);
 
 /*
 **			Texture mapping
 */
 
-t_vec3				texture_mapping(t_obj *obj, t_vec3 **img, t_vec3 hit);
+t_vec3				texture_mapping(t_obj *obj, t_rgb **img, t_vec3 hit);
 
 /*
 **			Normal mapping
 */
 
-void				create_normal_map(t_obj *obj);
+void				create_normal_map(t_env *e, t_obj *obj);
 t_vec3				bump_normal(t_obj *obj, t_ray *ray);
 
 /*
@@ -566,7 +694,7 @@ int					ispressed(char *key);
 void				kswitch(char *k);
 void				display_info(t_env *e, char *str);
 void				display_loading(t_env *e, int u, int v);
-void				display_texture(t_env *e, t_vec3 **img, t_texture texture);
+void				display_texture(t_env *e, t_rgb **img, t_texture texture);
 void				display_stats(t_env *e);
 
 /*
@@ -582,8 +710,8 @@ void				filter_img_update(t_env *e);
 **	BMP IMPORTER / EXPORTER
 */
 
-void				bmp_exporter(t_cam *cam, char *name);
-void				bmp_importer(char *file_path, t_texture *texture);
+void				bmp_exporter(t_env *e, t_cam *cam, char *name);
+void				bmp_importer(t_env *e, char *file_path, t_texture *texture);
 
 /*
 **	YML EXPORTER

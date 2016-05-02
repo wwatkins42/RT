@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:32:14 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 08:30:27 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 10:35:05 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ t_img	img_init(t_env *e)
 	t_img	img;
 
 	if (!(img.adr = mlx_new_image(e->mlx, e->win.w, e->win.h)))
-		error(E_IMG_INIT, NULL, 1);
+		error(e, E_IMG_INIT, NULL, 1);
 	if (!(img.img = mlx_get_data_addr(img.adr, &img.bpp, &img.sl,
 		&img.endian)))
-		error(E_IMG_INIT, NULL, 1);
+		error(e, E_IMG_INIT, NULL, 1);
 	img.opp = img.bpp / 8;
 	img.h = e->win.h;
 	img.w = e->win.w;

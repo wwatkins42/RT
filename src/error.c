@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 17:01:25 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/27 13:57:23 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 10:19:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static int	open_error_log(void)
 	char	*date;
 	char	*hour;
 
-	if ((fd = open("errors.log", ERR_FILE_FLAGS , ERR_FILE_RIGHTS)) == -1)
-		return (-1);
-	else
+	if ((fd = open("errors.log", ERR_FILE_FLAGS, ERR_FILE_RIGHTS)) != -1)
 	{
 		time(&epoch);
-		if (!(tmp = ft_strdup("%d/%m/%Y")) || !(date = ft_strnew(128)))
+		if (!(tmp = ft_strdup("%d/%m/%Y")) ||
+			!(date = ft_strnew(128)))
 			return (-1);
 		strftime(date, 128, tmp, localtime(&epoch));
 		ft_strdel(&tmp);
-		if (!(tmp = ft_strdup("%H:%M:%S")) || !(hour = ft_strnew(128)))
+		if (!(tmp = ft_strdup("%H:%M:%S")) ||
+			!(hour = ft_strnew(128)))
 			return (-1);
 		strftime(hour, 128, tmp, localtime(&epoch));
 		ft_strdel(&tmp);
@@ -38,6 +38,7 @@ static int	open_error_log(void)
 		ft_strdel(&date);
 		return (fd);
 	}
+	return (-1);
 }
 
 static void	write_error_log(char *type, char *esrc)
@@ -59,7 +60,7 @@ static void	write_error_log(char *type, char *esrc)
 	close(fd);
 }
 
-void		error(char *type, char *esrc, short ext)
+void		error(t_env *e, char *type, char *esrc, short ext)
 {
 	char	*err;
 
@@ -74,5 +75,5 @@ void		error(char *type, char *esrc, short ext)
 	}
 	ft_printf_fd(2, "\n");
 	if (ext == 1)
-		exit(EXIT_FAILURE);
+		quit(e, EXIT_FAILURE);
 }

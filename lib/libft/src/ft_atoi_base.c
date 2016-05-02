@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:47:24 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/01/19 13:21:36 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:40:07 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int		ft_atoi_base(char *str, int base)
 			res += (str[i] - '0') * e;
 		if ('A' <= str[i] && str[i] <= 'A' + base - 11)
 			res += (str[i] - 'A' + 10) * e;
+		if ('a' <= str[i] && str[i] <= 'a' + base - 11)
+			res += (str[i] - 'a' + 10) * e;
 		e *= base;
 	}
 	str[0] == '-' && base == 10 ? res *= -1 : 0;

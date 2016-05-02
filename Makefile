@@ -6,7 +6,7 @@
 #    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/04/28 08:35:21 by scollon          ###   ########.fr        #
+#    Updated: 2016/05/01 11:58:42 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,13 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			intersect_hyperboloid.c intersect_paraboloid.c \
 			intersect_parallelogram.c intersect_torus.c intersect_triangle.c \
 			solve_quartic.c fresnel.c raytracing_shadow.c object_movement.c \
-			stereoscopy.c parse_obj.c intersect_bbox.c bbox_aux.c
+			stereoscopy.c parse_obj.c intersect_bbox.c bbox_aux.c \
+			intersect_basics.c intersect_chewing_gum.c intersect_disc.c \
+			intersect_moebius.c intersect_quadric.c \
+			root_compute_utils.c intersect_csg.c solve_quadratic.c \
+			csg_helpers.c csg_helpers2.c create_object.c intersect_cube_troue.c \
+			parse_csg.c solve_cubic.c choose_roots.c yml_write_object.c \
+			quit.c g_object_type.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

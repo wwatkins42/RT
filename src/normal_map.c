@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   normal_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 15:27:48 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/28 12:56:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/01 10:59:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static double	get_intensity(t_vec3 color)
+static double	get_intensity(t_rgb color)
 {
 	double		m;
+	t_vec3		tmp;
 
-	m = (color.x + color.y + color.z) / 3.0;
+	tmp = rgb_to_vec3(color);
+	m = (tmp.x + tmp.y + tmp.z) / 3.0;
 	return (m);
 }
 
-static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
+static double	*get_gradient(t_rgb **img, int y, int x, t_texture text)
 {
 	double	actual;
 	double	*grad;
 
 	grad = NULL;
 	if ((grad = (double*)malloc(sizeof(double) * 4)) == NULL)
-		error(E_MALLOC, NULL, 1);
+		return (NULL);
 	actual = get_intensity(img[y][x]);
 	grad[0] = (y - 1 > 0 ? get_intensity(img[y - 1][x]) : actual);
 	grad[1] = (x - 1 > 0 ? get_intensity(img[y][x - 1]) : actual);
@@ -36,7 +38,7 @@ static double	*get_gradient(t_vec3 **img, int y, int x, t_texture text)
 	return (grad);
 }
 
-static t_vec3	compute_gradient(double *grad, t_obj *obj)
+static t_rgb	compute_gradient(double *grad, t_obj *obj)
 {
 	t_vec3		color;
 	double		diffx;
@@ -50,11 +52,10 @@ static t_vec3	compute_gradient(double *grad, t_obj *obj)
 	color.y = vec3_norm(vec3(1, diffy * scale, 0)).y;
 	color.z = sqrt(1 - ft_clampf(color.x * color.x + color.y * color.y, 0, 1));
 	vec3_normalize(&color);
-	color = vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5));
-	return (color);
+	return (vec3_to_rgb(vec3_add(vec3_fmul(color, 0.5), vec3(0.5, 0.5, 0.5))));
 }
 
-void			create_normal_map(t_obj *obj)
+void			create_normal_map(t_env *e, t_obj *obj)
 {
 	int		x;
 	int		y;
@@ -63,17 +64,18 @@ void			create_normal_map(t_obj *obj)
 	y = -1;
 	grad = NULL;
 	obj->mat.texture.bump =
-	(t_vec3**)malloc(sizeof(t_vec3*) * obj->mat.texture.h);
-	obj->mat.texture.bump == NULL ? error(E_MALLOC, NULL, 1) : 0;
+	(t_rgb**)malloc(sizeof(t_rgb*) * obj->mat.texture.h);
+	obj->mat.texture.bump == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 	while (++y < obj->mat.texture.h)
 	{
 		x = -1;
 		obj->mat.texture.bump[y] =
-		(t_vec3*)malloc(sizeof(t_vec3) * obj->mat.texture.w);
-		obj->mat.texture.bump[y] == NULL ? error(E_MALLOC, NULL, 1) : 0;
+		(t_rgb*)malloc(sizeof(t_rgb) * obj->mat.texture.w);
+		obj->mat.texture.bump[y] == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 		while (++x < obj->mat.texture.w)
 		{
 			grad = get_gradient(obj->mat.texture.img, y, x, obj->mat.texture);
+			grad == NULL ? error(e, E_MALLOC, NULL, 1) : 0;
 			obj->mat.texture.bump[y][x] = compute_gradient(grad, obj);
 			ft_memdel((void**)&grad);
 		}

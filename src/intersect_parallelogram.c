@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_parallelogram.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 04:56:21 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 10:36:39 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 16:06:17 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-typedef struct	s_cal
-{
-	double		tmp;
-	double		dirinv[2][2];
-	double		point[2];
-	double		det;
-	double		p;
-	double		q;
-}				t_cal;
 
 double	intersect_parallelogramxy(t_ray *r, t_obj *t)
 {

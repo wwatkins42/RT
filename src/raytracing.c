@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/28 14:41:01 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/01 11:08:38 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	raytracing_shell(t_env *e, t_cam *cam)
 	cam->y = -1;
 	cursor = 0;
 	buffer = (char*)malloc(sizeof(char) * (e->win.w * 2 * e->win.h + e->win.h));
+	if (!buffer)
+		error(e, E_MALLOC, NULL, 1);
 	while (++cam->y < e->win.h)
 	{
 		cam->x = -1;

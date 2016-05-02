@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+         #
+#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/27 14:31:06 by wwatkins          #+#    #+#              #
-#    Updated: 2016/03/02 16:02:05 by wwatkins         ###   ########.fr        #
+#    Updated: 2016/04/30 10:20:47 by scollon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRC_NAME = vec2.c vec2i.c vec2_add.c vec2_sub.c vec2_mul.c vec2_fmul.c \
 		   vec3_zero.c vec3_up.c vec3_right.c vec3_forward.c vec3.c vec3i.c \
 		   vec3_add.c vec3_sub.c vec3_mul.c vec3_fmul.c vec3_dot.c vec3_rot.c \
 		   vec3_clamp.c vec3_rotate.c vec3_cross.c vec3_norm.c vec3_reflect.c \
-		   vec3_scale.c vec3_magnitude.c vec3_normalize.c
+		   vec3_scale.c vec3_magnitude.c vec3_normalize.c is_vec3_nul.c \
+		   rgb_to_vec3.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

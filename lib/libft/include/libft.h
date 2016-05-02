@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 14:33:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 15:06:32 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/30 09:39:57 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ int					get_next_line(int const fd, char **line);
 
 double				ft_clampf(double value, double min, double max);
 int					ft_clamp(int value, int min, int max);
+
+char				*ft_boolean(const int value);
 
 #endif

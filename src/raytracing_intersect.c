@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 16:00:43 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/04/29 14:07:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,143 +41,109 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 	return (out);
 }
 
-double	intersect_plane(t_ray *ray, t_obj *obj)
+t_vec3	get_quadric_normal(t_ray *ray, t_obj *q)
 {
-	t_calc	calc;
+	t_vec3	ret;
+	t_vec3	real;
 
-	calc.a = vec3_dot(obj->dir, ray->dir);
-	calc.b = vec3_dot(obj->dir, vec3_sub(ray->pos, obj->pos));
-	if (calc.a == 0)
-		return (INFINITY);
-	return (-calc.b / calc.a > 0 ? -calc.b / calc.a : -1);
+	real = vec3_sub(ray->hit, q->pos);
+	ret.x = 2 * q->co.a * real.x + q->co.d * real.y +
+		q->co.e * real.z + q->co.g;
+	ret.y = 2 * q->co.b * real.y + q->co.d * real.x +
+		q->co.f * real.z + q->co.h;
+	ret.z = 2 * q->co.c * real.z + q->co.e * real.x +
+		q->co.f * real.y + q->co.i;
+	// if (vec3_dot(real, ray->dir) > 0)
+	// 	ret = vec3_fmul(ret, -1);
+	return (ret);
 }
 
-double	intersect_sphere(t_ray *ray, t_obj *obj)
+static t_vec3 get_moebius_normal(t_ray *ray, t_obj *obj)
 {
-	t_calc	calc;
+	t_vec3	ret;
+	t_vec3	real;
 
-	calc.len = vec3_sub(ray->pos, obj->pos);
-	calc.b = vec3_dot(calc.len, ray->dir);
-	calc.c = vec3_dot(calc.len, calc.len) - obj->scale2;
-	calc.disc = calc.b * calc.b - calc.c;
-	if (calc.disc < EPSILON)
-		return (INFINITY);
-	calc.disc = sqrt(calc.disc);
-	calc.eq = -calc.b - calc.disc;
-	if (calc.eq < -EPSILON)
-		calc.eq = -calc.b + calc.disc;
-	return (calc.eq);
-}
-
-double	intersect_cylinder(t_ray *ray, t_obj *obj)
-{
-	t_calc		calc;
-	double		ro;
-	double		lo;
-	double		m;
-	double		tmp;
-
-	vec3_normalize(&obj->dir);
-	calc.len = vec3_sub(ray->pos, obj->pos);
-	ro = vec3_dot(ray->dir, obj->dir);
-	lo = vec3_dot(calc.len, obj->dir);
-	calc.a = 1.0 - ro * ro;
-	calc.b = vec3_dot(ray->dir, calc.len) - ro * lo;
-	calc.c = vec3_dot(calc.len, calc.len) - lo * lo - obj->scale * obj->scale;
-	calc.disc = calc.b * calc.b - calc.a * calc.c;
-	if (calc.disc < EPSILON)
-		return (INFINITY);
-	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
-	if (tmp < 0)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		if (tmp < 0)
-			return (INFINITY);
-	}
-	m = vec3_dot(ray->dir, obj->dir) * tmp +
-		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	if (m > obj->max)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		m = vec3_dot(ray->dir, obj->dir) * tmp +
-			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m > obj->max)
-			return (INFINITY);
-	}
-	else if (m < obj->min)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
-			obj->pos), obj->dir);
-		if (m < obj->min)
-			return (INFINITY);
-	}
-	obj->m = m;
-	return (tmp);
-}
-
-double	intersect_cone(t_ray *ray, t_obj *obj)
-{
-	t_calc		calc;
-	double		lo;
-	double		ro;
-	double		m;
-	double		tmp;
-
-	calc.len = vec3_sub(ray->pos, obj->pos);
-	lo = vec3_dot(calc.len, obj->dir);
-	ro = vec3_dot(ray->dir, obj->dir);
-	calc.a = 1.0 - (1 + obj->k) * ro * ro;
-	calc.b = vec3_dot(ray->dir, calc.len) - (1 + obj->k) * ro * lo;
-	calc.c = vec3_dot(calc.len, calc.len) - (1 + obj->k) * lo * lo;
-	calc.disc = calc.b * calc.b - calc.a * calc.c;
-	if (calc.disc < EPSILON)
-		return (INFINITY);
-	tmp = (-calc.b - sqrt(calc.disc)) / calc.a;
-	if (tmp < 0)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		if (tmp < 0)
-			return (INFINITY);
-	}
-	m = vec3_dot(ray->dir, obj->dir) * tmp +
-			vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-	if (m > obj->max)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		m = vec3_dot(ray->dir, obj->dir) * tmp +
-		vec3_dot(vec3_sub(ray->pos, obj->pos), obj->dir);
-		if (m > obj->max)
-			return (INFINITY);
-	}
-	else if (m < obj->min)
-	{
-		tmp = (-calc.b + sqrt(calc.disc)) / calc.a;
-		m = vec3_dot(ray->dir, obj->dir) * tmp + vec3_dot(vec3_sub(ray->pos,
-			obj->pos), obj->dir);
-		if (m < obj->min)
-			return (INFINITY);
-	}
-	obj->m = m;
-	return (tmp);
+	real = vec3_sub(ray->hit, obj->pos);
+	ret.x = -2 * real.z + 2 * real.x * real.y - 2 * real.x * real.z;
+	ret.y = -1 + real.x * real.x + 3 * real.y * real.y - 4 * real.y * real.z + real.z * real.z;
+	ret.z = -2 * real.x - 2 * real.x * real.x - 2 * real.y * real.y + 2 * real.y * real.z;
+	// if (vec3_dot(ray->hit, ray->dir) > 0)
+	// 	ret = vec3_fmul(ret, -1);
+	return (ret);
 }
 
 // TEMPORARY
 void	set_normal(t_ray *ray, t_obj *obj)
 {
-	if (obj->type == PLANE || obj->type == TRIANGLE ||
-		obj->type == PARALLELOGRAM)
+	if (obj->type == PLANE || obj->type == TRIANGLE
+		|| obj->type == PARALLELOGRAM || obj->type == DISC)
 		obj->normal = obj->dir;
+	if (obj->type == MOEBIUS)
+		obj->normal = get_moebius_normal(ray, obj);
 	if (obj->type == SPHERE)
+
 		obj->normal = vec3_sub(ray->hit, obj->pos);
-	if (obj->type == CUBE)
-		obj->normal = obj->comp[obj->comp_hit].dir;
-	if (obj->type == CYLINDER || obj->type == CONE ||
-		obj->type == HYPERBOLOID_ONE || obj->type == HYPERBOLOID_TWO ||
-		obj->type == PARABOLOID)
+	if (obj->type == CHEWINGGUM)
+	{
+		obj->normal.x = 4 * pow(ray->hit.x - obj->pos.x, 3);
+		obj->normal.y = 4 * pow(ray->hit.y - obj->pos.y, 3);
+		obj->normal.z = 4 * pow(ray->hit.z - obj->pos.z, 3);
+	}
+	if (obj->type == CYLINDER || obj->type == HYPERBOLOID_ONE ||
+		obj->type == HYPERBOLOID_TWO)
 	{
 		obj->normal = vec3_sub(ray->hit, obj->pos);
 		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir, obj->m));
+	}
+	if (obj->type == HYPERBOLOID_ONE ||
+		obj->type == HYPERBOLOID_TWO)
+	{
+		obj->normal = (t_vec3){ray->hit.x - obj->pos.x,
+			-ray->hit.y + obj->pos.y, ray->hit.z - obj->pos.z};
+	}
+	if (obj->type == PARABOLOID)
+	{
+		// DO NOT... ERASE
+		// obj->normal = vec3_sub(ray->hit, obj->pos);
+		// obj->normal = vec3_sub(obj->normal,
+		// 	vec3_fmul(obj->dir, obj->m + obj->scale));
+		/*
+		** SELLE DE CHEVAL Z=XY
+		*/
+		// obj->normal.x = ray->hit.z;
+		// obj->normal.y = -1;
+		// obj->normal.z = ray->hit.x;
+		/*
+		** SELLE DE CHEVAL Z=Y2-X2
+		*/
+		obj->normal.x = 2 * ray->hit.x;
+		obj->normal.z = -2 * ray->hit.z;
+		obj->normal.y = 1;
+	}
+	if (obj->type == QUADRIC)
+		obj->normal = get_quadric_normal(ray, obj);
+	if (obj->type == CONE)
+	{
+		obj->normal = vec3_sub(ray->hit, obj->pos);
+		obj->normal = vec3_sub(obj->normal, vec3_fmul(obj->dir,
+			(1 + obj->k) * obj->m));
+	}
+	if (obj->type == CUBE)
+		obj->normal = obj->comp[obj->comp_hit].dir;
+	if (obj->type == TORUS)
+	{
+		obj->normal.x = 4 * ray->hit.x * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr + obj->pr));
+		obj->normal.y = 4 * ray->hit.y * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr + obj->pr) + 2 * obj->gr);
+		obj->normal.z = 4 * ray->hit.z * (vec3_dot(ray->hit, ray->hit) -
+			(obj->gr + obj->pr));
+	}
+	if (obj->type == CUBE_TROUE)
+	{
+		obj->normal.x = 4 * ft_pow(ray->hit.x, 3) - 10 * ray->hit.x;
+		obj->normal.y = 4 * ft_pow(ray->hit.y, 3) - 10 * ray->hit.y;
+		obj->normal.z = 4 * ft_pow(ray->hit.z, 3) - 10 * ray->hit.z;
 	}
 	if (obj->mat.normal_perturbation)
 		obj->normal = vec3(obj->normal.x + sin(ray->hit.x),

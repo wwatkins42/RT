@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:34:53 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/26 14:04:03 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 11:16:56 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		create_stereoscopic_twin(t_env *e, t_cam *new)
 {
 	t_cam	*twin;
 
-	!(twin = (t_cam*)malloc(sizeof(t_cam))) ? error(E_CINIT, NULL, 1) : 0;
+	!(twin = (t_cam*)malloc(sizeof(t_cam))) ? error(e, E_CINIT, NULL, 1) : 0;
 	twin->type = STEREOSCOPIC;
 	twin->dir = new->dir;
 	twin->fov = new->fov;
@@ -56,16 +56,16 @@ static t_cam	*create_cam(t_env *e, t_line *cam_line, t_cam *prev)
 	t_line		*line;
 
 	line = cam_line;
-	!(new = (t_cam*)malloc(sizeof(t_cam))) ? error(E_CINIT, NULL, 1) : 0;
+	!(new = (t_cam*)malloc(sizeof(t_cam))) ? error(e, E_CINIT, NULL, 1) : 0;
 	default_cam(e, new);
 	while (line != NULL && !ft_strstr(line->line, "- camera:"))
 	{
 		if (ft_strstr(line->line, "type:") && ft_strstr(line->line, "STEREO"))
 			new->type = STEREOSCOPIC;
 		else if (ft_strstr(line->line, "pos:"))
-			new->pos = parse_vector(line->line);
+			new->pos = parse_vector(e, line->line);
 		else if (ft_strstr(line->line, "dir:"))
-			new->dir = parse_vector(line->line);
+			new->dir = parse_vector(e, line->line);
 		else if (ft_strstr(line->line, "fov:"))
 			new->fov = parse_value(line->line, 1, 180);
 		else if (ft_strstr(line->line, "supersampling:"))
@@ -88,7 +88,7 @@ t_cam			*parse_camera(t_env *e, t_line *cam_line)
 
 	line = cam_line;
 	if (!(current = (t_cam*)malloc(sizeof(t_cam))))
-		error(E_MALLOC, NULL, 1);
+		error(e, E_MALLOC, NULL, 1);
 	current->next = NULL;
 	camera = current;
 	while (line != NULL)

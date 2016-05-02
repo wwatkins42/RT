@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:49:19 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/27 11:26:31 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/01 11:12:49 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@
 **	free environnement, print "rt : ERROR_TYPE : ERROR_SOURCE\n"
 **	and exit if exit is set at 1
 */
-void	error(char *type, char *esrc, short ext);
 
 #endif

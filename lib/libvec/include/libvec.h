@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libvec.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 16:26:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/02/15 15:41:22 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/30 10:26:51 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # define RAD2DEG 180 / PI
 
 enum { X, Y, Z };
+
+typedef	struct	s_rgb
+{
+	unsigned char	x;
+	unsigned char	y;
+	unsigned char	z;
+}				t_rgb;
 
 typedef struct	s_vec3
 {
@@ -79,5 +86,9 @@ t_vec3			vec3_reflect(t_vec3 v, t_vec3 n);
 t_vec3			vec3_scale(t_vec3 va, double scale);
 double			vec3_magnitude(t_vec3 v);
 void			vec3_normalize(t_vec3 *v);
+int				is_vec3_nul(t_vec3 v);
+
+t_vec3			rgb_to_vec3(t_rgb rgb);
+t_rgb			vec3_to_rgb(t_vec3	v);
 
 #endif

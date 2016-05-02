@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_cube.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 02:52:56 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/03/23 10:36:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/04/29 13:55:56 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,28 @@
 double		intersect_cube(t_ray *ray, t_obj *cube)
 {
 	int		i;
-	double	tmin;
-	double	t;
+	int		lol;
+	double	ts[4];
 
 	i = 0;
-	tmin = INFINITY;
+	lol = 0;
+	ts[0] = INFINITY;
+	ts[1] = INFINITY;
+	ts[2] = INFINITY;
+	cube->in = INFINITY;
+	cube->out = INFINITY;
 	while (i < 6)
 	{
-		t = intersect_parallelogram(ray, &cube->comp[i]);
-		if (t > EPSILON && t < tmin)
+		ts[3] = intersect_parallelogram(ray, &cube->comp[i]);
+		if (ts[3] > EPSILON && ts[3] != INFINITY && ((ts[lol] = ts[3]) || 1))
 		{
-			cube->comp_hit = i;
-			tmin = t;
+			lol = 1;
+			if (ts[3] < ts[2] && ((cube->comp_hit = i) || 1))
+				ts[2] = ts[3];
 		}
 		i++;
 	}
-	return (tmin);
+	cube->in = ts[0] < ts[1] ? ts[0] : ts[1];
+	cube->out = ts[0] < ts[1] ? ts[1] : ts[0];
+	return (ts[2]);
 }
