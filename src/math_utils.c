@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_object_type.h                                    :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/01 11:44:10 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/02 18:25:02 by tbeauman         ###   ########.fr       */
+/*   Created: 2016/05/02 18:43:59 by tbeauman          #+#    #+#             */
+/*   Updated: 2016/05/02 18:44:09 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef G_OBJECT_TYPE_H
-# define G_OBJECT_TYPE_H
+#include "rt.h"
 
-typedef struct		s_gobj_type
+int				dblsgn(double x)
 {
-	short			index;
-	char			*reference;
-}					t_gobj_type;
-
-extern	const t_gobj_type	g_object_type[20];
-
-#endif
+	if (x < -EPSILON)
+		return (-1);
+	return (x > EPSILON);
+}

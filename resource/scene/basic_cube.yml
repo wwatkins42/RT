@@ -1,6 +1,6 @@
 ---
 scene:
-	velocity: 8
+	velocity: 4
 	recursion_reflect: 1
 	recursion_refract: 1
 	mouse_sensibility: 0.4
@@ -10,8 +10,8 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 10, y: 1, z: 0}
-	  dir: {x: 10, y: 45, z: -5}
+	  pos: {x: 0, y: 1, z: -4}
+	  dir: {x: 0, y: 0, z: -0}
 	  fov: 80
 	  supersampling: 1
 
@@ -34,7 +34,7 @@ objects:
 	- object:
 	  type: CUBE
 	  scale: 1
-	  pos: {x: -1, y: 0, z: 10}
+	  pos: {x: 0, y: 0, z: 0}
 	  dir: {x: 0, y: 1, z: 0}
 	  material:
 		  color: 0xFF0000
@@ -46,3 +46,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 1
+    - object:
+        type: SPHERE
+        pos: {x: 0, y: 0, z: 0}
+        scale: 0.1

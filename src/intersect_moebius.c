@@ -6,18 +6,11 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 18:00:17 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:04:15 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-int				dblsgn(double x)
-{
-	if (x < -EPSILON)
-		return (-1);
-	return (x > EPSILON);
-}
 
 int				inside(t_obj *m, t_vec3 h)
 {

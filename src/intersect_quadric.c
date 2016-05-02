@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:02:45 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 11:05:49 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:43:25 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double		intersect_quadric(t_ray *ray, t_obj *obj)
 	return (c.eq);
 }
 
-t_vec3	quadric_normal(t_vec3 *real, t_obj *q)
+t_vec3		quadric_normal(t_vec3 *real, t_obj *q)
 {
 	t_vec3	ret;
 
@@ -69,7 +69,5 @@ t_vec3	quadric_normal(t_vec3 *real, t_obj *q)
 		q->co.f * real->z + q->co.h;
 	ret.z = 2 * q->co.c * real->z + q->co.e * real->x +
 		q->co.f * real->y + q->co.i;
-	// if (vec3_dot(real, ray->dir) > 0)
-	// 	ret = vec3_fmul(ret, -1);
 	return (ret);
 }

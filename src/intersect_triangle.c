@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 18:15:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:49:43 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *parent)
 	if (!result)
 	{
 		ft_putstr("MALLOC ERROR\n");
-		exit (1);
-//		error(E_MALLOC, NULL, 1); DOES NOT COMPILE : too few arguments to function call
+		exit(1);
+//		error(E_MALLOC, NULL, 1); Cette erreur de norme est une alerte, error doit prendre t_env e
 	}
 	default_object(result);
 	result->type = TRIANGLE;

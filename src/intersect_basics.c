@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/28 11:43:17 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/01 16:36:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:45:39 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,16 @@ double	intersect_cylinder(t_ray *ray, t_obj *obj)
 	double		roots[2];
 	double		ro;
 	double		lo;
-	t_vec3		x;
 	int			ret;
 
 	obj->in = INFINITY;
 	obj->out = INFINITY;
 	vec3_normalize(&obj->dir);
-	x = ray->pos;
 	ro = vec3_dot(ray->dir, obj->dir);
-	lo = vec3_dot(x, obj->dir);
+	lo = vec3_dot(ray->pos, obj->dir);
 	a[2] = 1.0 - ro * ro;
-	a[1] = 2 * (vec3_dot(ray->dir, x) - ro * lo);
-	a[0] = vec3_dot(x, x) - lo * lo - obj->scale * obj->scale;
+	a[1] = 2 * (vec3_dot(ray->dir, ray->pos) - ro * lo);
+	a[0] = vec3_dot(ray->pos, ray->pos) - lo * lo - obj->scale * obj->scale;
 	if (!(ret = solve_quadratic(a, roots)))
 		return (INFINITY);
 	obj->in = roots[0];
@@ -66,17 +64,15 @@ double	intersect_cone(t_ray *ray, t_obj *obj)
 	double		ro;
 	double		a[3];
 	double		roots[2];
-	t_vec3		x;
 	int			ret;
 
 	obj->in = INFINITY;
 	obj->out = INFINITY;
-	x = ray->pos;
-	lo = vec3_dot(x, obj->dir);
+	lo = vec3_dot(ray->pos, obj->dir);
 	ro = vec3_dot(ray->dir, obj->dir);
 	a[2] = 1.0 - (1 + obj->k) * ro * ro;
-	a[1] = 2 * (vec3_dot(ray->dir, x) - (1 + obj->k) * ro * lo);
-	a[0] = vec3_dot(x, x) - (1 + obj->k) * lo * lo;
+	a[1] = 2 * (vec3_dot(ray->dir, ray->pos) - (1 + obj->k) * ro * lo);
+	a[0] = vec3_dot(ray->pos, ray->pos) - (1 + obj->k) * lo * lo;
 	if (!(ret = solve_quadratic(a, roots)))
 		return (INFINITY);
 	obj->in = roots[0];

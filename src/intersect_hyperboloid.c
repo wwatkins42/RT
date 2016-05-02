@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 19:30:12 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 11:06:55 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:41:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double	intersect_hyperboloid1(t_ray *ray, t_obj *o)
 	o->in = INFINITY;
 	o->out = INFINITY;
 	x = ray->pos;
- 	a[2] = ray->dir.x * ray->dir.x - ray->dir.y * ray->dir.y +
+	a[2] = ray->dir.x * ray->dir.x - ray->dir.y * ray->dir.y +
 		ray->dir.z * ray->dir.z;
 	a[1] = 2 * (x.x * ray->dir.x - x.y * ray->dir.y +
 		x.z * ray->dir.z);

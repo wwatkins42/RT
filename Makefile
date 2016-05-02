@@ -6,7 +6,7 @@
 #    By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/05/02 18:19:31 by tbeauman         ###   ########.fr        #
+#    Updated: 2016/05/02 18:50:26 by tbeauman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRC_NAME = 	main.c parse_yml.c parse.c parse_camera.c parse_light.c \
 			root_compute_utils.c intersect_csg.c solve_quadratic.c \
 			csg_helpers.c csg_helpers2.c create_object.c intersect_cube_troue.c \
 			parse_csg.c solve_cubic.c choose_roots.c yml_write_object.c \
-			quit.c g_object_type.c normal_basics.c intersect_selle.c
+			quit.c g_object_type.c normal_basics.c intersect_selle.c \
+			math_utils.c default_object.c create_cube.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft libftprintf libvec mlx

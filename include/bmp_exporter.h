@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_exporter.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 07:52:09 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/12 10:21:00 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 18:25:39 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # ifndef OPEN_FLAG
 #  define OPEN_FLAG S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # endif
-
 
 typedef struct			s_header
 {
@@ -44,7 +43,5 @@ typedef struct			s_infos
 	short	panes;
 	short	bpp;
 }						t_infos;
-
-
 
 #endif

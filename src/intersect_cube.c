@@ -6,11 +6,22 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 02:52:56 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 11:01:07 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:39:04 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static void	init_vars(double *ts, t_obj *cube, int *lol, int *i)
+{
+	*i = 0;
+	*lol = 0;
+	ts[0] = INFINITY;
+	ts[1] = INFINITY;
+	ts[2] = INFINITY;
+	cube->in = INFINITY;
+	cube->out = INFINITY;
+}
 
 double		intersect_cube(t_ray *ray, t_obj *cube)
 {
@@ -19,19 +30,11 @@ double		intersect_cube(t_ray *ray, t_obj *cube)
 	double	ts[4];
 	t_ray	tray;
 
-	i = 0;
-	lol = 0;
-	ts[0] = INFINITY;
-	ts[1] = INFINITY;
-	ts[2] = INFINITY;
-	cube->in = INFINITY;
-	cube->out = INFINITY;
+	init_vars(ts, cube, &lol, &i);
 	while (i < 6)
 	{
 		tray = *ray;
 		tray.pos = vec3_sub(ray->pos, cube->comp[i].pos);
-		vec3_inverse_rotate(&tray.pos, cube->rot);
-		vec3_inverse_rotate(&tray.dir, cube->rot);
 		ts[3] = intersect_parallelogram(&tray, &cube->comp[i]);
 		if (ts[3] > EPSILON && ts[3] != INFINITY && ((ts[lol] = ts[3]) || 1))
 		{

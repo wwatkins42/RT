@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 18:13:34 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:42:15 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <time.h>
 # include <bmp_exporter.h>
 # include <g_object_type.h>
-# include <stdio.h> // TEMPORARY
+# include <stdio.h>
 
 # define ABS(x) (x < 0 ? -x : x)
 # define MIN_POS -1000.0
@@ -47,14 +47,13 @@ enum {DEFAULT, STEREOSCOPIC};
 **	OBJECT TYPES
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM, DISC,
-		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, CHEWINGGUM, TORUS,
-		QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE, SELLE };
+	HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, CHEWINGGUM, TORUS,
+	QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE, SELLE };
 
 /*
 ** CSG OPERATORS
 */
 enum { UNION, INTER, DIFF };
-
 
 /*
 **	LIGHT TYPES
@@ -242,7 +241,7 @@ typedef struct		s_obj
 	int				op;
 	struct s_obj	*left;
 	struct s_obj	*right;
-	int 			comp_hit;
+	int				comp_hit;
 	unsigned short	id;
 	struct s_obj	*comp;
 	struct s_obj	*next;
@@ -293,7 +292,6 @@ typedef struct		s_bfi
 	double			vo;
 	t_vec3			c[4];
 }					t_bfi;
-
 
 typedef	struct		s_lgt
 {
@@ -413,7 +411,7 @@ t_cam				*parse_camera(t_env *e, t_line *cam_line);
 t_lgt				*parse_light(t_env *e, t_line *light_line);
 t_obj				*parse_object(t_env *e, t_line *object_line);
 t_obj				*create_object(t_env *e, t_line *object_line);
-void				fill_object_attr(t_env *e, t_line *line, t_obj *new);
+int					fill_object_attr(t_env *e, t_line *line, t_obj *new);
 int					get_object_type(t_env *e, char *line);
 void				create_cube(t_env *e, t_obj *cube);
 void				parse_material(t_env *e, t_mat *mat, t_line *line);
@@ -428,34 +426,32 @@ int					is_comment(const char *line);
 void				default_object(t_obj *object);
 void				parse_csg(t_env *e, t_obj *csg, t_line *line);
 
-
-
 /*
 ** POLYNOM SOLVER
 */
 
-typedef struct          s_cubic
+typedef struct		s_cubic
 {
-        double			q;
-        double			r;
-        double			bq;
-        double			br;
-        double			bq3;
-        double			br2;
-        double			cr2;
-        double			cq3;
-        double			sqrtbq;
-        double			sgnbr;
-        double			ratio;
-        double			theta;
-        double			norm;
-        double			r0;
-        double			r1;
-        double			r2;
-        double			ba;
-        double			bb;
-        int             i;
-}						t_cubic;
+	double			q;
+	double			r;
+	double			bq;
+	double			br;
+	double			bq3;
+	double			br2;
+	double			cr2;
+	double			cq3;
+	double			sqrtbq;
+	double			sgnbr;
+	double			ratio;
+	double			theta;
+	double			norm;
+	double			r0;
+	double			r1;
+	double			r2;
+	double			ba;
+	double			bb;
+	int				i;
+}					t_cubic;
 
 typedef struct		s_quartic
 {
@@ -551,7 +547,6 @@ void				object_move(t_env *e, t_obj *obj);
 void				object_mouse_move(t_env *e, t_obj *obj);
 void				object_mouse_rotate(t_env *e, t_obj *obj);
 
-
 /*
 **	RAYTRACING FUNCTIONS
 */
@@ -571,27 +566,29 @@ t_vec3				raytracing_draw(t_env *e, t_cam *cam, t_ray ray);
 **			Primitives intersections
 */
 
-typedef struct	s_moebius
+typedef struct		s_moebius
 {
-	double		a;
-	double		b;
-	double		c;
-	double		d;
-	double		e;
-	double		f;
-	double		g;
-}				t_moebius;
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			e;
+	double			f;
+	double			g;
+}					t_moebius;
 
-typedef struct	s_cal
+typedef struct		s_cal
 {
-	double		tmp;
-	double		dirinv[2][2];
-	double		point[2];
-	double		det;
-	double		p;
-	double		q;
-}				t_cal;
+	double			tmp;
+	double			dirinv[2][2];
+	double			point[2];
+	double			det;
+	double			p;
+	double			q;
+}					t_cal;
 
+void				transform_ray(t_ray *tray, t_obj *obj);
+void				transform_ray_for_csg(t_ray *tray, t_obj *son, t_obj *dad);
 t_obj				*intersect_object(t_env *e, t_ray *ray, double *tmin,
 										t_obj *obj);
 double				intersect_plane(t_ray *ray, t_obj *obj);
@@ -619,14 +616,13 @@ double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir);
 ** CSG INTERSECTION
 */
 double				intersect_csg(t_env *e, t_ray *r, t_obj *t);
-double   			save_lin_lout(t_env *e, t_ray *r, t_obj *dad);
-double   			save_lin_rout(t_env *e, t_ray *r, t_obj *dad);
-double   			save_rin_lout(t_env *e, t_ray *r, t_obj *dad);
-double   			save_rin_rout(t_env *e, t_ray *r, t_obj *dad);
-double   			save_rout_lout(t_env *e, t_ray *r, t_obj *dad);
-double   			save_lin_rin(t_env *e, t_ray *r, t_obj *dad);
-double   			save_nothan(t_obj *dad);
-
+double				save_lin_lout(t_env *e, t_ray *r, t_obj *dad);
+double				save_lin_rout(t_env *e, t_ray *r, t_obj *dad);
+double				save_rin_lout(t_env *e, t_ray *r, t_obj *dad);
+double				save_rin_rout(t_env *e, t_ray *r, t_obj *dad);
+double				save_rout_lout(t_env *e, t_ray *r, t_obj *dad);
+double				save_lin_rin(t_env *e, t_ray *r, t_obj *dad);
+double				save_nothan(t_obj *dad);
 
 /*
 ** PRIMITIVES NORMALS
@@ -647,7 +643,6 @@ t_vec3				selle_normal(t_vec3 *hit, t_obj *o);
 t_vec3				chewing_gum_normal(t_vec3 *hit, t_obj *o);
 t_vec3				selle_normal(t_vec3 *hit, t_obj *o);
 t_vec3				quadric_normal(t_vec3 *hit, t_obj *o);
-
 
 /*
 **			Reflection / Refraction
@@ -682,7 +677,7 @@ void				set_shadow(t_env *e, t_vec3 *color, t_lgt lgt, t_obj *obj);
 **			Texture generator && perlin noise
 */
 
-t_texture			texture_generator(t_env *e, int type, int width, int height);
+t_texture			texture_generator(t_env *e, int type, int wid, int height);
 double				noise(t_noise *noise, double x, double y);
 t_noise				init_noise_structure(t_env *e, int w, int h);
 
@@ -757,6 +752,10 @@ t_obj				*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3,
 t_obj				*create_bbox(t_obj *objs, t_env *e);
 t_obj				*divide_bbox(t_obj *original_box, t_env *e);
 int					count_objs(t_obj *obj);
+/*
+** MATH UTILS
+*/
+int					dblsgn(double x);
 double				min4(double nb1, double nb2, double nb3, double nb4);
 double				max4(double nb1, double nb2, double nb3, double nb4);
 double				min(double nb1, double nb2);

@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 11:23:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 19:42:39 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ double		do_union(t_env *e, t_ray *r, t_obj *dad)
 		else
 			return (save_lin_rout(e, r, dad));
 	}
-	else if (dad->left->in < dad->right->out && dad->right->out < dad->left->out)
+	else if (dad->left->in < dad->right->out
+		&& dad->right->out < dad->left->out)
 		return (save_rin_lout(e, r, dad));
 	else
 		return (save_rin_rout(e, r, dad));
@@ -90,26 +91,19 @@ double		do_op(t_env *e, t_ray *r, t_obj *dad)
 
 double		intersect_csg(t_env *e, t_ray *r, t_obj *dad)
 {
-	t_ray	tray;
+	t_ray	*tray;
 
-	if (dad->left && dad->right)
+	if (dad->left && dad->right && ((tray = r) || 1))
 	{
-		tray = *r;
 		if (dad->left->type != CSG && dad->left->type != CUBE)
-		{
-			tray.pos = vec3_sub(r->pos, dad->left->pos);
-			vec3_inverse_rotate(&tray.pos, dad->rot);
-			vec3_inverse_rotate(&tray.dir, dad->rot);
-		}
-		e->intersect[dad->left->type](r, dad->left);
-		tray = *r;
+			transform_ray_for_csg(tray, dad->left, dad);
+		dad->left->type == CSG ? intersect_csg(e, r, dad->left)
+			: e->intersect[dad->left->type](r, dad->left);
+		tray = r;
 		if (dad->left->type != CSG && dad->left->type != CUBE)
-		{
-			tray.pos = vec3_sub(r->pos, dad->right->pos);
-			vec3_inverse_rotate(&tray.pos, dad->rot);
-			vec3_inverse_rotate(&tray.dir, dad->rot);
-		}
-		e->intersect[dad->right->type](r, dad->right);
+			transform_ray_for_csg(tray, dad->right, dad);
+		dad->right->type == CSG ? intersect_csg(e, r, dad->right)
+			: e->intersect[dad->right->type](r, dad->right);
 		dad->in = INFINITY;
 		dad->out = INFINITY;
 		dad->t = do_op(e, r, dad);
