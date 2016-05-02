@@ -62,7 +62,7 @@ objects:
 		  refract: 1
 		  transparency: 1
 		  absorbtion: 1
-          texture: ../texture/mickey.bmp
+          texture: resource/texture/mickey.bmp
           texture_scale: 1.2
           texture_rotation: 0
 

@@ -114,7 +114,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-          texture: ../texture/seamless/paint.bmp
+          texture: resource/texture/seamless/paint.bmp
           texture_rotation: 25
           texture_scale: 4
           texture_filtering: false
@@ -135,7 +135,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/stars.bmp
+		  texture: resource/texture/panoramic/stars.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false

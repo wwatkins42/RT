@@ -41,7 +41,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
-		  texture: ../texture/panoramic/circus.bmp
+		  texture: resource/texture/panoramic/circus.bmp
 		  texture_filtering: true
 		  receive_shadow: false
 

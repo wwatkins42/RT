@@ -40,7 +40,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-          texture: ../texture/planet/mars.bmp
+          texture: resource/texture/planet/mars.bmp
           texture_filtering: true
           texture_normal: true
           normal_strength: 4
@@ -60,7 +60,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-          texture: ../texture/planet/jupiter.bmp
+          texture: resource/texture/planet/jupiter.bmp
           texture_filtering: true
           texture_normal: true
           normal_strength: 4

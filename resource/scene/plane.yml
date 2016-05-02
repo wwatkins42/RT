@@ -40,7 +40,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-		  texture: ../texture/planet/earth.bmp
+		  texture: resource/texture/planet/earth.bmp
           texture_rotation: 90
           texture_scale: 5
 		  texture_filtering: true

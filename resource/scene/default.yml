@@ -97,6 +97,6 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.7
-          texture: ../texture/wood1.bmp
+          texture: resource/texture/wood1.bmp
 
 ...

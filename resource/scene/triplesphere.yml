@@ -41,7 +41,7 @@ objects:
 		  refract: 1
 		  transparency: 0
 		  absorbtion: 1
-		  texture: ../texture/panoramic/hongkong.bmp
+		  texture: resource/texture/panoramic/hongkong.bmp
 		  texture_filtering: false
 		  texture_normal: false
 		  receive_shadow: false
@@ -61,7 +61,7 @@ objects:
 		  refract: 0
 		  transparency: 1
 		  absorbtion: 1
-		  texture: ../texture/planet/earth.bmp
+		  texture: resource/texture/planet/earth.bmp
 		  texture_filtering: true
 		  texture_normal: true
           texture_normal_strength: 5
