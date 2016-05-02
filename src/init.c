@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 11:05:12 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:12:23 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,29 @@ void	init_intersect(t_env *e)
 	e->intersect[QUADRIC] = intersect_quadric;
 	e->intersect[MOEBIUS] = intersect_moebius;
 	e->intersect[DISC] = intersect_disc;
-	e->intersect[CSG] = intersect_csg;
 	e->intersect[BBOX] = intersects_bbox;
 	e->intersect[CUBE_TROUE] = intersect_cube_troue;
+}
+
+void	init_normal(t_env *e)
+{
+	e->normal[SPHERE] = sphere_normal;
+	e->normal[CONE] = cone_normal;
+	e->normal[PLANE] = plane_normal;
+	e->normal[CYLINDER] = cylinder_normal;
+	e->normal[TRIANGLE] = plane_normal;
+	e->normal[PARALLELOGRAM] = plane_normal;
+	e->normal[HYPERBOLOID_ONE] = hyperboloid_normal;
+	e->normal[HYPERBOLOID_TWO] = hyperboloid_normal;
+	e->normal[PARABOLOID] = paraboloid_normal;
+	e->normal[TORUS] = torus_normal;
+	e->normal[CHEWINGGUM] = chewing_gum_normal;
+	e->normal[CUBE] = cube_normal;
+	e->normal[QUADRIC] = quadric_normal;
+	e->normal[MOEBIUS] = moebius_normal;
+	e->normal[SELLE] = selle_normal;
+	e->normal[DISC] = plane_normal;
+	e->normal[CUBE_TROUE] = cube_troue_normal;
 }
 
 void	init_cam(t_env *e, t_cam *cam)

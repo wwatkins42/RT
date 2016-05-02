@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 11:54:44 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 10:22:54 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:23:11 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int			main(int ac, char **av)
 	args_get(&e, ac, av);
 	init_env(&e);
 	init_intersect(&e);
+	init_normal(&e);
 	parse_yml(&e);
 	core(&e);
 	quit(&e, EXIT_SUCCESS);

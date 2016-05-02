@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 18:22:54 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:06:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ double		intersect_cube_troue(t_ray *r, t_obj *obj)
 	t_vec3		x;
 	int			ret;
 
-	x = vec3_sub(r->pos, obj->pos);
+	x = r->pos;
+	// x = vec3_sub(r->pos, obj->pos);
+	// vec3_rotate(&x, vec3_fmul(obj->rot, -1));
 	a[4] = ft_pow(r->dir.x, 4) + ft_pow(r->dir.y, 4) + ft_pow(r->dir.z, 4);
 	a[3] = (4 * (ft_pow(r->dir.x, 3) * x.x + ft_pow(r->dir.y, 3) * x.y +
 		ft_pow(r->dir.z, 3) * x.z)) / a[4];
@@ -32,4 +34,15 @@ double		intersect_cube_troue(t_ray *r, t_obj *obj)
 		5 * vec3_dot(x, x) + obj->scale) / a[4];
 	ret = solve_quartic(a, root);
 	return (choose_root4(root, ret));
+}
+
+t_vec3		cube_troue_normal(t_vec3 *hit, t_obj *o)
+{
+	t_vec3		ret;
+
+	(void)o;
+	ret.x = 4 * ft_pow(hit->x, 3) - 10 * hit->x;
+	ret.y = 4 * ft_pow(hit->y, 3) - 10 * hit->y;
+	ret.z = 4 * ft_pow(hit->z, 3) - 10 * hit->z;
+	return (ret);
 }

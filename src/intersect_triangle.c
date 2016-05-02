@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_triangle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/01 11:20:40 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 18:15:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,13 @@ t_obj	*add_triangle(char *line, t_vec3 *vect, t_obj *parent, int max)
 	p2 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
 	i = next_number(line, i);
 	p3 = point_at_pos(vect, ft_atoi(line + i), max, line[i - 1]);
-	if (!(parent->comp = new_triangle_node(p1, p2, p3, parent)))
-		return (NULL);
+	parent->comp = new_triangle_node(p1, p2, p3, parent);
 	while (line[i])
 	{
 		i = next_number(line, i);
 		if (line[i])
-			if (!(parent->comp = new_triangle_node(p1, parent->comp->pos3,
-										vect[ft_atoi(line + i)], parent)))
-				return (NULL);
+			parent->comp = new_triangle_node(p1, parent->comp->pos3,
+										vect[ft_atoi(line + i)], parent);
 	}
 	return (parent->comp);
 }
@@ -89,8 +87,13 @@ t_obj	*new_triangle_node(t_vec3 p1, t_vec3 p2, t_vec3 p3, t_obj *parent)
 {
 	t_obj	*result;
 
-	if (!(result = (t_obj*)malloc(sizeof(*result))))
-		return (NULL);
+	result = (t_obj*)malloc(sizeof(*result));
+	if (!result)
+	{
+		ft_putstr("MALLOC ERROR\n");
+		exit (1);
+//		error(E_MALLOC, NULL, 1); DOES NOT COMPILE : too few arguments to function call
+	}
 	default_object(result);
 	result->type = TRIANGLE;
 	result->pos = p1;

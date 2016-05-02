@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libvec.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 16:26:43 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 10:26:51 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/02 18:09:22 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ t_vec3			vec3_fmul(t_vec3 v, double m);
 double			vec3_dot(t_vec3 va, t_vec3 vb);
 void			vec3_rot(t_vec3 *v, int axis, double theta);
 void			vec3_clamp(t_vec3 *v, double min, double max);
-void			vec3_rotate(t_vec3 *v, t_vec3 r);
+int				vec3_inverse_rotate(t_vec3 *v, t_vec3 r);
+int				vec3_rotate(t_vec3 *v, t_vec3 r);
 t_vec3			vec3_cross(t_vec3 va, t_vec3 vb);
 t_vec3			vec3_norm(t_vec3 v);
 t_vec3			vec3_reflect(t_vec3 v, t_vec3 n);
@@ -87,8 +88,7 @@ t_vec3			vec3_scale(t_vec3 va, double scale);
 double			vec3_magnitude(t_vec3 v);
 void			vec3_normalize(t_vec3 *v);
 int				is_vec3_nul(t_vec3 v);
-
+t_rgb			vec3_to_rgb(t_vec3 v);
 t_vec3			rgb_to_vec3(t_rgb rgb);
-t_rgb			vec3_to_rgb(t_vec3	v);
 
 #endif

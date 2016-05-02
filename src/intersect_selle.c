@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 16:54:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 17:56:58 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:08:25 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ double			intersect_selle(t_ray *ray, t_obj *o)
 
 	o->in = INFINITY;
 	o->out = INFINITY;
-	c.len = vec3_sub(ray->pos, o->pos);
+	c.len = ray->pos;
 	c.a = ray->dir.x * ray->dir.x - ray->dir.z * ray->dir.z;
 	c.b = 2 * (ray->dir.x * c.len.x - ray->dir.z * c.len.z) + ray->dir.y;
 	c.c = c.len.x * c.len.x - c.len.z * c.len.z + c.len.y;
@@ -53,4 +53,15 @@ double			intersect_selle(t_ray *ray, t_obj *o)
 			return (INFINITY);
 	}
 	return (cut_selle(ray, o, c.eq));
+}
+
+t_vec3			selle_normal(t_vec3 *hit, t_obj *o)
+{
+	t_vec3	ret;
+
+	(void)o;
+	ret.x = 2 * hit->x;
+	ret.z = -2 * hit->z;
+	ret.y = 1;
+	return (ret);
 }

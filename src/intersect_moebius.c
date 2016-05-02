@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:01:19 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 19:17:02 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:00:17 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ double			intersect_moebius(t_ray *ray, t_obj *obj)
 	t_vec3		x;
 	int			ret;
 
-	x = vec3_sub(ray->pos, obj->pos);
+	x = ray->pos;
 	m.a = obj->scale;
 	m.b = x.x;
 	m.c = ray->dir.x;
@@ -96,4 +96,17 @@ double			intersect_moebius(t_ray *ray, t_obj *obj)
 	init_coeffs(m, a);
 	ret = solve_cubic(a, root);
 	return (choose_mobi_root(root, ret, ray, obj));
+}
+
+t_vec3			moebius_normal(t_vec3 *real, t_obj *obj)
+{
+	t_vec3	ret;
+
+	ret.x = -2 * obj->scale * real->z + 2 * real->x * real->y - 4 * real->x *
+		real->z;
+	ret.y = -obj->scale2 + real->x * real->x + 3 * real->y * real->y - 4
+		* real->y * real->z + real->z * real->z;
+	ret.z = -2 * obj->scale * real->x - 2 * real->x * real->x - 2 * real->y *
+		real->y + 2 * real->y * real->z;
+	return (ret);
 }

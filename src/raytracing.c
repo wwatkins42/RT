@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 11:06:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:12:46 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_vec3	raytracing_draw(t_env *e, t_cam *cam, t_ray ray)
 	if (obj != NULL && tmin != INFINITY)
 	{
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
-		set_normal(&ray, obj);
+		set_normal(e, &ray, obj);
 		color = vec3_add(color, raytracing_color(e, &ray, cam, obj));
 		if (obj->mat.reflect > 0 && obj->mat.glossiness == 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, cam, obj));

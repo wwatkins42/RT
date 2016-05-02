@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/29 19:16:42 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:04:30 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ double			intersect_chewing_gum(t_ray *ray, t_obj *obj)
 	double		a[5];
 	double		roots[4];
 
-	x = vec3_sub(ray->pos, obj->pos);
+	obj->in = INFINITY;
+	obj->out = INFINITY;
+	x = ray->pos;
 	a[4] = ft_pow(ray->dir.x, 4) + ft_pow(ray->dir.y, 4) +
 		ft_pow(ray->dir.z, 4);
 	a[3] = (4 * (ft_pow(ray->dir.x, 3) * x.x + ft_pow(ray->dir.y, 3) * x.y +
@@ -31,5 +33,21 @@ double			intersect_chewing_gum(t_ray *ray, t_obj *obj)
 	a[0] = (ft_pow(x.x, 4) + ft_pow(x.y, 4) + ft_pow(x.z, 4) -
 		ft_pow(obj->scale, 4)) / a[4];
 	ret = solve_quartic(a, roots);
+	if (ret >= 2)
+	{
+		obj->in = roots[0];
+		obj->out = roots[1];
+	}
 	return (choose_root4(roots, ret));
+}
+
+t_vec3			chewing_gum_normal(t_vec3 *tr, t_obj *obj)
+{
+	t_vec3	ret;
+
+	(void)obj;
+	ret.x = 4 * pow(tr->x, 3);
+	ret.y = 4 * pow(tr->y, 3);
+	ret.z = 4 * pow(tr->z, 3);
+	return (ret);
 }

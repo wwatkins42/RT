@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 15:51:18 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/02 18:13:34 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ enum {DEFAULT, STEREOSCOPIC};
 */
 enum { SPHERE, CONE, PLANE, CYLINDER, TRIANGLE, CUBE, PARALLELOGRAM, DISC,
 		HYPERBOLOID_ONE, HYPERBOLOID_TWO, PARABOLOID, CHEWINGGUM, TORUS,
-		QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE };
+		QUADRIC, MOEBIUS, CSG, BBOX, CUBE_TROUE, SELLE };
 
 /*
 ** CSG OPERATORS
@@ -220,6 +220,7 @@ typedef struct		s_obj
 	t_vec3			pos;
 	t_vec3			pos2;
 	t_vec3			pos3;
+	t_vec3			rot;
 	t_vec3			dir;
 	t_vec3			normal;
 	t_vec3			cut;
@@ -396,6 +397,7 @@ typedef struct		s_env
 	t_refract		refract;
 	double			stereo_nb;
 	double			(*intersect[20])(t_ray *, t_obj *);
+	t_vec3			(*normal[20])(t_vec3 *, t_obj *);
 }					t_env;
 
 void				error(t_env *e, char *type, char *esrc, short ext);
@@ -611,19 +613,40 @@ double				intersect_moebius(t_ray *ray, t_obj *obj);
 double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
 double				intersect_cube_troue(t_ray *ray, t_obj *b);
-void				set_normal(t_ray *ray, t_obj *obj);
-double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir, double tmp);
+void				set_normal(t_env *e, t_ray *ray, t_obj *obj);
+double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir);
 /*
 ** CSG INTERSECTION
 */
-double				intersect_csg(t_ray *r, t_obj *t);
-double   			save_lin_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
-double   			save_lin_rout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
-double   			save_rin_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
-double   			save_rin_rout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
-double   			save_rout_lout(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
-double   			save_lin_rin(t_ray *r, t_obj *l, t_obj *ri, t_obj *dad);
+double				intersect_csg(t_env *e, t_ray *r, t_obj *t);
+double   			save_lin_lout(t_env *e, t_ray *r, t_obj *dad);
+double   			save_lin_rout(t_env *e, t_ray *r, t_obj *dad);
+double   			save_rin_lout(t_env *e, t_ray *r, t_obj *dad);
+double   			save_rin_rout(t_env *e, t_ray *r, t_obj *dad);
+double   			save_rout_lout(t_env *e, t_ray *r, t_obj *dad);
+double   			save_lin_rin(t_env *e, t_ray *r, t_obj *dad);
 double   			save_nothan(t_obj *dad);
+
+
+/*
+** PRIMITIVES NORMALS
+*/
+
+void				init_normal(t_env *e);
+t_vec3				sphere_normal(t_vec3 *hit, t_obj *o);
+t_vec3				cylinder_normal(t_vec3 *hit, t_obj *o);
+t_vec3				cone_normal(t_vec3 *hit, t_obj *o);
+t_vec3				plane_normal(t_vec3 *hit, t_obj *o);
+t_vec3				cube_normal(t_vec3 *hit, t_obj *o);
+t_vec3				torus_normal(t_vec3 *hit, t_obj *o);
+t_vec3				cube_troue_normal(t_vec3 *hit, t_obj *o);
+t_vec3				moebius_normal(t_vec3 *hit, t_obj *o);
+t_vec3				hyperboloid_normal(t_vec3 *hit, t_obj *o);
+t_vec3				paraboloid_normal(t_vec3 *hit, t_obj *o);
+t_vec3				selle_normal(t_vec3 *hit, t_obj *o);
+t_vec3				chewing_gum_normal(t_vec3 *hit, t_obj *o);
+t_vec3				selle_normal(t_vec3 *hit, t_obj *o);
+t_vec3				quadric_normal(t_vec3 *hit, t_obj *o);
 
 
 /*

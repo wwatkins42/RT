@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/02 13:58:15 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 18:05:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	else if (ft_strstr(line->line, "pos2:"))
 		new->pos2 = parse_vector(e, ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "pos3:"))
-		new->pos3 = vec3_norm(parse_vector(e, ft_strchr(line->line, ':')));
+		new->pos3 = parse_vector(e, ft_strchr(line->line, ':'));
+	else if (ft_strstr(line->line, "rot:"))
+		new->rot = parse_vector(e, ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "dir:"))
 		new->dir = vec3_norm(parse_vector(e, line->line));
 	else if (ft_strstr(line->line, "cut:"))

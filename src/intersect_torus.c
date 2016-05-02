@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_torus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 14:09:31 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:04:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	compute_coeffs(t_ray *ray, t_obj *obj, double *a)
 	double	f;
 	double	four_aa;
 
-	x = vec3_sub(ray->pos, obj->pos);
+	x = ray->pos;
 	dd = vec3_dot(ray->dir, ray->dir);
 	e = vec3_dot(x, x) - obj->gr - obj->pr;
 	f = vec3_dot(x, ray->dir);
@@ -52,17 +52,27 @@ double		intersect_torus(t_ray *ray, t_obj *obj)
 		return (INFINITY);
 	if (num_real_roots == 2)
 	{
-		if (roots[0] < EPSILON)
-			return (roots[1] < EPSILON ? INFINITY : roots[1]);
+		if (roots[0] < 0)
+			return (roots[1] < 0 ? INFINITY : roots[1]);
 		else
 			return (roots[0]);
 	}
 	num_real_roots = 0;
 	while (num_real_roots < 4)
 	{
-		if (roots[num_real_roots] > EPSILON)
+		if (roots[num_real_roots] > 0)
 			return (roots[num_real_roots]);
 		num_real_roots++;
 	}
 	return (INFINITY);
+}
+
+t_vec3		torus_normal(t_vec3 *t, t_obj *obj)
+{
+	t_vec3	ret;
+
+	ret.x = 4 * t->x * (vec3_dot(*t, *t) - (obj->gr + obj->pr));
+	ret.y = 4 * t->y * (vec3_dot(*t, *t) - (obj->gr + obj->pr) + 2 * obj->gr);
+	ret.z = 4 * t->z * (vec3_dot(*t, *t) - (obj->gr + obj->pr));
+	return (ret);
 }
