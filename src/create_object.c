@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 19:34:03 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 10:46:40 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int			get_object_type(char *line)
 		return (QUADRIC);
 	else if (ft_strstr(line, "MOEBIUS"))
 		return (MOEBIUS);
+	else if (ft_strstr(line, "SELLE"))
+		return (SELLE);
 	else if (ft_strstr(line, "DISC"))
 		return (DISC);
 	else if (ft_strstr(line, "CSG"))
@@ -113,7 +115,7 @@ void			fill_object_attr(t_env *e, t_line *line, t_obj *new)
 	else if (ft_strstr(line->line, "pos2:"))
 		new->pos2 = parse_vector(ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "pos3:"))
-		new->pos3 = vec3_norm(parse_vector(ft_strchr(line->line, ':')));
+		new->pos3 = parse_vector(ft_strchr(line->line, ':'));
 	else if (ft_strstr(line->line, "dir:"))
 		new->dir = vec3_norm(parse_vector(line->line));
 	else if (ft_strstr(line->line, "rot:"))
@@ -142,7 +144,7 @@ void create_cube(t_obj *cube)
 
         !(cube->comp = malloc(6 * sizeof(t_obj))) ? error(E_MALLOC, NULL, 0) : 0;
         k = cube->scale;
-        cube->comp[0].pos = vec3_sub(cube->pos, vec3(-k / 2, -k / 2, -k / 2));
+        cube->comp[0].pos = vec3_sub(cube->pos, vec3(k / 2, k / 2, k / 2));
         cube->comp[0].pos2 = vec3_add(cube->comp[0].pos, (t_vec3) {k, 0, 0});
         cube->comp[0].pos3 = vec3_add(cube->comp[0].pos, (t_vec3) {0, k, 0});
         cube->comp[0].dir = vec3(0,0,-1);//vec3_norm(vec3_cross(cube->comp[0].pos2, cube->comp[0].pos3));

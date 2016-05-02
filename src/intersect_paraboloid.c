@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 22:32:06 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/30 19:39:43 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:27:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,13 @@ double	intersect_paraboloid(t_ray *ray, t_obj *o)
 		if (o->in < 0)
 			return (INFINITY);
 	return (compute_m(ray, o, is_vec3_nul(o->cut) ? o->dir : o->cut));
+}
+
+t_vec3	paraboloid_normal(t_vec3 *hit, t_obj *obj)
+{
+	t_vec3	ret;
+
+	ret = *hit;
+	ret = vec3_sub(ret, vec3_fmul(obj->dir, obj->m + obj->scale));
+	return (ret);
 }

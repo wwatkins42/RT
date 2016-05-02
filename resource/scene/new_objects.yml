@@ -10,43 +10,48 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 0, z: -10}
+	  pos: {x: -0.21, y: 0.02, z: -5}
 	  dir: {x: 0, y: 0, z: 0}
-	  fov: 90
+	  fov: 60
 
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: -4, y: 3, z: -4}
-	  color: 0xFFFFFF
-	  intensity: 2
+	  pos: {x: -3, y: -4, z: -4}
+	  color: 0xFF0000
+	  intensity: 0.6
+      attenuation: 0.0000001
 	  shadow: HARD
-
+	- light:
+	  type: POINT
+	  pos: {x: -3, y: 4, z: -4}
+	  color: 0x00FF00
+	  intensity: 0.6
+      attenuation: 0.0000001
+	  shadow: HARD
+	- light:
+	  type: POINT
+	  pos: {x: 3, y: 4, z: -4}
+	  color: 0x0000FF
+	  intensity: 0.6
+      attenuation: 0.0000001
+	  shadow: HARD
 objects:
 
         - object:
                 type: MOEBIUS
                 pos: {x: 0, y: 0, z: 0}
-                pos2: {x: 0, y: 1, z: 0}
-                pos3: {x: 1, y: 0, z: 0}
+                rot: {x: -60, y: 2.5, z: 160}
                 scale: 1
                 max: 0.4
                 material:
-         		  color: 0x00FF00
-         		  ambient: 0.2
-         		  diffuse: 0.775
-         		  specular: 20
-         		  shininess: 1024
+         		  color: 0xFFFFFF
+         		  ambient: 0.1
+         		  diffuse: 0.9
+         		  specular: 10
+         		  shininess: 512
          		  reflect: 0
          		  refract: 0
          		  transparency: 0
          		  absorbtion: 0.7
-        - object:
-            type: SPHERE
-            pos: {x: 0.5, y: 1.5, z: 0.5}
-            scale: 0.01
-        - object:
-            type: SPHERE
-            pos: {x: 1.5, y: 0.5, z: 0.5}
-            scale: 0.01
 ...

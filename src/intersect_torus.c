@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/30 17:51:06 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:04:10 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ double		intersect_torus(t_ray *ray, t_obj *obj)
 		num_real_roots++;
 	}
 	return (INFINITY);
+}
+
+t_vec3		torus_normal(t_vec3 *t, t_obj *obj)
+{
+	t_vec3	ret;
+
+	ret.x = 4 * t->x * (vec3_dot(*t, *t) - (obj->gr + obj->pr));
+	ret.y = 4 * t->y * (vec3_dot(*t, *t) - (obj->gr + obj->pr) + 2 * obj->gr);
+	ret.z = 4 * t->z * (vec3_dot(*t, *t) - (obj->gr + obj->pr));
+	return (ret);
 }

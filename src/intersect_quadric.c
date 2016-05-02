@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:02:45 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 12:57:20 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:05:49 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_calc		init_quadric_calc(t_ray *ray, t_obj *obj)
 {
 	t_calc	c;
 
-	c.len = vec3_sub(ray->pos, obj->pos);
+	c.len = ray->pos;
 	c.a = obj->co.a * ray->dir.x * ray->dir.x + obj->co.b * ray->dir.y *
 		ray->dir.y + obj->co.c * ray->dir.z * ray->dir.z + obj->co.d *
 		ray->dir.x * ray->dir.y + obj->co.e * ray->dir.x * ray->dir.z +
@@ -57,4 +57,19 @@ double		intersect_quadric(t_ray *ray, t_obj *obj)
 		c.eq = -c.b + c.disc;
 	obj->t = c.eq;
 	return (c.eq);
+}
+
+t_vec3	quadric_normal(t_vec3 *real, t_obj *q)
+{
+	t_vec3	ret;
+
+	ret.x = 2 * q->co.a * real->x + q->co.d * real->y +
+		q->co.e * real->z + q->co.g;
+	ret.y = 2 * q->co.b * real->y + q->co.d * real->x +
+		q->co.f * real->z + q->co.h;
+	ret.z = 2 * q->co.c * real->z + q->co.e * real->x +
+		q->co.f * real->y + q->co.i;
+	// if (vec3_dot(real, ray->dir) > 0)
+	// 	ret = vec3_fmul(ret, -1);
+	return (ret);
 }

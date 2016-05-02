@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 19:30:12 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/30 17:58:09 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:06:55 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ double	intersect_hyperboloid2(t_ray *ray, t_obj *o)
 			return (INFINITY);
 	}
 	return (compute_m(ray, o, is_vec3_nul(o->cut) ? o->dir : o->cut));
+}
+
+t_vec3	hyperboloid_normal(t_vec3 *hit, t_obj *o)
+{
+	(void)o;
+	return ((t_vec3){hit->x, -hit->y, hit->z});
 }

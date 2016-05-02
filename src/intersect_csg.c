@@ -6,96 +6,89 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/01 18:49:30 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:23:54 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double		(*g_intersect[20])(t_ray *, t_obj *) =
-{ intersect_sphere, intersect_cone, intersect_plane, intersect_cylinder,
-	intersect_triangle, intersect_cube, intersect_parallelogram,
-	intersect_hyperboloid1, intersect_hyperboloid2, intersect_paraboloid,
-	intersect_torus, intersect_chewing_gum, intersect_quadric,
-	intersect_moebius, intersect_disc, intersect_csg, intersects_bbox };
-
-double		do_union(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double		do_union(t_env *e, t_ray *r, t_obj *dad)
 {
-	if ((left->in == INFINITY || left->in < EPSILON) &&
-		(right->in == INFINITY || right->in < EPSILON))
+	if ((dad->left->in == INFINITY || dad->left->in < EPSILON) &&
+		(dad->right->in == INFINITY || dad->right->in < EPSILON))
 		return (save_nothan(dad));
-	if (left->in < right->in)
+	if (dad->left->in < dad->right->in)
 	{
-		if (left->out > right->out)
-			return (save_lin_lout(r, left, right, dad));
+		if (dad->left->out > dad->right->out)
+			return (save_lin_lout(e, r, dad));
 		else
-			return (save_lin_rout(r, left, right, dad));
+			return (save_lin_rout(e, r, dad));
 	}
-	else if (left->in < right->out && right->out < left->out)
-		return (save_rin_lout(r, left, right, dad));
+	else if (dad->left->in < dad->right->out && dad->right->out < dad->left->out)
+		return (save_rin_lout(e, r, dad));
 	else
-		return (save_rin_rout(r, left, right, dad));
+		return (save_rin_rout(e, r, dad));
 }
 
-double		do_inter(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double		do_inter(t_env *e, t_ray *r, t_obj *dad)
 {
-	if (left->in == INFINITY || left->in < EPSILON ||
-		right->in == INFINITY || right->in < EPSILON)
+	if (dad->left->in == INFINITY || dad->left->in < EPSILON ||
+		dad->right->in == INFINITY || dad->right->in < EPSILON)
 		return (INFINITY);
-	if (left->in < right->in)
+	if (dad->left->in < dad->right->in)
 	{
-		if (left->out < right->in)
+		if (dad->left->out < dad->right->in)
 			return (save_nothan(dad));
-		if (left->out < right->out)
-			return (save_rin_lout(r, left, right, dad));
+		if (dad->left->out < dad->right->out)
+			return (save_rin_lout(e, r, dad));
 		else
-			return (save_rin_rout(r, left, right, dad));
+			return (save_rin_rout(e, r, dad));
 	}
 	else
 	{
-		if (right->out < left->in)
+		if (dad->right->out < dad->left->in)
 			return (save_nothan(dad));
-		if (right->out < left->out)
-			return (save_lin_rout(r, left, right, dad));
+		if (dad->right->out < dad->left->out)
+			return (save_lin_rout(e, r, dad));
 		else
-			return (save_lin_lout(r, left, right, dad));
+			return (save_lin_lout(e, r, dad));
 	}
 }
 
-double		do_diff(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double		do_diff(t_env *e, t_ray *r, t_obj *dad)
 {
-	if (left->in == INFINITY || left->in < EPSILON)
+	if (dad->left->in == INFINITY || dad->left->in < EPSILON)
 		return (save_nothan(dad));
-	if (right->in == INFINITY || right->in < EPSILON)
-		return (save_lin_lout(r, left, right, dad));
-	else if (left->in > right->in)
+	if (dad->right->in == INFINITY || dad->right->in < EPSILON)
+		return (save_lin_lout(e, r, dad));
+	else if (dad->left->in > dad->right->in)
 	{
-		if (left->in > right->out)
-			return (save_lin_lout(r, left, right, dad));
-		else if (left->out < right->out)
+		if (dad->left->in > dad->right->out)
+			return (save_lin_lout(e, r, dad));
+		else if (dad->left->out < dad->right->out)
 			return (save_nothan(dad));
 		else
-			return (save_rout_lout(r, left, right, dad));
+			return (save_rout_lout(e, r, dad));
 	}
-	else if (left->out < right->in)
-		return (save_lin_lout(r, left, right, dad));
-	else if (left->out < right->out)
-		return (save_lin_rin(r, left, right, dad));
+	else if (dad->left->out < dad->right->in)
+		return (save_lin_lout(e, r, dad));
+	else if (dad->left->out < dad->right->out)
+		return (save_lin_rin(e, r, dad));
 	else
-		return (save_lin_lout(r, left, right, dad));
+		return (save_lin_lout(e, r, dad));
 }
 
-double		do_op(t_ray *r, t_obj *left, t_obj *right, t_obj *dad)
+double		do_op(t_env *e, t_ray *r, t_obj *dad)
 {
 	if (dad->op == UNION)
-		return (do_union(r, left, right, dad));
+		return (do_union(e, r, dad));
 	else if (dad->op == INTER)
-		return (do_inter(r, left, right, dad));
+		return (do_inter(e, r, dad));
 	else
-		return (do_diff(r, left, right, dad));
+		return (do_diff(e, r, dad));
 }
 
-double		intersect_csg(t_ray *r, t_obj *dad)
+double		intersect_csg(t_env *e, t_ray *r, t_obj *dad)
 {
 	t_ray	tray;
 
@@ -108,7 +101,7 @@ double		intersect_csg(t_ray *r, t_obj *dad)
 			vec3_inverse_rotate(&tray.pos, dad->rot);
 			vec3_inverse_rotate(&tray.dir, dad->rot);
 		}
-		g_intersect[dad->left->type](r, dad->left);
+		e->intersect[dad->left->type](r, dad->left);
 		tray = *r;
 		if (dad->left->type != CSG && dad->left->type != CUBE)
 		{
@@ -116,10 +109,10 @@ double		intersect_csg(t_ray *r, t_obj *dad)
 			vec3_inverse_rotate(&tray.pos, dad->rot);
 			vec3_inverse_rotate(&tray.dir, dad->rot);
 		}
-		g_intersect[dad->right->type](r, dad->right);
+		e->intersect[dad->right->type](r, dad->right);
 		dad->in = INFINITY;
 		dad->out = INFINITY;
-		dad->t = do_op(r, dad->left, dad->right, dad);
+		dad->t = do_op(e, r, dad);
 		return (dad->t);
 	}
 	return (INFINITY);

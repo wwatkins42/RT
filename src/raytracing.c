@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 13:19:30 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 16:54:35 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:13:14 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ t_vec3	raytracing_draw(t_env *e, t_cam *cam, t_ray ray)
 			// vec3_rotate(&ray.pos, vec3_fmul(obj->rot, -1));
 		// }
 		ray.hit = vec3_add(ray.pos, vec3_fmul(ray.dir, tmin));
-		set_normal(&ray, obj);
+		set_normal(e, &ray, obj);
 		color = vec3_add(color, raytracing_color(e, &ray, cam, obj));
 		if (obj->mat.reflect > 0 && obj->mat.glossiness == 0)
 			color = vec3_add(color, raytracing_reflect(e, ray, cam, obj));

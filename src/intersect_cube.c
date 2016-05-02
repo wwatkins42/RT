@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 02:52:56 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/01 19:23:44 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 11:01:07 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,10 @@ double		intersect_cube(t_ray *ray, t_obj *cube)
 	cube->in = ts[0] < ts[1] ? ts[0] : ts[1];
 	cube->out = ts[0] < ts[1] ? ts[1] : ts[0];
 	return (ts[2]);
+}
+
+t_vec3		cube_normal(t_vec3 *hit, t_obj *c)
+{
+	(void)hit;
+	return (c->comp[c->comp_hit].dir);
 }

@@ -24,73 +24,73 @@ lights:
 	  shadow: HARD
 
 objects:
-    - object:
-        type: CSG
+    - object: CSG
     (
 	   - object:
             type: CSG
             (
             - object:
-                type: CUBE
-                pos: {x: -3, y: -3, z: -3}
-                scale: 3
+                type: CHEWINGGUM
+                pos: {x: 0, y: 0, z: 0}
+                scale: 1.7
                 material:
-        		  color: 0xFF0000
-        		  ambient: 0.225
-        		  diffuse: 0.775
-        		  specular: 0
-        		  shininess: 512
-        		  reflect: 0
-        		  refract: 0
-        		  transparency: 0
-        		  absorbtion: 0.7
-            - op: INTER
+                    color: 0xFFFF00
+                    ambient: 0.225
+                    diffuse: 0.775
+                    specular: 0
+                    shininess: 512
+                    reflect: 0
+                    refract: 0
+                    transparency: 0
+                    absorbtion: 0.7
+        - op: INTER
             - object:
                 type: SPHERE
                 pos: {x: 0, y: 0, z: 0}
                 scale: 2
                 material:
          		  color: 0x0000FF
-         		  ambient: 0.225
-         		  diffuse: 0.775
-         		  specular: 0
-         		  shininess: 512
-         		  reflect: 0
-         		  refract: 0
-         		  transparency: 0
-         		  absorbtion: 0.7
-            )
-            op: DIFF
-            - object:
-                type: SPHERE
-                pos: {x: 0, y: 0, z: 0}
-                scale: 1.7
-                material:
-         		  color: 0x00FF00
-         		  ambient: 0.225
-         		  diffuse: 0.775
-         		  specular: 0
-         		  shininess: 512
-         		  reflect: 0
-         		  refract: 0
-         		  transparency: 0
-         		  absorbtion: 0.7
-        )
+                  ambient: 0.225
+                  diffuse: 0.775
+                  specular: 0
+                  shininess: 512
+                  reflect: 0
+                  refract: 0
+                  transparency: 0
+                  absorbtion: 0.7
+    )
+        - op: DIFF
         - object:
+            type: SPHERE
+            pos: {x: 0, y: 0, z: 0}
+            scale: 2
+            material:
+                color: 0x00FF00
+                ambient: 0.225
+                diffuse: 0.775
+                specular: 0
+                shininess: 512
+                reflect: 0
+                refract: 0
+                transparency: 0
+                absorbtion: 0.7
+    )
+    - object:
         type: SPHERE
         pos: {x: -5, y: 5, z: 0}
         scale: 1
         material:
-          color: 0xFF00FF
-          ambient: 0.225
-          diffuse: 0.775
-          specular: 0
-          shininess: 512
-          reflect: 0
-          refract: 0
-          transparency: 0
-          absorbtion: 0.7
-          - object:
+                  color: 0xFF00FF
+                  ambient: 0.225
+                  diffuse: 0.775
+                  specular: 0
+                  shininess: 512
+                  reflect: 0
+                  refract: 0
+                  transparency: 0
+                  absorbtion: 0.7
+
+      - object:
     type: SPHERE
     pos: {x: 5, y: 5, z: 0}
     scale: 1
