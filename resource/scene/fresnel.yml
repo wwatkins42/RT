@@ -57,7 +57,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0.9
-		  texture: ../texture/panoramic/city.bmp
+		  texture: resource/texture/panoramic/city.bmp
 		  texture_filtering: false
 		  receive_shadow: false
 

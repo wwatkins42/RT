@@ -40,7 +40,7 @@ objects:
 		  refract: 0
 		  transparency: 0
 		  absorbtion: 0
-          texture: ../texture/panoramic/hongkong.bmp
+          texture: resource/texture/panoramic/hongkong.bmp
           texture_filtering: true
           receive_shadow: false
 
