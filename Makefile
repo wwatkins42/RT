@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: scollon <scollon@student.42.fr>            +#+  +:+       +#+         #
+#    By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/07 11:45:04 by wwatkins          #+#    #+#              #
-#    Updated: 2016/05/01 11:58:42 by scollon          ###   ########.fr        #
+#    Updated: 2016/05/02 12:03:10 by aacuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 LIB_PATH = ./lib/
 INC_PATH = ./include/ $(LIB_PATH)libft/include/ $(LIB_PATH)libvec/include/ \
-			$(LIB_PATH)libftprintf/include/
+			$(LIB_PATH)libftprintf/include/ $(LIB_PATH)mlx/
 
 NAME = rt
 CC = gcc
