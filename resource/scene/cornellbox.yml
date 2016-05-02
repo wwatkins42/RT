@@ -14,7 +14,7 @@ cameras:
 	- camera:
 	  pos: {x: 0, y: 2, z: -3}
 	  dir: {x: 5, y: 0, z: 0}
-	  fov: 75
+	  fov: 80
 	  supersampling: 2
 
 lights:
@@ -24,7 +24,7 @@ lights:
 	  pos: {x: 0, y: 3.95, z: 5.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: 0xFFF2EE
-	  intensity: 3.25
+	  intensity: 2.05
 	  attenuation: 0.00075
       cutoff: 75
       cutoffouter: 2
@@ -37,7 +37,7 @@ lights:
 	  pos: {x: -1, y: 1.95, z: 4.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: #FC405D
-	  intensity: 1.75
+	  intensity: 0.85
 	  attenuation: 0.0075
       shadow_intensity: 0.65
       shadow: SOFT
@@ -48,7 +48,7 @@ lights:
 	  pos: {x: 1, y: 0.15, z: 5.5}
       dir: {x: 0, y: -1, z: -0.2}
 	  color: #FCDE40
-	  intensity: 1.75
+	  intensity: 0.85
 	  attenuation: 0.0075
       shadow_intensity: 0.65
       shadow: SOFT

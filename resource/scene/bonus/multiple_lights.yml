@@ -1,0 +1,107 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+      pos: {x: 0, y: 1, z: -3}
+      dir: {x: 0, y: 0, z: 0}
+	  fov: 90
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 3, z: 0}
+	  color: #C9FEC7
+	  intensity: 5
+	  attenuation: 0.001
+	  shadow: HARD
+
+	- light:
+	  type: POINT
+	  pos: {x: -6, y: 0.1, z: 3}
+	  color: #5A87FB
+	  intensity: 0.7
+	  attenuation: 0.001
+	  shadow: HARD
+
+	- light:
+	  type: POINT
+	  pos: {x: 4, y: 3, z: 12}
+	  color: #F25555
+	  intensity: 0.7
+	  attenuation: 0.001
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -0.1, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #F4B13F
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1.75
+	  pos: {x: -2.8, y: 1.5, z: 6}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #3FD8F4
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CONE
+	  scale: 0.5
+	  pos: {x: 4, y: 3, z: 5}
+	  dir: {x: 0.2, y: 1, z: 0}
+	  material:
+		  color: #F4703F
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 1
+	  pos: {x: 1, y: 0, z: 8}
+	  dir: {x: -0.4, y: 1, z: 0}
+	  material:
+		  color: #7EF43F
+		  ambient: 0.115
+		  diffuse: 0.85
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+...

@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 14:24:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/02 11:24:34 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 14:35:17 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		default_light(t_lgt *light)
 	light->attenuation = 0.05;
 	light->cutoff = 75;
 	light->cutoff_outer = 2;
-	light->shadow_intensity = 0.8;
+	light->shadow_intensity = 0.7;
 	light->shadow = HARD;
 }
 

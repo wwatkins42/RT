@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/29 12:32:18 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 11:15:45 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/02 14:45:52 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	t_vec3	dir;
 	t_vec3	hit;
 
-	tmin = INFINITY;
 	i = -1;
 	shadow = 1;
 	hit = light.ray.pos;
@@ -42,12 +41,13 @@ static void		set_softshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)
 	while (++i < e->scene.sampling)
 	{
 		light.ray.dir = random_sphere_sampling(light.ray, light.scale, hit);
+		tmin = INFINITY;
 		if (intersect_object(e, &light.ray, &tmin, e->obj) != obj)
 			shadow++;
 		light.ray.dir = dir;
 	}
-	*color = vec3_fmul(*color, 1 - (float)shadow /
-		(float)e->scene.sampling * light.shadow_intensity);
+	*color = vec3_fmul(*color, 1.0 - ((float)shadow /
+		(float)e->scene.sampling * light.shadow_intensity));
 }
 
 static void		set_hardshadow(t_env *e, t_vec3 *color, t_lgt light, t_obj *obj)

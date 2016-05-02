@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_torus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 02:53:33 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/04/28 14:26:22 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/02 14:09:31 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ double		intersect_torus(t_ray *ray, t_obj *obj)
 		return (INFINITY);
 	if (num_real_roots == 2)
 	{
-		if (roots[0] < 0)
-			return (roots[1] < 0 ? INFINITY : roots[1]);
+		if (roots[0] < EPSILON)
+			return (roots[1] < EPSILON ? INFINITY : roots[1]);
 		else
 			return (roots[0]);
 	}
 	num_real_roots = 0;
 	while (num_real_roots < 4)
 	{
-		if (roots[num_real_roots] > 0)
+		if (roots[num_real_roots] > EPSILON)
 			return (roots[num_real_roots]);
 		num_real_roots++;
 	}
