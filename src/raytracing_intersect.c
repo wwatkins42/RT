@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 12:13:15 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:21:11 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ double	compute_intersect(t_env *e, t_ray *ray, t_ray *tray, t_obj *obj)
 {
 	if (obj->type == CSG)
 		return (intersect_csg(e, ray, obj));
-	else if (obj->type == BBOX || obj->type == TRIANGLE
-		|| obj->type == CUBE)
+	else if (obj->type == BBOX || obj->type == TRIANGLE || obj->type == CUBE)
 		return (e->intersect[obj->type](ray, obj));
 	else
 		return (e->intersect[obj->type](tray, obj));
