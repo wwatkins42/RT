@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 19:34:24 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 10:47:22 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,19 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 		if (obj->type != CUBE &&
 			obj->type != CSG && obj->type != BBOX)
 			transform_ray(&tray, obj);
-		t = (obj->type == CSG ? intersect_csg(e, ray, obj) :
-			e->intersect[obj->type](&tray, obj));
+		if (obj->type == CSG)
+			t = intersect_csg(e, ray, obj);
+		else if (obj->type == BBOX || obj->type == TRIANGLE || obj->type == PARALLELOGRAM || obj->type == CUBE)
+			t = e->intersect[obj->type](ray, obj);
+		else
+			t = e->intersect[obj->type](&tray, obj);
 		if (t > EPSILON && t < *tmin)
 		{
-			if (obj->type == BBOX &&
-				(r_value = intersect_object(e, ray, tmin, obj->comp)))
-				out = r_value;
+			if (obj->type == BBOX)
+			{
+				if ((r_value = intersect_object(e, ray, tmin, obj->comp)))
+					out = r_value;
+			}
 			else
 				save_obj(&out, obj, tmin, t);
 		}
@@ -59,7 +65,7 @@ void	set_normal(t_env *e, t_ray *ray, t_obj *obj)
 {
 	t_vec3	tr;
 
-	if (obj->type != CSG)
+	if (obj->type != CSG && obj->type != BBOX)
 	{
 		tr = vec3_sub(ray->hit, obj->pos);
 		vec3_inverse_rotate(&tr, obj->rot);

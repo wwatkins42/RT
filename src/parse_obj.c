@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:27:53 by aacuna            #+#    #+#             */
-/*   Updated: 2016/05/02 17:35:31 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 09:54:22 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ t_obj	*parse_obj(char *file, t_env *e, t_obj *parent)
 {
 	int		fd;
 	t_obj	*new_box_size;
+	char	*trim;
 
 	parent->type = BBOX;
-	(fd = open(file, O_RDONLY)) == -1 ? error(e, strerror(errno), file, 1) : 0;
+	trim = ft_strtrim(file);
+	(fd = open(trim, O_RDONLY)) == -1 ? error(e, strerror(errno), trim, 1) : 0;
+	free(trim);
 	parse_points(e, fd, parent);
 	if (parent->comp)
 	{
