@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 16:54:28 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 11:08:25 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 12:29:51 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,25 @@ static double	cut_selle(t_ray *ray, t_obj *o, double tmp)
 
 double			intersect_selle(t_ray *ray, t_obj *o)
 {
-	t_calc	c;
+	double	a[5];
+	int		ret;
 
 	o->in = INFINITY;
 	o->out = INFINITY;
-	c.len = ray->pos;
-	c.a = ray->dir.x * ray->dir.x - ray->dir.z * ray->dir.z;
-	c.b = 2 * (ray->dir.x * c.len.x - ray->dir.z * c.len.z) + ray->dir.y;
-	c.c = c.len.x * c.len.x - c.len.z * c.len.z + c.len.y;
-	c.disc = c.b * c.b - 4 * c.a * c.c;
-	if (c.disc < EPSILON)
+	a[2] = ray->dir.x * ray->dir.x - ray->dir.z * ray->dir.z;
+	a[1] = 2 * (ray->dir.x * ray->pos.x - ray->dir.z * ray->pos.z) + ray->dir.y;
+	a[0] = ray->pos.x * ray->pos.x - ray->pos.z * ray->pos.z + ray->pos.y;
+	if (!(ret = solve_quadratic(a, &a[3])))
 		return (INFINITY);
-	c.disc = sqrt(c.disc);
-	c.eq = (-c.b - c.disc) / (2 * c.a);
-	o->in = c.eq;
-	o->out = (-c.b + c.disc) / (2 * c.a);
-	if (c.eq < 0)
+	o->in = a[3];
+	o->out = a[4];
+	if (o->in < 0)
 	{
-		c.eq = o->out;
-		if (c.eq < 0)
+		o->in = o->out;
+		if (o->in < 0)
 			return (INFINITY);
 	}
-	return (cut_selle(ray, o, c.eq));
+	return (cut_selle(ray, o, o->in));
 }
 
 t_vec3			selle_normal(t_vec3 *hit, t_obj *o)

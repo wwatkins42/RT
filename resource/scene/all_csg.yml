@@ -10,7 +10,7 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: -2, y: 5, z: -5}
+	  pos: {x: -2, y: 5, z: -10}
 	  dir: {x: 10, y: -30, z: 0}
 	  fov: 70
 	  supersampling: 1
@@ -37,7 +37,7 @@ objects:
             type: CSG
             (
             - object:
-                type: CUBE
+                type: CHEWINGGUM
                 pos: {x: 0, y: 0, z: 0}
                 scale: 3
                 material:

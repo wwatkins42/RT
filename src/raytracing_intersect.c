@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracing_intersect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 10:53:45 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 12:13:15 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ void	save_obj(t_obj **out, t_obj *obj, double *tmin, double t)
 	(*out)->t = t;
 }
 
+double	compute_intersect(t_env *e, t_ray *ray, t_ray *tray, t_obj *obj)
+{
+	if (obj->type == CSG)
+		return (intersect_csg(e, ray, obj));
+	else if (obj->type == BBOX || obj->type == TRIANGLE
+		|| obj->type == CUBE)
+		return (e->intersect[obj->type](ray, obj));
+	else
+		return (e->intersect[obj->type](tray, obj));
+}
+
 t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 {
 	t_obj	*out;
@@ -39,12 +50,7 @@ t_obj	*intersect_object(t_env *e, t_ray *ray, double *tmin, t_obj *obj)
 		tray = *ray;
 		if (obj->type != CUBE && obj->type != CSG && obj->type != BBOX)
 			transform_ray(&tray, obj);
-		if (obj->type == CSG)
-			t = intersect_csg(e, ray, obj);
-		else if (obj->type == BBOX || obj->type == TRIANGLE || obj->type == PARALLELOGRAM || obj->type == CUBE)
-			t = e->intersect[obj->type](ray, obj);
-		else
-			t = e->intersect[obj->type](&tray, obj);
+		t = compute_intersect(e, ray, &tray, obj);
 		if (t > EPSILON && t < *tmin)
 		{
 			if (obj->type == BBOX)

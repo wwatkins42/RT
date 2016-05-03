@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   g_object_type.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 11:41:44 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 12:06:04 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 12:01:00 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-const t_gobj_type		g_object_type[20] =
+const t_gobj_type		g_object_type[21] =
 {
 	{ SPHERE, "SPHERE" },
 	{ CONE, "CONE" },
@@ -33,5 +33,6 @@ const t_gobj_type		g_object_type[20] =
 	{ DISC, "DISC" },
 	{ CSG, "CSG" },
 	{ BBOX, "OBJ" },
+	{ SELLE, "SELLE" },
 	{ -1, NULL }
 };

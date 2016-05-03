@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:07:48 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 10:06:11 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 12:01:52 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,8 +394,8 @@ typedef struct		s_env
 	t_reflect		reflect;
 	t_refract		refract;
 	double			stereo_nb;
-	double			(*intersect[20])(t_ray *, t_obj *);
-	t_vec3			(*normal[20])(t_vec3 *, t_obj *);
+	double			(*intersect[21])(t_ray *, t_obj *);
+	t_vec3			(*normal[21])(t_vec3 *, t_obj *);
 }					t_env;
 
 void				error(t_env *e, char *type, char *esrc, short ext);
@@ -610,6 +610,7 @@ double				intersect_moebius(t_ray *ray, t_obj *obj);
 double				intersect_disc(t_ray *r, t_obj *t);
 double				intersects_bbox(t_ray *ray, t_obj *b);
 double				intersect_cube_troue(t_ray *ray, t_obj *b);
+double				intersect_selle(t_ray *ray, t_obj *o);
 void				set_normal(t_env *e, t_ray *ray, t_obj *obj);
 double				compute_m(t_ray *ray, t_obj *obj, t_vec3 dir);
 /*

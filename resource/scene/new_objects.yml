@@ -10,7 +10,7 @@ scene:
 
 cameras:
 	- camera:
-	  pos: {x: 0, y: 0, z: -5}
+	  pos: {x: 0, y: 0, z: -15}
 	  dir: {x: 0, y: 0, z: 0}
 	  fov: 90
 
@@ -23,13 +23,26 @@ lights:
 	  shadow: HARD
 
 objects:
-        - object:
+            - object:
+                    type: TORUS
+                    pos: {x: 0, y: -4, z: 0}
+                    pr: 1
+                    gr: 2
+                    material:
+             		  color: 0x00FF00
+             		  ambient: 0.225
+             		  diffuse: 0.775
+             		  specular: 0
+             		  shininess: 512
+             		  reflect: 0
+             		  refract: 0
+             		  transparency: 0
+             		  absorbtion: 0.7
+    - object:
                 type: MOEBIUS
                 pos: {x: 0, y: 0, z: 0}
-                dir: {x: 0, y: 1, z: 0}
-                cut: {x: 0, y: 3, z: 0}
-                scale: 4
-                max: 2
+                scale: 1
+                max: 0.3
                 material:
          		  color: 0x00FF00
          		  ambient: 0.225

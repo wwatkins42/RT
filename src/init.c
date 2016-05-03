@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:46:31 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/02 18:12:23 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 12:01:31 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	init_intersect(t_env *e)
 	e->intersect[MOEBIUS] = intersect_moebius;
 	e->intersect[DISC] = intersect_disc;
 	e->intersect[BBOX] = intersects_bbox;
+	e->intersect[SELLE] = intersect_selle;
 	e->intersect[CUBE_TROUE] = intersect_cube_troue;
 }
 

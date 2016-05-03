@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_to_vec3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 10:11:09 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 11:04:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:34:36 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vec3		rgb_to_vec3(t_rgb rgb)
 	return (v);
 }
 
-t_rgb		vec3_to_rgb(t_vec3	v)
+t_rgb		vec3_to_rgb(t_vec3 v)
 {
 	t_rgb rgb;
 

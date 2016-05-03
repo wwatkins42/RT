@@ -1,0 +1,112 @@
+---
+scene:
+	velocity: 6
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: -12, y: 10, z: -12}
+	  dir: {x: 25, y: -30, z: 0}
+	  fov: 100
+	  supersampling: 1
+	- camera:
+	  pos: {x: 12, y: 10, z: -12}
+	  dir: {x: 25, y: 35, z: 0}
+	  fov: 100
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 10, z: 4}
+	  color: 0xFFFFFF
+	  intensity: 4
+	  shadow: HARD
+
+objects:
+    - object:
+        type: PLANE
+        pos: {x: 0, y: -1, z: 0}
+        dir: {x: 0, y: 1, z: 0}
+    - object:
+        type: SPHERE
+        pos: {x: -10, y: 0, z: 10}
+    - object:
+        type: CONE
+        pos: {x: -5, y: 1, z: 10}
+        scale: 0.6
+        min: -2
+        max: 0
+    - object:
+        type: CYLINDER
+        pos: {x: 0, y: 1, z: 10}
+        scale: 1
+        min: -2
+        max: 2
+    - object:
+        type: PARABOLOID
+        pos: {x: 5, y: 0, z: 10}
+        scale: 0.5
+        max: 2
+    - object:
+        type: DISC
+        pos: {x: -10, y: 0, z: 5}
+        dir: {x: 0, y: 0, z: -1}
+        scale: 1
+    - object:
+        type: TRIANGLE
+        pos: {x: -6, y: 0, z: 5}
+        pos3: {x: -4, y: 0, z: 5}
+        pos2: {x: -5, y: 2, z: 5}
+    - object:
+        type: PARALLELOGRAM
+        pos: {x: -1, y: 0, z: 5}
+        pos3: {x: 2, y: 0, z: 0}
+        pos2: {x: 0, y: 2, z: 0}
+    - object:
+        type: CUBE
+        pos: {x: 5, y: 0, z: 5}
+        scale: 1
+    - object:
+        type: TORUS
+        pos: {x: -10, y: 5, z: 15}
+        rot: {x: 90, y: 0, z: 0}
+        pr: 0.5
+        gr: 1
+    - object:
+        type: CUBE_TROUE
+        pos: {x: -3, y: 5, z: 15}
+        scale: 11.8
+    - object:
+        type: CHEWINGGUM
+        pos: {x: -10, y: 0, z: 0}
+        scale: 1
+    - object:
+        type: HYPERBOLOID_ONE
+        pos: {x: -5 y: 0, z: 0}
+        scale: 0.5
+        min: -1
+        max: 1
+    - object:
+        type: HYPERBOLOID_TWO
+        pos: {x: 0, y: 0, z: 0}
+        scale: 0.5
+        min: -1
+        max: 1
+
+    - object:
+        type: SELLE
+        pos: {x: 5 y: 0, z: 0}
+        min: -1
+        max: 1
+    - object:
+        type: MOEBIUS
+        pos: {x: 5, y: 5, z: 15}
+        scale: 1
+        max: 0.5
+...
