@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 06:42:48 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 18:45:58 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 15:36:33 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ double		intersect_cube_troue(t_ray *r, t_obj *obj)
 	t_vec3		x;
 	int			ret;
 
+	obj->in = INFINITY;
+	obj->out = INFINITY;
 	x = r->pos;
 	a[4] = ft_pow(r->dir.x, 4) + ft_pow(r->dir.y, 4) + ft_pow(r->dir.z, 4);
 	a[3] = (4 * (ft_pow(r->dir.x, 3) * x.x + ft_pow(r->dir.y, 3) * x.y +
@@ -31,6 +33,11 @@ double		intersect_cube_troue(t_ray *r, t_obj *obj)
 	a[0] = (ft_pow(x.x, 4) + ft_pow(x.y, 4) + ft_pow(x.z, 4) -
 		5 * vec3_dot(x, x) + obj->scale) / a[4];
 	ret = solve_quartic(a, root);
+	if (ret >= 2)
+	{
+		obj->in = root[0];
+		obj->out = root[1];
+	}
 	return (choose_root4(root, ret));
 }
 

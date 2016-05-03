@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_csg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:40:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:24:11 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 15:58:26 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,35 @@ static void		parse_op(t_env *e, t_obj *csg, char *line)
 	}
 }
 
+int				check_wrong_syntax(t_line *line)
+{
+	int		countbrackets;
+
+	if (!line || !ft_strchr(line->next->line, '('))
+		return (1);
+	line = line->next->next;
+	countbrackets = 1;
+	while (line && countbrackets)
+	{
+		if (ft_strchr(line->line, '('))
+			countbrackets++;
+		if (ft_strchr(line->line, ')'))
+			countbrackets--;
+		line = line->next;
+	}
+	return (countbrackets);
+}
+
 void			parse_csg(t_env *e, t_obj *csg, t_line *line)
 {
 	int			count_parenthesis;
 
 	count_parenthesis = 1;
-	while (line && !ft_strchr(line->line, '('))
+	while (line && !ft_strstr(line->line, "CSG"))
 		line = line->prev;
-	line = line->next;
+	if (check_wrong_syntax(line))
+		error(e, E_OPARAM, "Wrong syntax for CSG object", 1);
+	line = line->next->next;
 	while (line && count_parenthesis)
 	{
 		if (count_parenthesis == 1)

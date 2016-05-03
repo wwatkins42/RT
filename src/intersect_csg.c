@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 22:22:04 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 19:42:39 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 16:03:24 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,20 @@ double		do_op(t_env *e, t_ray *r, t_obj *dad)
 
 double		intersect_csg(t_env *e, t_ray *r, t_obj *dad)
 {
-	t_ray	*tray;
+	t_ray	tray;
 
-	if (dad->left && dad->right && ((tray = r) || 1))
+	if (dad->left && dad->right)
 	{
+		tray = *r;
 		if (dad->left->type != CSG && dad->left->type != CUBE)
-			transform_ray_for_csg(tray, dad->left, dad);
+			transform_ray_for_csg(&tray, dad->left, dad);
 		dad->left->type == CSG ? intersect_csg(e, r, dad->left)
-			: e->intersect[dad->left->type](r, dad->left);
-		tray = r;
-		if (dad->left->type != CSG && dad->left->type != CUBE)
-			transform_ray_for_csg(tray, dad->right, dad);
+			: e->intersect[dad->left->type](&tray, dad->left);
+		tray = *r;
+		if (dad->right->type != CSG && dad->right->type != CUBE)
+			transform_ray_for_csg(&tray, dad->right, dad);
 		dad->right->type == CSG ? intersect_csg(e, r, dad->right)
-			: e->intersect[dad->right->type](r, dad->right);
+			: e->intersect[dad->right->type](&tray, dad->right);
 		dad->in = INFINITY;
 		dad->out = INFINITY;
 		dad->t = do_op(e, r, dad);

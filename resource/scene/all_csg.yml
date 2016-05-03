@@ -33,13 +33,13 @@ objects:
 	- object:
 	  type: CSG
       (
-        - object:
+       - object:
             type: CSG
             (
             - object:
                 type: CHEWINGGUM
                 pos: {x: 0, y: 0, z: 0}
-                scale: 3
+                scale: 1.72
                 material:
         		  color: 0xFF0000
         		  ambient: 0.225
@@ -53,7 +53,7 @@ objects:
             - op: INTER
             - object:
                 type: SPHERE
-                pos: {x: 1.5, y: 1.5, z: 1.5}
+                pos: {x: 0, y: 0, z: 0}
                 scale: 2
                 material:
          		  color: 0x0000FF
@@ -69,9 +69,8 @@ objects:
          - op: DIFF
          - object:
                     type: SPHERE
-                    pos: {x: 1.5, y: 1.5, z: 1.5}
-                    dir: {x: 0, y: 0, z: 1}
-                    scale: 1.8
+                    pos: {x: 0, y: 0, z: 0}
+                    scale: 1.9
                         material:
              		     color: 0x00FF00
              		     ambient: 0.225

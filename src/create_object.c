@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 11:33:32 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 15:53:44 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ t_obj			*create_object(t_env *e, t_line *object_line)
 	!(new = (t_obj*)malloc(sizeof(t_obj))) ? error(e, E_OINIT, NULL, 1) : 0;
 	default_object(new);
 	while (line != NULL && !ft_strstr(line->line, "- object:") &&
-		!ft_strchr(line->line, '(') && fill_object_attr(e, line, new))
+		!ft_strchr(line->line, '('))
+	{
+		fill_object_attr(e, line, new);
 		line = line->next;
+	}
 	e->count.obj++;
 	new->id = e->count.obj;
 	if (new->mat.texture.normal_map && new->mat.texture.defined)
