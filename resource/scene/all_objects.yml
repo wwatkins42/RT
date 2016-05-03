@@ -9,21 +9,26 @@ scene:
 	load_percent: false
 
 cameras:
-	- camera:
-	  pos: {x: -12, y: 10, z: -12}
-	  dir: {x: 25, y: -30, z: 0}
-	  fov: 100
-	  supersampling: 1
-	- camera:
-	  pos: {x: 12, y: 10, z: -12}
-	  dir: {x: 25, y: 35, z: 0}
-	  fov: 100
-	  supersampling: 1
+    - camera:
+ pos: {x: -9.100, y: 3.700, z: -6.245}
+ dir: {x: 29.00, y: -30.00, z: 0.0}
+ fov: 130.000
+ supersampling: 1
+- camera:
+ pos: {x: -9.961, y: -0.200, z: 8.362}
+ dir: {x: -8.796, y: -37.699, z: 0.0}
+ fov: 130.000
+ supersampling: 1
+- camera:
+  pos: {x: -3.805, y: 14.799, z: 11.374}
+  dir: {x: 87.964, y: 169.017, z: 0.0}
+  fov: 130.000
+  supersampling: 1
 
 lights:
 	- light:
 	  type: POINT
-	  pos: {x: 0, y: 10, z: 4}
+	  pos: {x: 0, y: 10, z: -2}
 	  color: 0xFFFFFF
 	  intensity: 4
 	  shadow: HARD
@@ -33,9 +38,15 @@ objects:
         type: PLANE
         pos: {x: 0, y: -1, z: 0}
         dir: {x: 0, y: 1, z: 0}
+        material:
+            texture: CHECKER
+            reflect: 0.5
     - object:
         type: SPHERE
         pos: {x: -10, y: 0, z: 10}
+        material:
+            texture: MARBLE
+            reflect: 0.1
     - object:
         type: CONE
         pos: {x: -5, y: 1, z: 10}
@@ -53,60 +64,135 @@ objects:
         pos: {x: 5, y: 0, z: 10}
         scale: 0.5
         max: 2
+        material:
+            color: 0x00FF00
     - object:
         type: DISC
         pos: {x: -10, y: 0, z: 5}
         dir: {x: 0, y: 0, z: -1}
         scale: 1
+        material:
+            color: 0x00FFFF
     - object:
         type: TRIANGLE
         pos: {x: -6, y: 0, z: 5}
         pos3: {x: -4, y: 0, z: 5}
         pos2: {x: -5, y: 2, z: 5}
+        material:
+            color: 0x00FFFF
     - object:
         type: PARALLELOGRAM
         pos: {x: -1, y: 0, z: 5}
         pos3: {x: 2, y: 0, z: 0}
         pos2: {x: 0, y: 2, z: 0}
+        material:
+            color: 0x00FFFF
     - object:
         type: CUBE
-        pos: {x: 5, y: 0, z: 5}
-        scale: 1
+        pos: {x: 5, y: 2, z: 5}
+        scale: 1.5
+        material:
+            color: 0x00FFFF
     - object:
         type: TORUS
-        pos: {x: -10, y: 5, z: 15}
+        pos: {x: -5, y: 5, z: 15}
         rot: {x: 90, y: 0, z: 0}
         pr: 0.5
         gr: 1
+        material:
+            color: 0xFFFF00
     - object:
         type: CUBE_TROUE
-        pos: {x: -3, y: 5, z: 15}
+        pos: {x: 0, y: 5, z: 15}
         scale: 11.8
+        material:
+            color: 0xFFFF00
     - object:
         type: CHEWINGGUM
-        pos: {x: -10, y: 0, z: 0}
+        pos: {x: -10, y: 5, z: 15}
         scale: 1
+        material:
+            color: 0xFFFF00
     - object:
         type: HYPERBOLOID_ONE
         pos: {x: -5 y: 0, z: 0}
         scale: 0.5
         min: -1
         max: 1
+        material:
+            color: 0x00FF00
     - object:
         type: HYPERBOLOID_TWO
         pos: {x: 0, y: 0, z: 0}
         scale: 0.5
         min: -1
         max: 1
-
+        material:
+            color: 0x00FF00
     - object:
         type: SELLE
         pos: {x: 5 y: 0, z: 0}
         min: -1
         max: 1
+        material:
+            color: 0xF0A0FF
     - object:
         type: MOEBIUS
         pos: {x: 5, y: 5, z: 15}
         scale: 1
         max: 0.5
+        material:
+            color: 0x7F00FF
+	- object:
+	  type: CSG
+      (
+        - object:
+            type: CSG
+            (
+            - object:
+                type: CHEWINGGUM
+                pos: {x: -10, y: 0, z: 0}
+                scale: 0.85
+                material:
+        		  color: 0xFF0000
+        		  ambient: 0.225
+        		  diffuse: 0.775
+        		  specular: 0
+        		  shininess: 512
+        		  reflect: 0
+        		  refract: 0
+        		  transparency: 0
+        		  absorbtion: 0.7
+            - op: INTER
+            - object:
+                type: SPHERE
+                pos: {x: -10, y: 0, z: 0}
+                scale: 1
+                material:
+         		  color: 0x0000FF
+         		  ambient: 0.225
+         		  diffuse: 0.775
+         		  specular: 0
+         		  shininess: 512
+         		  reflect: 0
+         		  refract: 0
+         		  transparency: 0
+         		  absorbtion: 0.7
+            )
+         - op: DIFF
+         - object:
+            type: SPHERE
+            pos: {x: -10, y: 0, z: 0}
+            scale: 0.9
+            material:
+                color: 0x00FF00
+                ambient: 0.225
+                diffuse: 0.775
+                specular: 0
+                shininess: 512
+                reflect: 0
+                refract: 0
+                transparency: 0
+                absorbtion: 0.7
+    )
 ...
