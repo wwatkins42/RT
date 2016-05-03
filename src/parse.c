@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 11:27:42 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:15:09 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:46:34 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,13 @@ static void	parse_scene(t_env *e, t_line *scene)
 
 void		parse(t_env *e, t_parse *core)
 {
-	char	info[256];
-
-	sprintf(info, "FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
-	display_info(e, info);
+	ft_printf("FILE: %s (%dx%d)\n", e->arg.file, e->win.w, e->win.h);
 	parse_scene(e, core->scene);
 	e->cam = parse_camera(e, core->cam);
 	e->lgt = parse_light(e, core->lgt);
 	e->obj = parse_object(e, core->obj);
 	destroy_parse(core);
-	sprintf(info, "SCENE:[cam:%d, lgt:%d, obj:%d]\n",
+	ft_printf("SCENE:[cam:%d, lgt:%d, obj:%d]\n",
 	e->count.cam, e->count.lgt, e->count.obj);
 	!e->count.cam ? error(e, "must have cam", NULL, 1) : 0;
-	display_info(e, info);
 }

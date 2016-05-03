@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 11:23:43 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/03 11:47:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static short	get_texture_type(const char *line)
 		return (BMP);
 }
 
-static char	*	get_texture_name(t_env *e, const char *line)
+static char		*get_texture_name(t_env *e, const char *line)
 {
 	char	*name;
 	char	*del;
@@ -47,9 +47,17 @@ static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
 	else if (mat->texture.type == BMP)
+	{
 		bmp_importer(e, ft_strstr(line, ":") + 2, &mat->texture);
+		ft_printf("  ->import:(%dx%d)%s\n", mat->texture.w,
+			mat->texture.h, ft_strstr(line, ":") + 2);
+	}
 	else
+	{
 		mat->texture = texture_generator(e, mat->texture.type, T_RESW, T_RESH);
+		ft_printf("  ->perlin:(%dx%d)[%s]\n", mat->texture.w,
+			mat->texture.h, ft_strstr(line, ":") + 2);
+	}
 }
 
 static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
