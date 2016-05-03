@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_object.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/29 13:54:26 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/02 18:40:09 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 11:33:32 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				get_object_type(t_env *e, char *line)
 static void		fill_object_attr2(t_env *e, t_line *line, t_obj *new)
 {
 	if (ft_strstr(line->line, "scale:"))
-		new->scale = parse_value(line->line, 0.1, 1000);
+		new->scale = parse_value(line->line, 0.01, 1000);
 	else if (ft_strstr(line->line, "min:"))
 		new->min = parse_value(line->line, -INFINITY, INFINITY);
 	else if (ft_strstr(line->line, "max:"))
