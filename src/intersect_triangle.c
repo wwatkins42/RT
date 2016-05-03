@@ -6,7 +6,7 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 16:31:16 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/03 10:51:18 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 11:11:44 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double	intersect_triangle(t_ray *ray, t_obj *t)
 t_vec3	point_at_pos(t_vec3 *vect, int pos, int max, char sign)
 {
 	if (sign == '-')
-		pos = max - pos;
+		pos = max - pos + 1;
 	if (pos <= max && pos >= 0)
 		return (vect[pos]);
 	else
