@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 14:42:27 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 15:32:49 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 16:19:27 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	set_normal(t_env *e, t_ray *ray, t_obj *obj)
 		vec3_inverse_rotate(&tr, obj->rot);
 		obj->normal = e->normal[obj->type](&tr, obj);
 		if (obj->mat.normal_perturbation)
- 			obj->normal = vec3(obj->normal.x + sin(ray->hit.x),
+			obj->normal = vec3(obj->normal.x + sin(ray->hit.x),
 			obj->normal.y, obj->normal.z);
 		vec3_rotate(&obj->normal, obj->rot);
 		vec3_normalize(&obj->normal);

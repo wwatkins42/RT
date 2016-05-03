@@ -6,7 +6,7 @@
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:11:54 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 15:46:29 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 16:19:49 by tbeauman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int		key_pressed(int keycode, t_env *e)
 	keycode == 47 ? e->cam = e->cam->prev : 0;
 	if (e->cam->selection)
 	{
-	 	keycode == 83 ? e->cam->selection->rot.x += 30 : 0;
-	 	keycode == 84 ? e->cam->selection->rot.x -= 30 : 0;
-	 	keycode == 86 ? e->cam->selection->rot.y += 30 : 0;
-	 	keycode == 87 ? e->cam->selection->rot.y -= 30 : 0;
-	 	keycode == 89 ? e->cam->selection->rot.z += 30 : 0;
-	 	keycode == 91 ? e->cam->selection->rot.z -= 30 : 0;
+		keycode == 83 ? e->cam->selection->rot.x += 30 : 0;
+		keycode == 84 ? e->cam->selection->rot.x -= 30 : 0;
+		keycode == 86 ? e->cam->selection->rot.y += 30 : 0;
+		keycode == 87 ? e->cam->selection->rot.y -= 30 : 0;
+		keycode == 89 ? e->cam->selection->rot.z += 30 : 0;
+		keycode == 91 ? e->cam->selection->rot.z -= 30 : 0;
 	}
 	keycode == MOUSE ? kswitch(&e->key[MOUSE]) : 0;
 	keycode == STAT ? kswitch(&e->key[STAT]) : 0;
