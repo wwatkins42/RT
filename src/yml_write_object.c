@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 09:45:39 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 09:37:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:06:51 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,21 @@ static void	export_material(const int fd, t_obj *obj)
 	ft_printf_fd(fd, "    refract: %f\n", obj->mat.refract);
 	ft_printf_fd(fd, "    transparency: %f\n", obj->mat.transparency);
 	ft_printf_fd(fd, "    absorbtion: %f\n", obj->mat.absorbtion);
-	ft_printf_fd(fd, "    texture: %s\n", obj->mat.texture.name);
+	if (obj->mat.texture.defined)
+		ft_printf_fd(fd, "    texture: %s\n", obj->mat.texture.name);
 	ft_printf_fd(fd, "    texture_filtering: %s\n",
 							ft_boolean(obj->mat.texture.filtering));
 	ft_printf_fd(fd, "    texture_normal: %s\n",
 							ft_boolean(obj->mat.texture.normal_map));
 	ft_printf_fd(fd, "    texture_normal_strength: %f\n",
 							obj->mat.texture.normal_strength);
+	ft_printf_fd(fd, "    texture_scale: %f\n", obj->mat.texture.scale);
+	ft_printf_fd(fd, "    texture_rotation: %f\n", obj->mat.texture.rotation);
 	ft_printf_fd(fd, "    receive_shadow: %s\n",
 							ft_boolean(obj->mat.receive_shadow));
+	ft_printf_fd(fd, "    transparency: %f\n", obj->mat.transparency);
+	ft_printf_fd(fd, "    transparency: %s\n",
+							ft_boolean(obj->mat.normal_perturbation));
 }
 
 void		export_object(const int fd, t_env *e)
