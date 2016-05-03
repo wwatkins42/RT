@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   default_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/02 18:37:59 by tbeauman         ###   ########.fr       */
+/*   Updated: 2016/05/03 10:30:58 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			default_object(t_obj *object)
 	object->pos3 = vec3(1, 0, 0);
 	object->dir = vec3(0, 0, 1);
 	object->cut = vec3(0, 0, 0);
+	object->rot = vec3(0, 0, 0);
 	object->m = 1;
 	object->pr = 1;
 	object->gr = 2;
