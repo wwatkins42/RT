@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   default_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
 /*   Updated: 2016/05/03 11:56:32 by tbeauman         ###   ########.fr       */
+=======
+/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
+/*   Updated: 2016/05/03 11:28:25 by aacuna           ###   ########.fr       */
+>>>>>>> f47f6ba5572afb1dbce48104cfb3391e56c0c189
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +49,7 @@ static t_mat	default_material(void)
 void			default_object(t_obj *object)
 {
 	object->type = SPHERE;
-	object->pos = vec3(0, 0, 5);
+	object->pos = vec3(0, 0, 0);
 	object->pos2 = vec3(0, 1, 0);
 	object->pos3 = vec3(1, 0, 0);
 	object->dir = vec3(0, 1, 0);

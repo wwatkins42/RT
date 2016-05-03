@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 16:13:08 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/30 14:58:16 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:52:02 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ void	kswitch(char *k)
 	*k == 1 ? t = 1 : 0;
 	*k == 1 ? *k = 0 : 0;
 	*k == 0 && t != 1 ? *k = 1 : 0;
-}
-
-void	display_info(t_env *e, char *str)
-{
-	static int	y = -17;
-
-	if (y < e->win.h)
-		y += 17;
-	else
-	{
-		mlx_clear_window(e->mlx, e->win.adr);
-		y = 0;
-	}
-	mlx_string_put(e->mlx, e->win.adr, 0, y, 0x81E259, str);
-	mlx_do_sync(e->mlx);
 }
 
 void	display_loading(t_env *e, int u, int v)

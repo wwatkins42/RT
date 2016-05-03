@@ -6,7 +6,7 @@
 /*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/02 11:19:28 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/03 11:47:51 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,38 @@ static short	get_texture_type(const char *line)
 		return (BMP);
 }
 
+static char		*get_texture_name(t_env *e, const char *line)
+{
+	char	*name;
+	char	*del;
+
+	if (!(name = ft_strdup(ft_strchr(line, ':') + 1)))
+		error(e, E_MALLOC, NULL, 1);
+	del = name;
+	if (!(name = ft_strtrim(name)))
+		error(e, E_MALLOC, NULL, 1);
+	ft_strdel(&del);
+	return (name);
+}
+
 static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
-	char		info[256];
-
-	mat->texture.name = NULL;
-	if (!(mat->texture.name = ft_strdup(ft_strchr(line, ':') + 1)))
-		error(e, E_MALLOC, NULL, 1);
+	mat->texture.name = get_texture_name(e, line);
 	mat->texture.type = get_texture_type(mat->texture.name);
 	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
 	else if (mat->texture.type == BMP)
 	{
 		bmp_importer(e, ft_strstr(line, ":") + 2, &mat->texture);
-		sprintf(info, "->import:(%dx%d)%s\n", mat->texture.w,
+		ft_printf("  ->import:(%dx%d)%s\n", mat->texture.w,
 			mat->texture.h, ft_strstr(line, ":") + 2);
 	}
 	else
 	{
 		mat->texture = texture_generator(e, mat->texture.type, T_RESW, T_RESH);
-		sprintf(info, "->perlin:(%dx%d)[%s]\n", mat->texture.w,
+		ft_printf("  ->perlin:(%dx%d)[%s]\n", mat->texture.w,
 			mat->texture.h, ft_strstr(line, ":") + 2);
 	}
-	display_info(e, info);
 }
 
 static void		parse_material_bis(t_env *e, t_mat *mat, char *line)

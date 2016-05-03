@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 08:53:58 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/08 19:44:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:05:16 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	printpad(t_a *arg, t_e *e, int before)
 	{
 		while (arg->width - arg->prec.prec > 0)
 		{
-			arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+			arg->flag.zr ? write(e->out, "0", 1) : write(e->out, " ", 1);
 			arg->width--;
 			e->plen++;
 		}
@@ -48,7 +48,7 @@ static void	printpad(t_a *arg, t_e *e, int before)
 	{
 		while (arg->width - arg->prec.prec > 0)
 		{
-			arg->flag.zr ? write(1, "0", 1) : write(1, " ", 1);
+			arg->flag.zr ? write(e->out, "0", 1) : write(e->out, " ", 1);
 			arg->width--;
 			e->plen++;
 		}
@@ -68,7 +68,7 @@ static void	check_arg(t_e *e, t_a *arg)
 			(arg->prec.pt == 0 && arg->prec.prec < 6) ? arg->prec.prec = 6 : 0;
 			arg->prec.prec > 6 ? arg->prec.prec = 6 : 0;
 			printpad(arg, e, 1);
-			write(1, "(null)", arg->prec.prec);
+			write(e->out, "(null)", arg->prec.prec);
 			e->plen += arg->prec.prec;
 			va_arg(e->ap, wchar_t*);
 			printpad(arg, e, 0);

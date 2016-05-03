@@ -6,13 +6,13 @@
 /*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 11:27:53 by aacuna            #+#    #+#             */
-/*   Updated: 2016/05/03 09:54:22 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 11:37:12 by aacuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vec3	get_point(char *line)
+t_vec3	get_point(char *line, t_obj *parent)
 {
 	int		i;
 	t_vec3	result;
@@ -20,20 +20,21 @@ t_vec3	get_point(char *line)
 	i = 0;
 	while ((!ft_isdigit(line[i]) && line[i] != '-') && line[i])
 		i++;
-	result.x = ft_atof(line + i);
+	result.x = ft_atof(line + i) * parent->scale;
 	while (ft_isdigit(line[i]) || line[i] == '.' || line[i] == ','
 			|| line[i] == '-' || line[i] == 'E')
 		i++;
 	while ((!ft_isdigit(line[i]) && line[i] != '-') && line[i])
 		i++;
-	result.y = ft_atof(line + i);
+	result.y = ft_atof(line + i) * parent->scale;
 	while (ft_isdigit(line[i]) || line[i] == '.' || line[i] == ','
 			|| line[i] == '-' || line[i] == 'E')
 		i++;
 	while ((!ft_isdigit(line[i]) && line[i] != '-')
 			&& line[i])
 		i++;
-	result.z = ft_atof(line + i);
+	result.z = ft_atof(line + i) * parent->scale;
+	result = vec3_add(result, parent->pos);
 	return (result);
 }
 
@@ -67,7 +68,7 @@ t_obj	*parse_points(t_env *e, int fd, t_obj *parent)
 		i >= size - 1 ? points = increase_size(e, points, &size) : 0;
 		if (line[0] == 'v' && line[1] == ' ')
 		{
-			points[i] = get_point(line);
+			points[i] = get_point(line, parent);
 			i++;
 		}
 		else if (line[0] == 'f' && line[1] == ' ')
