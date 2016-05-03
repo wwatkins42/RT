@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   default_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/03 11:56:32 by tbeauman         ###   ########.fr       */
-=======
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/03 11:28:25 by aacuna           ###   ########.fr       */
->>>>>>> f47f6ba5572afb1dbce48104cfb3391e56c0c189
+/*   Updated: 2016/05/03 13:05:58 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

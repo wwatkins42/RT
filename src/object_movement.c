@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: tbeauman <tbeauman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 11:34:14 by tbeauman         ###   ########.fr       */
-=======
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/05/03 11:02:50 by wwatkins         ###   ########.fr       */
->>>>>>> f47f6ba5572afb1dbce48104cfb3391e56c0c189
+/*   Updated: 2016/05/03 13:05:27 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
