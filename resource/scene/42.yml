@@ -1,0 +1,69 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.33
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: false
+
+cameras:
+	- camera:
+	  pos: {x: 0, y: 1, z: -10}
+	  dir: {x: 0, y: 0, z: 0}
+	  fov: 80
+	  supersampling: 1
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 1, z: -10}
+	  color: 0x0000FF
+	  intensity: 2.35
+	  attenuation: 0.015
+	  shadow: HARD
+
+	- light:
+	  type: POINT
+	  pos: {x: 1, y: 1, z: -2}
+	  color: 0xFF0000
+	  intensity: 2.35
+	  attenuation: 0.015
+	  shadow: HARD
+
+	- light:
+	  type: POINT
+	  pos: {x: -1, y: 1, z: -2}
+	  color: 0x00FF00
+	  intensity: 1.5
+	  attenuation: 0.015
+	  shadow: HARD
+
+
+objects:
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: -0.1, z: 3}
+	  dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #426CA3
+		  ambient: 0.125
+		  diffuse: 0.875
+		  specular: 0.9
+		  shininess: 512
+		  reflect: 0
+		  refract: 0
+		  transparency: 0
+		  absorbtion: 0.7
+
+	- object:
+	  type: OBJ
+	  scale: 0.4
+	  pos: {x: 0, y: 0, z: 0}
+	  material:
+		  color: 0xFFFFFF
+	  obj: resource/obj/42.obj
+
+...
