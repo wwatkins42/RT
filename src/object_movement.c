@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aacuna <aacuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 14:08:22 by wwatkins          #+#    #+#             */
-/*   Updated: 2016/04/25 14:52:33 by aacuna           ###   ########.fr       */
+/*   Updated: 2016/05/03 11:02:50 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,6 @@ void	object_mouse_rotate(t_env *e, t_obj *obj)
 	{
 		angle = vec3_fmul(dif, 0.5);
 		axis = vec3(angle.y - e->cam->dir.x, 0, angle.x - e->cam->dir.x);
-		vec3_rotate(&obj->dir, axis);
+		obj->rot = vec3_add(obj->rot, axis);
 	}
 }
