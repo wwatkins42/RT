@@ -1,0 +1,190 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 6
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: true
+    progressive_loading: true
+
+cameras:
+	- camera:
+      pos: {x: 0, y: 3, z: -5}
+      dir: {x: -5.0, y: 0.0, z: 0.0}
+	  fov: 90
+	  supersampling: 4
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: 0, y: 5, z: 0}
+	  color: #D1E1F0
+	  intensity: 1.7
+	  attenuation: 0.0001
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: 10}
+	  dir: {x: 0, y: 0, z: -1}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 0, z: -10}
+	  dir: {x: 0, y: 0, z: 1}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: -10, y: 0, z: 0}
+	  dir: {x: 1, y: 0, z: 0}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 10, y: 0, z: 0}
+	  dir: {x: -1, y: 0, z: 0}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: PLANE
+	  scale: 1
+	  pos: {x: 0, y: 10, z: 0}
+	  dir: {x: 0, y: -1, z: 0}
+	  material:
+		  color: #969696
+		  ambient: 0.085
+		  diffuse: 0.195
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0.7
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CONE
+	  scale: 0.5
+	  pos: {x: 4.5, y: 4, z: 6}
+	  dir: {x: 0.5, y: 1, z: 0}
+	  material:
+		  color: #713860
+		  ambient: 0.085
+		  diffuse: 0.895
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: CYLINDER
+	  scale: 0.8
+	  pos: {x: -2, y: 4, z: 8}
+	  dir: {x: -0.2, y: 1, z: 0}
+	  material:
+		  color: #F0A23B
+		  ambient: 0.085
+		  diffuse: 0.895
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: SPHERE
+	  scale: 1.5
+	  pos: {x: -2.4, y: 1.5, z: 3.5}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #3BF04D
+		  ambient: 0.085
+		  diffuse: 0.895
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+	- object:
+	  type: OBJ
+      obj: resource/obj/Deer.obj
+	  scale: 1.5
+	  pos: {x: -2.4, y: 1.5, z: 0}
+	  dir: {x: 0, y: 1, z: 0}
+	  material:
+		  color: #3BF04D
+		  ambient: 0.085
+		  diffuse: 0.895
+		  specular: 1
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+
+...

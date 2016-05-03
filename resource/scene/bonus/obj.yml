@@ -1,0 +1,63 @@
+---
+scene:
+	velocity: 8
+	recursion_reflect: 1
+	recursion_refract: 1
+	mouse_sensibility: 0.4
+	mouse_interpolation: true
+	load_resync: false
+	load_percent: true
+    progressive_loading: true
+
+cameras:
+	- camera:
+      pos: {x: -360, y: 100, z: 350}
+      dir: {x: -1.0, y: -130.0, z: 0.0}
+	  fov: 50
+	  supersampling: 2
+
+lights:
+	- light:
+	  type: POINT
+	  pos: {x: -250, y: 50, z: -300}
+	  color: #D1E1F0
+	  intensity: 1.7
+	  attenuation: 0
+	  shadow: HARD
+
+objects:
+	- object:
+	  type: OBJ
+      scale: 1
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 1, y: 1, z: 0}
+	  material:
+		  color: #BEBEBE
+		  ambient: 0.085
+		  diffuse: 0.095
+		  specular: 1
+		  shininess: 1024
+		  reflect: 1
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+      obj: resource/obj/Wolf.obj
+
+	- object:
+	  type: SPHERE
+      scale: 1000
+	  pos: {x: 0, y: 0, z: 0}
+	  dir: {x: 1, y: 1, z: 0}
+	  material:
+		  color: #3BF04D
+		  ambient: 0.985
+		  diffuse: 0.095
+		  specular: 0
+		  shininess: 1024
+		  reflect: 0
+		  refract: 1
+		  transparency: 0
+		  absorbtion: 1
+          texture: resource/texture/panoramic/library.bmp
+          receive_shadow: false
+...
