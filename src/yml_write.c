@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 08:11:00 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 09:48:59 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 10:08:48 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@ static char	*get_type(int type)
 		return ("SPOT");
 	else
 		return ("DIRECTIONAL");
+}
+
+void		export_scene(const int fd, t_env *e)
+{
+	ft_printf_fd(fd, "scene:\n");
+	ft_printf_fd(fd, "  velocity: %f\n", e->scene.velocity);
+	ft_printf_fd(fd, "  recursion_reflect: %d\n", e->reflect.depth_max);
+	ft_printf_fd(fd, "  recursion_refract: %d\n", e->refract.depth_max);
+	ft_printf_fd(fd, "  mouse_sensibility: %f\n", e->mouse.sensibility);
+	ft_printf_fd(fd, "  mouse_interpolation: %s\n",
+						ft_boolean(e->mouse.lerp));
+	ft_printf_fd(fd, "  progressive_loading: %s\n",
+						ft_boolean(e->scene.progressive_loading));
+	ft_printf_fd(fd, "  load_resync: %s\n",
+						ft_boolean(e->scene.resync));
+	ft_printf_fd(fd, "  load_percent: %s\n",
+						ft_boolean(e->scene.percent));
+	write(fd, "\n", 1);
 }
 
 void		export_camera(const int fd, t_env *e)

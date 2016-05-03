@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 09:45:39 by scollon           #+#    #+#             */
-/*   Updated: 2016/04/30 09:49:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 09:37:50 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static char	*get_type(const int type)
 {
-	if (type == 0)
-		return ("SPHERE");
-	else if (type == 1)
-		return ("CONE");
-	else if (type == 2)
-		return ("PLANE");
-	else
-		return ("CYLINDER");
+	int		i;
+
+	i = -1;
+	while (g_object_type[++i].reference != NULL)
+	{
+		if (type == g_object_type[i].index)
+			return (g_object_type[i].reference);
+	}
+	return ("SPHERE");
 }
 
 static void	export_material(const int fd, t_obj *obj)
@@ -56,7 +57,7 @@ void		export_object(const int fd, t_env *e)
 	{
 		ft_printf_fd(fd, "- object:\n");
 		ft_printf_fd(fd, "  type: %s\n", get_type(obj->type));
-		ft_printf_fd(fd, "  scale: %s\n", obj->scale);
+		ft_printf_fd(fd, "  scale: %f\n", obj->scale);
 		ft_printf_fd(fd, "  pos: {x: %f, y: %f, z: %f}\n",
 					obj->pos.x, obj->pos.y, obj->pos.z);
 		ft_printf_fd(fd, "  dir: {x: %f, y: %f, z: %f}\n",

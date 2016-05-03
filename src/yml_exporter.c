@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/13 09:30:41 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/01 11:18:12 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 09:52:44 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		yml_exporter(t_env *e, char *name)
 	}
 	ft_strdel(&f_name);
 	write(fd, "---\n", 4);
+	export_scene(fd, e);
 	export_camera(fd, e);
 	export_light(fd, e);
 	export_object(fd, e);
