@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/30 09:45:39 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 11:06:51 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 13:44:17 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ static void	export_material(const int fd, t_obj *obj)
 							ft_boolean(obj->mat.texture.normal_map));
 	ft_printf_fd(fd, "    texture_normal_strength: %f\n",
 							obj->mat.texture.normal_strength);
-	ft_printf_fd(fd, "    texture_scale: %f\n", obj->mat.texture.scale);
+	ft_printf_fd(fd, "    texture_size: %f\n", obj->mat.texture.scale);
 	ft_printf_fd(fd, "    texture_rotation: %f\n", obj->mat.texture.rotation);
 	ft_printf_fd(fd, "    receive_shadow: %s\n",
 							ft_boolean(obj->mat.receive_shadow));
-	ft_printf_fd(fd, "    transparency: %f\n", obj->mat.transparency);
-	ft_printf_fd(fd, "    transparency: %s\n",
+	ft_printf_fd(fd, "    normal_perturbation: %s\n",
 							ft_boolean(obj->mat.normal_perturbation));
 }
 

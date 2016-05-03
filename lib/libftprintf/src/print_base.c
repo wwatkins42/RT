@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 14:31:47 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/08 19:46:05 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 09:24:24 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ static int	print_spaces(t_a *arg, int len)
 	arg->type == 'o' && arg->flag.di && arg->prec.pt ?
 		arg->prec.prec -= prefix_len : 0;
 	arg->width -= arg->prec.prec + prefix_len;
-	while (!arg->flag.mn && arg->width > 0)
+	while (!arg->flag.mn && arg->width > 0 && sp++)
 	{
 		arg->flag.zr ? write(arg->out, "0", 1) : write(arg->out, " ", 1);
 		arg->width--;
-		sp++;
 	}
 	(arg->flag.zr || arg->prec.pt) && arg->flag.di ? sp += prfx(arg) : 0;
 	while ((arg->prec.prec - len) > 0)

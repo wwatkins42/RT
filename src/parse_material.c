@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 11:47:51 by wwatkins         ###   ########.fr       */
+/*   Updated: 2016/05/03 13:43:13 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
 		mat->texture.normal_map = parse_boolean(line);
 	else if (ft_strstr(line, "texture_normal_strength:"))
 		mat->texture.normal_strength = parse_value(line, 0, 20);
-	else if (ft_strstr(line, "texture_scale:"))
+	else if (ft_strstr(line, "texture_size:"))
 		mat->texture.scale = 1.0 / parse_value(line, 0, 100);
 	else if (ft_strstr(line, "texture_rotation:"))
 		mat->texture.rotation = parse_value(line, 0, 360);

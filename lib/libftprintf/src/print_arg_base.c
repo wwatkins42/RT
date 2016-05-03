@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 11:25:38 by scollon           #+#    #+#             */
-/*   Updated: 2016/03/08 19:44:28 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 09:23:47 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static unsigned long long	base_mod(t_e *e, t_a *arg)
 {
 	if (arg->type == 'O' || arg->mod.l)
-	return (va_arg(e->ap, unsigned long int));
+		return (va_arg(e->ap, unsigned long int));
 	if (arg->mod.hh)
-	return ((unsigned char)va_arg(e->ap, int));
+		return ((unsigned char)va_arg(e->ap, int));
 	if (arg->mod.h)
-	return ((unsigned short)va_arg(e->ap, int));
+		return ((unsigned short)va_arg(e->ap, int));
 	if (arg->mod.ll)
-	return (va_arg(e->ap, unsigned long long int));
+		return (va_arg(e->ap, unsigned long long int));
 	if (arg->mod.j)
-	return (va_arg(e->ap, uintmax_t));
+		return (va_arg(e->ap, uintmax_t));
 	if (arg->mod.z)
-	return (va_arg(e->ap, size_t));
+		return (va_arg(e->ap, size_t));
 	return (va_arg(e->ap, unsigned int));
 }
 
