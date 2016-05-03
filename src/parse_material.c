@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_material.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wwatkins <wwatkins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/21 15:26:08 by scollon           #+#    #+#             */
-/*   Updated: 2016/05/03 09:50:50 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 11:23:43 by wwatkins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,14 @@ static char	*	get_texture_name(t_env *e, const char *line)
 
 static void		parse_material_texture(t_env *e, t_mat *mat, char *line)
 {
-	char		info[256];
-
 	mat->texture.name = get_texture_name(e, line);
 	mat->texture.type = get_texture_type(mat->texture.name);
 	if (mat->texture.type == NONE || mat->texture.type == CHECKER)
 		return ;
 	else if (mat->texture.type == BMP)
-	{
 		bmp_importer(e, ft_strstr(line, ":") + 2, &mat->texture);
-		sprintf(info, "->import:(%dx%d)%s\n", mat->texture.w,
-			mat->texture.h, ft_strstr(line, ":") + 2);
-	}
 	else
-	{
 		mat->texture = texture_generator(e, mat->texture.type, T_RESW, T_RESH);
-		sprintf(info, "->perlin:(%dx%d)[%s]\n", mat->texture.w,
-			mat->texture.h, ft_strstr(line, ":") + 2);
-	}
-	display_info(e, info);
 }
 
 static void		parse_material_bis(t_env *e, t_mat *mat, char *line)
