@@ -6,7 +6,7 @@
 /*   By: scollon <scollon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/02 18:37:50 by tbeauman          #+#    #+#             */
-/*   Updated: 2016/05/03 13:05:58 by scollon          ###   ########.fr       */
+/*   Updated: 2016/05/03 16:15:29 by scollon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_mat	default_material(void)
 	mat.refract = 0;
 	mat.transparency = 0;
 	mat.absorbtion = 0;
+	mat.texture.type = NONE;
 	mat.texture.defined = 0;
 	mat.texture.transparency_mapping = 0;
 	mat.texture.filtering = 0;
