@@ -18,6 +18,8 @@ __Installation:__
 **Keys:**
 * `esc` quit program.
 
+![objects](https://cloud.githubusercontent.com/assets/16082039/15098030/c97af69c-1530-11e6-9d6f-1b840b07828a.png)
+![jupiter](https://cloud.githubusercontent.com/assets/16082039/15098031/cc4db0da-1530-11e6-8ddc-bca5896da6c2.png)
 ![cornellbox_30_03_2016_10-22-45](https://cloud.githubusercontent.com/assets/16082039/14136368/d1102126-f662-11e5-901d-69fbb50cdba8.png)
 ![wolf](https://cloud.githubusercontent.com/assets/16082039/14987222/633f6cee-114f-11e6-992f-93b768990583.png)
 ![mirror](https://cloud.githubusercontent.com/assets/16082039/14987224/65d5249e-114f-11e6-8d31-6fe1935c9fbe.png)
