@@ -1,9 +1,22 @@
 # RT
-Private repository for RT team project.
-> Texture
-> https://www.dropbox.com/sh/yjisoobpjoz4xpw/AAAsmOc0sXAm8WyxJITGtQSxa?dl=0
 
-## premier rendu :
+_This project is a first step towards the realization of a raytracing program, in order to create computer generated pictures._
+
+__Installation:__
+
+* `git clone https://github.com/wwatkins42/RT.git`
+* `cd ./RT`
+* `./install.sh`
+* `make`
+
+**Usage:**
+* `./rt [-s file_path] [-w width] [-h height] [--help]`
+
+**Example:**
+* `./rt -s resource/scene/bonus/reflection.yml -w 1920 -h 1080`
+
+**Keys:**
+* `esc` quit program.
 
 ![cornellbox_30_03_2016_10-22-45](https://cloud.githubusercontent.com/assets/16082039/14136368/d1102126-f662-11e5-901d-69fbb50cdba8.png)
 ![wolf](https://cloud.githubusercontent.com/assets/16082039/14987222/633f6cee-114f-11e6-992f-93b768990583.png)
