@@ -1,7 +1,5 @@
 # RT
 
-_This project is a first step towards the realization of a raytracing program, in order to create computer generated pictures._
-
 __Installation:__
 
 * `git clone https://github.com/wwatkins42/RT.git`
